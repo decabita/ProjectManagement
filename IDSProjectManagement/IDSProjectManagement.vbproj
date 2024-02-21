@@ -1,0 +1,316 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{4F7683E0-FF29-4F8F-B4AD-28333E47D01B}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <StartupObject>Sub Main</StartupObject>
+    <RootNamespace>IDSProjectManagement</RootNamespace>
+    <AssemblyName>IDSProjectManagement</AssemblyName>
+    <FileAlignment>512</FileAlignment>
+    <MyType>WindowsFormsWithCustomSubMain</MyType>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <Deterministic>true</Deterministic>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <DefineDebug>true</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DocumentationFile>IDSProjectManagement.xml</DocumentationFile>
+    <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022</NoWarn>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <DefineDebug>false</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DocumentationFile>IDSProjectManagement.xml</DocumentationFile>
+    <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022</NoWarn>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup>
+    <OptionExplicit>On</OptionExplicit>
+  </PropertyGroup>
+  <PropertyGroup>
+    <OptionCompare>Binary</OptionCompare>
+  </PropertyGroup>
+  <PropertyGroup>
+    <OptionStrict>Off</OptionStrict>
+  </PropertyGroup>
+  <PropertyGroup>
+    <OptionInfer>On</OptionInfer>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Net.Http" />
+  </ItemGroup>
+  <ItemGroup>
+    <Import Include="Microsoft.VisualBasic" />
+    <Import Include="System" />
+    <Import Include="System.Collections" />
+    <Import Include="System.Collections.Generic" />
+    <Import Include="System.Data" />
+    <Import Include="System.Drawing" />
+    <Import Include="System.Diagnostics" />
+    <Import Include="System.Windows.Forms" />
+    <Import Include="System.Linq" />
+    <Import Include="System.Xml.Linq" />
+    <Import Include="System.Threading.Tasks" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Classes\testClass.vb" />
+    <Compile Include="Forms\FProjects\FProjects.Designer.vb">
+      <DependentUpon>FProjects.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\FProjects\FProjects.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="System\0 Flow\01\Login\FLoginForm.Designer.vb">
+      <DependentUpon>FLoginForm.vb</DependentUpon>
+    </Compile>
+    <Compile Include="System\0 Flow\01\Login\FLoginForm.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="System\Classes\CApplication.vb" />
+    <Compile Include="System\Classes\CApplicationController.vb" />
+    <Compile Include="System\0 Flow\00\CApplicationManager.vb" />
+    <Compile Include="System\Classes\CApplicationHelper.vb" />
+    <Compile Include="System\Classes\CEmployee.vb" />
+    <Compile Include="System\Classes\CFormController_.vb" />
+    <Compile Include="System\Classes\CSystemParameters.vb" />
+    <Compile Include="System\Classes\CUserProfileObjects.vb" />
+    <Compile Include="System\Classes\CUsers.vb" />
+    <Compile Include="System\Classes\CustomException.vb" />
+    <Compile Include="System\Classes\CWorkCenter_.vb" />
+    <Compile Include="System\Classes\LocalExceptions.vb" />
+    <Compile Include="System\DataBase\CDataBase.vb" />
+    <Compile Include="System\DataBase\CSQLServer.vb" />
+    <Compile Include="System\DataBase\IDataBase.vb" />
+    <Compile Include="System\0 Flow\02\FMenuAdministration.designer.vb">
+      <DependentUpon>FMenuAdministration.vb</DependentUpon>
+    </Compile>
+    <Compile Include="System\0 Flow\02\FMenuAdministration.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="System\Forms\FAbout\AboutBox.Designer.vb">
+      <DependentUpon>AboutBox.vb</DependentUpon>
+    </Compile>
+    <Compile Include="System\Forms\FAbout\AboutBox.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="My Project\AssemblyInfo.vb" />
+    <Compile Include="My Project\Application.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Application.myapp</DependentUpon>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="My Project\Resources.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="My Project\Settings.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <Compile Include="System\0 Flow\00\FCatalogFormTemplate\FCatalogFormTemplate.Properties.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="System\0 Flow\00\FCatalogFormTemplate\FCatalogFormTemplate.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="System\Forms\FProgress\FProgress.Designer.vb">
+      <DependentUpon>FProgress.vb</DependentUpon>
+    </Compile>
+    <Compile Include="System\Forms\FProgress\FProgress.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="System\Forms\MainMenu\Classes\CButton.vb">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="System\Forms\MainMenu\Classes\CDynamicMenu.vb" />
+    <Compile Include="System\Forms\MainMenu\Classes\CLevel.vb" />
+    <Compile Include="System\Forms\MainMenu\Classes\CMenu.vb">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="System\Forms\MainMenu\Classes\CMenuControllerO.vb" />
+    <Compile Include="System\Forms\MainMenu\Classes\CMenuController_.vb" />
+    <Compile Include="System\Forms\MainMenu\Classes\IMenu.vb" />
+    <Compile Include="System\Forms\MainMenu\Forms\ButtonsCatalog\FButtons.Designer.vb">
+      <DependentUpon>FButtons.vb</DependentUpon>
+    </Compile>
+    <Compile Include="System\Forms\MainMenu\Forms\ButtonsCatalog\FButtons.Methods.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="System\Forms\MainMenu\Forms\ButtonsCatalog\FButtons.Properties.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="System\Forms\MainMenu\Forms\ButtonsCatalog\FButtons.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="System\Forms\MainMenu\Forms\LevelCatalog\FMenuLevels.Designer.vb">
+      <DependentUpon>FMenuLevels.vb</DependentUpon>
+    </Compile>
+    <Compile Include="System\Forms\MainMenu\Forms\LevelCatalog\FMenuLevels.Methods.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="System\Forms\MainMenu\Forms\LevelCatalog\FMenuLevels.Properties.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="System\Forms\MainMenu\Forms\LevelCatalog\FMenuLevels.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="System\Forms\MainMenu\Forms\MenuCatalog\FMenus.Designer.vb">
+      <DependentUpon>FMenus.vb</DependentUpon>
+    </Compile>
+    <Compile Include="System\Forms\MainMenu\Forms\MenuCatalog\FMenus.Methods.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="System\Forms\MainMenu\Forms\MenuCatalog\FMenus.Properties.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="System\Forms\MainMenu\Forms\MenuCatalog\FMenus.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="System\Forms\MainMenu\MDIMainContainer.designer.vb">
+      <DependentUpon>MDIMainContainer.vb</DependentUpon>
+    </Compile>
+    <Compile Include="System\Forms\MainMenu\MDIMainContainer.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="System\Interfaces\IFormCommandRules.vb" />
+    <Compile Include="System\Interfaces\IToolBoxCommand.vb" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Forms\FProjects\FProjects.resx">
+      <DependentUpon>FProjects.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="System\0 Flow\01\Login\FLoginForm.resx">
+      <DependentUpon>FLoginForm.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="System\0 Flow\02\FMenuAdministration.resx">
+      <DependentUpon>FMenuAdministration.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="System\Forms\FAbout\AboutBox.resx">
+      <DependentUpon>AboutBox.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="My Project\Resources.resx">
+      <Generator>VbMyResourcesResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.vb</LastGenOutput>
+      <CustomToolNamespace>My.Resources</CustomToolNamespace>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="System\0 Flow\00\FCatalogFormTemplate\FCatalogFormTemplate.resx">
+      <DependentUpon>FCatalogFormTemplate.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="System\Forms\FProgress\FProgress.resx">
+      <DependentUpon>FProgress.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="System\Forms\MainMenu\Forms\ButtonsCatalog\FButtons.resx">
+      <DependentUpon>FButtons.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="System\Forms\MainMenu\Forms\LevelCatalog\FMenuLevels.resx">
+      <DependentUpon>FMenuLevels.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="System\Forms\MainMenu\Forms\MenuCatalog\FMenus.resx">
+      <DependentUpon>FMenus.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="System\Forms\MainMenu\MDIMainContainer.resx">
+      <DependentUpon>MDIMainContainer.vb</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="My Project\Application.myapp">
+      <Generator>MyApplicationCodeGenerator</Generator>
+      <LastGenOutput>Application.Designer.vb</LastGenOutput>
+    </None>
+    <None Include="My Project\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <CustomToolNamespace>My</CustomToolNamespace>
+      <LastGenOutput>Settings.Designer.vb</LastGenOutput>
+    </None>
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="System\Forms\02\" />
+    <Folder Include="System\Forms\MainMenu\ButtonsCatalog\" />
+    <Folder Include="System\Forms\MainMenu\Forms\FLevelMenuChild\" />
+    <Folder Include="System\Forms\MainMenu\Forms\FMenuButtonChild\" />
+    <Folder Include="System\Modules\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Resources\Images\Direction\back.png" />
+    <Content Include="Resources\Images\Direction\backward.png" />
+    <Content Include="Resources\Images\Direction\first.png" />
+    <Content Include="Resources\Images\Direction\forward.png" />
+    <Content Include="Resources\Images\Direction\foward.png" />
+    <Content Include="Resources\Images\Direction\last.png" />
+    <Content Include="Resources\Images\Direction\toend.png" />
+    <Content Include="Resources\Images\Direction\tostart.png" />
+    <Content Include="Resources\Images\LowerDirectAccess\ButtonMenu.png" />
+    <Content Include="Resources\Images\LowerDirectAccess\ButtonProcess.png" />
+    <Content Include="Resources\Images\LowerDirectAccess\ChildForm.png" />
+    <Content Include="Resources\Images\LowerDirectAccess\CrystalReport.jpeg" />
+    <Content Include="Resources\Images\LowerDirectAccess\ExcelExport.png" />
+    <Content Include="Resources\Images\LowerDirectAccess\MenuConfig .png" />
+    <Content Include="Resources\Images\LowerDirectAccess\ReportMenu.png" />
+    <Content Include="Resources\Images\LowerDirectAccess\Reports.png" />
+    <Content Include="Resources\Images\MainMenu\ButtonForm.png" />
+    <Content Include="Resources\Images\MainMenu\ButtonMenu.png" />
+    <Content Include="Resources\Images\MainMenu\CatalogsMenu.png" />
+    <Content Include="Resources\Images\MainMenu\FactoryModelling.png" />
+    <Content Include="Resources\Images\MainMenu\MenuReport.png" />
+    <Content Include="Resources\Images\MainMenu\ProductionMenu.png" />
+    <Content Include="Resources\Images\MainMenu\ProductionMenu1.png" />
+    <Content Include="Resources\Images\MainMenu\ProductionReports.png" />
+    <Content Include="Resources\Images\MainMenu\SystemConfiguration.png" />
+    <Content Include="Resources\Images\MainMenu\SystemConfiguration1.png" />
+    <Content Include="Resources\Images\MainMenu\WarehouseMenu.png" />
+    <Content Include="Resources\Images\MDIToolBar\CancelCommand.png" />
+    <Content Include="Resources\Images\MDIToolBar\DeleteCommand.png" />
+    <Content Include="Resources\Images\MDIToolBar\DirectAccessCommand.png" />
+    <Content Include="Resources\Images\MDIToolBar\EditCommand.png" />
+    <Content Include="Resources\Images\MDIToolBar\ExitCommand.png" />
+    <Content Include="Resources\Images\MDIToolBar\FilterCommand.png" />
+    <Content Include="Resources\Images\MDIToolBar\FilterCommand1.png" />
+    <Content Include="Resources\Images\MDIToolBar\FilterExecCommand.png" />
+    <Content Include="Resources\Images\MDIToolBar\Inactive.png" />
+    <Content Include="Resources\Images\MDIToolBar\NewCommand.png" />
+    <Content Include="Resources\Images\MDIToolBar\SaveCommand.png" />
+    <Content Include="Resources\Images\MDIToolBar\SearchCommand.png" />
+    <Content Include="Resources\Images\Mix\AppBigLogo.png" />
+    <Content Include="Resources\Images\Mix\AppErrorIcon.png" />
+    <Content Include="Resources\Images\Mix\AppSmallIcon.ico" />
+    <Content Include="Resources\Images\Mix\camera32px.png" />
+    <Content Include="Resources\Images\Mix\help-dog-picture.jpg" />
+    <Content Include="Resources\Images\Mix\key.png" />
+    <Content Include="Resources\Images\Mix\LM.ico" />
+    <Content Include="Resources\Images\Mix\NoImage.png" />
+    <Content Include="Resources\Images\Mix\ProgressGear.gif" />
+    <Content Include="Resources\Images\Mix\rss.png" />
+    <Content Include="Resources\Images\Mix\rss_remove.png" />
+    <Content Include="Resources\Images\Mix\warning.png" />
+    <Content Include="Resources\menu-config.xml" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
+</Project>

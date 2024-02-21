@@ -1,0 +1,20 @@
+﻿<root>
+  <TopLevelMenu id="&amp;File">
+    <MenuItem id = "New" OnClick="_New"/>
+    <MenuItem id = "Open"/>
+    <MenuItem id = "Send To">
+      <MenuItem id ="Mail"/>
+      <MenuItem id ="My Documents"/>
+    </MenuItem>
+  </TopLevelMenu>
+  <TopLevelMenu id="&amp;Edit">
+    <MenuItem id = "Copy"/>
+    <MenuItem id = "Paste" OnClick="_Paste"/>
+    <MenuItem id = "Clear">
+      <MenuItem id = "F&amp;ormats"/>
+      <MenuItem id ="Contents">
+        <MenuItem id = "Test" OnClick="_Test"/>
+      </MenuItem>
+    </MenuItem>
+  </TopLevelMenu>
+</root>
