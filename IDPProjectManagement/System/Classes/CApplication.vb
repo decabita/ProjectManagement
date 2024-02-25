@@ -3688,10 +3688,10 @@ Friend Class CApplication
         Else
 
             With DirectCast(oForm, FLoginForm)
-                .FormBorderStyle = Windows.Forms.FormBorderStyle.FixedToolWindow
+                '.FormBorderStyle = Windows.Forms.FormBorderStyle.FixedToolWindow
                 .MaximizeBox = False
                 .MinimizeBox = False
-                '.Size = New Size(1000, 500)
+                .Size = New Size(550, 400)
                 .Icon = GetApplicationIcon()
                 .WindowState = FormWindowState.Normal
                 .Dock = DockStyle.None

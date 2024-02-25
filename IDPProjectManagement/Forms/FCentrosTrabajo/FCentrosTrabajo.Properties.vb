@@ -10,6 +10,16 @@
         End Set
     End Property
 
+    Private _guid As String
+    Public Property guid() As String
+        Get
+            Return _guid
+        End Get
+        Set(ByVal value As String)
+            _guid = value
+        End Set
+    End Property
+
     Private _nombre As String = String.Empty
     Public Property nombre() As String
         Get
@@ -26,7 +36,7 @@
             Return _nombre_corto
         End Get
         Set(ByVal value As String)
-            _nombre = value
+            _nombre_corto = value
         End Set
     End Property
 
@@ -63,5 +73,7 @@
         GetRelatedSpecs = 30
 
     End Enum
+
+
 
 End Class

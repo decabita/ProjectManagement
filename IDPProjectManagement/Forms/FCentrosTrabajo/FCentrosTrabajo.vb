@@ -119,4 +119,8 @@ Public Class FCentrosTrabajo
         Call Me.SetGeneralFormat()
 
     End Sub
+
+    Private Sub DataGridView_CellContentClick(sender As Object, e As DataGridViewCellEventArgs) Handles DataGridView.CellContentClick
+
+    End Sub
 End Class

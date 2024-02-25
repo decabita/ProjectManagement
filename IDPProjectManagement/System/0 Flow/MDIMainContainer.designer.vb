@@ -83,7 +83,7 @@ Partial Class MDIMainContainer
         Me.MDIWorkCenter.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text
         Me.MDIWorkCenter.Font = New System.Drawing.Font("Arial", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.MDIWorkCenter.Name = "MDIWorkCenter"
-        Me.MDIWorkCenter.Size = New System.Drawing.Size(100, 21)
+        Me.MDIWorkCenter.Size = New System.Drawing.Size(100, 20)
         Me.MDIWorkCenter.Text = "Wok Center"
         Me.MDIWorkCenter.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         '
@@ -97,7 +97,7 @@ Partial Class MDIMainContainer
         Me.MDIUser.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text
         Me.MDIUser.Font = New System.Drawing.Font("Arial", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.MDIUser.Name = "MDIUser"
-        Me.MDIUser.Size = New System.Drawing.Size(100, 21)
+        Me.MDIUser.Size = New System.Drawing.Size(100, 20)
         Me.MDIUser.Text = "User"
         '
         'MDIEnvironment
@@ -109,7 +109,7 @@ Partial Class MDIMainContainer
         Me.MDIEnvironment.BorderStyle = System.Windows.Forms.Border3DStyle.SunkenInner
         Me.MDIEnvironment.Font = New System.Drawing.Font("Arial", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.MDIEnvironment.Name = "MDIEnvironment"
-        Me.MDIEnvironment.Size = New System.Drawing.Size(100, 21)
+        Me.MDIEnvironment.Size = New System.Drawing.Size(100, 20)
         Me.MDIEnvironment.Text = "Environment"
         '
         'MDIFormState
@@ -121,7 +121,7 @@ Partial Class MDIMainContainer
         Me.MDIFormState.BorderStyle = System.Windows.Forms.Border3DStyle.SunkenInner
         Me.MDIFormState.Font = New System.Drawing.Font("Arial", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.MDIFormState.Name = "MDIFormState"
-        Me.MDIFormState.Size = New System.Drawing.Size(100, 21)
+        Me.MDIFormState.Size = New System.Drawing.Size(100, 20)
         Me.MDIFormState.Text = "Form State"
         '
         'MDICurrentForm
@@ -133,7 +133,7 @@ Partial Class MDIMainContainer
         Me.MDICurrentForm.BorderStyle = System.Windows.Forms.Border3DStyle.SunkenInner
         Me.MDICurrentForm.Font = New System.Drawing.Font("Arial", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.MDICurrentForm.Name = "MDICurrentForm"
-        Me.MDICurrentForm.Size = New System.Drawing.Size(300, 21)
+        Me.MDICurrentForm.Size = New System.Drawing.Size(300, 20)
         Me.MDICurrentForm.Text = "Current Form"
         '
         'TLPStatusStrip
@@ -167,7 +167,7 @@ Partial Class MDIMainContainer
         Me.ToolStripMDI.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.TSBQuery, Me.TSBNew, Me.TSBEdit, Me.TSBSave, Me.TSBDelete, Me.TSBCancel, Me.ToolStripSeparator6, Me.TSBFind, Me.TSBExecFind, Me.TSBDirectAccess, Me.ToolStripSeparator1, Me.TSBExportToExcel, Me.ToolStripSeparator8, Me.TSBExit})
         Me.ToolStripMDI.Location = New System.Drawing.Point(0, 0)
         Me.ToolStripMDI.Name = "ToolStripMDI"
-        Me.ToolStripMDI.Size = New System.Drawing.Size(1088, 27)
+        Me.ToolStripMDI.Size = New System.Drawing.Size(1128, 27)
         Me.ToolStripMDI.TabIndex = 0
         Me.ToolStripMDI.TabStop = True
         Me.ToolStripMDI.Text = "ToolStrip1"
@@ -321,7 +321,7 @@ Partial Class MDIMainContainer
         Me.MenuStrip2.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ToolStripMenuItem1, Me.ToolStripMenuItem2})
         Me.MenuStrip2.Location = New System.Drawing.Point(2, 2)
         Me.MenuStrip2.Name = "MenuStrip2"
-        Me.MenuStrip2.Size = New System.Drawing.Size(162, 26)
+        Me.MenuStrip2.Size = New System.Drawing.Size(166, 26)
         Me.MenuStrip2.TabIndex = 11
         Me.MenuStrip2.Text = "MenuStrip2"
         '
@@ -330,27 +330,27 @@ Partial Class MDIMainContainer
         Me.ToolStripMenuItem1.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.SalirToolStripMenuItem})
         Me.ToolStripMenuItem1.Image = CType(resources.GetObject("ToolStripMenuItem1.Image"), System.Drawing.Image)
         Me.ToolStripMenuItem1.Name = "ToolStripMenuItem1"
-        Me.ToolStripMenuItem1.Size = New System.Drawing.Size(91, 22)
+        Me.ToolStripMenuItem1.Size = New System.Drawing.Size(93, 22)
         Me.ToolStripMenuItem1.Text = "&Archivo"
         '
         'SalirToolStripMenuItem
         '
         Me.SalirToolStripMenuItem.Image = Global.IDPProjectManagement.My.Resources.Resources.ExitCommand
         Me.SalirToolStripMenuItem.Name = "SalirToolStripMenuItem"
-        Me.SalirToolStripMenuItem.Size = New System.Drawing.Size(113, 26)
+        Me.SalirToolStripMenuItem.Size = New System.Drawing.Size(121, 26)
         Me.SalirToolStripMenuItem.Text = "Salir"
         '
         'ToolStripMenuItem2
         '
         Me.ToolStripMenuItem2.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.AcercaDeAtlasToolStripMenuItem})
         Me.ToolStripMenuItem2.Name = "ToolStripMenuItem2"
-        Me.ToolStripMenuItem2.Size = New System.Drawing.Size(63, 22)
+        Me.ToolStripMenuItem2.Size = New System.Drawing.Size(65, 22)
         Me.ToolStripMenuItem2.Text = "Ayuda"
         '
         'AcercaDeAtlasToolStripMenuItem
         '
         Me.AcercaDeAtlasToolStripMenuItem.Name = "AcercaDeAtlasToolStripMenuItem"
-        Me.AcercaDeAtlasToolStripMenuItem.Size = New System.Drawing.Size(129, 26)
+        Me.AcercaDeAtlasToolStripMenuItem.Size = New System.Drawing.Size(137, 26)
         Me.AcercaDeAtlasToolStripMenuItem.Text = "Acerca"
         '
         'MDIMainContainer

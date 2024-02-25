@@ -117,7 +117,7 @@ Public Class FLoginForm
             & "Verificar Parámetros del Sistema para el Centro de Trabajo: " & CApplicationController.oCWorkCenter_.id & ".", CApplication.MailExceptionTypes.NonRecoverableError)
 
             ' Check Work Center Data.
-            If Not CApplicationController.oCWorkCenter_.GetWorkCenterData() Then CApplicationController._grant_execute_app = False : Throw New CustomException("No es posible iniciar la aplicación. Verificar Información del Centro de Trabajo: " & CApplicationController.oCWorkCenter_.id & ".", CApplication.MailExceptionTypes.NonRecoverableError)
+            If Not CApplicationController.oCWorkCenter_.IsValidWorkCenterData() Then CApplicationController._grant_execute_app = False : Throw New CustomException("No es posible iniciar la aplicación. Verificar Información del Centro de Trabajo: " & CApplicationController.oCWorkCenter_.id & ".", CApplication.MailExceptionTypes.NonRecoverableError)
 
 
             ' User Logon.

@@ -4,6 +4,16 @@ Imports System.Reflection
 
 Partial Public Class FCentrosTrabajo
 
+    Private _oCWorkCenter As New CWorkCenter_
+    Public Property oCWorkCenter() As CWorkCenter_
+        Get
+            Return _oCWorkCenter
+        End Get
+        Set(ByVal value As CWorkCenter_)
+            _oCWorkCenter = value
+        End Set
+    End Property
+
     Public Sub New()
 
         ' This call is required by the Windows Form Designer.
@@ -16,8 +26,8 @@ Partial Public Class FCentrosTrabajo
         Me.localDatagridView = Me.DataGridView
         Me.localBindingNavigator = Me.BindingNavigator
         Me.localTSDownDirectAccess = Me.TSDownDirectAcces
-        Me.localObjectKey = Me.tClaveId
-        Me.localFocusedObject = Me.tNombre
+        Me.localObjectKey = Me.tGuid
+        Me.localFocusedObject = Me.tClaveId
 
     End Sub
 
@@ -31,13 +41,15 @@ Partial Public Class FCentrosTrabajo
             ' -------------------------------------------
             If Not SetBindingSource(Me.oBindingSource) Then Throw New CustomException
 
-            Return True
+            QueryAll = True
 
         Catch ex As CustomException
 
             Exit Function
 
         End Try
+
+        Return QueryAll
 
     End Function
 
@@ -50,13 +62,13 @@ Partial Public Class FCentrosTrabajo
 
             oSqlCommand.CommandType = CommandType.StoredProcedure
 
-            ' --------------------------------------------------------------------------
+            ' ----------------------
             ' Parameter Assignation
-            ' --------------------------------------------------------------------------
+            ' ----------------------
             With oSqlCommand.Parameters
 
                 .Add("@id", SqlDbType.NVarChar).Value = CApplicationController.oCWorkCenter_.id
-                .Add("@command", SqlDbType.Int).Value = SPCommand.QueryAll
+                .Add("@command", SqlDbType.Int).Value = CWorkCenter_.SPCommand.QueryAll
 
             End With
 
@@ -96,7 +108,11 @@ Partial Public Class FCentrosTrabajo
         Return SetBindingSource
 
     End Function
+    Protected Friend Overrides Function SetControlsBindingOnNew() As Boolean
 
+        Return CWorkCenter_.SetControlsBindingOnNew(Me)
+
+    End Function
 
     Protected Friend Overrides Function CommandDelete() As Boolean
 
@@ -276,7 +292,6 @@ Partial Public Class FCentrosTrabajo
 
     End Function
 
-
     Protected Friend Overrides Function CommandSave() As Boolean
 
         Try
@@ -287,11 +302,22 @@ Partial Public Class FCentrosTrabajo
                 '-------------------------------------------------
                 .id = CApplicationController.oCWorkCenter_.id
 
-                If (CApplication.CheckRequiredFields(.tClaveId)) Then .id = tClaveId.Text.Trim Else Throw New CustomException
+                .guid = CApplicationController.oCWorkCenter_.guid
+
+                If (CApplication.CheckRequiredFields(.tGuid)) Then .guid = tGuid.Text.Trim Else Throw New CustomException
+
+
+                If (CApplication.CheckRequiredFields(.tClaveId)) Then .nombre_corto = tClaveId.Text.Trim Else Throw New CustomException
+
+                'If (CApplication.CheckRequiredFields(.tClaveId)) _
+                '    Then CApplicationController.oCWorkCenter_.nombre_corto = tClaveId.Text.Trim _
+                '    Else Throw New CustomException
 
                 If (CApplication.CheckRequiredFields(.tNombre)) Then .nombre = .tNombre.Text.Trim Else Throw New CustomException
 
-                .descripcion = (IIf(String.IsNullOrEmpty(.tDescripcion.Text.Trim), String.Empty, .tDescripcion.Text.Trim))
+                If (CApplication.CheckRequiredFields(.tDescripcion)) Then .descripcion = IIf(String.IsNullOrEmpty(.tDescripcion.Text.Trim), String.Empty, .tDescripcion.Text.Trim) Else Throw New CustomException
+
+                '.descripcion = (IIf(String.IsNullOrEmpty(.tDescripcion.Text.Trim), String.Empty, .tDescripcion.Text.Trim))
 
                 If Me.form_state = CApplication.ControlState.Add Then
 
@@ -417,8 +443,8 @@ Partial Public Class FCentrosTrabajo
             ' Parameter Assignation
             ' --------------------------------------------------------------------------
             With oSqlCommand.Parameters
-
-                .Add("@id", SqlDbType.VarChar).Value = Me.id
+                .Add("@guid", SqlDbType.VarChar).Value = Me.guid
+                .Add("@nombre_corto", SqlDbType.VarChar).Value = Me.nombre_corto
                 .Add("@nombre", SqlDbType.VarChar).Value = Me.nombre
                 .Add("@descripcion", SqlDbType.VarChar).Value = Me.descripcion
                 .Add("@is_active", SqlDbType.Bit).Value = Me.is_active
@@ -456,9 +482,9 @@ Partial Public Class FCentrosTrabajo
             ' --------------------------------------------------------------------------
             ' Handle SP Response. 
             ' --------------------------------------------------------------------------
-            If CInt(oResponse.Value.Equals(1)) Then Throw New CustomException("El registro ya existe en Gears. No se puede duplicar el registro.")
+            If CInt(oResponse.Value.Equals(1)) Then Throw New CustomException("El registro ya existe. No se puede duplicar el registro.")
 
-            If CInt(oResponse.Value.Equals(0)) Then MessageBox.Show("Registro dado de alta en Gears.", "Atención", MessageBoxButtons.OK, MessageBoxIcon.Information)
+            If CInt(oResponse.Value.Equals(0)) Then MessageBox.Show("Registro dado de alta.", "Atención", MessageBoxButtons.OK, MessageBoxIcon.Information)
 
             SaveRecord = True
 
@@ -589,71 +615,7 @@ Partial Public Class FCentrosTrabajo
 
     Protected Friend Overrides Function SetControlsBinding() As Boolean
 
-        Try
-
-            With Me
-
-                ' -------------------------------------------------------------
-                ' TEXTBOX BINDING.
-                ' -------------------------------------------------------------
-                .tClaveId.DataBindings.Add("text", Me.oBindingSource, "nombre_corto", True)
-
-                .tNombre.DataBindings.Add("text", Me.oBindingSource, "nombre", True)
-
-                .tDescripcion.DataBindings.Add("text", Me.oBindingSource, "descripcion", True).NullValue = CApplication.NotAssignedValue
-
-                ' -------------------------------------------------------------
-                ' CHECK BOX BINDING. 
-                ' -------------------------------------------------------------
-                .ckActivo.DataBindings.Add("CheckState", Me.oBindingSource, "is_active", True)
-
-                ' -------------------------------------------------------------
-                ' PICTURE BOX BINDING. 
-                ' -------------------------------------------------------------
-
-            End With
-
-            ' -------------------------------------------------------------
-            ' COMBO BINDING.
-            ' -------------------------------------------------------------
-            ' -------------------------------------------------------------
-            ' Get combo data for each Combobox in Form.
-            ' -------------------------------------------------------------
-
-            ' 1. Fill Combo Binding Source and Add Combo Binding Source to Collection.
-            ' 2. Add combo to Form in Simple View.
-            ' 3. Add combo to Grid in Multi View.
-
-            ' ++
-
-            ' -------------------------------------------------------------
-            ' DATAGRIDVIEW BINDING.
-            ' -------------------------------------------------------------
-            Me.DataGridView.DataSource = Me.oBindingSource
-
-            ' -------------------------------------------------------------
-            ' NAVIGATOR BINDING.
-            ' -------------------------------------------------------------
-            Me.BindingNavigator.BindingSource = Me.oBindingSource
-
-            ' -------------------------------------------------------------
-            ' Reset Binding.
-            ' -------------------------------------------------------------
-            Me.oBindingSource.ResetBindings(False)
-
-            SetControlsBinding = True
-
-        Catch ex As CustomException
-
-            MessageBox.Show(ex.Message, "Atención", MessageBoxButtons.OK, MessageBoxIcon.Error)
-
-        Catch ex As Exception
-
-            MessageBox.Show(ex.Message, "Atención", MessageBoxButtons.OK, MessageBoxIcon.Error)
-
-        End Try
-
-        Return SetControlsBinding
+        Return CWorkCenter_.SetControlsBinding(Me)
 
     End Function
 
@@ -675,9 +637,9 @@ Partial Public Class FCentrosTrabajo
             ' --------------------------------------------------------------------------
             ' Handle SP Response. 
             ' --------------------------------------------------------------------------
-            If CInt(oResponse.Value.Equals(1)) Then Throw New CustomException("El registro ya existe en Gears. No se puede duplicar el registro.")
+            If CInt(oResponse.Value.Equals(1)) Then Throw New CustomException("El registro ya existe. No se puede duplicar el registro.")
 
-            If CInt(oResponse.Value.Equals(0)) Then MessageBox.Show("Registro actualizado en Gears.", "Atención", MessageBoxButtons.OK, MessageBoxIcon.Information)
+            If CInt(oResponse.Value.Equals(0)) Then MessageBox.Show("Registro actualizado.", "Atención", MessageBoxButtons.OK, MessageBoxIcon.Information)
 
             UpdateRecord = True
 
@@ -720,6 +682,28 @@ Partial Public Class FCentrosTrabajo
 
                 .DataGridView.Tag = "DataGrid"
 
+
+                For i = 0 To .TableLayoutPanel1.RowStyles.Count
+
+                    Select Case i
+                        Case 0
+
+                            .TableLayoutPanel1.RowStyles.Item(i).SizeType = SizeType.Percent
+                            .TableLayoutPanel1.RowStyles.Item(i).Height = 20
+
+                        Case 1
+
+                            .TableLayoutPanel1.RowStyles.Item(i).SizeType = SizeType.Percent
+                            .TableLayoutPanel1.RowStyles.Item(i).Height = 70
+
+                        Case 2
+                            .TableLayoutPanel1.RowStyles.Item(i).SizeType = SizeType.Percent
+                            .TableLayoutPanel1.RowStyles.Item(i).Height = 5
+
+                    End Select
+
+                Next
+
             End With
 
         Catch ex As Exception
@@ -742,6 +726,27 @@ Partial Public Class FCentrosTrabajo
         AddHandler Me.tDescripcion.GotFocus, AddressOf CApplication.HandleGotFocus
         AddHandler Me.tDescripcion.LostFocus, AddressOf CApplication.HandleLostFocus
 
+        For i = 0 To Me.TableLayoutPanel1.RowStyles.Count
+
+            Select Case i
+                Case 0
+
+                    Me.TableLayoutPanel1.RowStyles.Item(i).SizeType = SizeType.Percent
+                    Me.TableLayoutPanel1.RowStyles.Item(i).Height = 20
+
+                Case 1
+
+                    Me.TableLayoutPanel1.RowStyles.Item(i).SizeType = SizeType.Percent
+                    Me.TableLayoutPanel1.RowStyles.Item(i).Height = 70
+
+                Case 2
+                    Me.TableLayoutPanel1.RowStyles.Item(i).SizeType = SizeType.Percent
+                    Me.TableLayoutPanel1.RowStyles.Item(i).Height = 5
+
+            End Select
+
+        Next
+
 
     End Sub
 
@@ -752,14 +757,16 @@ Partial Public Class FCentrosTrabajo
 
                 .MultiSelect = False
 
-                .AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
+                .AlternatingRowsDefaultCellStyle.BackColor = Color.LightCyan
 
                 .AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells
 
                 .ColumnHeadersDefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter
 
-                .ColumnHeadersDefaultCellStyle.Font = New Font(.Font.FontFamily, .Font.Size,
+                .ColumnHeadersDefaultCellStyle.Font = New Font(.Font.FontFamily, 11.0F,
                 .Font.Style Or FontStyle.Bold, GraphicsUnit.Point)
+
+                .DefaultCellStyle.Font = New Font(.Font.FontFamily, 10.0F, FontStyle.Regular)
 
                 ' .DefaultCellStyle.NullValue = "NA"
 
@@ -769,46 +776,55 @@ Partial Public Class FCentrosTrabajo
                 ' Change column properties and format in accordance with data. 
                 '--------------------------------------------------------------------
                 .Columns("planta_id").Visible = False
+                .Columns("id").Visible = False
+
+                .Columns("guid").HeaderText = "Guid"
+                .Columns("guid").Visible = True
+                .Columns("guid").DisplayIndex = 1
+
+                .Columns("nombre_corto").DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight
+                .Columns("nombre_corto").Visible = True
+                .Columns("nombre_corto").DisplayIndex = 2
 
                 .Columns("nombre_corto").HeaderText = "Clave"
                 .Columns("nombre_corto").DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight
                 .Columns("nombre_corto").Visible = True
-                .Columns("nombre_corto").DisplayIndex = 1
+                .Columns("nombre_corto").DisplayIndex = 3
 
                 .Columns("nombre").HeaderText = "Nombre"
                 .Columns("nombre").Visible = True
-                .Columns("nombre").DisplayIndex = 2
+                .Columns("nombre").DisplayIndex = 4
 
                 .Columns("descripcion").HeaderText = "Descripción"
                 .Columns("descripcion").Visible = True
-                .Columns("descripcion").DisplayIndex = 3
+                .Columns("descripcion").DisplayIndex = 5
 
                 .Columns("is_active").HeaderText = "Activo"
                 .Columns("is_active").Visible = True
-                .Columns("is_active").DisplayIndex = 4
+                .Columns("is_active").DisplayIndex = 6
 
             End With
 
-            For i = 0 To Me.TableLayoutPanel1.RowStyles.Count
+            'For i = 0 To Me.TableLayoutPanel1.RowStyles.Count
 
-                Select Case i
-                    Case 0
+            '    Select Case i
+            '        Case 0
 
-                        Me.TableLayoutPanel1.RowStyles.Item(i).SizeType = SizeType.Percent
-                        Me.TableLayoutPanel1.RowStyles.Item(i).Height = 20
+            '            Me.TableLayoutPanel1.RowStyles.Item(i).SizeType = SizeType.Percent
+            '            Me.TableLayoutPanel1.RowStyles.Item(i).Height = 20
 
-                    Case 1
+            '        Case 1
 
-                        Me.TableLayoutPanel1.RowStyles.Item(i).SizeType = SizeType.Percent
-                        Me.TableLayoutPanel1.RowStyles.Item(i).Height = 75
+            '            Me.TableLayoutPanel1.RowStyles.Item(i).SizeType = SizeType.Percent
+            '            Me.TableLayoutPanel1.RowStyles.Item(i).Height = 70
 
-                    Case 2
-                        Me.TableLayoutPanel1.RowStyles.Item(i).SizeType = SizeType.Percent
-                        Me.TableLayoutPanel1.RowStyles.Item(i).Height = 5
+            '        Case 2
+            '            Me.TableLayoutPanel1.RowStyles.Item(i).SizeType = SizeType.Percent
+            '            Me.TableLayoutPanel1.RowStyles.Item(i).Height = 5
 
-                End Select
+            '    End Select
 
-            Next
+            'Next
 
 
         Catch ex As Exception

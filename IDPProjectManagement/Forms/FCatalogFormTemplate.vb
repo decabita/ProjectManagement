@@ -108,7 +108,7 @@ Public Class FCatalogFormTemplate
                             .TSBQuery.Enabled = True
                             .TSBFind.Enabled = True
                             .TSBNew.Enabled = True
-                            .TSBExportToExcel.Enabled = True
+                            .TSBExportToExcel.Enabled = False 'Restore when implemented True
                             .TSBEdit.Enabled = True
                             .TSBDelete.Enabled = True
 
@@ -221,7 +221,7 @@ Public Class FCatalogFormTemplate
                             .TSBQuery.Enabled = True
                             .TSBFind.Enabled = True
                             .TSBNew.Enabled = True
-                            .TSBExportToExcel.Enabled = True
+                            .TSBExportToExcel.Enabled = False 'Restore when implemented True
                             .TSBEdit.Enabled = True
                             .TSBDelete.Enabled = True
                         End With

@@ -25,6 +25,7 @@ Partial Class FCentrosTrabajo
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(FCentrosTrabajo))
+        Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Me.BindingNavigator = New System.Windows.Forms.BindingNavigator(Me.components)
         Me.BindingNavigatorCountItem = New System.Windows.Forms.ToolStripLabel()
         Me.BindingNavigatorMoveFirstItem = New System.Windows.Forms.ToolStripButton()
@@ -35,20 +36,25 @@ Partial Class FCentrosTrabajo
         Me.BindingNavigatorMoveNextItem = New System.Windows.Forms.ToolStripButton()
         Me.BindingNavigatorMoveLastItem = New System.Windows.Forms.ToolStripButton()
         Me.BindingNavigatorSeparator2 = New System.Windows.Forms.ToolStripSeparator()
-        Me.tNombre = New System.Windows.Forms.TextBox()
-        Me.Label3 = New System.Windows.Forms.Label()
-        Me.Label1 = New System.Windows.Forms.Label()
-        Me.tClaveId = New System.Windows.Forms.TextBox()
-        Me.ckActivo = New System.Windows.Forms.CheckBox()
-        Me.Label2 = New System.Windows.Forms.Label()
         Me.DataGridView = New System.Windows.Forms.DataGridView()
         Me.TSDownDirectAcces = New System.Windows.Forms.ToolStrip()
         Me.BWorkerGetData = New System.ComponentModel.BackgroundWorker()
         Me.TableLayoutPanel1 = New System.Windows.Forms.TableLayoutPanel()
         Me.Panel1 = New System.Windows.Forms.Panel()
+        Me.TableLayoutPanel3 = New System.Windows.Forms.TableLayoutPanel()
+        Me.Panel3 = New System.Windows.Forms.Panel()
+        Me.lblGuid = New System.Windows.Forms.Label()
+        Me.tGuid = New System.Windows.Forms.TextBox()
+        Me.Label3 = New System.Windows.Forms.Label()
+        Me.tNombre = New System.Windows.Forms.TextBox()
+        Me.Label1 = New System.Windows.Forms.Label()
+        Me.tClaveId = New System.Windows.Forms.TextBox()
+        Me.Panel4 = New System.Windows.Forms.Panel()
         Me.TabControl1 = New System.Windows.Forms.TabControl()
         Me.TPExtras = New System.Windows.Forms.TabPage()
         Me.tDescripcion = New System.Windows.Forms.TextBox()
+        Me.Label2 = New System.Windows.Forms.Label()
+        Me.ckActivo = New System.Windows.Forms.CheckBox()
         Me.Panel2 = New System.Windows.Forms.Panel()
         Me.TableLayoutPanel2 = New System.Windows.Forms.TableLayoutPanel()
         CType(Me.BindingNavigator, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -56,6 +62,9 @@ Partial Class FCentrosTrabajo
         CType(Me.DataGridView, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.TableLayoutPanel1.SuspendLayout()
         Me.Panel1.SuspendLayout()
+        Me.TableLayoutPanel3.SuspendLayout()
+        Me.Panel3.SuspendLayout()
+        Me.Panel4.SuspendLayout()
         Me.TabControl1.SuspendLayout()
         Me.TPExtras.SuspendLayout()
         Me.Panel2.SuspendLayout()
@@ -72,14 +81,14 @@ Partial Class FCentrosTrabajo
         Me.BindingNavigator.Dock = System.Windows.Forms.DockStyle.Fill
         Me.BindingNavigator.ImageScalingSize = New System.Drawing.Size(20, 20)
         Me.BindingNavigator.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.BindingNavigatorMoveFirstItem, Me.BindingNavigatorMovePreviousItem, Me.BindingNavigatorSeparator, Me.BindingNavigatorPositionItem, Me.BindingNavigatorCountItem, Me.BindingNavigatorSeparator1, Me.BindingNavigatorMoveNextItem, Me.BindingNavigatorMoveLastItem, Me.BindingNavigatorSeparator2})
-        Me.BindingNavigator.Location = New System.Drawing.Point(749, 2)
+        Me.BindingNavigator.Location = New System.Drawing.Point(852, 2)
         Me.BindingNavigator.MoveFirstItem = Me.BindingNavigatorMoveFirstItem
         Me.BindingNavigator.MoveLastItem = Me.BindingNavigatorMoveLastItem
         Me.BindingNavigator.MoveNextItem = Me.BindingNavigatorMoveNextItem
         Me.BindingNavigator.MovePreviousItem = Me.BindingNavigatorMovePreviousItem
         Me.BindingNavigator.Name = "BindingNavigator"
         Me.BindingNavigator.PositionItem = Me.BindingNavigatorPositionItem
-        Me.BindingNavigator.Size = New System.Drawing.Size(276, 31)
+        Me.BindingNavigator.Size = New System.Drawing.Size(314, 31)
         Me.BindingNavigator.TabIndex = 7
         Me.BindingNavigator.TabStop = True
         Me.BindingNavigator.Text = "BindingNavigator1"
@@ -97,7 +106,7 @@ Partial Class FCentrosTrabajo
         Me.BindingNavigatorMoveFirstItem.Image = CType(resources.GetObject("BindingNavigatorMoveFirstItem.Image"), System.Drawing.Image)
         Me.BindingNavigatorMoveFirstItem.Name = "BindingNavigatorMoveFirstItem"
         Me.BindingNavigatorMoveFirstItem.RightToLeftAutoMirrorImage = True
-        Me.BindingNavigatorMoveFirstItem.Size = New System.Drawing.Size(24, 28)
+        Me.BindingNavigatorMoveFirstItem.Size = New System.Drawing.Size(29, 28)
         Me.BindingNavigatorMoveFirstItem.Text = "Move first"
         '
         'BindingNavigatorMovePreviousItem
@@ -106,7 +115,7 @@ Partial Class FCentrosTrabajo
         Me.BindingNavigatorMovePreviousItem.Image = CType(resources.GetObject("BindingNavigatorMovePreviousItem.Image"), System.Drawing.Image)
         Me.BindingNavigatorMovePreviousItem.Name = "BindingNavigatorMovePreviousItem"
         Me.BindingNavigatorMovePreviousItem.RightToLeftAutoMirrorImage = True
-        Me.BindingNavigatorMovePreviousItem.Size = New System.Drawing.Size(24, 28)
+        Me.BindingNavigatorMovePreviousItem.Size = New System.Drawing.Size(29, 28)
         Me.BindingNavigatorMovePreviousItem.Text = "Move previous"
         '
         'BindingNavigatorSeparator
@@ -118,6 +127,7 @@ Partial Class FCentrosTrabajo
         '
         Me.BindingNavigatorPositionItem.AccessibleName = "Position"
         Me.BindingNavigatorPositionItem.AutoSize = False
+        Me.BindingNavigatorPositionItem.Font = New System.Drawing.Font("Segoe UI", 9.0!)
         Me.BindingNavigatorPositionItem.Name = "BindingNavigatorPositionItem"
         Me.BindingNavigatorPositionItem.Size = New System.Drawing.Size(50, 21)
         Me.BindingNavigatorPositionItem.Text = "0"
@@ -134,7 +144,7 @@ Partial Class FCentrosTrabajo
         Me.BindingNavigatorMoveNextItem.Image = CType(resources.GetObject("BindingNavigatorMoveNextItem.Image"), System.Drawing.Image)
         Me.BindingNavigatorMoveNextItem.Name = "BindingNavigatorMoveNextItem"
         Me.BindingNavigatorMoveNextItem.RightToLeftAutoMirrorImage = True
-        Me.BindingNavigatorMoveNextItem.Size = New System.Drawing.Size(24, 28)
+        Me.BindingNavigatorMoveNextItem.Size = New System.Drawing.Size(29, 28)
         Me.BindingNavigatorMoveNextItem.Text = "Move next"
         '
         'BindingNavigatorMoveLastItem
@@ -143,7 +153,7 @@ Partial Class FCentrosTrabajo
         Me.BindingNavigatorMoveLastItem.Image = CType(resources.GetObject("BindingNavigatorMoveLastItem.Image"), System.Drawing.Image)
         Me.BindingNavigatorMoveLastItem.Name = "BindingNavigatorMoveLastItem"
         Me.BindingNavigatorMoveLastItem.RightToLeftAutoMirrorImage = True
-        Me.BindingNavigatorMoveLastItem.Size = New System.Drawing.Size(24, 28)
+        Me.BindingNavigatorMoveLastItem.Size = New System.Drawing.Size(29, 28)
         Me.BindingNavigatorMoveLastItem.Text = "Move last"
         '
         'BindingNavigatorSeparator2
@@ -151,79 +161,12 @@ Partial Class FCentrosTrabajo
         Me.BindingNavigatorSeparator2.Name = "BindingNavigatorSeparator2"
         Me.BindingNavigatorSeparator2.Size = New System.Drawing.Size(6, 31)
         '
-        'tNombre
-        '
-        Me.tNombre.BackColor = System.Drawing.SystemColors.Window
-        Me.tNombre.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.tNombre.Font = New System.Drawing.Font("Tahoma", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.tNombre.Location = New System.Drawing.Point(61, 47)
-        Me.tNombre.Name = "tNombre"
-        Me.tNombre.Size = New System.Drawing.Size(290, 26)
-        Me.tNombre.TabIndex = 2
-        Me.tNombre.Tag = "Nombre"
-        Me.tNombre.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
-        '
-        'Label3
-        '
-        Me.Label3.Font = New System.Drawing.Font("Tahoma", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label3.Location = New System.Drawing.Point(8, 50)
-        Me.Label3.Name = "Label3"
-        Me.Label3.Size = New System.Drawing.Size(50, 14)
-        Me.Label3.TabIndex = 3
-        Me.Label3.Text = "Nombre"
-        Me.Label3.TextAlign = System.Drawing.ContentAlignment.MiddleRight
-        '
-        'Label1
-        '
-        Me.Label1.Font = New System.Drawing.Font("Tahoma", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label1.Location = New System.Drawing.Point(23, 23)
-        Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(35, 14)
-        Me.Label1.TabIndex = 1
-        Me.Label1.Text = "Clave"
-        Me.Label1.TextAlign = System.Drawing.ContentAlignment.MiddleRight
-        '
-        'tClaveId
-        '
-        Me.tClaveId.BackColor = System.Drawing.SystemColors.Window
-        Me.tClaveId.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.tClaveId.Font = New System.Drawing.Font("Tahoma", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.tClaveId.Location = New System.Drawing.Point(61, 19)
-        Me.tClaveId.Name = "tClaveId"
-        Me.tClaveId.Size = New System.Drawing.Size(142, 26)
-        Me.tClaveId.TabIndex = 1
-        Me.tClaveId.Tag = "Clave"
-        Me.tClaveId.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
-        '
-        'ckActivo
-        '
-        Me.ckActivo.CheckAlign = System.Drawing.ContentAlignment.MiddleRight
-        Me.ckActivo.Enabled = False
-        Me.ckActivo.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.ckActivo.Font = New System.Drawing.Font("Tahoma", 9.0!)
-        Me.ckActivo.Location = New System.Drawing.Point(34, 55)
-        Me.ckActivo.Name = "ckActivo"
-        Me.ckActivo.Size = New System.Drawing.Size(62, 24)
-        Me.ckActivo.TabIndex = 2
-        Me.ckActivo.TabStop = False
-        Me.ckActivo.Text = "Activo"
-        Me.ckActivo.UseVisualStyleBackColor = True
-        '
-        'Label2
-        '
-        Me.Label2.AutoSize = True
-        Me.Label2.Font = New System.Drawing.Font("Tahoma", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label2.Location = New System.Drawing.Point(15, 11)
-        Me.Label2.Name = "Label2"
-        Me.Label2.Size = New System.Drawing.Size(80, 18)
-        Me.Label2.TabIndex = 0
-        Me.Label2.Text = "Descripción"
-        Me.Label2.TextAlign = System.Drawing.ContentAlignment.MiddleRight
-        '
         'DataGridView
         '
         Me.DataGridView.AllowUserToAddRows = False
         Me.DataGridView.AllowUserToDeleteRows = False
+        DataGridViewCellStyle1.BackColor = System.Drawing.Color.LightBlue
+        Me.DataGridView.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle1
         Me.DataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.DataGridView.Dock = System.Windows.Forms.DockStyle.Fill
         Me.DataGridView.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically
@@ -232,7 +175,7 @@ Partial Class FCentrosTrabajo
         Me.DataGridView.Name = "DataGridView"
         Me.DataGridView.ReadOnly = True
         Me.DataGridView.RowHeadersWidth = 51
-        Me.DataGridView.Size = New System.Drawing.Size(1027, 193)
+        Me.DataGridView.Size = New System.Drawing.Size(1168, 193)
         Me.DataGridView.TabIndex = 5
         Me.DataGridView.Tag = "Grid"
         '
@@ -243,7 +186,7 @@ Partial Class FCentrosTrabajo
         Me.TSDownDirectAcces.ImageScalingSize = New System.Drawing.Size(20, 20)
         Me.TSDownDirectAcces.Location = New System.Drawing.Point(2, 2)
         Me.TSDownDirectAcces.Name = "TSDownDirectAcces"
-        Me.TSDownDirectAcces.Size = New System.Drawing.Size(745, 31)
+        Me.TSDownDirectAcces.Size = New System.Drawing.Size(848, 31)
         Me.TSDownDirectAcces.TabIndex = 6
         Me.TSDownDirectAcces.TabStop = True
         Me.TSDownDirectAcces.Text = "ToolStrip1"
@@ -265,31 +208,133 @@ Partial Class FCentrosTrabajo
         Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 46.34146!))
         Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 53.65854!))
         Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40.0!))
-        Me.TableLayoutPanel1.Size = New System.Drawing.Size(1033, 412)
+        Me.TableLayoutPanel1.Size = New System.Drawing.Size(1174, 412)
         Me.TableLayoutPanel1.TabIndex = 5
         '
         'Panel1
         '
-        Me.Panel1.Controls.Add(Me.TabControl1)
-        Me.Panel1.Controls.Add(Me.Label3)
-        Me.Panel1.Controls.Add(Me.tNombre)
-        Me.Panel1.Controls.Add(Me.Label1)
-        Me.Panel1.Controls.Add(Me.tClaveId)
+        Me.Panel1.Controls.Add(Me.TableLayoutPanel3)
         Me.Panel1.Dock = System.Windows.Forms.DockStyle.Fill
         Me.Panel1.Location = New System.Drawing.Point(3, 3)
         Me.Panel1.Name = "Panel1"
-        Me.Panel1.Size = New System.Drawing.Size(1027, 166)
+        Me.Panel1.Size = New System.Drawing.Size(1168, 166)
         Me.Panel1.TabIndex = 0
+        '
+        'TableLayoutPanel3
+        '
+        Me.TableLayoutPanel3.ColumnCount = 2
+        Me.TableLayoutPanel3.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50.0!))
+        Me.TableLayoutPanel3.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50.0!))
+        Me.TableLayoutPanel3.Controls.Add(Me.Panel3, 0, 0)
+        Me.TableLayoutPanel3.Controls.Add(Me.Panel4, 1, 0)
+        Me.TableLayoutPanel3.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.TableLayoutPanel3.Location = New System.Drawing.Point(0, 0)
+        Me.TableLayoutPanel3.Name = "TableLayoutPanel3"
+        Me.TableLayoutPanel3.RowCount = 1
+        Me.TableLayoutPanel3.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50.0!))
+        Me.TableLayoutPanel3.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 166.0!))
+        Me.TableLayoutPanel3.Size = New System.Drawing.Size(1168, 166)
+        Me.TableLayoutPanel3.TabIndex = 0
+        '
+        'Panel3
+        '
+        Me.Panel3.Controls.Add(Me.lblGuid)
+        Me.Panel3.Controls.Add(Me.tGuid)
+        Me.Panel3.Controls.Add(Me.Label3)
+        Me.Panel3.Controls.Add(Me.tNombre)
+        Me.Panel3.Controls.Add(Me.Label1)
+        Me.Panel3.Controls.Add(Me.tClaveId)
+        Me.Panel3.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.Panel3.Location = New System.Drawing.Point(3, 3)
+        Me.Panel3.Name = "Panel3"
+        Me.Panel3.Size = New System.Drawing.Size(578, 160)
+        Me.Panel3.TabIndex = 0
+        '
+        'lblGuid
+        '
+        Me.lblGuid.Font = New System.Drawing.Font("Tahoma", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblGuid.Location = New System.Drawing.Point(24, 16)
+        Me.lblGuid.Name = "lblGuid"
+        Me.lblGuid.Size = New System.Drawing.Size(84, 21)
+        Me.lblGuid.TabIndex = 14
+        Me.lblGuid.Text = "Guid"
+        Me.lblGuid.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        '
+        'tGuid
+        '
+        Me.tGuid.BackColor = System.Drawing.SystemColors.Window
+        Me.tGuid.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.tGuid.Font = New System.Drawing.Font("Tahoma", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.tGuid.Location = New System.Drawing.Point(116, 13)
+        Me.tGuid.Name = "tGuid"
+        Me.tGuid.Size = New System.Drawing.Size(290, 26)
+        Me.tGuid.TabIndex = 13
+        Me.tGuid.Tag = "Nombre"
+        Me.tGuid.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
+        '
+        'Label3
+        '
+        Me.Label3.Font = New System.Drawing.Font("Tahoma", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label3.Location = New System.Drawing.Point(24, 71)
+        Me.Label3.Name = "Label3"
+        Me.Label3.Size = New System.Drawing.Size(84, 21)
+        Me.Label3.TabIndex = 12
+        Me.Label3.Text = "Nombre"
+        Me.Label3.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        '
+        'tNombre
+        '
+        Me.tNombre.BackColor = System.Drawing.SystemColors.Window
+        Me.tNombre.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.tNombre.Font = New System.Drawing.Font("Tahoma", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.tNombre.Location = New System.Drawing.Point(116, 69)
+        Me.tNombre.Name = "tNombre"
+        Me.tNombre.Size = New System.Drawing.Size(290, 26)
+        Me.tNombre.TabIndex = 11
+        Me.tNombre.Tag = "Nombre"
+        Me.tNombre.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
+        '
+        'Label1
+        '
+        Me.Label1.Font = New System.Drawing.Font("Tahoma", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label1.Location = New System.Drawing.Point(24, 42)
+        Me.Label1.Name = "Label1"
+        Me.Label1.Size = New System.Drawing.Size(84, 21)
+        Me.Label1.TabIndex = 9
+        Me.Label1.Text = "Clave"
+        Me.Label1.TextAlign = System.Drawing.ContentAlignment.BottomRight
+        '
+        'tClaveId
+        '
+        Me.tClaveId.BackColor = System.Drawing.SystemColors.Window
+        Me.tClaveId.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.tClaveId.Font = New System.Drawing.Font("Tahoma", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.tClaveId.Location = New System.Drawing.Point(116, 41)
+        Me.tClaveId.Name = "tClaveId"
+        Me.tClaveId.Size = New System.Drawing.Size(290, 26)
+        Me.tClaveId.TabIndex = 10
+        Me.tClaveId.Tag = "Clave"
+        Me.tClaveId.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
+        '
+        'Panel4
+        '
+        Me.Panel4.Controls.Add(Me.TabControl1)
+        Me.Panel4.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.Panel4.Location = New System.Drawing.Point(587, 3)
+        Me.Panel4.Name = "Panel4"
+        Me.Panel4.Size = New System.Drawing.Size(578, 160)
+        Me.Panel4.TabIndex = 1
         '
         'TabControl1
         '
         Me.TabControl1.Controls.Add(Me.TPExtras)
+        Me.TabControl1.Dock = System.Windows.Forms.DockStyle.Fill
         Me.TabControl1.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.TabControl1.Location = New System.Drawing.Point(460, 1)
+        Me.TabControl1.Location = New System.Drawing.Point(0, 0)
         Me.TabControl1.Name = "TabControl1"
         Me.TabControl1.SelectedIndex = 0
-        Me.TabControl1.Size = New System.Drawing.Size(525, 110)
-        Me.TabControl1.TabIndex = 4
+        Me.TabControl1.Size = New System.Drawing.Size(578, 160)
+        Me.TabControl1.TabIndex = 10
         '
         'TPExtras
         '
@@ -299,7 +344,7 @@ Partial Class FCentrosTrabajo
         Me.TPExtras.Location = New System.Drawing.Point(4, 27)
         Me.TPExtras.Name = "TPExtras"
         Me.TPExtras.Padding = New System.Windows.Forms.Padding(3)
-        Me.TPExtras.Size = New System.Drawing.Size(517, 79)
+        Me.TPExtras.Size = New System.Drawing.Size(570, 129)
         Me.TPExtras.TabIndex = 0
         Me.TPExtras.Text = "Datos Adicionales"
         Me.TPExtras.UseVisualStyleBackColor = True
@@ -309,13 +354,38 @@ Partial Class FCentrosTrabajo
         Me.tDescripcion.BackColor = System.Drawing.SystemColors.Window
         Me.tDescripcion.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.tDescripcion.Font = New System.Drawing.Font("Tahoma", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.tDescripcion.Location = New System.Drawing.Point(86, 8)
+        Me.tDescripcion.Location = New System.Drawing.Point(120, 8)
         Me.tDescripcion.Multiline = True
         Me.tDescripcion.Name = "tDescripcion"
-        Me.tDescripcion.Size = New System.Drawing.Size(366, 44)
+        Me.tDescripcion.Size = New System.Drawing.Size(424, 64)
         Me.tDescripcion.TabIndex = 1
         Me.tDescripcion.Tag = "Marca"
         Me.tDescripcion.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
+        '
+        'Label2
+        '
+        Me.Label2.AutoSize = True
+        Me.Label2.Font = New System.Drawing.Font("Tahoma", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label2.Location = New System.Drawing.Point(16, 16)
+        Me.Label2.Name = "Label2"
+        Me.Label2.Size = New System.Drawing.Size(80, 18)
+        Me.Label2.TabIndex = 0
+        Me.Label2.Text = "Descripción"
+        Me.Label2.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        '
+        'ckActivo
+        '
+        Me.ckActivo.CheckAlign = System.Drawing.ContentAlignment.MiddleRight
+        Me.ckActivo.Enabled = False
+        Me.ckActivo.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.ckActivo.Font = New System.Drawing.Font("Tahoma", 9.0!)
+        Me.ckActivo.Location = New System.Drawing.Point(16, 80)
+        Me.ckActivo.Name = "ckActivo"
+        Me.ckActivo.Size = New System.Drawing.Size(120, 24)
+        Me.ckActivo.TabIndex = 2
+        Me.ckActivo.TabStop = False
+        Me.ckActivo.Text = "Activo"
+        Me.ckActivo.UseVisualStyleBackColor = True
         '
         'Panel2
         '
@@ -323,7 +393,7 @@ Partial Class FCentrosTrabajo
         Me.Panel2.Dock = System.Windows.Forms.DockStyle.Fill
         Me.Panel2.Location = New System.Drawing.Point(3, 175)
         Me.Panel2.Name = "Panel2"
-        Me.Panel2.Size = New System.Drawing.Size(1027, 193)
+        Me.Panel2.Size = New System.Drawing.Size(1168, 193)
         Me.Panel2.TabIndex = 1
         '
         'TableLayoutPanel2
@@ -340,14 +410,14 @@ Partial Class FCentrosTrabajo
         Me.TableLayoutPanel2.Name = "TableLayoutPanel2"
         Me.TableLayoutPanel2.RowCount = 1
         Me.TableLayoutPanel2.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50.0!))
-        Me.TableLayoutPanel2.Size = New System.Drawing.Size(1027, 35)
+        Me.TableLayoutPanel2.Size = New System.Drawing.Size(1168, 35)
         Me.TableLayoutPanel2.TabIndex = 2
         '
         'FCentrosTrabajo
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(1033, 412)
+        Me.ClientSize = New System.Drawing.Size(1174, 412)
         Me.ControlBox = False
         Me.Controls.Add(Me.TableLayoutPanel1)
         Me.Font = New System.Drawing.Font("Arial", 8.25!)
@@ -365,7 +435,10 @@ Partial Class FCentrosTrabajo
         CType(Me.DataGridView, System.ComponentModel.ISupportInitialize).EndInit()
         Me.TableLayoutPanel1.ResumeLayout(False)
         Me.Panel1.ResumeLayout(False)
-        Me.Panel1.PerformLayout()
+        Me.TableLayoutPanel3.ResumeLayout(False)
+        Me.Panel3.ResumeLayout(False)
+        Me.Panel3.PerformLayout()
+        Me.Panel4.ResumeLayout(False)
         Me.TabControl1.ResumeLayout(False)
         Me.TPExtras.ResumeLayout(False)
         Me.TPExtras.PerformLayout()
@@ -386,20 +459,25 @@ Partial Class FCentrosTrabajo
     Friend WithEvents BindingNavigatorMoveLastItem As System.Windows.Forms.ToolStripButton
     Friend WithEvents BindingNavigatorSeparator2 As System.Windows.Forms.ToolStripSeparator
     Friend WithEvents TSDownDirectAcces As System.Windows.Forms.ToolStrip
-    Friend WithEvents Label3 As System.Windows.Forms.Label
-    Friend WithEvents Label1 As System.Windows.Forms.Label
-    Friend WithEvents tClaveId As System.Windows.Forms.TextBox
-    Friend WithEvents Label2 As System.Windows.Forms.Label
     Friend WithEvents DataGridView As System.Windows.Forms.DataGridView
-    Friend WithEvents tNombre As System.Windows.Forms.TextBox
-    Friend WithEvents ckActivo As System.Windows.Forms.CheckBox
     Friend WithEvents BWorkerGetData As System.ComponentModel.BackgroundWorker
     Friend WithEvents TableLayoutPanel1 As System.Windows.Forms.TableLayoutPanel
     Friend WithEvents Panel1 As System.Windows.Forms.Panel
     Friend WithEvents Panel2 As System.Windows.Forms.Panel
     Friend WithEvents TableLayoutPanel2 As System.Windows.Forms.TableLayoutPanel
-    Friend WithEvents TabControl1 As System.Windows.Forms.TabControl
-    Friend WithEvents TPExtras As System.Windows.Forms.TabPage
-    Friend WithEvents tDescripcion As System.Windows.Forms.TextBox
+    Friend WithEvents TableLayoutPanel3 As TableLayoutPanel
+    Friend WithEvents Panel3 As Panel
+    Friend WithEvents lblGuid As Label
+    Friend WithEvents tGuid As TextBox
+    Friend WithEvents Label3 As Label
+    Friend WithEvents tNombre As TextBox
+    Friend WithEvents Label1 As Label
+    Friend WithEvents tClaveId As TextBox
+    Friend WithEvents Panel4 As Panel
+    Friend WithEvents TabControl1 As TabControl
+    Friend WithEvents TPExtras As TabPage
+    Friend WithEvents tDescripcion As TextBox
+    Friend WithEvents Label2 As Label
+    Friend WithEvents ckActivo As CheckBox
     '  Friend WithEvents DbNavigationBar1 As DBNavigation.DbNavigationBar
 End Class
