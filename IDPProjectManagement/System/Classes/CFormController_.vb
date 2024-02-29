@@ -212,7 +212,7 @@ Public Class CFormController_
 
         Dim oMDIMainContainer As New MDIMainContainer()
 
-        Dim oType As Type = Assembly.GetExecutingAssembly().GetType("Atlas_Pavco." & Me.form_name)
+        Dim oType As Type = Assembly.GetExecutingAssembly().GetType("IDPProjectManagement." & Me.form_name)
 
         Try
             If oType IsNot Nothing Then oRetForm = Activator.CreateInstance(oType)

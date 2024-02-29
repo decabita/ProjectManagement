@@ -1,9 +1,12 @@
 ﻿Imports System.Data.SqlClient
 
-Partial Public Class FCentrosTrabajo
+Partial Public Class FClientes
 
     Dim oSqlCommand As SqlCommand
     Dim oResponse As SqlParameter
+
+    Dim actualRow As Integer
+    Dim newRow As Integer
 
     Private _oFormController As CFormController_
 
@@ -41,18 +44,6 @@ Partial Public Class FCentrosTrabajo
         End Set
     End Property
 
-    Private _oCollectionBSourceComboChild As New Collection
-
-    Public Property oCollectionBSourceComboChild() As Collection
-        Get
-            Return _oCollectionBSourceComboChild
-        End Get
-        Set(ByVal value As Collection)
-            _oCollectionBSourceComboChild = value
-        End Set
-    End Property
-
-
     Private _oBSourceCombo As BindingSource
 
     Public Property oBSourceCombo() As BindingSource
@@ -83,19 +74,6 @@ Partial Public Class FCentrosTrabajo
 
     End Property
 
-
-    Private _oBSourceComboType As New BindingSource
-
-    Public Property oBSourceComboType() As BindingSource
-        Get
-            Return _oBSourceComboType
-        End Get
-        Set(ByVal value As BindingSource)
-            _oBSourceComboType = value
-        End Set
-    End Property
-
-
     Private _oDataSet As New DataSet
 
     Public Property oDataSet() As DataSet
@@ -117,42 +95,18 @@ Partial Public Class FCentrosTrabajo
         End Set
     End Property
 
-    'Private _oBindingSource As New BindingSource
-    'Public Property oBindingSource() As BindingSource
-    '    Get
-    '        Return _oBindingSource
-    '    End Get
-    '    Set(ByVal value As BindingSource)
-    '        _oBindingSource = value
-    '    End Set
-    'End Property
-
-    Private _oBindingSourceChild As New BindingSource
-    Public Property oBindingSourceChild() As BindingSource
+    Private _oBindingSourceParent As New BindingSource
+    Public Property oBindingSourceParent() As BindingSource
         Get
-            Return _oBindingSourceChild
+            Return _oBindingSourceParent
         End Get
         Set(ByVal value As BindingSource)
-            _oBindingSourceChild = value
+            _oBindingSourceParent = value
         End Set
     End Property
 
-    Private _oBSourceComboChild As New BindingSource
 
-    Public Property oBSourceComboChild() As BindingSource
-        Get
-
-            Return _oBSourceComboChild
-
-        End Get
-
-        Set(ByVal value As BindingSource)
-            _oBSourceComboChild = value
-        End Set
-
-    End Property
-
-    Private _centro_id As String
+    Private _centro_id As String = String.Empty
     Public Property centro_id() As String
         Get
             Return _centro_id
@@ -162,23 +116,63 @@ Partial Public Class FCentrosTrabajo
         End Set
     End Property
 
-    Private _almacen_nombre As String
-    Public Property almacen_nombre() As String
+    Private _usuario_id As String = String.Empty
+    Public Property usuario_id() As String
         Get
-            Return _almacen_nombre
+            Return _usuario_id
         End Get
         Set(ByVal value As String)
-            _almacen_nombre = value
+            _usuario_id = value
         End Set
     End Property
 
-    Private _almacen_descripcion As String
-    Public Property almacen_descripcion() As String
+    Private _usuario_nombre As String = String.Empty
+    Public Property usuario_nombre() As String
         Get
-            Return _almacen_descripcion
+            Return _usuario_nombre
         End Get
         Set(ByVal value As String)
-            _almacen_descripcion = value
+            _usuario_nombre = value
+        End Set
+    End Property
+
+    Private _usuario_descripcion As String = String.Empty
+    Public Property usuario_descripcion() As String
+        Get
+            Return _usuario_descripcion
+        End Get
+        Set(ByVal value As String)
+            _usuario_descripcion = value
+        End Set
+    End Property
+
+    Private _usuario_contraseña As String = String.Empty
+    Public Property usuario_contraseña() As String
+        Get
+            Return _usuario_contraseña
+        End Get
+        Set(ByVal value As String)
+            _usuario_contraseña = value
+        End Set
+    End Property
+
+    Private _image_data As Byte()
+    Public Property image_data() As Byte()
+        Get
+            Return _image_data
+        End Get
+        Set(ByVal value As Byte())
+            _image_data = value
+        End Set
+    End Property
+
+    Private _ruta_imagen As String
+    Public Property ruta_imagen() As String
+        Get
+            Return _ruta_imagen
+        End Get
+        Set(ByVal value As String)
+            _ruta_imagen = value
         End Set
     End Property
 
@@ -202,15 +196,15 @@ Partial Public Class FCentrosTrabajo
         End Set
     End Property
 
-    'Private _form_state As Integer
-    'Public Property form_state() As Integer
-    '    Get
-    '        Return _form_state
-    '    End Get
-    '    Set(ByVal value As Integer)
-    '        _form_state = value
-    '    End Set
-    'End Property
+    Private _form_state As Integer
+    Public Property form_state() As Integer
+        Get
+            Return _form_state
+        End Get
+        Set(ByVal value As Integer)
+            _form_state = value
+        End Set
+    End Property
 
     Private _is_new_row As Boolean
     Public Property is_new_row() As Boolean
@@ -222,16 +216,6 @@ Partial Public Class FCentrosTrabajo
         End Set
     End Property
 
-    Private _current_row As Integer = -1
-    Public Property current_row() As Integer
-        Get
-            Return _current_row
-        End Get
-        Set(ByVal value As Integer)
-            _current_row = value
-        End Set
-    End Property
-
     Enum SPCommand
 
         QueryAll = 1
@@ -240,6 +224,7 @@ Partial Public Class FCentrosTrabajo
         SaveCommand = 4
         Delete = 5
         None = 0
+        Authenticate = 69
 
         GetRelatedSpecs = 30
 

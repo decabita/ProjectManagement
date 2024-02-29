@@ -361,7 +361,7 @@ Friend Class CApplication
 
     'Public Shared Function GetApplicationToolIcon() As ToolTipIcon
 
-    '    Dim oResourceManager As New ResourceManager("Atlas_Pavco.Resources", Assembly.GetExecutingAssembly())
+    '    Dim oResourceManager As New ResourceManager("IDPProjectManagement.Resources", Assembly.GetExecutingAssembly())
 
     '    Return oResourceManager.GetObject("Kaluz_LogoIconSmall")
 
@@ -371,7 +371,7 @@ Friend Class CApplication
 
         Try
 
-            '      Dim oResourceManager As New ResourceManager("Atlas_Pavco.Resources", Assembly.GetExecutingAssembly())
+            '      Dim oResourceManager As New ResourceManager("IDPProjectManagement.Resources", Assembly.GetExecutingAssembly())
 
             Return My.Resources.AppSmallIcon  '  oResourceManager.GetObject("Kaluz_LogoIconSmall")
 
@@ -3714,7 +3714,7 @@ Friend Class CApplication
 
     Public Shared Sub SetSapConnectionStatus(ByVal value As ToolStripLabel)
 
-        Dim oResourceManager As New ResourceManager("Atlas_Pavco.Resources", Assembly.GetExecutingAssembly())
+        Dim oResourceManager As New ResourceManager("IDPProjectManagement.Resources", Assembly.GetExecutingAssembly())
 
         If CApplication.save_to_sap Then value.ToolTipText = "Comunicación con Sap Habilitada" Else value.ToolTipText = "Comunicación con Sap No Habilitada"
 

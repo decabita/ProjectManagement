@@ -79,7 +79,7 @@ Public Class CMenuControllerOC
 
                             Dim oMDIMainContainer As New MDIMainContainer()
 
-                            Dim oType As Type = Assembly.GetExecutingAssembly().GetType("Atlas_Pavco." & sender.object_id)
+                            Dim oType As Type = Assembly.GetExecutingAssembly().GetType("IDPProjectManagement." & sender.object_id)
 
                             If oType IsNot Nothing Then oRetForm = Activator.CreateInstance(oType)
 

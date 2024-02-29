@@ -78,13 +78,25 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Classes\testClass.vb" />
-    <Compile Include="Forms\FCatalogFormTemplate.Designer.vb">
-      <DependentUpon>FCatalogFormTemplate.vb</DependentUpon>
+    <Compile Include="Forms\FClientes\FClientes.Designer.vb">
+      <DependentUpon>FClientes.vb</DependentUpon>
     </Compile>
-    <Compile Include="Forms\FCatalogFormTemplate.Properties.vb">
+    <Compile Include="Forms\FClientes\FClientes.Methods.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\FCatalogFormTemplate.vb">
+    <Compile Include="Forms\FClientes\FClientes.Properties.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\FClientes\FClientes.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="System\0 Flow\00\FCatalogFormTemplate\FCatalogFormTemplate.Designer.vb">
+      <DependentUpon>FCatalogFormTemplate.vb</DependentUpon>
+    </Compile>
+    <Compile Include="System\0 Flow\00\FCatalogFormTemplate\FCatalogFormTemplate.Properties.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="System\0 Flow\00\FCatalogFormTemplate\FCatalogFormTemplate.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Forms\FCentrosTrabajo\FCentrosTrabajo.Designer.vb">
@@ -121,7 +133,9 @@
     <Compile Include="System\Classes\CUserProfileObjects.vb" />
     <Compile Include="System\Classes\CUsers.vb" />
     <Compile Include="System\Classes\CustomException.vb" />
-    <Compile Include="System\Classes\CWorkCenter_.vb" />
+    <Compile Include="System\Classes\FormClasses\CClienteAreas.vb" />
+    <Compile Include="System\Classes\FormClasses\CCustomers.vb" />
+    <Compile Include="System\Classes\FormClasses\CWorkCenter_.vb" />
     <Compile Include="System\Classes\LocalExceptions.vb" />
     <Compile Include="System\DataBase\CDataBase.vb" />
     <Compile Include="System\DataBase\CSQLServer.vb" />
@@ -219,6 +233,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Forms\FCentrosTrabajo\FCentrosTrabajo.resx">
       <DependentUpon>FCentrosTrabajo.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\FClientes\FClientes.resx">
+      <DependentUpon>FClientes.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\FProjects\FProjects.resx">
       <DependentUpon>FProjects.vb</DependentUpon>

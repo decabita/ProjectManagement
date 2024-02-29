@@ -1,5 +1,15 @@
 ﻿Partial Public Class FCentrosTrabajo
 
+    Private _oCWorkCenter As New CWorkCenter_
+    Public Property oCWorkCenter() As CWorkCenter_
+        Get
+            Return _oCWorkCenter
+        End Get
+        Set(ByVal value As CWorkCenter_)
+            _oCWorkCenter = value
+        End Set
+    End Property
+
     Private _id As String = String.Empty
     Public Property id() As String
         Get

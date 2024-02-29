@@ -2,12 +2,6 @@
 
 Public Class CWorkCenter_
 
-    'Enum SPCommand
-
-    '    QueryById = 6
-
-    'End Enum
-
     Enum SPCommand
         None = 0
         QueryAll = 1
@@ -94,17 +88,6 @@ Public Class CWorkCenter_
 
     Private _planta_id As String
 
-    Public Sub New()
-        With Me
-            .id = -1
-            .guid = String.Empty
-            .nombre = String.Empty
-            .nombre_corto = String.Empty
-            .descripcion = String.Empty
-            .is_active = False
-        End With
-    End Sub
-
     Public Property planta_id() As String
         Get
             Return _planta_id
@@ -113,50 +96,66 @@ Public Class CWorkCenter_
             _planta_id = value
         End Set
     End Property
+    Public Sub New()
+
+        Initialize()
+
+    End Sub
+
+    Private Sub Initialize()
+
+        With Me
+            .id = -1
+            .guid = String.Empty
+            .nombre = String.Empty
+            .nombre_corto = String.Empty
+            .descripcion = String.Empty
+            .is_active = False
+        End With
+
+    End Sub
 
     Friend Function IsValidWorkCenterData() As Boolean
 
-        Dim CWorkCenter_ = GetWorkCenterClass()
+        Dim CWorkCenter_ = GetClassData()
 
-        Return (CWorkCenter_.guid.Length > 0)
+        Return (Me.guid.Length > 0)
 
     End Function
 
-    Friend Function GetWorkCenterClass() As CWorkCenter_
-
-        Dim oDataSet As DataSet
-        Dim oSqlCommand As SqlCommand
-        Dim oResponse As New SqlParameter
-
-        oDataSet = New DataSet
-        oSqlCommand = New SqlCommand("dbo.ASP_PROCESS_WORK_CENTER")
-        oSqlCommand.CommandType = CommandType.StoredProcedure
+    Friend Function GetClassData() As CWorkCenter_
 
         Try
 
-            oSqlCommand.Parameters.Add("@id", SqlDbType.NVarChar).Value = CApplicationController.oCWorkCenter_.id
+            Using oDataSet As New DataSet
 
-            oSqlCommand.Parameters.Add("@command", SqlDbType.Int).Value = SPCommand.QueryById
+                    Using oSqlCommand As New SqlCommand("dbo.ASP_PROCESS_WORK_CENTER")
 
-            oResponse = oSqlCommand.Parameters.Add("@response", SqlDbType.Int)
-            oResponse.Direction = ParameterDirection.Output
+                        oSqlCommand.CommandType = CommandType.StoredProcedure
+                        oSqlCommand.Parameters.Add("@id", SqlDbType.NVarChar).Value = CApplicationController.oCWorkCenter_.id
+                        oSqlCommand.Parameters.Add("@command", SqlDbType.Int).Value = SPCommand.QueryById
+                        oSqlCommand.Connection = CApplicationController.oCDataBase.GetSQLConnection()
 
-            oSqlCommand.Connection = CApplicationController.oCDataBase.GetSQLConnection()
+                        Dim oSqlParameterResponse = oSqlCommand.Parameters.Add("@response", SqlDbType.Int)
+                        oSqlParameterResponse.Direction = ParameterDirection.Output
 
-            Dim oSqlDataAdapter As New SqlDataAdapter(oSqlCommand)
+                        Using oSqlDataAdapter As New SqlDataAdapter(oSqlCommand)
 
-            oSqlDataAdapter.Fill(oDataSet, "CTL_CentrosTrabajo")
+                            oSqlDataAdapter.Fill(oDataSet, "MainTable")
 
-            If Not CBool(CInt(oDataSet.Tables("CTL_CentrosTrabajo").Rows.Count)) Then Throw New CustomException("No hay información en la tabla Centros de Trabajo.")
+                            If Not CBool(CInt(oDataSet.Tables("MainTable").Rows.Count)) Then Throw New CustomException("No hay información en la tabla.")
 
-            With oDataSet.Tables("CTL_CentrosTrabajo").Rows(0)
-                Me.guid = .Item("guid")
-                Me.id = .Item("id")
-                Me.nombre_corto = .Item("nombre_corto").ToString.Trim
-                Me.nombre = .Item("nombre").ToString.Trim
-                Me.descripcion = .Item("descripcion").ToString.Trim
-                Me.is_active = .Item("is_active")
-            End With
+                            With oDataSet.Tables("MainTable").Rows(0)
+                                Me.guid = .Item("guid")
+                                Me.id = .Item("id")
+                                Me.nombre_corto = .Item("nombre_corto").ToString.Trim
+                                Me.nombre = .Item("nombre").ToString.Trim
+                                Me.descripcion = .Item("descripcion").ToString.Trim
+                                Me.is_active = .Item("is_active")
+                            End With
+                        End Using
+                    End Using
+                End Using
 
         Catch ex As CustomException
 
@@ -166,12 +165,6 @@ Public Class CWorkCenter_
         Catch ex As Exception
 
             MessageBox.Show(ex.Message, "Atención", MessageBoxButtons.OK, MessageBoxIcon.Error)
-
-        Finally
-
-            If Not oDataSet Is Nothing Then oDataSet.Dispose()
-
-            If Not oSqlCommand.Connection Is Nothing Then oSqlCommand.Connection.Close() : oSqlCommand.Dispose()
 
         End Try
 
@@ -188,7 +181,6 @@ Public Class CWorkCenter_
         oSqlCommand = New SqlCommand("dbo.[SP_GET_WORK_CENTER_COMBO]")
         oSqlCommand.CommandType = CommandType.StoredProcedure
         ' oSqlCommand.Parameters.Add("@planta_id", SqlDbType.NVarChar).Value = strPlanta.Trim
-
 
         Try
 
@@ -231,7 +223,6 @@ Public Class CWorkCenter_
                 .tClaveId.DataBindings.Add("text", .oBindingSource, "nombre_corto", True)
 
                 .tNombre.DataBindings.Add("text", .oBindingSource, "nombre", True)
-
 
                 .tDescripcion.DataBindings.Add("text", .oBindingSource, "descripcion", True).NullValue = CApplication.NotAssignedValue
 

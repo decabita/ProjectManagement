@@ -2,6 +2,20 @@
 
 Partial Public Class FCatalogFormTemplate
 
+    Enum CustomExceptionMessages
+
+        None = 0
+        QueryAll = 1
+        Add = 2
+        Update = 3
+        Save = 4
+        Delete = 5
+        CheckIfPartExists = 6
+        QueryFilter = 7
+        GetRelatedSpecs = 30
+
+    End Enum
+
     Private _oResponse As SqlParameter
     Public Property oResponse() As SqlParameter Implements IFormCommandRules.oResponse
         Get
@@ -285,6 +299,5 @@ Partial Public Class FCatalogFormTemplate
             _localFocusedObject = value
         End Set
     End Property
-
 
 End Class

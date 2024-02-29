@@ -4,16 +4,6 @@ Imports System.Reflection
 
 Partial Public Class FCentrosTrabajo
 
-    Private _oCWorkCenter As New CWorkCenter_
-    Public Property oCWorkCenter() As CWorkCenter_
-        Get
-            Return _oCWorkCenter
-        End Get
-        Set(ByVal value As CWorkCenter_)
-            _oCWorkCenter = value
-        End Set
-    End Property
-
     Public Sub New()
 
         ' This call is required by the Windows Form Designer.
@@ -45,7 +35,7 @@ Partial Public Class FCentrosTrabajo
 
         Catch ex As CustomException
 
-            Exit Function
+            MessageBox.Show(ex.Message, "Atención", MessageBoxButtons.OK, MessageBoxIcon.Error)
 
         End Try
 
@@ -55,41 +45,52 @@ Partial Public Class FCentrosTrabajo
 
     Protected Friend Overrides Function SetBindingSource(ByRef oBindingSourceDummy As BindingSource) As Boolean
 
-        Dim oResponse As New SqlParameter
-        Dim oSqlCommand As New SqlCommand("dbo.ASP_PROCESS_WORK_CENTER")
-
         Try
 
-            oSqlCommand.CommandType = CommandType.StoredProcedure
+            Using oConnection As SqlConnection = CApplicationController.oCDataBase.GetSQLConnection()
 
-            ' ----------------------
-            ' Parameter Assignation
-            ' ----------------------
-            With oSqlCommand.Parameters
+                Using oSqlCommand As New SqlCommand(Me.stored_procedure_name)
 
-                .Add("@id", SqlDbType.NVarChar).Value = CApplicationController.oCWorkCenter_.id
-                .Add("@command", SqlDbType.Int).Value = CWorkCenter_.SPCommand.QueryAll
+                    oSqlCommand.Connection = oConnection
 
-            End With
+                    If oSqlCommand.Connection Is Nothing Then Return SetBindingSource
 
-            oResponse = oSqlCommand.Parameters.Add("@response", SqlDbType.Int)
-            oResponse.Direction = ParameterDirection.Output
-            ' --------------------------------------------------------------------------
+                    oSqlCommand.CommandType = CommandType.StoredProcedure
 
-            oSqlCommand.Connection = CApplicationController.oCDataBase.GetSQLConnection
+                    ' ----------------------
+                    ' Parameter Assignation
+                    ' ----------------------
+                    With oSqlCommand.Parameters
 
-            If oSqlCommand.Connection Is Nothing Then Return SetBindingSource
+                        .Add("@id", SqlDbType.NVarChar).Value = CApplicationController.oCWorkCenter_.id
+                        .Add("@command", SqlDbType.Int).Value = CWorkCenter_.SPCommand.QueryAll
+                        .Add("@response", SqlDbType.Int).Direction = ParameterDirection.Output
 
-            oSqlDataAdapter = New SqlDataAdapter(oSqlCommand)
-            oSqlDataAdapter.Fill(oDataSet, "BindDataSet")
+                    End With
 
-            If Not CBool(CInt(oDataSet.Tables("BindDataSet").Rows.Count)) Then Throw New CustomException("No existen valores en la tabla.")
 
-            oBindingSourceDummy = New BindingSource
-            oBindingSourceDummy.DataSource = oDataSet
-            oBindingSourceDummy.DataMember = "BindDataSet"
+                    Using oSqlDataAdapter As New SqlDataAdapter(oSqlCommand)
 
-            SetBindingSource = True
+                        Using oDataSet As New DataSet
+
+                            oSqlDataAdapter.Fill(oDataSet, "BindDataSet")
+
+                            If Not CBool(CInt(oDataSet.Tables("BindDataSet").Rows.Count)) Then Throw New CustomException("No existen valores en la tabla.")
+
+                            oBindingSourceDummy = New BindingSource
+                            oBindingSourceDummy.DataSource = oDataSet
+                            oBindingSourceDummy.DataMember = "BindDataSet"
+
+                            SetBindingSource = True
+
+                        End Using
+
+                    End Using
+
+                End Using
+
+            End Using
+
 
         Catch ex As CustomException
 
@@ -98,10 +99,6 @@ Partial Public Class FCentrosTrabajo
         Catch ex As Exception
 
             MessageBox.Show(ex.Message, "Atención", MessageBoxButtons.OK, MessageBoxIcon.Error)
-
-        Finally
-
-            If Not oSqlCommand.Connection Is Nothing Then oSqlCommand.Connection.Close() : oSqlCommand.Dispose()
 
         End Try
 
@@ -300,12 +297,9 @@ Partial Public Class FCentrosTrabajo
                 '-------------------------------------------------
                 ' Field Assignment-Validation.
                 '-------------------------------------------------
-                .id = CApplicationController.oCWorkCenter_.id
+                '.id = CApplicationController.oCWorkCenter_.id
 
-                .guid = CApplicationController.oCWorkCenter_.guid
-
-                If (CApplication.CheckRequiredFields(.tGuid)) Then .guid = tGuid.Text.Trim Else Throw New CustomException
-
+                '.guid = CApplicationController.oCWorkCenter_.guid
 
                 If (CApplication.CheckRequiredFields(.tClaveId)) Then .nombre_corto = tClaveId.Text.Trim Else Throw New CustomException
 

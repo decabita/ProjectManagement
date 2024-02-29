@@ -55,7 +55,7 @@ Public Class FAdministrationMenu
         Dim oMDIMainContainer As New MDIMainContainer()
 
         ' Retrieve form object from application into type.
-        Dim oType As Type = Assembly.GetExecutingAssembly().GetType("Atlas_Pavco.FRacks")
+        Dim oType As Type = Assembly.GetExecutingAssembly().GetType("IDPProjectManagement.FRacks")
 
         Try
 
@@ -96,7 +96,7 @@ Public Class FAdministrationMenu
         Dim oMDIMainContainer As New MDIMainContainer()
 
         ' Retrieve form object from application into type.
-        Dim oType As Type = Assembly.GetExecutingAssembly().GetType("Atlas_Pavco.FMaquinaria")
+        Dim oType As Type = Assembly.GetExecutingAssembly().GetType("IDPProjectManagement.FMaquinaria")
 
         Try
 
@@ -143,7 +143,7 @@ Public Class FAdministrationMenu
         Dim oMDIMainContainer As New MDIMainContainer()
 
         ' Retrieve form object from application into type.
-        Dim oType As Type = Assembly.GetExecutingAssembly().GetType("Atlas_Pavco.FFamiliasProducto")
+        Dim oType As Type = Assembly.GetExecutingAssembly().GetType("IDPProjectManagement.FFamiliasProducto")
 
         Try
 
@@ -364,7 +364,7 @@ Public Class FAdministrationMenu
         Dim oMDIMainContainer As New MDIMainContainer()
 
         ' Retrieve form object from application into type.
-        Dim oType As Type = Assembly.GetExecutingAssembly().GetType("Atlas_Pavco.FCentroCostos")
+        Dim oType As Type = Assembly.GetExecutingAssembly().GetType("IDPProjectManagement.FCentroCostos")
 
         Try
 
@@ -407,7 +407,7 @@ Public Class FAdministrationMenu
         Dim oMDIMainContainer As New MDIMainContainer()
 
         ' Retrieve form object from application into type.
-        Dim oType As Type = Assembly.GetExecutingAssembly().GetType("Atlas_Pavco.FMarcas")
+        Dim oType As Type = Assembly.GetExecutingAssembly().GetType("IDPProjectManagement.FMarcas")
 
         Try
 
@@ -451,7 +451,7 @@ Public Class FAdministrationMenu
         Dim oMDIMainContainer As New MDIMainContainer()
 
         ' Retrieve form object from application into type.
-        Dim oType As Type = Assembly.GetExecutingAssembly().GetType("Atlas_Pavco.FCelulas")
+        Dim oType As Type = Assembly.GetExecutingAssembly().GetType("IDPProjectManagement.FCelulas")
 
         Try
 
@@ -494,7 +494,7 @@ Public Class FAdministrationMenu
         Dim oMDIMainContainer As New MDIMainContainer()
 
         ' Retrieve form object from application into type.
-        Dim oType As Type = Assembly.GetExecutingAssembly().GetType("Atlas_Pavco.FMaquinaria")
+        Dim oType As Type = Assembly.GetExecutingAssembly().GetType("IDPProjectManagement.FMaquinaria")
 
         Try
 
@@ -537,7 +537,7 @@ Public Class FAdministrationMenu
         Dim oMDIMainContainer As New MDIMainContainer()
 
         ' Retrieve form object from application into type.
-        Dim oType As Type = Assembly.GetExecutingAssembly().GetType("Atlas_Pavco.FMoldes")
+        Dim oType As Type = Assembly.GetExecutingAssembly().GetType("IDPProjectManagement.FMoldes")
 
         Try
 
@@ -579,7 +579,7 @@ Public Class FAdministrationMenu
         Dim oMDIMainContainer As New MDIMainContainer()
 
         ' Retrieve form object from application into type.
-        Dim oType As Type = Assembly.GetExecutingAssembly().GetType("Atlas_Pavco.FLineasProduccion")
+        Dim oType As Type = Assembly.GetExecutingAssembly().GetType("IDPProjectManagement.FLineasProduccion")
 
         Try
 

@@ -86,7 +86,7 @@ Public Class CMenuController_
                             Dim oMDIMainContainer As New MDIMainContainer()
 
                             ' Retrieve form object from application into type.
-                            Dim oType As Type = Assembly.GetExecutingAssembly().GetType("Atlas_Pavco." & sender.object_id)
+                            Dim oType As Type = Assembly.GetExecutingAssembly().GetType("IDPProjectManagement." & sender.object_id)
 
 
                             ' Create form instance from application from type.

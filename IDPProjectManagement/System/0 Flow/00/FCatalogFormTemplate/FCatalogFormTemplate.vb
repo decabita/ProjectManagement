@@ -1,23 +1,20 @@
-﻿
-Imports System.Reflection
+﻿Imports System.Reflection
+Imports IDPProjectManagement
 
 Public Class FCatalogFormTemplate
-    Inherits System.Windows.Forms.Form
     Implements IFormCommandRules
 
     Friend WithEvents BackgroundWorkerTemplate As System.ComponentModel.BackgroundWorker
 
-    Public Delegate Function DoWorkDelegate(ByVal strSomeString As String) As Boolean
-
-
     Public Sub New()
 
-        ' This call is required by the Windows Form Designer.
+        ' This call is required by the designer.
         InitializeComponent()
 
         ' Add any initialization after the InitializeComponent() call.
+        Me.BackgroundWorkerTemplate = New System.ComponentModel.BackgroundWorker()
 
-        'CApplication.SetFormFormat(Me)
+        'Call CApplication.SetFormFormat(Me)
 
         Me.oCFormController = New CFormController_
         Me.oCFormController.parent_form = Me
@@ -28,195 +25,24 @@ Public Class FCatalogFormTemplate
 
     End Sub
 
-    Sub InitializeComponent()
-        Me.BackgroundWorkerTemplate = New System.ComponentModel.BackgroundWorker()
-        Me.SuspendLayout()
-        '
-        'BackgroundWorkerTemplate
-        '
-        '
-        'FCatalogFormTemplate
-        '
-        Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None
-        Me.ClientSize = New System.Drawing.Size(800, 572)
-        Me.ControlBox = False
-        Me.MaximizeBox = False
-        Me.MinimizeBox = False
-        Me.Name = "FCatalogFormTemplate"
-        Me.ShowIcon = False
-        Me.ShowInTaskbar = False
+    Public Delegate Function DoWorkDelegate(ByVal strSomeString As String) As Boolean
 
 
-    End Sub
-
-    Protected Friend Overridable Function CommandExit() As Boolean Implements IFormCommandRules.CommandExit
-
-        DirectCast(Me.ParentForm, MDIMainContainer).Dispose()
-
-    End Function
-
-    Protected Friend Overridable Function CommandFind() As Boolean Implements IFormCommandRules.CommandFind
-
-        Call ClearControlsBinding()
-        Call Me.SetToolBarConfiguration(CApplication.ControlState.Find)
-
-    End Function
-
-    Protected Friend Overridable Function CommandQueryFind() As Boolean Implements IFormCommandRules.CommandQueryFind
-
-    End Function
-
-    Protected Friend Overridable Function CommandCancel() As Boolean Implements IFormCommandRules.CommandCancel
-
-        Select Case Me.view_mode
-
-            Case CApplication.ViewMode.SingleView
-
-                If Me.form_state.Equals(CApplication.ControlState.Add) Then
-
-                    Me.oBindingSource.CancelEdit()
-
-                    ' TODO REVIEW
-                    'If Not CBool(CInt(IIf(Me.localBindingNavigator.BindingSource Is Nothing, 0, Me.localBindingNavigator.BindingSource.Count))) Then CApplication.ClearControlsOnAddState(Me)
-
-                    ' If Not (IIf(Me.localBindingNavigator.BindingSource Is Nothing, 0, Me.localBindingNavigator.BindingSource.Count)) > 0 Then CApplication.ClearControlsOnAddState(Me)
-
-                    If Not Me.localBindingNavigator.BindingSource Is Nothing Then
-
-                        CApplication.ClearControlsOnAddState(Me)
-
-                    End If
-
-                    '-----------------------------------
-
-                    Call Me.CommandQuery()
-
-                ElseIf Me.form_state.Equals(CApplication.ControlState.Find) Then
-
-                    Me.oBindingSource.CancelEdit()
-
-                    Call Me.CommandQuery()
-
-                ElseIf Me.form_state.Equals(CApplication.ControlState.Edit) Then
-
-                    Me.oBindingSource.CancelEdit()
-
-                End If
-
-        End Select
-
-        Call Me.SetToolBarConfiguration(CApplication.ControlState.InitState)
-
-    End Function
-
-    Protected Friend Overridable Function ClearControlsBinding() As Boolean Implements IFormCommandRules.ClearControlsBinding
-
-        Try
-
-            ' -------------------------------------------
-            ' Clear Binding.
-            ' -------------------------------------------
-            Call CApplication.ClearControlBinding(Me)
-
-            Me.oDataSet = New DataSet
-
-            If Not Me.oCollectionBSourceCombo Is Nothing Then Me.oCollectionBSourceCombo.Clear()
-
-            Return True
-
-        Catch ex As Exception
-
-            MessageBox.Show(ex.Message, "Atención", MessageBoxButtons.OK, MessageBoxIcon.Error)
-
-        End Try
-
-    End Function
-
-    Protected Friend Overridable Function CommandNew() As Boolean Implements IFormCommandRules.CommandNew
-
-        ' Establece el formato de la barra de comandos.
-        Call ClearControlsBinding()
-        Call Me.SetToolBarConfiguration(CApplication.ControlState.Add)
-        Call Me.SetControlsBindingOnNew()
-    End Function
-
-    Protected Friend Overridable Sub CommandClose(ByVal sender As Object, ByVal e As System.Windows.Forms.KeyPressEventArgs) Implements IFormCommandRules.CommandClose
+    Protected Friend Overridable Sub CommandClose(sender As Object, e As KeyPressEventArgs) Implements IFormCommandRules.CommandClose
 
         If Asc(e.KeyChar) = Keys.Escape Then Me.Dispose()
 
     End Sub
 
-    Protected Friend Overridable Function CommandQuery() As Boolean Implements IFormCommandRules.CommandQuery
+    Protected Friend Overridable Sub SetControlPropertiesFormat() Implements IFormCommandRules.SetControlPropertiesFormat
+        Throw New NotImplementedException()
+    End Sub
 
-    End Function
+    Protected Friend Overridable Sub SetGridPropertiesFormat() Implements IFormCommandRules.SetGridPropertiesFormat
+        Throw New NotImplementedException()
+    End Sub
 
-    Public Overridable Function CommandSendToExcel() As Boolean Implements IFormCommandRules.CommandSendToExcel
-
-        'Dim oCReportingServices As New CReportingServices
-
-        'With oCReportingServices
-
-        '    .SheetTitle = Me.Text
-        '    .ParentTableName = Me.parent_table_name
-        '    .DataRelationName = Me.data_relation_name
-        '    .DataGridViewParent = Me.localDatagridView
-        '    .oFormController = Me.oCFormController
-        '    .oDataSetParent = Me.oDataSet
-        '    .SendToExcelService()
-
-        'End With
-
-    End Function
-
-    Protected Friend Overridable Function CommandDirectAccess() As Boolean Implements IFormCommandRules.CommandDirectAccess
-
-    End Function
-
-    Protected Friend Overridable Function CommandEdit() As Boolean Implements IFormCommandRules.CommandEdit
-
-        Try
-
-            If Not CBool(Me.localDatagridView.CurrentRow.Cells("is_active").Value) Then MessageBox.Show("El registro no está Activo.", "Atención", MessageBoxButtons.OK, MessageBoxIcon.Information) : Exit Function
-
-            ' Establece el formato de la barra de comandos.
-            Call Me.SetToolBarConfiguration(CApplication.ControlState.Edit)
-
-        Catch ex As Exception
-
-            MessageBox.Show(ex.Message, "Atención", MessageBoxButtons.OK, MessageBoxIcon.Error)
-
-        End Try
-
-    End Function
-    Protected Friend Overridable Function CommandDelete() As Boolean Implements IFormCommandRules.CommandDelete
-
-    End Function
-
-    Protected Friend Overridable Function CommandSave() As Boolean Implements IFormCommandRules.CommandSave
-
-    End Function
-
-    Protected Friend Function CommandUpdate() As Boolean Implements IFormCommandRules.CommandUpdate
-
-    End Function
-
-    Protected Friend Overridable Function SetBindingSource() As Boolean Implements IFormCommandRules.SetBindingSource
-
-    End Function
-
-    Protected Friend Overridable Function SetBindingSourceFilter() As Boolean Implements IFormCommandRules.SetBindingSourceFilter
-
-    End Function
-
-    Protected Friend Overridable Function SetControlsBinding() As Boolean Implements IFormCommandRules.SetControlsBinding
-
-    End Function
-
-    Protected Friend Overridable Function SetControlsBindingOnNew() As Boolean Implements IFormCommandRules.SetControlsBindingOnNew
-
-    End Function
-
-    Protected Friend Overridable Sub SetToolBarConfiguration(ByVal State As Integer) Implements IFormCommandRules.SetToolBarConfiguration
+    Public Sub SetToolBarConfiguration(State As Integer) Implements IFormCommandRules.SetToolBarConfiguration
 
         Dim enableControls As Boolean = False
 
@@ -282,7 +108,7 @@ Public Class FCatalogFormTemplate
                             .TSBQuery.Enabled = True
                             .TSBFind.Enabled = True
                             .TSBNew.Enabled = True
-                            .TSBExportToExcel.Enabled = True
+                            .TSBExportToExcel.Enabled = False 'Restore when implemented True
                             .TSBEdit.Enabled = True
                             .TSBDelete.Enabled = True
 
@@ -395,7 +221,7 @@ Public Class FCatalogFormTemplate
                             .TSBQuery.Enabled = True
                             .TSBFind.Enabled = True
                             .TSBNew.Enabled = True
-                            .TSBExportToExcel.Enabled = True
+                            .TSBExportToExcel.Enabled = False 'Restore when implemented True
                             .TSBEdit.Enabled = True
                             .TSBDelete.Enabled = True
                         End With
@@ -561,7 +387,8 @@ Public Class FCatalogFormTemplate
                 '    item.Enabled = False
                 'Next
 
-                Me.localObjectKey.Focus()
+                Me.localObjectKey.Enabled = False
+                Me.localFocusedObject.Focus()
 
                 '---------------------------------------------------------
                 ' When Press Edit Command Button Or Enter Edit Mode. 
@@ -688,291 +515,158 @@ Public Class FCatalogFormTemplate
 
     End Sub
 
-    'Protected Friend Overridable Sub SetToolBarConfiguration2(ByVal State As Integer)
+    Protected Friend Overridable Function CommandSave() As Boolean Implements IFormCommandRules.CommandSave
+        Throw New NotImplementedException()
+    End Function
 
-    '    Dim enableControls As Boolean = False
+    Protected Friend Overridable Function CommandNew() As Boolean Implements IFormCommandRules.CommandNew
+        ' Establece el formato de la barra de comandos.
+        Call ClearControlsBinding()
+        Call Me.SetToolBarConfiguration(CApplication.ControlState.Add)
+        Call Me.SetControlsBindingOnNew()
 
-    '    Select Case State
+        Return True
 
-    '        ' Initial State On ToolBar Strip.
-    '        Case CApplication.ControlState.None
+    End Function
 
-    '            Me.form_state = CApplication.ControlState.None
+    Protected Friend Overridable Function CommandDelete() As Boolean Implements IFormCommandRules.CommandDelete
+        Throw New NotImplementedException()
+    End Function
 
-    '            CApplication.EnableControls(Me, False)
+    Protected Friend Overridable Function CommandUpdate() As Boolean Implements IFormCommandRules.CommandUpdate
+        Throw New NotImplementedException()
+    End Function
 
-    '            DirectCast(Me.ParentForm, MDIMainContainer).TSBQuery.Enabled = False
-    '            DirectCast(Me.ParentForm, MDIMainContainer).TSBExportToExcel.Enabled = False
-    '            DirectCast(Me.ParentForm, MDIMainContainer).TSBNew.Enabled = False
-    '            DirectCast(Me.ParentForm, MDIMainContainer).TSBSave.Enabled = False
-    '            DirectCast(Me.ParentForm, MDIMainContainer).TSBEdit.Enabled = False
-    '            DirectCast(Me.ParentForm, MDIMainContainer).TSBCancel.Enabled = False
-    '            DirectCast(Me.ParentForm, MDIMainContainer).TSBDelete.Enabled = False
-    '            DirectCast(Me.ParentForm, MDIMainContainer).TSBExit.Enabled = True
-    '            DirectCast(Me.ParentForm, MDIMainContainer).TSBDirectAccess.Enabled = False
-    '            DirectCast(Me.ParentForm, MDIMainContainer).TSBFind.Enabled = False
-    '            DirectCast(Me.ParentForm, MDIMainContainer).TSBExecFind.Enabled = False
+    Protected Friend Overridable Function CommandEdit() As Boolean Implements IFormCommandRules.CommandEdit
 
-    '            Me.localBindingNavigator.Enabled = False
-    '            If Not Me.localDatagridView Is Nothing Then Me.localDatagridView.Enabled = False
+        Try
 
-    '            ' If there are records.
-    '            Select Case IIf(Me.oBindingSource.Count <= 0, 0, 1)
+            If Not CBool(Me.localDatagridView.CurrentRow.Cells("is_active").Value) Then MessageBox.Show("El registro no está Activo.", "Atención", MessageBoxButtons.OK, MessageBoxIcon.Information) : Exit Function
 
-    '                Case Is > 0
+            ' Establece el formato de la barra de comandos.
+            Call Me.SetToolBarConfiguration(CApplication.ControlState.Edit)
 
-    '                    DirectCast(Me.ParentForm, MDIMainContainer).TSBQuery.Enabled = True
-    '                    DirectCast(Me.ParentForm, MDIMainContainer).TSBFind.Enabled = True
-    '                    DirectCast(Me.ParentForm, MDIMainContainer).TSBNew.Enabled = True
-    '                    DirectCast(Me.ParentForm, MDIMainContainer).TSBExportToExcel.Enabled = True
-    '                    DirectCast(Me.ParentForm, MDIMainContainer).TSBEdit.Enabled = True
-    '                    DirectCast(Me.ParentForm, MDIMainContainer).TSBDelete.Enabled = True
+        Catch ex As Exception
 
-    '                    Me.localBindingNavigator.Enabled = True
-    '                    Me.localDatagridView.Enabled = True
-    '                    Me.localBindingNavigator.Refresh()
+            MessageBox.Show(ex.Message, "Atención", MessageBoxButtons.OK, MessageBoxIcon.Error)
 
-    '                    enableControls = True
+        End Try
 
-    '                Case Else
+    End Function
 
-    '                    DirectCast(Me.ParentForm, MDIMainContainer).TSBNew.Enabled = True
+    Protected Friend Overridable Function CommandCancel() As Boolean Implements IFormCommandRules.CommandCancel
 
-    '                    Me.localBindingNavigator.Enabled = False
-    '                    Me.localDatagridView.Enabled = False
+        Select Case Me.view_mode
 
-    '                    enableControls = False
+            Case CApplication.ViewMode.SingleView
 
-    '            End Select
+                If Me.form_state.Equals(CApplication.ControlState.Add) Then
 
-    '            For Each item As ToolStripItem In Me.localTSDownDirectAccess.Items
-    '                item.Enabled = enableControls
-    '            Next item
+                    Me.oBindingSource.CancelEdit()
 
-    '            Me.localFocusedObject.Focus()
+                    ' TODO REVIEW
+                    'If Not CBool(CInt(IIf(Me.localBindingNavigator.BindingSource Is Nothing, 0, Me.localBindingNavigator.BindingSource.Count))) Then CApplication.ClearControlsOnAddState(Me)
 
-    '            ' Initial State On ToolBar Strip.
-    '        Case CApplication.ControlState.InitState
+                    ' If Not (IIf(Me.localBindingNavigator.BindingSource Is Nothing, 0, Me.localBindingNavigator.BindingSource.Count)) > 0 Then CApplication.ClearControlsOnAddState(Me)
 
-    '            Me.form_state = CApplication.ControlState.InitState
+                    If Not Me.localBindingNavigator.BindingSource Is Nothing Then
 
-    '            Call CApplication.EnableControls(Me, False)
+                        CApplication.ClearControlsOnAddState(Me)
 
-    '            DirectCast(Me.ParentForm, MDIMainContainer).TSBQuery.Enabled = False
-    '            DirectCast(Me.ParentForm, MDIMainContainer).TSBExportToExcel.Enabled = False
-    '            DirectCast(Me.ParentForm, MDIMainContainer).TSBNew.Enabled = False
-    '            DirectCast(Me.ParentForm, MDIMainContainer).TSBSave.Enabled = False
-    '            DirectCast(Me.ParentForm, MDIMainContainer).TSBEdit.Enabled = False
-    '            DirectCast(Me.ParentForm, MDIMainContainer).TSBCancel.Enabled = False
-    '            DirectCast(Me.ParentForm, MDIMainContainer).TSBDelete.Enabled = False
-    '            DirectCast(Me.ParentForm, MDIMainContainer).TSBExit.Enabled = True
-    '            DirectCast(Me.ParentForm, MDIMainContainer).TSBDirectAccess.Enabled = False
-    '            DirectCast(Me.ParentForm, MDIMainContainer).TSBFind.Enabled = False
-    '            DirectCast(Me.ParentForm, MDIMainContainer).TSBExecFind.Enabled = False
+                    End If
 
-    '            Me.localBindingNavigator.Enabled = False
-    '            If Not Me.localDatagridView Is Nothing Then Me.localDatagridView.Enabled = False
+                    '-----------------------------------
 
-    '            ' If there are records.
-    '            Select Case IIf(Me.oBindingSource.Count <= 0, 0, 1)
+                    Call Me.CommandQuery()
 
-    '                Case Is > 0
+                ElseIf Me.form_state.Equals(CApplication.ControlState.Find) Then
 
-    '                    DirectCast(Me.ParentForm, MDIMainContainer).TSBQuery.Enabled = True
-    '                    DirectCast(Me.ParentForm, MDIMainContainer).TSBFind.Enabled = True
-    '                    DirectCast(Me.ParentForm, MDIMainContainer).TSBNew.Enabled = True
-    '                    DirectCast(Me.ParentForm, MDIMainContainer).TSBExportToExcel.Enabled = True
-    '                    DirectCast(Me.ParentForm, MDIMainContainer).TSBEdit.Enabled = True
-    '                    DirectCast(Me.ParentForm, MDIMainContainer).TSBDelete.Enabled = True
+                    Me.oBindingSource.CancelEdit()
 
-    '                    Me.localBindingNavigator.Enabled = True
-    '                    If Not Me.localDatagridView Is Nothing Then Me.localDatagridView.Enabled = True
-    '                    Me.localBindingNavigator.Refresh()
+                    Call Me.CommandQuery()
 
-    '                    enableControls = True
+                ElseIf Me.form_state.Equals(CApplication.ControlState.Edit) Then
 
-    '                Case Else
+                    Me.oBindingSource.CancelEdit()
 
-    '                    DirectCast(Me.ParentForm, MDIMainContainer).TSBNew.Enabled = True
+                End If
 
-    '                    Me.localBindingNavigator.Enabled = False
-    '                    If Not Me.localDatagridView Is Nothing Then Me.localDatagridView.Enabled = False
+        End Select
 
-    '                    enableControls = False
+        Call Me.SetToolBarConfiguration(CApplication.ControlState.InitState)
 
-    '            End Select
+    End Function
 
-    '            For Each item As ToolStripItem In Me.localTSDownDirectAccess.Items
-    '                item.Enabled = enableControls
-    '            Next item
+    Protected Friend Overridable Function CommandQuery() As Boolean Implements IFormCommandRules.CommandQuery
+        Throw New NotImplementedException()
+    End Function
 
-    '            If Not Me.localDatagridView Is Nothing Then Me.localDatagridView.Focus()
+    Protected Friend Overridable Function CommandFind() As Boolean Implements IFormCommandRules.CommandFind
+        Call ClearControlsBinding()
+        Call Me.SetToolBarConfiguration(CApplication.ControlState.Find)
 
-    '            '---------------------------------------------------------
-    '            ' When Press Query Command Button. 
-    '            '---------------------------------------------------------
-    '        Case CApplication.ControlState.Query
+    End Function
 
-    '            Me.form_state = CApplication.ControlState.Query
+    Protected Friend Overridable Function CommandQueryFind() As Boolean Implements IFormCommandRules.CommandQueryFind
+        Throw New NotImplementedException()
+    End Function
 
-    '            CApplication.EnableControls(Me, False)
-    '            CApplication.ClearControls(Me)
+    Protected Friend Overridable Function CommandExit() As Boolean Implements IFormCommandRules.CommandExit
 
-    '            DirectCast(Me.ParentForm, MDIMainContainer).TSBQuery.Enabled = False
-    '            DirectCast(Me.ParentForm, MDIMainContainer).TSBExportToExcel.Enabled = False
-    '            DirectCast(Me.ParentForm, MDIMainContainer).TSBNew.Enabled = False
-    '            DirectCast(Me.ParentForm, MDIMainContainer).TSBEdit.Enabled = False
-    '            DirectCast(Me.ParentForm, MDIMainContainer).TSBSave.Enabled = False
-    '            DirectCast(Me.ParentForm, MDIMainContainer).TSBDelete.Enabled = False
-    '            DirectCast(Me.ParentForm, MDIMainContainer).TSBCancel.Enabled = False
-    '            DirectCast(Me.ParentForm, MDIMainContainer).TSBExit.Enabled = False
-    '            DirectCast(Me.ParentForm, MDIMainContainer).TSBDirectAccess.Enabled = False
-    '            DirectCast(Me.ParentForm, MDIMainContainer).TSBFind.Enabled = False
-    '            DirectCast(Me.ParentForm, MDIMainContainer).TSBExecFind.Enabled = False
+        DirectCast(Me.ParentForm, MDIMainContainer).Dispose()
 
-    '            Me.BindingNavigator.Enabled = False
-    '            If Not Me.localDatagridView Is Nothing Then Me.localDatagridView.Enabled = True
+    End Function
 
-    '            For Each item As ToolStripItem In Me.localTSDownDirectAccess.Items
-    '                item.Enabled = False
-    '            Next
+    Protected Friend Overridable Function CommandSendToExcel() As Boolean Implements IFormCommandRules.CommandSendToExcel
+        Throw New NotImplementedException()
+    End Function
 
-    '            '---------------------------------------------------------
-    '            ' When Press Add Command Button Or Enter Add Mode.
-    '            '---------------------------------------------------------
-    '        Case CApplication.ControlState.Add
+    Protected Friend Overridable Function CommandDirectAccess() As Boolean Implements IFormCommandRules.CommandDirectAccess
+        Throw New NotImplementedException()
+    End Function
 
-    '            Me.form_state = CApplication.ControlState.Add
+    Protected Friend Overridable Function SetControlsBinding() As Boolean Implements IFormCommandRules.SetControlsBinding
+        Throw New NotImplementedException()
+    End Function
 
-    '            CApplication.EnableControls(Me, True)
-    '            CApplication.ClearControls(Me)
+    Protected Friend Overridable Function SetControlsBindingOnNew() As Boolean Implements IFormCommandRules.SetControlsBindingOnNew
+        Throw New NotImplementedException()
+    End Function
 
-    '            DirectCast(Me.ParentForm, MDIMainContainer).TSBQuery.Enabled = False
-    '            DirectCast(Me.ParentForm, MDIMainContainer).TSBExportToExcel.Enabled = False
-    '            DirectCast(Me.ParentForm, MDIMainContainer).TSBNew.Enabled = False
-    '            DirectCast(Me.ParentForm, MDIMainContainer).TSBEdit.Enabled = False
-    '            DirectCast(Me.ParentForm, MDIMainContainer).TSBSave.Enabled = True
-    '            DirectCast(Me.ParentForm, MDIMainContainer).TSBDelete.Enabled = False
-    '            DirectCast(Me.ParentForm, MDIMainContainer).TSBCancel.Enabled = True
-    '            DirectCast(Me.ParentForm, MDIMainContainer).TSBExit.Enabled = True
-    '            DirectCast(Me.ParentForm, MDIMainContainer).TSBDirectAccess.Enabled = True
-    '            DirectCast(Me.ParentForm, MDIMainContainer).TSBFind.Enabled = False
-    '            DirectCast(Me.ParentForm, MDIMainContainer).TSBExecFind.Enabled = False
-
-    '            Me.localBindingNavigator.Enabled = False
-    '            If Not Me.localDatagridView Is Nothing Then Me.localDatagridView.Enabled = False
-
-    '            For Each item As ToolStripItem In Me.localTSDownDirectAccess.Items
-    '                item.Enabled = False
-    '            Next
+    Protected Friend Overridable Function ClearControlsBinding() As Boolean Implements IFormCommandRules.ClearControlsBinding
 
-    '            Me.localObjectKey.Focus()
+        Try
 
-    '            '---------------------------------------------------------
-    '            ' When Press Edit Command Button Or Enter Edit Mode. 
-    '            '---------------------------------------------------------
-    '        Case CApplication.ControlState.Edit
+            ' -------------------------------------------
+            ' Clear Binding.
+            ' -------------------------------------------
+            Call CApplication.ClearControlBinding(Me)
 
-    '            Me.form_state = CApplication.ControlState.Edit
+            Me.oDataSet = New DataSet
 
-    '            CApplication.EnableControls(Me, True)
+            If Not Me.oCollectionBSourceCombo Is Nothing Then Me.oCollectionBSourceCombo.Clear()
 
-    '            DirectCast(Me.ParentForm, MDIMainContainer).TSBQuery.Enabled = False
-    '            DirectCast(Me.ParentForm, MDIMainContainer).TSBExportToExcel.Enabled = False
-    '            DirectCast(Me.ParentForm, MDIMainContainer).TSBNew.Enabled = False
-    '            DirectCast(Me.ParentForm, MDIMainContainer).TSBEdit.Enabled = False
-    '            DirectCast(Me.ParentForm, MDIMainContainer).TSBSave.Enabled = True
-    '            DirectCast(Me.ParentForm, MDIMainContainer).TSBDelete.Enabled = False
-    '            DirectCast(Me.ParentForm, MDIMainContainer).TSBCancel.Enabled = True
-    '            DirectCast(Me.ParentForm, MDIMainContainer).TSBExit.Enabled = True
-    '            DirectCast(Me.ParentForm, MDIMainContainer).TSBFind.Enabled = False
-    '            DirectCast(Me.ParentForm, MDIMainContainer).TSBExecFind.Enabled = False
-    '            DirectCast(Me.ParentForm, MDIMainContainer).TSBDirectAccess.Enabled = True
+            Return True
 
-    '            Me.localObjectKey.Enabled = False
+        Catch ex As Exception
 
-    '            Me.localBindingNavigator.Enabled = False
-    '            If Not Me.localDatagridView Is Nothing Then Me.localDatagridView.Enabled = False
+            MessageBox.Show(ex.Message, "Atención", MessageBoxButtons.OK, MessageBoxIcon.Error)
 
-    '            For Each item As ToolStripItem In Me.localTSDownDirectAccess.Items
-    '                item.Enabled = False
-    '            Next item
+        End Try
 
-    '            Me.localFocusedObject.Focus()
+    End Function
 
-    '            '---------------------------------------------------------
-    '            ' When Press Filter Command Button Or Enter Filter Mode.
-    '            '---------------------------------------------------------
-    '        Case CApplication.ControlState.Find
+    Protected Friend Overridable Function SetBindingSource() As Boolean Implements IFormCommandRules.SetBindingSource
+        Throw New NotImplementedException()
+    End Function
 
-    '            Me.form_state = CApplication.ControlState.Find
+    Protected Friend Overridable Function SetBindingSource(ByRef oBindingSourceDummy As BindingSource) As Boolean Implements IFormCommandRules.SetBindingSource
+        Throw New NotImplementedException()
+    End Function
 
-    '            CApplication.EnableControls(Me, True)
-    '            CApplication.ClearControls(Me)
-
-    '            DirectCast(Me.ParentForm, MDIMainContainer).TSBQuery.Enabled = True
-    '            DirectCast(Me.ParentForm, MDIMainContainer).TSBExportToExcel.Enabled = False
-    '            DirectCast(Me.ParentForm, MDIMainContainer).TSBNew.Enabled = True
-    '            DirectCast(Me.ParentForm, MDIMainContainer).TSBEdit.Enabled = False
-    '            DirectCast(Me.ParentForm, MDIMainContainer).TSBSave.Enabled = False
-    '            DirectCast(Me.ParentForm, MDIMainContainer).TSBDelete.Enabled = False
-    '            DirectCast(Me.ParentForm, MDIMainContainer).TSBCancel.Enabled = False
-    '            DirectCast(Me.ParentForm, MDIMainContainer).TSBExit.Enabled = True
-    '            DirectCast(Me.ParentForm, MDIMainContainer).TSBDirectAccess.Enabled = False
-    '            DirectCast(Me.ParentForm, MDIMainContainer).TSBFind.Enabled = False
-    '            DirectCast(Me.ParentForm, MDIMainContainer).TSBExecFind.Enabled = True
-
-    '            Me.localBindingNavigator.Enabled = False
-    '            If Not Me.localDatagridView Is Nothing Then Me.localDatagridView.Enabled = False
-
-    '            For Each item As ToolStripItem In Me.localTSDownDirectAccess.Items
-    '                item.Enabled = False
-    '            Next
-
-    '            Me.localObjectKey.Focus()
-
-    '            '---------------------------------------------------------
-    '            ' When Press Exec Filter Command Button Or Enter Filter Mode.
-    '            '---------------------------------------------------------
-    '        Case CApplication.ControlState.ExecFind
-
-    '            Me.form_state = CApplication.ControlState.ExecFind
-
-    '            CApplication.EnableControls(Me, False)
-    '            CApplication.ClearControls(Me)
-
-    '            DirectCast(Me.ParentForm, MDIMainContainer).TSBQuery.Enabled = False
-    '            DirectCast(Me.ParentForm, MDIMainContainer).TSBExportToExcel.Enabled = False
-    '            DirectCast(Me.ParentForm, MDIMainContainer).TSBNew.Enabled = False
-    '            DirectCast(Me.ParentForm, MDIMainContainer).TSBEdit.Enabled = False
-    '            DirectCast(Me.ParentForm, MDIMainContainer).TSBSave.Enabled = False
-    '            DirectCast(Me.ParentForm, MDIMainContainer).TSBDelete.Enabled = False
-    '            DirectCast(Me.ParentForm, MDIMainContainer).TSBCancel.Enabled = False
-    '            DirectCast(Me.ParentForm, MDIMainContainer).TSBExit.Enabled = False
-    '            DirectCast(Me.ParentForm, MDIMainContainer).TSBDirectAccess.Enabled = False
-    '            DirectCast(Me.ParentForm, MDIMainContainer).TSBFind.Enabled = False
-    '            DirectCast(Me.ParentForm, MDIMainContainer).TSBExecFind.Enabled = False
-
-    '            Me.localBindingNavigator.Enabled = False
-    '            If Not Me.localDatagridView Is Nothing Then Me.localDatagridView.Enabled = False
-
-    '            For Each item As ToolStripItem In Me.localTSDownDirectAccess.Items
-    '                item.Enabled = False
-    '            Next
-
-    '    End Select
-
-    '    DirectCast(Me.ParentForm, MDIMainContainer).MDIFormState.Text = CApplication.GetFormStateDescription(Me.form_state)
-
-    'End Sub
-
-    Protected Friend Overridable Sub SetControlPropertiesFormat() Implements IFormCommandRules.SetControlPropertiesFormat
-
-    End Sub
-
-    Protected Friend Overridable Sub SetGridPropertiesFormat() Implements IFormCommandRules.SetGridPropertiesFormat
-
-    End Sub
+    Protected Friend Overridable Function SetBindingSourceFilter() As Boolean Implements IFormCommandRules.SetBindingSourceFilter
+        Throw New NotImplementedException()
+    End Function
 
     Protected Friend Overridable Function QueryAll() As Boolean
 
@@ -1053,7 +747,5 @@ Public Class FCatalogFormTemplate
 
         End Try
 
-
     End Sub
-
 End Class

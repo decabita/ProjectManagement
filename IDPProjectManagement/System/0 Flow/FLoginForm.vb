@@ -155,6 +155,7 @@ Public Class FLoginForm
                         oSqlParameter = oSqlCommand.Parameters.Add("@response", SqlDbType.Int)
                         oSqlParameter.Direction = ParameterDirection.Output
                         oSqlCommand.Connection = oConnection
+
                         oSqlDataAdapter.Fill(oDataSet, "Usuario")
 
                         ' --------------------------------------------------------------------------
