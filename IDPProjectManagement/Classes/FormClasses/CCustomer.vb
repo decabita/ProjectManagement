@@ -1,6 +1,6 @@
 ﻿Imports System.Data.SqlClient
 
-Public Class CCustomers
+Public Class CCustomer
 
     Enum SPCommand
         None = 0
@@ -45,13 +45,13 @@ Public Class CCustomers
         End Set
     End Property
 
-    Private _empresa_id As Integer
-    Public Property empresa_id() As Integer
+    Private _centro_id As Integer
+    Public Property centro_id() As Integer
         Get
-            Return _empresa_id
+            Return _centro_id
         End Get
         Set(ByVal value As Integer)
-            _empresa_id = value
+            _centro_id = value
         End Set
     End Property
 
@@ -224,7 +224,7 @@ Public Class CCustomers
 
     Public Sub New()
         Initialize()
-        GetClassData()
+
     End Sub
 
     Private Sub Initialize()
@@ -232,7 +232,7 @@ Public Class CCustomers
         With Me
             .id = -1
             .guid = String.Empty
-            .empresa_id = 0
+            .centro_id = 0
             .nombre = String.Empty
             .rfc = String.Empty
             .razon_social = String.Empty
@@ -254,52 +254,57 @@ Public Class CCustomers
 
     End Sub
 
-    Friend Function GetClassData() As CCustomers
+    Friend Function GetClassData(guid As String) As CCustomer
 
         Try
 
-            Using oDataSet As New DataSet
+            Using oConnection As SqlConnection = CApplicationController.oCDataBase.GetSQLConnection()
 
-                Using oSqlCommand As New SqlCommand("dbo.SP_PROCESS_CUSTOMERS")
+                Using oSqlCommand As New SqlCommand("dbo.SP_PROCESS_CUSTOMERS", oConnection) With {.CommandType = CommandType.StoredProcedure}
 
-                    oSqlCommand.CommandType = CommandType.StoredProcedure
-                    oSqlCommand.Parameters.Add("@id", SqlDbType.NVarChar).Value = CApplicationController.oCWorkCenter_.id
-                    oSqlCommand.Parameters.Add("@command", SqlDbType.Int).Value = SPCommand.QueryById
-                    oSqlCommand.Connection = CApplicationController.oCDataBase.GetSQLConnection()
+                    With oSqlCommand.Parameters
+                        .Add("@centro_id", SqlDbType.Int).Value = CApplicationController.oCWorkCenter_.id
+                        .Add("@guid", SqlDbType.NVarChar).Value = CApplicationController.oCWorkCenter_.id
+                        .Add("@command", SqlDbType.Int).Value = SPCommand.QueryById
 
-                    Dim oSqlParameterResponse = oSqlCommand.Parameters.Add("@response", SqlDbType.Int)
-                    oSqlParameterResponse.Direction = ParameterDirection.Output
+                        Dim oSqlParameterResponse = .Add("@response", SqlDbType.Int).Direction = ParameterDirection.Output
+
+                    End With
 
                     Using oSqlDataAdapter As New SqlDataAdapter(oSqlCommand)
 
-                        oSqlDataAdapter.Fill(oDataSet, "MainTable")
+                        Using oDataSet As New DataSet
 
-                        If Not CBool(CInt(oDataSet.Tables("MainTable").Rows.Count)) Then Throw New CustomException("No hay información en la tabla.")
+                            oSqlDataAdapter.Fill(oDataSet, "MainTable")
 
-                        With oDataSet.Tables("MainTable").Rows(0)
+                            If Not CBool(CInt(oDataSet.Tables("MainTable").Rows.Count)) Then Throw New CustomException("No hay información en la tabla.")
 
-                            Me.guid = .Item("guid")
-                            Me.id = .Item("id")
-                            Me.empresa_id = .Item("id")
-                            Me.nombre = .Item("nombre").ToString.Trim
-                            Me.rfc = .Item("rfc").ToString.Trim
-                            Me.razon_social = .Item("razon_social").ToString.Trim
-                            Me.contacto = .Item("contacto").ToString.Trim
-                            Me.email = .Item("email").ToString.Trim
-                            Me.telefono = .Item("telefono").ToString.Trim
-                            Me.celular = .Item("celular").ToString.Trim
-                            Me.pais = .Item("pais").ToString.Trim
-                            Me.ciudad = .Item("pais").ToString.Trim
-                            Me.calle = .Item("calle").ToString.Trim
-                            Me.numero_ext = .Item("numero_ext")
-                            Me.numero_int = .Item("numero_int")
-                            Me.colonia = .Item("colonia").ToString.Trim
-                            Me.delegacion = .Item("delegacion").ToString.Trim
-                            Me.codigo_postal = .Item("codigo_postal")
-                            Me.descripcion = .Item("descripcion").ToString.Trim
-                            Me.is_active = .Item("is_active")
+                            With oDataSet.Tables("MainTable").Rows(0)
 
-                        End With
+                                Me.guid = .Item("guid")
+                                Me.id = .Item("id")
+                                Me.centro_id = .Item("centro_id")
+                                Me.nombre = .Item("nombre").ToString.Trim
+                                Me.rfc = .Item("rfc").ToString.Trim
+                                Me.razon_social = .Item("razon_social").ToString.Trim
+                                Me.contacto = .Item("contacto").ToString.Trim
+                                Me.email = .Item("email").ToString.Trim
+                                Me.telefono = .Item("telefono").ToString.Trim
+                                Me.celular = .Item("celular").ToString.Trim
+                                Me.pais = .Item("pais").ToString.Trim
+                                Me.ciudad = .Item("pais").ToString.Trim
+                                Me.calle = .Item("calle").ToString.Trim
+                                Me.numero_ext = .Item("numero_ext")
+                                Me.numero_int = .Item("numero_int")
+                                Me.colonia = .Item("colonia").ToString.Trim
+                                Me.delegacion = .Item("delegacion").ToString.Trim
+                                Me.codigo_postal = .Item("codigo_postal")
+                                Me.descripcion = .Item("descripcion").ToString.Trim
+                                Me.is_active = .Item("is_active")
+
+                            End With
+
+                        End Using
                     End Using
                 End Using
             End Using
@@ -315,6 +320,14 @@ Public Class CCustomers
         End Try
 
         Return Me
+
+    End Function
+    Public Shared Function FillCustomersCombo(ByRef oComboDummy As ComboBox) As Boolean
+
+        ' Call  combo filler
+        If Not CApplication.FillComboWithData(oComboDummy) Then Return FillCustomersCombo
+
+        Return FillCustomersCombo = True
 
     End Function
 

@@ -11,7 +11,7 @@
     <AssemblyName>IDPProjectManagement</AssemblyName>
     <FileAlignment>512</FileAlignment>
     <MyType>WindowsFormsWithCustomSubMain</MyType>
-    <TargetFrameworkVersion>v4.8.1</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <Deterministic>true</Deterministic>
     <TargetFrameworkProfile />
@@ -77,7 +77,6 @@
     <Import Include="System.Threading.Tasks" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Classes\testClass.vb" />
     <Compile Include="Forms\FClientes\FClientes.Designer.vb">
       <DependentUpon>FClientes.vb</DependentUpon>
     </Compile>
@@ -127,15 +126,15 @@
     <Compile Include="System\Classes\CApplicationController.vb" />
     <Compile Include="System\0 Flow\00\CApplicationManager.vb" />
     <Compile Include="System\Classes\CApplicationHelper.vb" />
-    <Compile Include="System\Classes\CEmployee.vb" />
+    <Compile Include="System\CEmployee.vb" />
     <Compile Include="System\Classes\CFormController_.vb" />
     <Compile Include="System\Classes\CSystemParameters.vb" />
     <Compile Include="System\Classes\CUserProfileObjects.vb" />
     <Compile Include="System\Classes\CUsers.vb" />
     <Compile Include="System\Classes\CustomException.vb" />
-    <Compile Include="System\Classes\FormClasses\CClienteAreas.vb" />
-    <Compile Include="System\Classes\FormClasses\CCustomers.vb" />
-    <Compile Include="System\Classes\FormClasses\CWorkCenter_.vb" />
+    <Compile Include="Classes\FormClasses\CCustomerArea.vb" />
+    <Compile Include="Classes\FormClasses\CCustomer.vb" />
+    <Compile Include="Classes\FormClasses\CWorkCenter_.vb" />
     <Compile Include="System\Classes\LocalExceptions.vb" />
     <Compile Include="System\DataBase\CDataBase.vb" />
     <Compile Include="System\DataBase\CSQLServer.vb" />

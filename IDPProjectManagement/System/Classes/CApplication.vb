@@ -3805,4 +3805,63 @@ Friend Class CApplication
             _usuario_id = value
         End Set
     End Property
+
+
+    Public Shared Function FillComboWithData(ByRef oComboDummy As ComboBox) As Boolean
+
+        Dim oDataSet As New DataSet
+        Dim oSqlCommand As New SqlCommand("dbo.ASP_PROCESS_APPLICATION")
+        Dim oResponse As New SqlParameter
+        Dim oSqlDataAdapter As New SqlDataAdapter
+
+        Try
+
+            oSqlCommand.CommandType = CommandType.StoredProcedure
+
+            oSqlCommand.Parameters.Add("@command", SqlDbType.Int).Value = SPCommand.GetComboWorkCenter
+
+            oResponse = oSqlCommand.Parameters.Add("@response", SqlDbType.Int)
+            oResponse.Direction = ParameterDirection.Output
+
+            oSqlCommand.Connection = CApplicationController.oCDataBase.GetSQLConnection
+
+            If oSqlCommand.Connection Is Nothing Then Return False : Exit Function
+
+            oSqlDataAdapter = New SqlDataAdapter(oSqlCommand)
+
+            oSqlDataAdapter.Fill(oDataSet, "ComboData")
+
+            If Not CBool(CInt(oDataSet.Tables("ComboData").Rows.Count)) Then Throw New CustomException("No hay información para el combo.")
+
+            With oComboDummy
+                .DataSource = oDataSet.Tables("ComboData")
+                .DisplayMember = "combo_data"
+                .ValueMember = "id"
+                .SelectedIndex = 0
+            End With
+
+            FillComboWithData = True
+
+        Catch ex As CustomException
+
+            MessageBox.Show(ex.Message, "Atención", MessageBoxButtons.OK, MessageBoxIcon.Error)
+
+
+        Catch ex As Exception
+
+            MessageBox.Show(ex.Message, "Atención", MessageBoxButtons.OK, MessageBoxIcon.Error)
+
+        Finally
+
+            If Not oDataSet Is Nothing Then oDataSet.Dispose()
+
+            If Not oSqlCommand.Connection Is Nothing Then oSqlCommand.Connection.Close() : oSqlCommand.Dispose()
+
+            If Not oSqlDataAdapter Is Nothing Then oSqlDataAdapter.Dispose()
+
+        End Try
+
+        Return FillComboWithData
+
+    End Function
 End Class

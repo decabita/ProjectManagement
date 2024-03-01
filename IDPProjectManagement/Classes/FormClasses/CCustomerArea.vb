@@ -1,6 +1,6 @@
 ﻿Imports System.Data.SqlClient
 
-Public Class CClienteAreas
+Public Class CCustomerArea
     Enum SPCommand
         None = 0
         QueryAll = 1
@@ -254,7 +254,7 @@ Public Class CClienteAreas
 
     End Sub
 
-    Friend Function GetClassData() As CClienteAreas
+    Friend Function GetClassData() As CCustomerArea
 
         Try
 

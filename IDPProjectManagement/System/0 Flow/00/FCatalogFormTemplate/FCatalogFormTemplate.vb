@@ -521,7 +521,7 @@ Public Class FCatalogFormTemplate
 
     Protected Friend Overridable Function CommandNew() As Boolean Implements IFormCommandRules.CommandNew
         ' Establece el formato de la barra de comandos.
-        Call ClearControlsBinding()
+        Call Me.ClearControlsBinding()
         Call Me.SetToolBarConfiguration(CApplication.ControlState.Add)
         Call Me.SetControlsBindingOnNew()
 
@@ -541,16 +541,20 @@ Public Class FCatalogFormTemplate
 
         Try
 
-            If Not CBool(Me.localDatagridView.CurrentRow.Cells("is_active").Value) Then MessageBox.Show("El registro no está Activo.", "Atención", MessageBoxButtons.OK, MessageBoxIcon.Information) : Exit Function
+            If Not CBool(Me.localDatagridView.CurrentRow.Cells("is_active").Value) Then MessageBox.Show("El registro no está Activo.", "Atención", MessageBoxButtons.OK, MessageBoxIcon.Information) : Return CommandEdit
 
             ' Establece el formato de la barra de comandos.
             Call Me.SetToolBarConfiguration(CApplication.ControlState.Edit)
+
+            CommandEdit = True
 
         Catch ex As Exception
 
             MessageBox.Show(ex.Message, "Atención", MessageBoxButtons.OK, MessageBoxIcon.Error)
 
         End Try
+
+        Return CommandEdit
 
     End Function
 

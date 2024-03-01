@@ -11,7 +11,7 @@ Partial Public Class FClientes
 
         ' Add any initialization after the InitializeComponent() call.
 
-        Me.stored_procedure_name = "dbo.SP_PROCESS_CLIENTS"
+        Me.stored_procedure_name = "dbo.SP_PROCESS_CUSTOMERS"
         Me.parent_table_name = "GetParentTableData"
 
         Me.localDatagridView = Me.DataGridView
@@ -19,6 +19,8 @@ Partial Public Class FClientes
         Me.localTSDownDirectAccess = Me.TSDownDirectAcces
         Me.localObjectKey = Me.tGuid
         Me.localFocusedObject = Me.tClaveId
+
+        Me.oMainClass = New CCustomer
 
     End Sub
 
@@ -49,13 +51,7 @@ Partial Public Class FClientes
 
             Using oConnection As SqlConnection = CApplicationController.oCDataBase.GetSQLConnection()
 
-                Using oSqlCommand As New SqlCommand(Me.stored_procedure_name)
-
-                    oSqlCommand.Connection = oConnection
-
-                    If oSqlCommand.Connection Is Nothing Then Return SetBindingSource
-
-                    oSqlCommand.CommandType = CommandType.StoredProcedure
+                Using oSqlCommand As New SqlCommand(Me.stored_procedure_name, oConnection) With {.CommandType = CommandType.StoredProcedure}
 
                     ' ----------------------
                     ' Parameter Assignation
@@ -63,23 +59,22 @@ Partial Public Class FClientes
                     With oSqlCommand.Parameters
 
                         .Add("@id", SqlDbType.NVarChar).Value = CApplicationController.oCWorkCenter_.id
-                        .Add("@command", SqlDbType.Int).Value = CWorkCenter_.SPCommand.QueryAll
+                        .Add("@command", SqlDbType.Int).Value = SPCommand.QueryAll
                         .Add("@response", SqlDbType.Int).Direction = ParameterDirection.Output
 
                     End With
-
 
                     Using oSqlDataAdapter As New SqlDataAdapter(oSqlCommand)
 
                         Using oDataSet As New DataSet
 
-                            oSqlDataAdapter.Fill(oDataSet, "BindDataSet")
+                            oSqlDataAdapter.Fill(oDataSet, "BindedTableDataSet")
 
-                            If Not CBool(CInt(oDataSet.Tables("BindDataSet").Rows.Count)) Then Throw New CustomException("No existen valores en la tabla.")
+                            If Not CBool(CInt(oDataSet.Tables("BindedTableDataSet").Rows.Count)) Then Throw New CustomException("No existen valores en la tabla.")
 
                             oBindingSourceDummy = New BindingSource
                             oBindingSourceDummy.DataSource = oDataSet
-                            oBindingSourceDummy.DataMember = "BindDataSet"
+                            oBindingSourceDummy.DataMember = "BindedTableDataSet"
 
                             SetBindingSource = True
 
@@ -103,47 +98,20 @@ Partial Public Class FClientes
         End Try
 
         Return SetBindingSource
+
     End Function
 
     Protected Friend Overrides Function SetControlsBindingOnNew() As Boolean
 
-        Return CCustomers.SetControlsBindingOnNew(Me)
+        Return CCustomer.SetControlsBindingOnNew(Me)
 
     End Function
 
-
-    Protected Friend Overrides Function CommandCancel() As Boolean
-
-        Select Case Me.view_mode
-
-            Case CApplication.ViewMode.SingleView
-
-                If Me.form_state.Equals(CApplication.ControlState.Add) Then
-
-                    Me.oBindingSourceParent.CancelEdit()
-
-                    Call Me.CommandQuery()
-
-                ElseIf Me.form_state.Equals(CApplication.ControlState.Edit) Then
-
-                    Me.oBindingSourceParent.CancelEdit()
-
-                End If
-
-        End Select
-
-        Call SetToolBarConfiguration(CApplication.ControlState.InitState)
-
-    End Function
-
-    Public Function CommandDelete() As Boolean Implements IToolBoxCommand.CommandDelete
+    Protected Friend Overrides Function CommandDelete() As Boolean
 
         Try
 
             With Me
-
-
-                If Me.DataGridView.CurrentRow.Cells("usuario_id").Value.Equals("SYS_ATLAS") Then MessageBox.Show("No se puede modificar el usuario del sistema SYS_ADMIN.", "Atención", MessageBoxButtons.OK, MessageBoxIcon.Error) : Exit Function
 
                 If Not CBool(Me.DataGridView.CurrentRow.Cells("is_active").Value) Then MessageBox.Show("El registro no está Activo.", "Atención", MessageBoxButtons.OK, MessageBoxIcon.Information) : Exit Function
 
@@ -152,7 +120,7 @@ Partial Public Class FClientes
                 '-------------------------------------------------
                 ' Field Assignation-Validation.
                 '-------------------------------------------------
-                .usuario_id = .tUsuarioId.Text.Trim
+                Me.oMainClass.GetClassData(.tClaveId.Text.Trim)
 
                 If Not Me.DeleteRecord() Then Me.form_state = CApplication.ControlState.InitState : Throw New CustomException
 
@@ -174,39 +142,7 @@ Partial Public Class FClientes
 
     End Function
 
-    Public Function CommandEdit() As Boolean Implements IToolBoxCommand.CommandEdit
-
-        Try
-
-            If Me.DataGridView.CurrentRow.Cells("usuario_id").Value.Equals("SYS_ATLAS") Then MessageBox.Show("No se puede modificar el usuario del sistema SYS_ADMIN.", "Atención", MessageBoxButtons.OK, MessageBoxIcon.Error) : Exit Function
-
-            If Not CBool(Me.DataGridView.CurrentRow.Cells("is_active").Value) Then MessageBox.Show("El registro no está Activo.", "Atención", MessageBoxButtons.OK, MessageBoxIcon.Information) : Exit Function
-
-            ' Establece el formato de la barra de comandos.
-            Call SetToolBarConfiguration(CApplication.ControlState.Edit)
-
-        Catch ex As Exception
-
-            MessageBox.Show(ex.Message, "Atención", MessageBoxButtons.OK, MessageBoxIcon.Error)
-
-        End Try
-
-    End Function
-
-    Public Function CommandExit() As Boolean Implements IToolBoxCommand.CommandExit
-
-        DirectCast(Me.ParentForm, MDIMainContainer).Dispose()
-
-    End Function
-
-    Public Function CommandNew() As Boolean Implements IToolBoxCommand.CommandNew
-
-        ' Establece el formato de la barra de comandos.
-        Call CApplication.ClearControlBinding(Me) : Call SetToolBarConfiguration(CApplication.ControlState.Add)
-
-    End Function
-
-    Public Function CommandQuery() As Boolean Implements IToolBoxCommand.CommandQuery
+    Protected Friend Overrides Function CommandQuery() As Boolean
 
         Try
 
@@ -229,7 +165,7 @@ Partial Public Class FClientes
             '-------------------------------------------------------------------------------
             ' Call Child Data Refresh.
             '-------------------------------------------------------------------------------
-            If Not oFormController.child_form Is Nothing Then DirectCast(oFormController.child_form, FBomChild).CommandQuery()
+
 
             '-------------------------------------------------------------------------------
 
@@ -249,7 +185,7 @@ Partial Public Class FClientes
 
     End Function
 
-    Public Function CommandSave() As Boolean Implements IToolBoxCommand.CommandSave
+    Protected Friend Overrides Function CommandSave() As Boolean
 
         Try
             With Me
@@ -258,23 +194,22 @@ Partial Public Class FClientes
                 ' Field Assignation-Validation.
                 '-------------------------------------------------
 
-                .centro_id = CApplicationController.oCWorkCenter_.centro_id
+                Me.oMainClass.centro_id = CApplicationController.oCWorkCenter_.id
 
-                If (CApplication.CheckRequiredFields(.tUsuarioId)) Then .usuario_id = tUsuarioId.Text.Trim Else Throw New CustomException
+                'If (CApplication.CheckRequiredFields(.tUsuarioId)) Then .usuario_id = tUsuarioId.Text.Trim Else Throw New CustomException
 
-                If (CApplication.CheckRequiredFields(.tNombre)) Then .usuario_nombre = .tNombre.Text.Trim Else Throw New CustomException
+                'If (CApplication.CheckRequiredFields(.tClaveId)) Then .nombre_corto = tClaveId.Text.Trim Else Throw New CustomException
 
-                .usuario_descripcion = (IIf(String.IsNullOrEmpty(.tDescripcion.Text.Trim), String.Empty, .tDescripcion.Text.Trim))
+                'If (CApplication.CheckRequiredFields(.tNombre)) Then .usuario_nombre = .tNombre.Text.Trim Else Throw New CustomException
 
-
-                '.image_data = 'ReadImageFile()
+                '.usuario_descripcion = (IIf(String.IsNullOrEmpty(.tDescripcion.Text.Trim), String.Empty, .tDescripcion.Text.Trim))
 
                 If Me.form_state = CApplication.ControlState.Add Then
 
-                    .is_active = 1
+                    '.is_active = 1
                     ' .image_data = Nothing  'SaveImageFile()
 
-                    If Not SaveRecord() Then
+                    If Not Me.SaveRecord() Then
 
                         Me.CommandCancel() : Throw New CustomException
 
@@ -323,7 +258,47 @@ Partial Public Class FClientes
         End Try
 
     End Function
+    Private Function SaveRecord() As Boolean
 
+        oResponse = New SqlParameter
+
+        Try
+
+            If Not PrepareCommand(SPCommand.Save) Then Throw New CustomException
+
+            oResponse = oSqlCommand.Parameters.Add("@response", SqlDbType.Int)
+            oResponse.Direction = ParameterDirection.Output
+
+            oSqlCommand.Connection = CApplicationController.oCDataBase.GetSQLConnection
+
+            oSqlCommand.ExecuteNonQuery()
+
+            ' --------------------------------------------------------------------------
+            ' Handle SP Response. 
+            ' --------------------------------------------------------------------------
+            If CInt(oResponse.Value.Equals(1)) Then Throw New CustomException("El registro ya existe. No se puede duplicar el registro.")
+
+            If CInt(oResponse.Value.Equals(0)) Then MessageBox.Show("Registro dado de alta.", "Atención", MessageBoxButtons.OK, MessageBoxIcon.Information)
+
+            SaveRecord = True
+
+        Catch ex As CustomException
+
+            MessageBox.Show(ex.Message, "Atención", MessageBoxButtons.OK, MessageBoxIcon.Error)
+
+        Catch ex As Exception
+
+            MessageBox.Show(ex.Message, "Atención", MessageBoxButtons.OK, MessageBoxIcon.Error)
+
+        Finally
+
+            If Not oSqlCommand.Connection Is Nothing Then oSqlCommand.Connection.Close() : oSqlCommand.Dispose()
+
+        End Try
+
+        Return SaveRecord
+
+    End Function
     Private Function DeleteRecord() As Boolean
 
         oResponse = New SqlParameter
@@ -381,7 +356,7 @@ Partial Public Class FClientes
     Private Function PrepareCommand(ByVal value As Integer) As Boolean
 
         Try
-            oSqlCommand = New SqlCommand("dbo.ASP_PROCESS_USERS")
+            oSqlCommand = New SqlCommand(Me.stored_procedure_name)
             oSqlCommand.CommandType = CommandType.StoredProcedure
 
             ' --------------------------------------------------------------------------
@@ -411,76 +386,6 @@ Partial Public Class FClientes
 
     End Function
 
-    Private Function QueryAll() As Boolean
-
-        Try
-
-            ' -------------------------------------------
-            ' Get BindingSource.
-            ' -------------------------------------------
-            If Not SetBindingSourceParent(Me.oBindingSourceParent) Then Throw New CustomException
-
-            Return True
-
-        Catch ex As CustomException
-
-            Exit Function
-
-        End Try
-
-    End Function
-
-    Private Function SaveRecord() As Boolean
-
-        oResponse = New SqlParameter
-
-        Try
-
-
-            ' -----------------------------------------------------------------
-            ' Show change password form.
-            ' -----------------------------------------------------------------
-
-            Dim oFNewPassword As New FNewPassword
-
-            If oFNewPassword.ShowDialog = DialogResult.Cancel Then MessageBox.Show("Es necesario proporcionar la contraseña.", "Atención", MessageBoxButtons.OK, MessageBoxIcon.Error) : Exit Function
-
-            Me.usuario_contraseña = oFNewPassword.usuario_contraseña
-
-            oFNewPassword.Dispose()
-            oFNewPassword = Nothing
-            ' -----------------------------------------------------------------
-
-            If Not PrepareCommand(SPCommand.SaveCommand) Then Throw New CustomException
-
-            oResponse = oSqlCommand.Parameters.Add("@response", SqlDbType.Int)
-            oResponse.Direction = ParameterDirection.Output
-
-            oSqlCommand.Connection = AbrirAmanco()
-
-            oSqlCommand.ExecuteNonQuery()
-
-            If CInt(oResponse.Value.Equals(1)) Then Throw New CustomException("El registro ya existe en A-tlas. No se puede duplicar el registro.")
-
-            If CInt(oResponse.Value.Equals(0)) Then MessageBox.Show("Registro dado de alta en A-tlas.", "Atención", MessageBoxButtons.OK, MessageBoxIcon.Information)
-
-            Return True
-
-        Catch ex As CustomException
-
-            MessageBox.Show(ex.Message, "Atención", MessageBoxButtons.OK, MessageBoxIcon.Error)
-
-        Catch ex As Exception
-
-            MessageBox.Show(ex.Message, "Atención", MessageBoxButtons.OK, MessageBoxIcon.Error)
-
-        Finally
-
-            If Not oSqlCommand.Connection Is Nothing Then oSqlCommand.Connection.Close() : oSqlCommand.Dispose()
-
-        End Try
-
-    End Function
 
     Private Function SetBindingSourceParent(ByRef oBindingSourceDummy As BindingSource) As Boolean
 

@@ -2,7 +2,7 @@
 
 Partial Public Class FCatalogFormTemplate
 
-    Enum CustomExceptionMessages
+    Enum CustomExceptionMessagesCode
 
         None = 0
         QueryAll = 1
@@ -15,6 +15,33 @@ Partial Public Class FCatalogFormTemplate
         GetRelatedSpecs = 30
 
     End Enum
+
+
+    Private _oCFormController As CFormController_
+
+    Public Property oCFormController() As CFormController_ Implements IFormCommandRules.oCFormController
+        Get
+            Return _oCFormController
+        End Get
+        Set(ByVal value As CFormController_)
+
+            _oCFormController = value
+        End Set
+    End Property
+
+
+    Private _oCApplicationHelper As CApplicationHelper
+
+
+    Public Property oCApplicationHelper() As CApplicationHelper Implements IFormCommandRules.oCApplicationHelper
+        Get
+            Return _oCApplicationHelper
+        End Get
+        Set(ByVal value As CApplicationHelper)
+
+            _oCApplicationHelper = value
+        End Set
+    End Property
 
     Private _oResponse As SqlParameter
     Public Property oResponse() As SqlParameter Implements IFormCommandRules.oResponse
@@ -45,32 +72,6 @@ Partial Public Class FCatalogFormTemplate
         End Get
         Set(ByVal value As SqlParameter)
             _oSqlParameter = value
-        End Set
-    End Property
-
-    Private _oCFormController As CFormController_
-
-    Public Property oCFormController() As CFormController_ Implements IFormCommandRules.oCFormController
-        Get
-            Return _oCFormController
-        End Get
-        Set(ByVal value As CFormController_)
-
-            _oCFormController = value
-        End Set
-    End Property
-
-
-    Private _oCApplicationHelper As CApplicationHelper
-
-
-    Public Property oCApplicationHelper() As CApplicationHelper Implements IFormCommandRules.oCApplicationHelper
-        Get
-            Return _oCApplicationHelper
-        End Get
-        Set(ByVal value As CApplicationHelper)
-
-            _oCApplicationHelper = value
         End Set
     End Property
 
@@ -299,5 +300,19 @@ Partial Public Class FCatalogFormTemplate
             _localFocusedObject = value
         End Set
     End Property
+
+    Enum SPCommand
+
+        QueryAll = 1
+        Add = 2
+        Update = 3
+        Save = 4
+        Delete = 5
+        None = 0
+        Authenticate = 69
+
+        GetRelatedSpecs = 30
+
+    End Enum
 
 End Class
