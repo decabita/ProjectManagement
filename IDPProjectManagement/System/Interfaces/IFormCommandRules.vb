@@ -46,7 +46,9 @@ Public Interface IFormCommandRules
     Function ClearControlsBinding() As Boolean
     Function SetBindingSource() As Boolean
     Function SetBindingSource(ByRef oBindingSourceDummy As BindingSource) As Boolean
-    Function SetBindingSourceFilter() As Boolean
+    Function SetBindingSourceFilter(ByRef oBindingSourceDummy As BindingSource) As Boolean
+    Function PrepareSPCommand(ByRef oSqlCommandDummy As SqlCommand, ByVal spCommandValue As Integer) As Boolean
+
     Sub SetControlPropertiesFormat()
     Sub SetGridPropertiesFormat()
     Sub SetToolBarConfiguration(ByVal State As Integer)

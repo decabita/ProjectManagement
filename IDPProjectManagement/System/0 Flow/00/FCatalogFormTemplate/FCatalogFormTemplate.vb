@@ -1,4 +1,5 @@
-﻿Imports System.Reflection
+﻿Imports System.Data.SqlClient
+Imports System.Reflection
 Imports IDPProjectManagement
 
 Public Class FCatalogFormTemplate
@@ -665,10 +666,56 @@ Public Class FCatalogFormTemplate
     End Function
 
     Protected Friend Overridable Function SetBindingSource(ByRef oBindingSourceDummy As BindingSource) As Boolean Implements IFormCommandRules.SetBindingSource
-        Throw New NotImplementedException()
+
+        Try
+
+            Using oConnection As SqlConnection = CApplicationController.oCDataBase.GetSQLConnection()
+
+                Using oSqlCommand As New SqlCommand(Me.stored_procedure_name, oConnection) With {.CommandType = CommandType.StoredProcedure}
+
+                    ' ---------------------------------
+                    ' Set Command Ready and Execute
+                    ' ---------------------------------
+                    If Not PrepareSPCommand(oSqlCommand, SPCommand.QueryAll) Then Throw New CustomException
+
+                    Using oSqlDataAdapter As New SqlDataAdapter(oSqlCommand)
+
+                        Using oDataSet As New DataSet
+
+                            oSqlDataAdapter.Fill(oDataSet, "BindedTableDataSet")
+
+                            If Not CBool(CInt(oDataSet.Tables("BindedTableDataSet").Rows.Count)) Then Throw New CustomException("SetBindingSource: No existen valores en la tabla. Capture información.")
+
+                            oBindingSourceDummy = New BindingSource
+                            oBindingSourceDummy.DataSource = oDataSet
+                            oBindingSourceDummy.DataMember = "BindedTableDataSet"
+
+                            SetBindingSource = True
+
+                        End Using
+
+                    End Using
+
+                End Using
+
+            End Using
+
+
+        Catch ex As CustomException
+
+            MessageBox.Show(ex.Message, "Atención", MessageBoxButtons.OK, MessageBoxIcon.Error)
+
+        Catch ex As Exception
+
+            MessageBox.Show(ex.Message, "Atención", MessageBoxButtons.OK, MessageBoxIcon.Error)
+
+        End Try
+
+        Return SetBindingSource
+
     End Function
 
-    Protected Friend Overridable Function SetBindingSourceFilter() As Boolean Implements IFormCommandRules.SetBindingSourceFilter
+    Protected Friend Overridable Function SetBindingSourceFilter(ByRef oBindingSourceDummy As BindingSource) As Boolean Implements IFormCommandRules.SetBindingSourceFilter
         Throw New NotImplementedException()
     End Function
 
@@ -752,4 +799,8 @@ Public Class FCatalogFormTemplate
         End Try
 
     End Sub
+
+    Protected Friend Overridable Function PrepareSPCommand(ByRef oSqlCommandDummy As SqlCommand, spCommandValue As Integer) As Boolean Implements IFormCommandRules.PrepareSPCommand
+        Throw New NotImplementedException()
+    End Function
 End Class

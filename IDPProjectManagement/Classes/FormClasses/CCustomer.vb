@@ -55,6 +55,16 @@ Public Class CCustomer
         End Set
     End Property
 
+    Private _nombre_corto As String
+    Public Property nombre_corto() As String
+        Get
+            Return _nombre_corto
+        End Get
+        Set(ByVal value As String)
+            _nombre_corto = value
+        End Set
+    End Property
+
     Private _nombre As String
     Public Property nombre() As String
         Get
@@ -233,6 +243,7 @@ Public Class CCustomer
             .id = -1
             .guid = String.Empty
             .centro_id = 0
+            .nombre_corto = String.Empty
             .nombre = String.Empty
             .rfc = String.Empty
             .razon_social = String.Empty
@@ -284,6 +295,7 @@ Public Class CCustomer
                                 Me.guid = .Item("guid")
                                 Me.id = .Item("id")
                                 Me.centro_id = .Item("centro_id")
+                                Me.nombre_corto = .Item("nombre_corto").ToString.Trim
                                 Me.nombre = .Item("nombre").ToString.Trim
                                 Me.rfc = .Item("rfc").ToString.Trim
                                 Me.razon_social = .Item("razon_social").ToString.Trim
@@ -292,7 +304,7 @@ Public Class CCustomer
                                 Me.telefono = .Item("telefono").ToString.Trim
                                 Me.celular = .Item("celular").ToString.Trim
                                 Me.pais = .Item("pais").ToString.Trim
-                                Me.ciudad = .Item("pais").ToString.Trim
+                                Me.ciudad = .Item("ciudad").ToString.Trim
                                 Me.calle = .Item("calle").ToString.Trim
                                 Me.numero_ext = .Item("numero_ext")
                                 Me.numero_int = .Item("numero_int")
@@ -390,10 +402,6 @@ Public Class CCustomer
             End With
 
             SetControlsBinding = True
-
-        Catch ex As CustomException
-
-            MessageBox.Show(ex.Message, "Atención", MessageBoxButtons.OK, MessageBoxIcon.Error)
 
         Catch ex As Exception
 

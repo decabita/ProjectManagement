@@ -29,11 +29,11 @@ Partial Public Class FCentrosTrabajo
             ' -------------------------------------------
             ' Get BindingSource.
             ' -------------------------------------------
-            If Not SetBindingSource(Me.oBindingSource) Then Throw New CustomException
+            If Not SetBindingSource(Me.oBindingSource) Then Return QueryAll
 
             QueryAll = True
 
-        Catch ex As CustomException
+        Catch ex As Exception
 
             MessageBox.Show(ex.Message, "Atención", MessageBoxButtons.OK, MessageBoxIcon.Error)
 
@@ -43,54 +43,44 @@ Partial Public Class FCentrosTrabajo
 
     End Function
 
-    Protected Friend Overrides Function SetBindingSource(ByRef oBindingSourceDummy As BindingSource) As Boolean
+    Protected Friend Overrides Function SetBindingSource() As Boolean
+
+        Dim oResponse As New SqlParameter
+        Dim oSqlCommand As New SqlCommand(Me.stored_procedure_name)
 
         Try
 
-            Using oConnection As SqlConnection = CApplicationController.oCDataBase.GetSQLConnection()
+            oSqlCommand.CommandType = CommandType.StoredProcedure
 
-                Using oSqlCommand As New SqlCommand(Me.stored_procedure_name)
+            ' --------------------------------------------------------------------------
+            ' Parameter Assignation
+            ' --------------------------------------------------------------------------
+            With oSqlCommand.Parameters
 
-                    oSqlCommand.Connection = oConnection
+                .Add("@centro_id", SqlDbType.NVarChar).Value = CApplicationController.oCWorkCenter_.id
+                .Add("@command", SqlDbType.Int).Value = SPCommand.QueryAll
 
-                    If oSqlCommand.Connection Is Nothing Then Return SetBindingSource
+            End With
 
-                    oSqlCommand.CommandType = CommandType.StoredProcedure
+            oResponse = oSqlCommand.Parameters.Add("@response", SqlDbType.Int)
+            oResponse.Direction = ParameterDirection.Output
+            ' --------------------------------------------------------------------------
 
-                    ' ----------------------
-                    ' Parameter Assignation
-                    ' ----------------------
-                    With oSqlCommand.Parameters
+            oSqlCommand.Connection = CApplicationController.oCDataBase.GetSQLConnection
 
-                        .Add("@id", SqlDbType.NVarChar).Value = CApplicationController.oCWorkCenter_.id
-                        .Add("@command", SqlDbType.Int).Value = CWorkCenter_.SPCommand.QueryAll
-                        .Add("@response", SqlDbType.Int).Direction = ParameterDirection.Output
+            If oSqlCommand.Connection Is Nothing Then Return SetBindingSource
 
-                    End With
+            oSqlDataAdapter = New SqlDataAdapter(oSqlCommand)
+            oSqlDataAdapter.Fill(oDataSet, Me.parent_table_name)
 
+            If Not CBool(CInt(oDataSet.Tables(Me.parent_table_name).Rows.Count)) Then MessageBox.Show("No existen valores en la tabla.", "Atención", MessageBoxButtons.OK, MessageBoxIcon.Information)
+            'New CustomException("No existen valores en la tabla.")
 
-                    Using oSqlDataAdapter As New SqlDataAdapter(oSqlCommand)
+            Me.oBindingSource = New BindingSource
+            Me.oBindingSource.DataSource = oDataSet
+            Me.oBindingSource.DataMember = Me.parent_table_name
 
-                        Using oDataSet As New DataSet
-
-                            oSqlDataAdapter.Fill(oDataSet, "BindDataSet")
-
-                            If Not CBool(CInt(oDataSet.Tables("BindDataSet").Rows.Count)) Then Throw New CustomException("No existen valores en la tabla.")
-
-                            oBindingSourceDummy = New BindingSource
-                            oBindingSourceDummy.DataSource = oDataSet
-                            oBindingSourceDummy.DataMember = "BindDataSet"
-
-                            SetBindingSource = True
-
-                        End Using
-
-                    End Using
-
-                End Using
-
-            End Using
-
+            SetBindingSource = True
 
         Catch ex As CustomException
 
@@ -100,11 +90,67 @@ Partial Public Class FCentrosTrabajo
 
             MessageBox.Show(ex.Message, "Atención", MessageBoxButtons.OK, MessageBoxIcon.Error)
 
+        Finally
+
+            If Not oSqlCommand.Connection Is Nothing Then oSqlCommand.Connection.Close() : oSqlCommand.Dispose()
+
+            If Not oSqlDataAdapter Is Nothing Then oSqlDataAdapter.Dispose()
+
         End Try
 
         Return SetBindingSource
 
     End Function
+
+    'Protected Friend Overrides Function SetBindingSource(ByRef oBindingSourceDummy As BindingSource) As Boolean
+
+    '    Try
+
+    '        Using oConnection As SqlConnection = CApplicationController.oCDataBase.GetSQLConnection()
+
+    '            Using oSqlCommand As New SqlCommand(Me.stored_procedure_name, oConnection) With {.CommandType = CommandType.StoredProcedure}
+
+    '                ' ---------------------------------
+    '                ' Set Command Ready and Execute
+    '                ' ---------------------------------
+    '                If Not PrepareSPCommand(oSqlCommand, SPCommand.QueryAll) Then Throw New CustomException
+
+    '                Using oSqlDataAdapter As New SqlDataAdapter(oSqlCommand)
+
+    '                    Using oDataSet As New DataSet
+
+    '                        oSqlDataAdapter.Fill(oDataSet, "BindedTableDataSet")
+
+    '                        If Not CBool(CInt(oDataSet.Tables("BindedTableDataSet").Rows.Count)) Then Throw New CustomException("SetBindingSource: No existen valores en la tabla. Capture información.")
+
+    '                        oBindingSourceDummy = New BindingSource
+    '                        oBindingSourceDummy.DataSource = oDataSet
+    '                        oBindingSourceDummy.DataMember = "BindedTableDataSet"
+
+    '                        SetBindingSource = True
+
+    '                    End Using
+
+    '                End Using
+
+    '            End Using
+
+    '        End Using
+
+
+    '    Catch ex As CustomException
+
+    '        MessageBox.Show(ex.Message, "Atención", MessageBoxButtons.OK, MessageBoxIcon.Error)
+
+    '    Catch ex As Exception
+
+    '        MessageBox.Show(ex.Message, "Atención", MessageBoxButtons.OK, MessageBoxIcon.Error)
+
+    '    End Try
+
+    '    Return SetBindingSource
+
+    'End Function
     Protected Friend Overrides Function SetControlsBindingOnNew() As Boolean
 
         Return CWorkCenter_.SetControlsBindingOnNew(Me)
@@ -117,32 +163,33 @@ Partial Public Class FCentrosTrabajo
 
             With Me
 
-                If Not CBool(Me.DataGridView.CurrentRow.Cells("is_active").Value) Then MessageBox.Show("El registro no está Activo.", "Atención", MessageBoxButtons.OK, MessageBoxIcon.Information) : Exit Function
+                If Not CBool(Me.DataGridView.CurrentRow.Cells("is_active").Value) Then MessageBox.Show("El registro no está Activo.", "Atención", MessageBoxButtons.OK, MessageBoxIcon.Information) : Return CommandDelete
 
-                If MessageBox.Show("El registro cambiará de estado a Inactivo. ¿Desea continuar?", "Atención", MessageBoxButtons.YesNo, MessageBoxIcon.Question).Equals(System.Windows.Forms.DialogResult.No) Then Exit Function
+                If MessageBox.Show("El registro cambiará de estado a Inactivo. ¿Desea continuar?", "Atención", MessageBoxButtons.YesNo, MessageBoxIcon.Question).Equals(System.Windows.Forms.DialogResult.No) Then Return CommandDelete
 
                 '-------------------------------------------------
                 ' Field Assignation-Validation.
                 '-------------------------------------------------
-                .id = .tClaveId.Text.Trim
 
-                If Not Me.DeleteRecord() Then Me.form_state = CApplication.ControlState.InitState : Throw New CustomException
+                If Not Me.DeleteRecord() Then Me.form_state = CApplication.ControlState.InitState : Throw New CustomException("Error al eliminar.")
 
                 If Not Me.CommandQuery() Then Me.form_state = CApplication.ControlState.InitState : Throw New CustomException
 
             End With
 
-            Return True
+            CommandDelete = True
 
         Catch ex As CustomException
 
-            Exit Function
+            MessageBox.Show(ex.Message, "Atención", MessageBoxButtons.OK, MessageBoxIcon.Error)
 
         Catch ex As Exception
 
             MessageBox.Show(ex.Message, "Atención", MessageBoxButtons.OK, MessageBoxIcon.Error)
 
         End Try
+
+        Return CommandDelete
 
     End Function
 
@@ -166,11 +213,11 @@ Partial Public Class FCentrosTrabajo
             Me.oFProgress = New FProgress
             Me.oFProgress.ShowDialog()
 
-            '-------------------------------------------------------------------------------
+            '------------------------------------
             ' Call Child Data Refresh.
-            '-------------------------------------------------------------------------------
+            '------------------------------------
             If Not Me.oCFormController.child_form Is Nothing Then CType(Me.oCFormController.child_form, IFormCommandRules).CommandQuery()
-            '-------------------------------------------------------------------------------
+
 
             Me.Activate()
 
@@ -179,17 +226,19 @@ Partial Public Class FCentrosTrabajo
             ' Establece el formato de la barra de comandos.
             Call SetToolBarConfiguration(CApplication.ControlState.InitState)
 
-            Return True
+            CommandQuery = True
 
         Catch ex As CustomException
 
-            Exit Function
+            MessageBox.Show(ex.Message, "Atención", MessageBoxButtons.OK, MessageBoxIcon.Error)
 
         Catch ex As Exception
 
             MessageBox.Show(ex.Message, "Atención", MessageBoxButtons.OK, MessageBoxIcon.Error)
 
         End Try
+
+        Return CommandQuery
 
     End Function
 
@@ -297,21 +346,13 @@ Partial Public Class FCentrosTrabajo
                 '-------------------------------------------------
                 ' Field Assignment-Validation.
                 '-------------------------------------------------
-                '.id = CApplicationController.oCWorkCenter_.id
-
-                '.guid = CApplicationController.oCWorkCenter_.guid
 
                 If (CApplication.CheckRequiredFields(.tClaveId)) Then .nombre_corto = tClaveId.Text.Trim Else Throw New CustomException
-
-                'If (CApplication.CheckRequiredFields(.tClaveId)) _
-                '    Then CApplicationController.oCWorkCenter_.nombre_corto = tClaveId.Text.Trim _
-                '    Else Throw New CustomException
 
                 If (CApplication.CheckRequiredFields(.tNombre)) Then .nombre = .tNombre.Text.Trim Else Throw New CustomException
 
                 If (CApplication.CheckRequiredFields(.tDescripcion)) Then .descripcion = IIf(String.IsNullOrEmpty(.tDescripcion.Text.Trim), String.Empty, .tDescripcion.Text.Trim) Else Throw New CustomException
 
-                '.descripcion = (IIf(String.IsNullOrEmpty(.tDescripcion.Text.Trim), String.Empty, .tDescripcion.Text.Trim))
 
                 If Me.form_state = CApplication.ControlState.Add Then
 
@@ -375,41 +416,76 @@ Partial Public Class FCentrosTrabajo
 
     End Function
 
+    Private Function SaveRecord() As Boolean
+
+        Try
+
+            Using oConnection As SqlConnection = CApplicationController.oCDataBase.GetSQLConnection()
+
+                Using oSqlCommand As New SqlCommand(Me.stored_procedure_name, oConnection) With {.CommandType = CommandType.StoredProcedure}
+
+                    ' ---------------------------------
+                    ' Set Command Ready and Execute
+                    ' ---------------------------------
+                    If Not Me.PrepareSPCommand(oSqlCommand, SPCommand.Save) Then Throw New CustomException
+
+                    oSqlCommand.ExecuteNonQuery()
+
+                    ' -------------------------
+                    ' Handle SP Response. 
+                    ' -------------------------
+                    If CInt(oSqlCommand.Parameters("@response").Value.Equals(1)) Then Throw New CustomException("El registro ya existe. No se puede duplicar el registro.")
+
+                    If CInt(oSqlCommand.Parameters("@response").Value.Equals(0)) Then MessageBox.Show("Registro dado de alta.", "Atención", MessageBoxButtons.OK, MessageBoxIcon.Information)
+
+                End Using
+
+            End Using
+
+            SaveRecord = True
+
+        Catch ex As CustomException
+
+            MessageBox.Show(ex.Message, "Atención", MessageBoxButtons.OK, MessageBoxIcon.Error)
+
+        Catch ex As Exception
+
+            MessageBox.Show(ex.Message, "Atención", MessageBoxButtons.OK, MessageBoxIcon.Error)
+
+        End Try
+
+        Return SaveRecord
+
+    End Function
+
     Private Function DeleteRecord() As Boolean
 
         Try
-            oResponse = New SqlParameter
-            oSqlCommand = New SqlCommand(Me.stored_procedure_name)
-            oSqlCommand.CommandType = CommandType.StoredProcedure
 
-            ' --------------------------------------------------------------------------
-            ' Parameter Assignation
-            ' --------------------------------------------------------------------------
-            With oSqlCommand.Parameters
+            Using oConnection As SqlConnection = CApplicationController.oCDataBase.GetSQLConnection()
 
-                .Add("@id", SqlDbType.VarChar).Value = Me.id.Trim
+                Using oSqlCommand As New SqlCommand(Me.stored_procedure_name, oConnection) With {.CommandType = CommandType.StoredProcedure}
 
-                .Add("@command", SqlDbType.Int).Value = SPCommand.Delete
+                    ' ---------------------------------
+                    ' Set Command Ready and Execute
+                    ' ---------------------------------
+                    If Not PrepareSPCommand(oSqlCommand, SPCommand.Delete) Then Throw New CustomException
 
-            End With
+                    oSqlCommand.ExecuteNonQuery()
 
-            oResponse = oSqlCommand.Parameters.Add("@response", SqlDbType.Int)
-            oResponse.Direction = ParameterDirection.Output
-            ' --------------------------------------------------------------------------
+                    ' -------------------------
+                    ' Handle SP Response. 
+                    ' -------------------------
+                    If CInt(oSqlCommand.Parameters("@response").Value.Equals(1)) Then Throw New CustomException("Ocurrio un error al actualizar la información. " & oResponse.Value.ToString)
 
-            oSqlCommand.Connection = CApplicationController.oCDataBase.GetSQLConnection
+                    If CInt(oSqlCommand.Parameters("@response").Value.Equals(0)) Then MessageBox.Show("Registro actualizado.", "Atención", MessageBoxButtons.OK, MessageBoxIcon.Information)
 
-            oSqlCommand.ExecuteNonQuery()
+                    Me.DataGridView.Update()
+                    Me.DataGridView.Refresh()
 
-            ' --------------------------------------------------------------------------
-            ' Handle SP Response. 
-            ' --------------------------------------------------------------------------
-            If CInt(oResponse.Value.Equals(1)) Then Throw New CustomException("Ocurrio un error al actualizar la información. " & oResponse.Value.ToString)
+                End Using
 
-            If CInt(oResponse.Value.Equals(0)) Then MessageBox.Show("Registro actualizado en Gears.", "Atención", MessageBoxButtons.OK, MessageBoxIcon.Information)
-
-            Me.DataGridView.Update()
-            Me.DataGridView.Refresh()
+            End Using
 
             DeleteRecord = True
 
@@ -427,26 +503,54 @@ Partial Public Class FCentrosTrabajo
 
     End Function
 
-    Private Function PrepareCommand(ByVal value As Integer) As Boolean
+    Protected Friend Overrides Function PrepareSPCommand(ByRef oSqlCommand As SqlCommand, ByVal spCommandValue As Integer) As Boolean
 
         Try
-            oSqlCommand = New SqlCommand(Me.stored_procedure_name)
-            oSqlCommand.CommandType = CommandType.StoredProcedure
 
-            ' --------------------------------------------------------------------------
-            ' Parameter Assignation
-            ' --------------------------------------------------------------------------
             With oSqlCommand.Parameters
-                .Add("@guid", SqlDbType.VarChar).Value = Me.guid
-                .Add("@nombre_corto", SqlDbType.VarChar).Value = Me.nombre_corto
-                .Add("@nombre", SqlDbType.VarChar).Value = Me.nombre
-                .Add("@descripcion", SqlDbType.VarChar).Value = Me.descripcion
-                .Add("@is_active", SqlDbType.Bit).Value = Me.is_active
-                .Add("@command", SqlDbType.Int).Value = value
+
+                ' ---------------------- 
+                ' Parameter Assignation
+                ' -----------------------
+                Select Case spCommandValue
+
+                    Case SPCommand.QueryAll
+
+                        .Add("@id", SqlDbType.NVarChar).Value = CApplicationController.oCWorkCenter_.id
+                        .Add("@command", SqlDbType.Int).Value = SPCommand.QueryAll
+                        .Add("@response", SqlDbType.Int).Direction = ParameterDirection.Output
+
+                    Case SPCommand.Save
+
+                        .Add("@nombre_corto", SqlDbType.VarChar).Value = Me.nombre_corto
+                        .Add("@nombre", SqlDbType.VarChar).Value = Me.nombre
+                        .Add("@descripcion", SqlDbType.VarChar).Value = Me.descripcion
+                        .Add("@is_active", SqlDbType.Bit).Value = Me.is_active
+                        .Add("@command", SqlDbType.Int).Value = SPCommand.Save
+                        .Add("@response", SqlDbType.Int).Direction = ParameterDirection.Output
+
+                    Case SPCommand.Delete
+
+                        .Add("@id", SqlDbType.VarChar).Value = CApplicationController.oCWorkCenter_.id
+                        .Add("@guid", SqlDbType.VarChar).Value = Me.guid
+                        .Add("@command", SqlDbType.Int).Value = SPCommand.Delete
+                        .Add("@response", SqlDbType.Int).Direction = ParameterDirection.Output
+
+                    Case SPCommand.Update
+
+                        .Add("@guid", SqlDbType.VarChar).Value = Me.guid
+                        .Add("@nombre_corto", SqlDbType.VarChar).Value = Me.nombre_corto
+                        .Add("@nombre", SqlDbType.VarChar).Value = Me.nombre
+                        .Add("@descripcion", SqlDbType.VarChar).Value = Me.descripcion
+                        .Add("@is_active", SqlDbType.Bit).Value = Me.is_active
+                        .Add("@command", SqlDbType.Int).Value = SPCommand.Update
+                        .Add("@response", SqlDbType.Int).Direction = ParameterDirection.Output
+
+                End Select
 
             End With
 
-            PrepareCommand = True
+            PrepareSPCommand = True
 
         Catch ex As Exception
 
@@ -454,130 +558,42 @@ Partial Public Class FCentrosTrabajo
 
         End Try
 
-        Return PrepareCommand
+        Return PrepareSPCommand
 
     End Function
 
-    Private Function SaveRecord() As Boolean
-
-        oResponse = New SqlParameter
+    Protected Friend Overrides Function SetBindingSourceFilter(ByRef oBindingSourceDummy As BindingSource) As Boolean
 
         Try
 
-            If Not PrepareCommand(SPCommand.Save) Then Throw New CustomException
+            Using oConnection As SqlConnection = CApplicationController.oCDataBase.GetSQLConnection()
 
-            oResponse = oSqlCommand.Parameters.Add("@response", SqlDbType.Int)
-            oResponse.Direction = ParameterDirection.Output
+                Using oSqlCommand As New SqlCommand(Me.stored_procedure_name, oConnection) With {.CommandType = CommandType.StoredProcedure}
 
-            oSqlCommand.Connection = CApplicationController.oCDataBase.GetSQLConnection
+                    If Not PrepareSPCommand(oSqlCommand, SPCommand.Update) Then Throw New CustomException
 
-            oSqlCommand.ExecuteNonQuery()
+                    Using oSqlDataAdapter As New SqlDataAdapter(oSqlCommand)
 
-            ' --------------------------------------------------------------------------
-            ' Handle SP Response. 
-            ' --------------------------------------------------------------------------
-            If CInt(oResponse.Value.Equals(1)) Then Throw New CustomException("El registro ya existe. No se puede duplicar el registro.")
+                        Using oDataSet As New DataSet
 
-            If CInt(oResponse.Value.Equals(0)) Then MessageBox.Show("Registro dado de alta.", "Atención", MessageBoxButtons.OK, MessageBoxIcon.Information)
+                            oSqlDataAdapter.Fill(oDataSet, Me.parent_table_name)
 
-            SaveRecord = True
 
-        Catch ex As CustomException
+                            If Not CBool(CInt(oDataSet.Tables(Me.parent_table_name).Rows.Count)) Then MessageBox.Show("No existen valores en la tabla para los parámetros específicados.", "Atención", MessageBoxButtons.OK, MessageBoxIcon.Information) : SetBindingSourceFilter = False Else SetBindingSourceFilter = True
 
-            MessageBox.Show(ex.Message, "Atención", MessageBoxButtons.OK, MessageBoxIcon.Error)
 
-        Catch ex As Exception
+                        End Using
 
-            MessageBox.Show(ex.Message, "Atención", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                    End Using
 
-        Finally
+                End Using
 
-            If Not oSqlCommand.Connection Is Nothing Then oSqlCommand.Connection.Close() : oSqlCommand.Dispose()
+            End Using
 
-        End Try
 
-        Return SaveRecord
 
-    End Function
 
-    Protected Friend Overrides Function SetBindingSource() As Boolean
 
-        Dim oResponse As New SqlParameter
-        Dim oSqlCommand As New SqlCommand(Me.stored_procedure_name)
-
-        Try
-
-            oSqlCommand.CommandType = CommandType.StoredProcedure
-
-            ' --------------------------------------------------------------------------
-            ' Parameter Assignation
-            ' --------------------------------------------------------------------------
-            With oSqlCommand.Parameters
-
-                .Add("@centro_id", SqlDbType.NVarChar).Value = CApplicationController.oCWorkCenter_.id
-                .Add("@command", SqlDbType.Int).Value = SPCommand.QueryAll
-
-            End With
-
-            oResponse = oSqlCommand.Parameters.Add("@response", SqlDbType.Int)
-            oResponse.Direction = ParameterDirection.Output
-            ' --------------------------------------------------------------------------
-
-            oSqlCommand.Connection = CApplicationController.oCDataBase.GetSQLConnection
-
-            If oSqlCommand.Connection Is Nothing Then Return SetBindingSource
-
-            oSqlDataAdapter = New SqlDataAdapter(oSqlCommand)
-            oSqlDataAdapter.Fill(oDataSet, Me.parent_table_name)
-
-            If Not CBool(CInt(oDataSet.Tables(Me.parent_table_name).Rows.Count)) Then MessageBox.Show("No existen valores en la tabla.", "Atención", MessageBoxButtons.OK, MessageBoxIcon.Information)
-            'New CustomException("No existen valores en la tabla.")
-
-            Me.oBindingSource = New BindingSource
-            Me.oBindingSource.DataSource = oDataSet
-            Me.oBindingSource.DataMember = Me.parent_table_name
-
-            SetBindingSource = True
-
-        Catch ex As CustomException
-
-            MessageBox.Show(ex.Message, "Atención", MessageBoxButtons.OK, MessageBoxIcon.Error)
-
-        Catch ex As Exception
-
-            MessageBox.Show(ex.Message, "Atención", MessageBoxButtons.OK, MessageBoxIcon.Error)
-
-        Finally
-
-            If Not oSqlCommand.Connection Is Nothing Then oSqlCommand.Connection.Close() : oSqlCommand.Dispose()
-
-            If Not oSqlDataAdapter Is Nothing Then oSqlDataAdapter.Dispose()
-
-        End Try
-
-        Return SetBindingSource
-
-    End Function
-
-    Protected Friend Overrides Function SetBindingSourceFilter() As Boolean
-
-        Try
-
-            If Not PrepareCommand(SPCommand.QueryFilter) Then Throw New CustomException
-
-            oResponse = oSqlCommand.Parameters.Add("@response", SqlDbType.Int)
-            oResponse.Direction = ParameterDirection.Output
-
-            oSqlCommand.Connection = CApplicationController.oCDataBase.GetSQLConnection
-
-            If oSqlCommand.Connection Is Nothing Then Return SetBindingSourceFilter
-
-            oDataSet = New DataSet
-
-            oSqlDataAdapter = New SqlDataAdapter(oSqlCommand)
-            oSqlDataAdapter.Fill(oDataSet, Me.parent_table_name)
-
-            If Not CBool(CInt(oDataSet.Tables(Me.parent_table_name).Rows.Count)) Then MessageBox.Show("No existen valores en la tabla para los parámetros específicados.", "Atención", MessageBoxButtons.OK, MessageBoxIcon.Information) : SetBindingSourceFilter = False Else SetBindingSourceFilter = True
 
             Me.oBindingSource = New BindingSource
             Me.oBindingSource.DataSource = oDataSet
@@ -615,25 +631,25 @@ Partial Public Class FCentrosTrabajo
 
     Private Function UpdateRecord() As Boolean
 
-        oResponse = New SqlParameter
-
         Try
 
-            If Not Me.PrepareCommand(SPCommand.Update) Then Throw New CustomException
+            Using oConnection As SqlConnection = CApplicationController.oCDataBase.GetSQLConnection()
 
-            oResponse = oSqlCommand.Parameters.Add("@response", SqlDbType.Int)
-            oResponse.Direction = ParameterDirection.Output
+                Using oSqlCommand As New SqlCommand(Me.stored_procedure_name, oConnection) With {.CommandType = CommandType.StoredProcedure}
 
-            oSqlCommand.Connection = CApplicationController.oCDataBase.GetSQLConnection
+                    If Not Me.PrepareSPCommand(oSqlCommand, SPCommand.Update) Then Throw New CustomException
 
-            oSqlCommand.ExecuteNonQuery()
+                    oSqlCommand.ExecuteNonQuery()
 
-            ' --------------------------------------------------------------------------
-            ' Handle SP Response. 
-            ' --------------------------------------------------------------------------
-            If CInt(oResponse.Value.Equals(1)) Then Throw New CustomException("El registro ya existe. No se puede duplicar el registro.")
+                    ' -------------------------
+                    ' Handle SP Response. 
+                    ' -------------------------
+                    If CInt(oSqlCommand.Parameters("@response").Value.Equals(1)) Then Throw New CustomException("El registro ya existe. No se puede duplicar el registro.")
 
-            If CInt(oResponse.Value.Equals(0)) Then MessageBox.Show("Registro actualizado.", "Atención", MessageBoxButtons.OK, MessageBoxIcon.Information)
+                    If CInt(oSqlCommand.Parameters("@response").Value.Equals(0)) Then MessageBox.Show("Registro actualizado.", "Atención", MessageBoxButtons.OK, MessageBoxIcon.Information)
+
+                End Using
+            End Using
 
             UpdateRecord = True
 
@@ -644,10 +660,6 @@ Partial Public Class FCentrosTrabajo
         Catch ex As Exception
 
             MessageBox.Show(ex.Message, "Atención", MessageBoxButtons.OK, MessageBoxIcon.Error)
-
-        Finally
-
-            If Not oSqlCommand.Connection Is Nothing Then oSqlCommand.Connection.Close() : oSqlCommand.Dispose()
 
         End Try
 
@@ -677,26 +689,26 @@ Partial Public Class FCentrosTrabajo
                 .DataGridView.Tag = "DataGrid"
 
 
-                For i = 0 To .TableLayoutPanel1.RowStyles.Count
+                'For i = 0 To .TableLayoutPanel1.RowStyles.Count
 
-                    Select Case i
-                        Case 0
+                '    Select Case i
+                '        Case 0
 
-                            .TableLayoutPanel1.RowStyles.Item(i).SizeType = SizeType.Percent
-                            .TableLayoutPanel1.RowStyles.Item(i).Height = 20
+                '            .TableLayoutPanel1.RowStyles.Item(i).SizeType = SizeType.Percent
+                '            .TableLayoutPanel1.RowStyles.Item(i).Height = 20
 
-                        Case 1
+                '        Case 1
 
-                            .TableLayoutPanel1.RowStyles.Item(i).SizeType = SizeType.Percent
-                            .TableLayoutPanel1.RowStyles.Item(i).Height = 70
+                '            .TableLayoutPanel1.RowStyles.Item(i).SizeType = SizeType.Percent
+                '            .TableLayoutPanel1.RowStyles.Item(i).Height = 70
 
-                        Case 2
-                            .TableLayoutPanel1.RowStyles.Item(i).SizeType = SizeType.Percent
-                            .TableLayoutPanel1.RowStyles.Item(i).Height = 5
+                '        Case 2
+                '            .TableLayoutPanel1.RowStyles.Item(i).SizeType = SizeType.Percent
+                '            .TableLayoutPanel1.RowStyles.Item(i).Height = 5
 
-                    End Select
+                '    End Select
 
-                Next
+                'Next
 
             End With
 

@@ -167,7 +167,7 @@ Partial Class MDIMainContainer
         Me.ToolStripMDI.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.TSBQuery, Me.TSBNew, Me.TSBEdit, Me.TSBSave, Me.TSBDelete, Me.TSBCancel, Me.ToolStripSeparator6, Me.TSBFind, Me.TSBExecFind, Me.TSBDirectAccess, Me.ToolStripSeparator1, Me.TSBExportToExcel, Me.ToolStripSeparator8, Me.TSBExit})
         Me.ToolStripMDI.Location = New System.Drawing.Point(0, 0)
         Me.ToolStripMDI.Name = "ToolStripMDI"
-        Me.ToolStripMDI.Size = New System.Drawing.Size(1128, 27)
+        Me.ToolStripMDI.Size = New System.Drawing.Size(818, 27)
         Me.ToolStripMDI.TabIndex = 0
         Me.ToolStripMDI.TabStop = True
         Me.ToolStripMDI.Text = "ToolStrip1"
@@ -266,6 +266,7 @@ Partial Class MDIMainContainer
         Me.TSBDirectAccess.Size = New System.Drawing.Size(133, 24)
         Me.TSBDirectAccess.Text = "A&cceso Directo "
         Me.TSBDirectAccess.ToolTipText = "Acceso Directo - F9"
+        Me.TSBDirectAccess.Visible = False
         '
         'ToolStripSeparator1
         '
@@ -282,6 +283,7 @@ Partial Class MDIMainContainer
         Me.TSBExportToExcel.Name = "TSBExportToExcel"
         Me.TSBExportToExcel.Size = New System.Drawing.Size(138, 24)
         Me.TSBExportToExcel.Text = "E&xportar a Excel"
+        Me.TSBExportToExcel.Visible = False
         '
         'ToolStripSeparator8
         '

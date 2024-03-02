@@ -9,6 +9,18 @@ Public Class FCentrosTrabajo
         MyBase.Finalize()
     End Sub
 
+    Private Sub FCentrosTrabajo_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
+
+        Call CApplication.SetCultureSettings()
+
+        Call CommandFind()
+
+        Call Me.CommandQuery()
+
+        Call Me.SetGeneralFormat()
+
+    End Sub
+
     Private Sub BWorkerGetData_DoWork(ByVal sender As System.Object, ByVal e As System.ComponentModel.DoWorkEventArgs) Handles BWorkerGetData.DoWork
 
         Try
@@ -29,18 +41,17 @@ Public Class FCentrosTrabajo
 
         Try
 
-            'Throw New CustomException
+            If Me.oBindingSource.Count <= 0 Then Throw New CustomException
 
-            Call SetControlsBinding()
+            Call Me.SetControlsBinding()
 
             ' Establece formato de los controles.
-            Call SetGridPropertiesFormat()
+            Call Me.SetGridPropertiesFormat()
 
-            Call SetControlPropertiesFormat()
+            Call Me.SetControlPropertiesFormat()
 
             ' Establece el formato de la barra de comandos.
             Call SetToolBarConfiguration(CApplication.ControlState.InitState)
-
 
         Catch ex As CustomException
 
@@ -105,18 +116,6 @@ Public Class FCentrosTrabajo
 
         Me.oCFormController.parent_form = Nothing
         DirectCast(Me.ParentForm, MDIMainContainer).TSBExit.PerformClick()
-
-    End Sub
-
-    Private Sub FCentrosTrabajo_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
-
-        Call CApplication.SetCultureSettings()
-
-        Call CommandFind()
-
-        'Call Me.CommandQuery()
-
-        Call Me.SetGeneralFormat()
 
     End Sub
 

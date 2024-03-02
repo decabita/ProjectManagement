@@ -88,7 +88,19 @@ Public Class MDIMainContainer
         Me.TSBExit.Enabled = False
 
         ' Assigs form from menu.
-        If Me.oCFormController_.parent_form.IsMdiChild Then Me.oCFormController_.parent_form.Show()
+        If Me.oCFormController_.parent_form.IsMdiChild Then
+            With Me.oCFormController_.parent_form
+                .FormBorderStyle = Windows.Forms.FormBorderStyle.None
+                .ControlBox = False
+                .MaximizeBox = False
+                .MinimizeBox = False
+                .ShowIcon = False
+                .Text = ""
+                .Dock = DockStyle.Fill
+                .Show()
+            End With
+
+        End If
 
         'Me.PnlMainFormContainer.Controls.Add(Me.oCFormController_.parent_form)
         '    Me.oCFormController_.parent_form.Show()
@@ -161,200 +173,27 @@ Public Class MDIMainContainer
 
                 Case "TSBNew"
 
-                    If Me.ActiveMdiChild.Name.Equals("FEmbalajes") Or Me.ActiveMdiChild.Name.Equals("FUnidadesMedida") Or
-Me.ActiveMdiChild.Name.Equals("FFormularios") Or Me.ActiveMdiChild.Name.Equals("FCentrosTrabajo") Or
-Me.ActiveMdiChild.Name.Equals("FScrap") Or Me.ActiveMdiChild.Name.Equals("FScrapSubcausas") Or
-Me.ActiveMdiChild.Name.Equals("FScrapCausas") Or Me.ActiveMdiChild.Name.Equals("FAlmacenes") Or
-Me.ActiveMdiChild.Name.Equals("FAreasProduccion") Or Me.ActiveMdiChild.Name.Equals("FCentroCostos") Or
-Me.ActiveMdiChild.Name.Equals("FGruposRTM") Or Me.ActiveMdiChild.Name.Equals("FCelulas") Or
-Me.ActiveMdiChild.Name.Equals("FOrdenesProduccion") Or Me.ActiveMdiChild.Name.Equals("FCelulaMaquinariaChild") Or
-Me.ActiveMdiChild.Name.Equals("FScrapRelacionChild") Or Me.ActiveMdiChild.Name.Equals("FMoldes") Or
-Me.ActiveMdiChild.Name.Equals("FMaquinaria") Or Me.ActiveMdiChild.Name.Equals("FMaquinariaMoldeChild") Or
-Me.ActiveMdiChild.Name.Equals("FMoldesCavidadesChild") Or Me.ActiveMdiChild.Name.Equals("FPerfilesUsuario") Or
-Me.ActiveMdiChild.Name.Equals("FPerfilUsuarioChild") Or Me.ActiveMdiChild.Name.Equals("FPerfilFormaChild") Or
-Me.ActiveMdiChild.Name.Equals("FAppAccessTypes") Or Me.ActiveMdiChild.Name.Equals("FPersonal") Or
-Me.ActiveMdiChild.Name.Equals("FPersonalChild") Or Me.ActiveMdiChild.Name.Equals("FParoCausas") Or
-Me.ActiveMdiChild.Name.Equals("FSubcausasParoChild") Or Me.ActiveMdiChild.Name.Equals("FParoSubcausas") Or
-Me.ActiveMdiChild.Name.Equals("FUsuarios") Or Me.ActiveMdiChild.Name.Equals("FProductionReportChild") Or
-Me.ActiveMdiChild.Name.Equals("FProductionReportDetailChild") Or Me.ActiveMdiChild.Name.Equals("FProductionReportBomChild") Or
-Me.ActiveMdiChild.Name.Equals("FProductionReportBatchChild") Or Me.ActiveMdiChild.Name.Equals("FRacks") Or
-Me.ActiveMdiChild.Name.Equals("FPuestosPersonal") Or Me.ActiveMdiChild.Name.Equals("FTiposMaterial") Or
-Me.ActiveMdiChild.Name.Equals("FMarcas") Or Me.ActiveMdiChild.Name.Equals("FProcesos") Or
-Me.ActiveMdiChild.Name.Equals("FProductoTerminado") Or Me.ActiveMdiChild.Name.Equals("FLineasProduccion") Or
-Me.ActiveMdiChild.Name.Equals("FBomChild") Or Me.ActiveMdiChild.Name.Equals("FEspecificacionesChild") Or
-Me.ActiveMdiChild.Name.Equals("FEspecificacionAdicionalChild") Or Me.ActiveMdiChild.Name.Equals("FComponentes") Then
-
-
-                        DirectCast(Me.ActiveMdiChild, IFormCommandRules).CommandNew()
-                    Else
-
-                        DirectCast(Me.ActiveMdiChild, IToolBoxCommand).CommandNew()
-
-                    End If
+                    DirectCast(Me.ActiveMdiChild, IFormCommandRules).CommandNew()
 
                 Case "TSBCancel"
 
-                    If Me.ActiveMdiChild.Name.Equals("FEmbalajes") Or Me.ActiveMdiChild.Name.Equals("FUnidadesMedida") Or
-Me.ActiveMdiChild.Name.Equals("FFormularios") Or Me.ActiveMdiChild.Name.Equals("FCentrosTrabajo") Or
-Me.ActiveMdiChild.Name.Equals("FScrap") Or Me.ActiveMdiChild.Name.Equals("FScrapSubcausas") Or
-Me.ActiveMdiChild.Name.Equals("FScrapCausas") Or Me.ActiveMdiChild.Name.Equals("FAlmacenes") Or
-Me.ActiveMdiChild.Name.Equals("FAreasProduccion") Or Me.ActiveMdiChild.Name.Equals("FCentroCostos") Or
-Me.ActiveMdiChild.Name.Equals("FGruposRTM") Or Me.ActiveMdiChild.Name.Equals("FCelulas") Or
-Me.ActiveMdiChild.Name.Equals("FOrdenesProduccion") Or Me.ActiveMdiChild.Name.Equals("FCelulaMaquinariaChild") Or
-Me.ActiveMdiChild.Name.Equals("FScrapRelacionChild") Or Me.ActiveMdiChild.Name.Equals("FMoldes") Or
-Me.ActiveMdiChild.Name.Equals("FMaquinaria") Or Me.ActiveMdiChild.Name.Equals("FMaquinariaMoldeChild") Or
-Me.ActiveMdiChild.Name.Equals("FMoldesCavidadesChild") Or Me.ActiveMdiChild.Name.Equals("FPerfilesUsuario") Or
-Me.ActiveMdiChild.Name.Equals("FPerfilUsuarioChild") Or Me.ActiveMdiChild.Name.Equals("FPerfilFormaChild") Or
-Me.ActiveMdiChild.Name.Equals("FAppAccessTypes") Or Me.ActiveMdiChild.Name.Equals("FPersonal") Or
-Me.ActiveMdiChild.Name.Equals("FPersonalChild") Or Me.ActiveMdiChild.Name.Equals("FParoCausas") Or
-Me.ActiveMdiChild.Name.Equals("FSubcausasParoChild") Or Me.ActiveMdiChild.Name.Equals("FParoSubcausas") Or
-Me.ActiveMdiChild.Name.Equals("FUsuarios") Or Me.ActiveMdiChild.Name.Equals("FProductionReportChild") Or
-Me.ActiveMdiChild.Name.Equals("FProductionReportDetailChild") Or Me.ActiveMdiChild.Name.Equals("FProductionReportBomChild") Or
-Me.ActiveMdiChild.Name.Equals("FProductionReportBatchChild") Or Me.ActiveMdiChild.Name.Equals("FRacks") Or
-Me.ActiveMdiChild.Name.Equals("FPuestosPersonal") Or Me.ActiveMdiChild.Name.Equals("FTiposMaterial") Or
-Me.ActiveMdiChild.Name.Equals("FMarcas") Or Me.ActiveMdiChild.Name.Equals("FProcesos") Or
-Me.ActiveMdiChild.Name.Equals("FProductoTerminado") Or Me.ActiveMdiChild.Name.Equals("FLineasProduccion") Or
-Me.ActiveMdiChild.Name.Equals("FBomChild") Or Me.ActiveMdiChild.Name.Equals("FEspecificacionesChild") Or
-Me.ActiveMdiChild.Name.Equals("FEspecificacionAdicionalChild") Or Me.ActiveMdiChild.Name.Equals("FComponentes") Then
-
-                        DirectCast(Me.ActiveMdiChild, IFormCommandRules).CommandCancel()
-
-                    Else
-
-                        DirectCast(Me.ActiveMdiChild, IToolBoxCommand).CommandCancel()
-
-                    End If
+                    DirectCast(Me.ActiveMdiChild, IFormCommandRules).CommandCancel()
 
                 Case "TSBSave"
 
-                    If Me.ActiveMdiChild.Name.Equals("FEmbalajes") Or Me.ActiveMdiChild.Name.Equals("FUnidadesMedida") Or
-Me.ActiveMdiChild.Name.Equals("FFormularios") Or Me.ActiveMdiChild.Name.Equals("FCentrosTrabajo") Or
-Me.ActiveMdiChild.Name.Equals("FScrap") Or Me.ActiveMdiChild.Name.Equals("FScrapSubcausas") Or
-Me.ActiveMdiChild.Name.Equals("FScrapCausas") Or Me.ActiveMdiChild.Name.Equals("FAlmacenes") Or
-Me.ActiveMdiChild.Name.Equals("FAreasProduccion") Or Me.ActiveMdiChild.Name.Equals("FCentroCostos") Or
-Me.ActiveMdiChild.Name.Equals("FGruposRTM") Or Me.ActiveMdiChild.Name.Equals("FCelulas") Or
-Me.ActiveMdiChild.Name.Equals("FOrdenesProduccion") Or Me.ActiveMdiChild.Name.Equals("FCelulaMaquinariaChild") Or
-Me.ActiveMdiChild.Name.Equals("FScrapRelacionChild") Or Me.ActiveMdiChild.Name.Equals("FMoldes") Or
-Me.ActiveMdiChild.Name.Equals("FMaquinaria") Or Me.ActiveMdiChild.Name.Equals("FMaquinariaMoldeChild") Or
-Me.ActiveMdiChild.Name.Equals("FMoldesCavidadesChild") Or Me.ActiveMdiChild.Name.Equals("FPerfilesUsuario") Or
-Me.ActiveMdiChild.Name.Equals("FPerfilUsuarioChild") Or Me.ActiveMdiChild.Name.Equals("FPerfilFormaChild") Or
-Me.ActiveMdiChild.Name.Equals("FAppAccessTypes") Or Me.ActiveMdiChild.Name.Equals("FPersonal") Or
-Me.ActiveMdiChild.Name.Equals("FPersonalChild") Or Me.ActiveMdiChild.Name.Equals("FParoCausas") Or
-Me.ActiveMdiChild.Name.Equals("FSubcausasParoChild") Or Me.ActiveMdiChild.Name.Equals("FParoSubcausas") Or
-Me.ActiveMdiChild.Name.Equals("FUsuarios") Or Me.ActiveMdiChild.Name.Equals("FProductionReportChild") Or
-Me.ActiveMdiChild.Name.Equals("FProductionReportDetailChild") Or Me.ActiveMdiChild.Name.Equals("FProductionReportBomChild") Or
-Me.ActiveMdiChild.Name.Equals("FProductionReportBatchChild") Or Me.ActiveMdiChild.Name.Equals("FRacks") Or
-Me.ActiveMdiChild.Name.Equals("FPuestosPersonal") Or Me.ActiveMdiChild.Name.Equals("FTiposMaterial") Or
-Me.ActiveMdiChild.Name.Equals("FMarcas") Or Me.ActiveMdiChild.Name.Equals("FProcesos") Or
-Me.ActiveMdiChild.Name.Equals("FProductoTerminado") Or Me.ActiveMdiChild.Name.Equals("FLineasProduccion") Or
-Me.ActiveMdiChild.Name.Equals("FBomChild") Or Me.ActiveMdiChild.Name.Equals("FEspecificacionesChild") Or
-Me.ActiveMdiChild.Name.Equals("FEspecificacionAdicionalChild") Or Me.ActiveMdiChild.Name.Equals("FComponentes") Then
-
-                        DirectCast(Me.ActiveMdiChild, IFormCommandRules).CommandSave()
-
-                    Else
-
-                        DirectCast(Me.ActiveMdiChild, IToolBoxCommand).CommandSave()
-
-                    End If
+                    DirectCast(Me.ActiveMdiChild, IFormCommandRules).CommandSave()
 
                 Case "TSBDelete"
 
-                    If Me.ActiveMdiChild.Name.Equals("FEmbalajes") Or Me.ActiveMdiChild.Name.Equals("FUnidadesMedida") Or
-Me.ActiveMdiChild.Name.Equals("FFormularios") Or Me.ActiveMdiChild.Name.Equals("FCentrosTrabajo") Or
-Me.ActiveMdiChild.Name.Equals("FScrap") Or Me.ActiveMdiChild.Name.Equals("FScrapSubcausas") Or
-Me.ActiveMdiChild.Name.Equals("FScrapCausas") Or Me.ActiveMdiChild.Name.Equals("FAlmacenes") Or
-Me.ActiveMdiChild.Name.Equals("FAreasProduccion") Or Me.ActiveMdiChild.Name.Equals("FCentroCostos") Or
-Me.ActiveMdiChild.Name.Equals("FGruposRTM") Or Me.ActiveMdiChild.Name.Equals("FCelulas") Or
-Me.ActiveMdiChild.Name.Equals("FOrdenesProduccion") Or Me.ActiveMdiChild.Name.Equals("FCelulaMaquinariaChild") Or
-Me.ActiveMdiChild.Name.Equals("FScrapRelacionChild") Or Me.ActiveMdiChild.Name.Equals("FMoldes") Or
-Me.ActiveMdiChild.Name.Equals("FMaquinaria") Or Me.ActiveMdiChild.Name.Equals("FMaquinariaMoldeChild") Or
-Me.ActiveMdiChild.Name.Equals("FMoldesCavidadesChild") Or Me.ActiveMdiChild.Name.Equals("FPerfilesUsuario") Or
-Me.ActiveMdiChild.Name.Equals("FPerfilUsuarioChild") Or Me.ActiveMdiChild.Name.Equals("FPerfilFormaChild") Or
-Me.ActiveMdiChild.Name.Equals("FAppAccessTypes") Or Me.ActiveMdiChild.Name.Equals("FPersonal") Or
-Me.ActiveMdiChild.Name.Equals("FPersonalChild") Or Me.ActiveMdiChild.Name.Equals("FParoCausas") Or
-Me.ActiveMdiChild.Name.Equals("FSubcausasParoChild") Or Me.ActiveMdiChild.Name.Equals("FParoSubcausas") Or
-Me.ActiveMdiChild.Name.Equals("FUsuarios") Or Me.ActiveMdiChild.Name.Equals("FProductionReportChild") Or
-Me.ActiveMdiChild.Name.Equals("FProductionReportDetailChild") Or Me.ActiveMdiChild.Name.Equals("FProductionReportBomChild") Or
-Me.ActiveMdiChild.Name.Equals("FProductionReportBatchChild") Or Me.ActiveMdiChild.Name.Equals("FRacks") Or
-Me.ActiveMdiChild.Name.Equals("FPuestosPersonal") Or Me.ActiveMdiChild.Name.Equals("FTiposMaterial") Or
-Me.ActiveMdiChild.Name.Equals("FMarcas") Or Me.ActiveMdiChild.Name.Equals("FProcesos") Or
-Me.ActiveMdiChild.Name.Equals("FProductoTerminado") Or Me.ActiveMdiChild.Name.Equals("FLineasProduccion") Or
-Me.ActiveMdiChild.Name.Equals("FBomChild") Or Me.ActiveMdiChild.Name.Equals("FEspecificacionesChild") Or
-Me.ActiveMdiChild.Name.Equals("FEspecificacionAdicionalChild") Or Me.ActiveMdiChild.Name.Equals("FComponentes") Then
-
-                        DirectCast(Me.ActiveMdiChild, IFormCommandRules).CommandDelete()
-                    Else
-
-                        DirectCast(Me.ActiveMdiChild, IToolBoxCommand).CommandDelete()
-
-                    End If
+                    DirectCast(Me.ActiveMdiChild, IFormCommandRules).CommandDelete()
 
                 Case "TSBEdit"
 
-                    If Me.ActiveMdiChild.Name.Equals("FEmbalajes") Or Me.ActiveMdiChild.Name.Equals("FUnidadesMedida") Or
-Me.ActiveMdiChild.Name.Equals("FFormularios") Or Me.ActiveMdiChild.Name.Equals("FCentrosTrabajo") Or
-Me.ActiveMdiChild.Name.Equals("FScrap") Or Me.ActiveMdiChild.Name.Equals("FScrapSubcausas") Or
-Me.ActiveMdiChild.Name.Equals("FScrapCausas") Or Me.ActiveMdiChild.Name.Equals("FAlmacenes") Or
-Me.ActiveMdiChild.Name.Equals("FAreasProduccion") Or Me.ActiveMdiChild.Name.Equals("FCentroCostos") Or
-Me.ActiveMdiChild.Name.Equals("FGruposRTM") Or Me.ActiveMdiChild.Name.Equals("FCelulas") Or
-Me.ActiveMdiChild.Name.Equals("FOrdenesProduccion") Or Me.ActiveMdiChild.Name.Equals("FCelulaMaquinariaChild") Or
-Me.ActiveMdiChild.Name.Equals("FScrapRelacionChild") Or Me.ActiveMdiChild.Name.Equals("FMoldes") Or
-Me.ActiveMdiChild.Name.Equals("FMaquinaria") Or Me.ActiveMdiChild.Name.Equals("FMaquinariaMoldeChild") Or
-Me.ActiveMdiChild.Name.Equals("FMoldesCavidadesChild") Or Me.ActiveMdiChild.Name.Equals("FPerfilesUsuario") Or
-Me.ActiveMdiChild.Name.Equals("FPerfilUsuarioChild") Or Me.ActiveMdiChild.Name.Equals("FPerfilFormaChild") Or
-Me.ActiveMdiChild.Name.Equals("FAppAccessTypes") Or Me.ActiveMdiChild.Name.Equals("FPersonal") Or
-Me.ActiveMdiChild.Name.Equals("FPersonalChild") Or Me.ActiveMdiChild.Name.Equals("FParoCausas") Or
-Me.ActiveMdiChild.Name.Equals("FSubcausasParoChild") Or Me.ActiveMdiChild.Name.Equals("FParoSubcausas") Or
-Me.ActiveMdiChild.Name.Equals("FUsuarios") Or Me.ActiveMdiChild.Name.Equals("FProductionReportChild") Or
-Me.ActiveMdiChild.Name.Equals("FProductionReportDetailChild") Or Me.ActiveMdiChild.Name.Equals("FProductionReportBomChild") Or
-Me.ActiveMdiChild.Name.Equals("FProductionReportBatchChild") Or Me.ActiveMdiChild.Name.Equals("FRacks") Or
-Me.ActiveMdiChild.Name.Equals("FPuestosPersonal") Or Me.ActiveMdiChild.Name.Equals("FTiposMaterial") Or
-Me.ActiveMdiChild.Name.Equals("FMarcas") Or Me.ActiveMdiChild.Name.Equals("FProcesos") Or
-Me.ActiveMdiChild.Name.Equals("FProductoTerminado") Or Me.ActiveMdiChild.Name.Equals("FLineasProduccion") Or
-Me.ActiveMdiChild.Name.Equals("FBomChild") Or Me.ActiveMdiChild.Name.Equals("FEspecificacionesChild") Or
-Me.ActiveMdiChild.Name.Equals("FEspecificacionAdicionalChild") Or Me.ActiveMdiChild.Name.Equals("FComponentes") Then
-
-                        DirectCast(Me.ActiveMdiChild, IFormCommandRules).CommandEdit()
-                    Else
-
-                        DirectCast(Me.ActiveMdiChild, IToolBoxCommand).CommandEdit()
-                    End If
+                    DirectCast(Me.ActiveMdiChild, IFormCommandRules).CommandEdit()
 
                 Case "TSBQuery"
 
-                    If Me.ActiveMdiChild.Name.Equals("FEmbalajes") Or Me.ActiveMdiChild.Name.Equals("FUnidadesMedida") Or
-Me.ActiveMdiChild.Name.Equals("FFormularios") Or Me.ActiveMdiChild.Name.Equals("FCentrosTrabajo") Or
-Me.ActiveMdiChild.Name.Equals("FScrap") Or Me.ActiveMdiChild.Name.Equals("FScrapSubcausas") Or
-Me.ActiveMdiChild.Name.Equals("FScrapCausas") Or Me.ActiveMdiChild.Name.Equals("FAlmacenes") Or
-Me.ActiveMdiChild.Name.Equals("FAreasProduccion") Or Me.ActiveMdiChild.Name.Equals("FCentroCostos") Or
-Me.ActiveMdiChild.Name.Equals("FGruposRTM") Or Me.ActiveMdiChild.Name.Equals("FCelulas") Or
-Me.ActiveMdiChild.Name.Equals("FOrdenesProduccion") Or Me.ActiveMdiChild.Name.Equals("FCelulaMaquinariaChild") Or
-Me.ActiveMdiChild.Name.Equals("FScrapRelacionChild") Or Me.ActiveMdiChild.Name.Equals("FMoldes") Or
-Me.ActiveMdiChild.Name.Equals("FMaquinaria") Or Me.ActiveMdiChild.Name.Equals("FMaquinariaMoldeChild") Or
-Me.ActiveMdiChild.Name.Equals("FMoldesCavidadesChild") Or Me.ActiveMdiChild.Name.Equals("FPerfilesUsuario") Or
-Me.ActiveMdiChild.Name.Equals("FPerfilUsuarioChild") Or Me.ActiveMdiChild.Name.Equals("FPerfilFormaChild") Or
-Me.ActiveMdiChild.Name.Equals("FAppAccessTypes") Or Me.ActiveMdiChild.Name.Equals("FPersonal") Or
-Me.ActiveMdiChild.Name.Equals("FPersonalChild") Or Me.ActiveMdiChild.Name.Equals("FParoCausas") Or
-Me.ActiveMdiChild.Name.Equals("FSubcausasParoChild") Or Me.ActiveMdiChild.Name.Equals("FParoSubcausas") Or
-Me.ActiveMdiChild.Name.Equals("FUsuarios") Or Me.ActiveMdiChild.Name.Equals("FProductionReportChild") Or
-Me.ActiveMdiChild.Name.Equals("FProductionReportDetailChild") Or Me.ActiveMdiChild.Name.Equals("FProductionReportBomChild") Or
-Me.ActiveMdiChild.Name.Equals("FProductionReportBatchChild") Or Me.ActiveMdiChild.Name.Equals("FRacks") Or
-Me.ActiveMdiChild.Name.Equals("FPuestosPersonal") Or Me.ActiveMdiChild.Name.Equals("FTiposMaterial") Or
-Me.ActiveMdiChild.Name.Equals("FMarcas") Or Me.ActiveMdiChild.Name.Equals("FProcesos") Or
-Me.ActiveMdiChild.Name.Equals("FProductoTerminado") Or Me.ActiveMdiChild.Name.Equals("FLineasProduccion") Or
-Me.ActiveMdiChild.Name.Equals("FBomChild") Or Me.ActiveMdiChild.Name.Equals("FEspecificacionesChild") Or
-Me.ActiveMdiChild.Name.Equals("FEspecificacionAdicionalChild") Or Me.ActiveMdiChild.Name.Equals("FComponentes") Then
-
-                        DirectCast(Me.ActiveMdiChild, IFormCommandRules).CommandQuery()
-
-                    Else
-
-                        DirectCast(Me.ActiveMdiChild, IToolBoxCommand).CommandQuery()
-
-                    End If
-
-
+                    DirectCast(Me.ActiveMdiChild, IFormCommandRules).CommandQuery()
 
                 Case "TSBExportToExcel"
 

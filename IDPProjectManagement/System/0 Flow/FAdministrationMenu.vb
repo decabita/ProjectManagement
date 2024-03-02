@@ -2016,4 +2016,8 @@ Public Class FAdministrationMenu
     Private Sub FCentrosTrabajo_Click(sender As Object, e As EventArgs) Handles FCentrosTrabajo.Click
         ShowMeInMainContainer(sender.Name)
     End Sub
+
+    Private Sub CToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles FClientes.Click
+        ShowMeInMainContainer(sender.Name)
+    End Sub
 End Class

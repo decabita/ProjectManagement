@@ -6,12 +6,24 @@ Public Class FClientes
         MyBase.Finalize()
     End Sub
 
-    Private Sub BWorkerGetProducts_DoWork(ByVal sender As System.Object, ByVal e As System.ComponentModel.DoWorkEventArgs) Handles BWorkerGetData.DoWork
+    Private Sub FClientes_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
+
+        Call CApplication.SetCultureSettings()
+
+        Call CommandFind()
+
+        Call Me.CommandQuery()
+
+        Call Me.SetGeneralFormat()
+
+    End Sub
+
+    Private Sub BWorkerGetData_DoWork(ByVal sender As System.Object, ByVal e As System.ComponentModel.DoWorkEventArgs) Handles BWorkerGetData.DoWork
 
         Try
 
-            ' Ejecuta la consulta.
-            'e.Result = QueryAll()
+            ' Executes Query.
+            e.Result = Me.QueryAll()
 
         Catch ex As Exception
 
@@ -21,18 +33,18 @@ Public Class FClientes
 
     End Sub
 
-    Private Sub BWorkerGetProducts_RunWorkerCompleted(ByVal sender As Object, ByVal e As System.ComponentModel.RunWorkerCompletedEventArgs) Handles BWorkerGetData.RunWorkerCompleted
+    Private Sub BWorkerGetData_RunWorkerCompleted(ByVal sender As Object, ByVal e As System.ComponentModel.RunWorkerCompletedEventArgs) Handles BWorkerGetData.RunWorkerCompleted
 
         Try
 
-            If Not CBool(CInt(Me.oBindingSourceParent.Count)) Then Throw New CustomException
+            If Me.oBindingSource.Count <= 0 Then Throw New CustomException
 
-            Call SetControlsBinding()
+            Call Me.SetControlsBinding()
 
             ' Establece formato de los controles.
-            Call SetGridPropertiesFormat()
+            Call Me.SetGridPropertiesFormat()
 
-            Call SetControlPropertiesFormat()
+            Call Me.SetControlPropertiesFormat()
 
             ' Establece el formato de la barra de comandos.
             Call SetToolBarConfiguration(CApplication.ControlState.InitState)
@@ -50,97 +62,51 @@ Public Class FClientes
 
     End Sub
 
-    Private Sub FUsuarios_Activated(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Activated
+    Private Sub DataGridView_DataError(ByVal sender As Object, ByVal e As System.Windows.Forms.DataGridViewDataErrorEventArgs) Handles DataGridView.DataError
+        Dim ex As Exception = e.Exception
+    End Sub
 
-        Me.oFormController.active_form = Me
+    Private Sub DataGridView_RowEnter(ByVal sender As Object, ByVal e As System.Windows.Forms.DataGridViewCellEventArgs) Handles DataGridView.RowEnter
 
-        DirectCast(Me.ParentForm, MDIMainContainer).MDICurrentForm.Text = Me.Text
-        DirectCast(Me.ParentForm, MDIMainContainer).MDIFormState.Text = CApplication.GetFormState(Me.form_state)
+        If Not CBool(CInt(Me.oBindingSource.Count)) Then Exit Sub
 
-        ' Establece el formato de la barra de comandos.
-        Call SetToolBarConfiguration(Me.form_state)
+        If DataGridView.Rows(e.RowIndex) IsNot Nothing Then Me.current_row = e.RowIndex
 
     End Sub
 
-    Private Sub FUsuarios_Deactivate(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Deactivate
+    Private Sub FClientes_Activated(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Activated
+
+        Me.oCFormController.active_form = Me
+
+        ' TODO REPORTS
+        DirectCast(Me.ParentForm, MDIMainContainer).oCFormController_.parent_form = Me
+        ' --------------------------------------------------------------------------
+
+        DirectCast(Me.ParentForm, MDIMainContainer).MDICurrentForm.Text = Me.Text
+        DirectCast(Me.ParentForm, MDIMainContainer).MDIFormState.Text = CApplication.GetFormStateDescription(Me.form_state)
+
+        ' Establece el formato de la barra de comandos.
+        Call Me.SetToolBarConfiguration(Me.form_state)
+
+    End Sub
+
+    Private Sub FClientes_Deactivate(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Deactivate
 
         If Not Me.form_state = CApplication.ControlState.InitState Then Call CommandCancel()
 
     End Sub
+    Private Sub FClientes_FormClosed(ByVal sender As Object, ByVal e As System.Windows.Forms.FormClosedEventArgs) Handles Me.FormClosed
 
-    Private Sub FUsuarios_FormClosed(ByVal sender As Object, ByVal e As System.Windows.Forms.FormClosedEventArgs) Handles Me.FormClosed
+        ' TODO REPORTS
+        DirectCast(Me.ParentForm, MDIMainContainer).oCFormController_.parent_form = Nothing
+        ' --------------------------------------------------------------------------
 
-        Me.oFormController.parent_form = Nothing
+        Me.oCFormController.parent_form = Nothing
         DirectCast(Me.ParentForm, MDIMainContainer).TSBExit.PerformClick()
 
     End Sub
 
-    Private Sub FUsuarios_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
-
-        ''Application.DoEvents()
-
-        Call CApplication.SetCultureSettings()
-
-        Call CommandQuery()
-
-        Call Me.SetGeneralFormat()
-
-    End Sub
-
-    Private Sub LowerComponentes_Click(ByVal sender As System.Object, ByVal e As System.EventArgs)
-
-        Exit Sub
-
-
-
-    End Sub
-
-    Private Sub releaseObject(ByVal obj As Object)
-        Try
-            System.Runtime.InteropServices.Marshal.ReleaseComObject(obj)
-            obj = Nothing
-        Catch ex As Exception
-            obj = Nothing
-            MessageBox.Show("Exception Occured while releasing object " + ex.ToString())
-        Finally
-            GC.Collect()
-        End Try
-    End Sub
-
-
-    Private Sub TSBBom_Click(ByVal sender As System.Object, ByVal e As System.EventArgs)
-
-
-
-    End Sub
-
-    Private Sub TSBPassword_Click(ByVal sender As System.Object, ByVal e As System.EventArgs)
-
-        Try
-
-            ' ----------------------------------------------------------
-            ' Create Child Form
-            ' ----------------------------------------------------------
-
-
-
-        Catch ex As CustomException
-
-            MessageBox.Show(ex.Message, "Atención", MessageBoxButtons.OK, MessageBoxIcon.Information)
-
-        Catch ex As Exception
-
-            Me.oFormController.child_form = Nothing
-            MessageBox.Show(ex.Message, "Atención", MessageBoxButtons.OK, MessageBoxIcon.Error)
-
-        End Try
-
-
-    End Sub
-
-    Private Sub ExportarExcel_Click(ByVal sender As System.Object, ByVal e As System.EventArgs)
-
-        'Call FReportingExcel.SendToExcelService(Me.DataGridView, Me.Text)
+    Private Sub DataGridView_CellContentClick(sender As Object, e As DataGridViewCellEventArgs) Handles DataGridView.CellContentClick
 
     End Sub
 End Class

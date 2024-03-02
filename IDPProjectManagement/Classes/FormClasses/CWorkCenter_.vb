@@ -213,6 +213,8 @@ Public Class CWorkCenter_
 
         Try
 
+            If oForm.oBindingSource.Count <= 0 Then Return SetControlsBinding
+
             With oForm
                 ' ----------------
                 ' TEXTBOX BINDING.
@@ -268,9 +270,6 @@ Public Class CWorkCenter_
 
             SetControlsBinding = True
 
-        Catch ex As CustomException
-
-            MessageBox.Show(ex.Message, "Atención", MessageBoxButtons.OK, MessageBoxIcon.Error)
 
         Catch ex As Exception
 
