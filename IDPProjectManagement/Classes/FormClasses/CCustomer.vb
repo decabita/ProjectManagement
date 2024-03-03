@@ -1,4 +1,5 @@
-﻿Imports System.Data.SqlClient
+﻿Imports System.ComponentModel
+Imports System.Data.SqlClient
 
 Public Class CCustomer
 
@@ -35,7 +36,7 @@ Public Class CCustomer
         End Set
     End Property
 
-    Private _guid As String
+    Private Property  _guid As String
     Public Property guid() As String
         Get
             Return _guid
@@ -239,29 +240,23 @@ Public Class CCustomer
 
     Private Sub Initialize()
 
-        With Me
-            .id = -1
-            .guid = String.Empty
-            .centro_id = 0
-            .nombre_corto = String.Empty
-            .nombre = String.Empty
-            .rfc = String.Empty
-            .razon_social = String.Empty
-            .contacto = String.Empty
-            .email = String.Empty
-            .telefono = String.Empty
-            .celular = String.Empty
-            .pais = String.Empty
-            .ciudad = String.Empty
-            .calle = String.Empty
-            .numero_ext = 0
-            .numero_int = 0
-            .colonia = String.Empty
-            .delegacion = String.Empty
-            .codigo_postal = 0
-            .descripcion = String.Empty
-            .is_active = False
-        End With
+        For Each prop As PropertyDescriptor In TypeDescriptor.GetProperties(Me)
+
+            Select Case prop.PropertyType.Name
+
+                Case "String"
+
+                    prop.SetValue(Me, String.Empty)
+
+                Case "Boolean"
+
+                    prop.SetValue(Me, False)
+
+                Case "Int32"
+                    prop.SetValue(Me, -1)
+
+            End Select
+        Next
 
     End Sub
 
@@ -292,27 +287,46 @@ Public Class CCustomer
 
                             With oDataSet.Tables("MainTable").Rows(0)
 
-                                Me.guid = .Item("guid")
-                                Me.id = .Item("id")
-                                Me.centro_id = .Item("centro_id")
-                                Me.nombre_corto = .Item("nombre_corto").ToString.Trim
-                                Me.nombre = .Item("nombre").ToString.Trim
-                                Me.rfc = .Item("rfc").ToString.Trim
-                                Me.razon_social = .Item("razon_social").ToString.Trim
-                                Me.contacto = .Item("contacto").ToString.Trim
-                                Me.email = .Item("email").ToString.Trim
-                                Me.telefono = .Item("telefono").ToString.Trim
-                                Me.celular = .Item("celular").ToString.Trim
-                                Me.pais = .Item("pais").ToString.Trim
-                                Me.ciudad = .Item("ciudad").ToString.Trim
-                                Me.calle = .Item("calle").ToString.Trim
-                                Me.numero_ext = .Item("numero_ext")
-                                Me.numero_int = .Item("numero_int")
-                                Me.colonia = .Item("colonia").ToString.Trim
-                                Me.delegacion = .Item("delegacion").ToString.Trim
-                                Me.codigo_postal = .Item("codigo_postal")
-                                Me.descripcion = .Item("descripcion").ToString.Trim
-                                Me.is_active = .Item("is_active")
+                                'Me.guid = .Item("guid")
+                                'Me.id = .Item("id")
+                                'Me.centro_id = .Item("centro_id")
+                                'Me.nombre_corto = .Item("nombre_corto").ToString.Trim
+                                'Me.nombre = .Item("nombre").ToString.Trim
+                                'Me.rfc = .Item("rfc").ToString.Trim
+                                'Me.razon_social = .Item("razon_social").ToString.Trim
+                                'Me.contacto = .Item("contacto").ToString.Trim
+                                'Me.email = .Item("email").ToString.Trim
+                                'Me.telefono = .Item("telefono").ToString.Trim
+                                'Me.celular = .Item("celular").ToString.Trim
+                                'Me.pais = .Item("pais").ToString.Trim
+                                'Me.ciudad = .Item("ciudad").ToString.Trim
+                                'Me.calle = .Item("calle").ToString.Trim
+                                'Me.numero_ext = .Item("numero_ext")
+                                'Me.numero_int = .Item("numero_int")
+                                'Me.colonia = .Item("colonia").ToString.Trim
+                                'Me.delegacion = .Item("delegacion").ToString.Trim
+                                'Me.codigo_postal = .Item("codigo_postal")
+                                'Me.descripcion = .Item("descripcion").ToString.Trim
+                                'Me.is_active = .Item("is_active")
+
+                                For Each prop As PropertyDescriptor In TypeDescriptor.GetProperties(Me)
+
+                                    Select Case prop.PropertyType.Name
+
+                                        Case "String"
+
+                                            prop.SetValue(Me, .Item(prop.Name).ToString.Trim)
+
+                                        Case "Boolean"
+
+                                            prop.SetValue(Me, .Item(prop.Name))
+
+                                        Case "Int32"
+
+                                            prop.SetValue(Me, .Item(prop.Name))
+
+                                    End Select
+                                Next
 
                             End With
 
@@ -413,6 +427,62 @@ Public Class CCustomer
 
     End Function
 
+
+    Public Shared Sub SetGridPropertiesFormat(ByVal oForm As FClientes)
+
+        Try
+            With oForm.DataGridView
+
+                .MultiSelect = False
+
+                .AlternatingRowsDefaultCellStyle.BackColor = Color.LightCyan
+
+                .AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells
+
+                .ColumnHeadersDefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter
+
+                .ColumnHeadersDefaultCellStyle.Font = New Font(.Font.FontFamily, 11.0F,
+                .Font.Style Or FontStyle.Bold, GraphicsUnit.Point)
+
+                .DefaultCellStyle.Font = New Font(.Font.FontFamily, 10.0F, FontStyle.Regular)
+
+                ' .DefaultCellStyle.NullValue = "NA"
+
+                '--------------------------------------------------------------------
+                ' TODO 
+                '
+                ' Change column properties and format in accordance with data. 
+                '--------------------------------------------------------------------
+
+                .Columns("centro_id").Visible = False
+                .Columns("id").Visible = False
+
+                .Columns("guid").HeaderText = "Guid"
+                .Columns("guid").Visible = True
+                .Columns("guid").DisplayIndex = 1
+
+                .Columns("nombre").HeaderText = "Nombre"
+                .Columns("nombre").Visible = True
+                .Columns("nombre").DisplayIndex = 2
+
+                .Columns("descripcion").HeaderText = "Descripción"
+                .Columns("descripcion").Visible = True
+                .Columns("descripcion").DisplayIndex = 3
+
+                .Columns("is_active").HeaderText = "Activo"
+                .Columns("is_active").Visible = True
+                .Columns("is_active").DisplayIndex = 4
+
+            End With
+
+        Catch ex As Exception
+
+            MessageBox.Show(ex.Message, "Atención", MessageBoxButtons.OK, MessageBoxIcon.Error)
+
+        End Try
+
+    End Sub
+
     Public Shared Function SetControlsBindingOnNew(ByVal oForm As FClientes) As Boolean
 
         Try
@@ -471,6 +541,263 @@ Public Class CCustomer
         End Try
 
         Return SetControlsBindingOnNew
+
+    End Function
+
+    Public Shared Sub SetControlPropertiesFormat(ByVal oForm As FClientes)
+
+        Try
+            With oForm
+
+                .tClaveId.Tag = "Clave"
+                .tClaveId.MaxLength = 18
+                .tClaveId.TextAlign = HorizontalAlignment.Right
+
+                .tNombre.Tag = "Nombre"
+                .tNombre.MaxLength = 80
+                .tNombre.TextAlign = HorizontalAlignment.Left
+
+                .tDescripcion.Tag = "Descripción"
+                .tDescripcion.MaxLength = 120
+                .tDescripcion.TextAlign = HorizontalAlignment.Left
+
+                .ckActivo.Tag = "Activo"
+
+                .DataGridView.Tag = "DataGrid"
+
+            End With
+
+        Catch ex As Exception
+
+            MessageBox.Show(ex.Message, "Atención", MessageBoxButtons.OK, MessageBoxIcon.Error)
+
+        End Try
+
+
+    End Sub
+
+    Public Shared Sub SetGeneralFormat(ByVal oForm As FClientes)
+
+        With oForm
+
+            ' Add behaviour events to controls.
+            AddHandler .tClaveId.GotFocus, AddressOf CApplication.HandleGotFocus
+            AddHandler .tClaveId.LostFocus, AddressOf CApplication.HandleLostFocus
+            AddHandler .tClaveId.KeyPress, AddressOf CApplication.HandleNotSpaces
+
+            AddHandler .tNombre.GotFocus, AddressOf CApplication.HandleGotFocus
+            AddHandler .tNombre.LostFocus, AddressOf CApplication.HandleLostFocus
+
+            AddHandler .tDescripcion.GotFocus, AddressOf CApplication.HandleGotFocus
+            AddHandler .tDescripcion.LostFocus, AddressOf CApplication.HandleLostFocus
+
+            For i = 0 To .TableLayoutPanel1.RowStyles.Count
+
+                Select Case i
+                    Case 0
+
+                        .TableLayoutPanel1.RowStyles.Item(i).SizeType = SizeType.Percent
+                        .TableLayoutPanel1.RowStyles.Item(i).Height = 20
+
+                    Case 1
+
+                        .TableLayoutPanel1.RowStyles.Item(i).SizeType = SizeType.Percent
+                        .TableLayoutPanel1.RowStyles.Item(i).Height = 70
+
+                    Case 2
+                        .TableLayoutPanel1.RowStyles.Item(i).SizeType = SizeType.Percent
+                        .TableLayoutPanel1.RowStyles.Item(i).Height = 5
+
+                End Select
+
+            Next
+
+        End With
+
+    End Sub
+
+
+    Public Shared Sub PrepareSPCommand(ByVal oSqlCommand As SqlCommand, ByVal spCommandValue As Integer, ByVal oForm As Form)
+
+        Try
+
+            With oSqlCommand.Parameters
+
+                ' ---------------------- 
+                ' Parameter Assignation
+                ' -----------------------
+                Select Case spCommandValue
+
+                    Case SPCommand.QueryAll
+
+                        .Add("@centro_id", SqlDbType.NVarChar).Value = CApplicationController.oCWorkCenter_.id
+                        .Add("@command", SqlDbType.Int).Value = SPCommand.QueryAll
+                        .Add("@response", SqlDbType.Int).Direction = ParameterDirection.Output
+
+                    Case SPCommand.Save
+
+                        .Add("@centro_id", SqlDbType.VarChar).Value = DirectCast(oForm, FClientes).oMainClass.centro_id
+                        '.Add("@nombre_corto", SqlDbType.VarChar).Value = oForm.oMainClass.nombre_corto
+                        '.Add("@nombre", SqlDbType.VarChar).Value = oForm.oMainClass.nombre
+                        '.Add("@descripcion", SqlDbType.VarChar).Value = oForm.oMainClass.descripcion
+                        '.Add("@is_active", SqlDbType.Bit).Value = oForm.oMainClass.is_active
+                        .Add("@command", SqlDbType.Int).Value = SPCommand.Save
+                        .Add("@response", SqlDbType.Int).Direction = ParameterDirection.Output
+
+                    Case SPCommand.Delete
+
+                        .Add("@centro_id", SqlDbType.VarChar).Value = CApplicationController.oCWorkCenter_.id
+                        '.Add("@id", SqlDbType.VarChar).Value = oForm.oMainClass.id
+                        '.Add("@guid", SqlDbType.VarChar).Value = oForm.oMainClass.guid
+                        .Add("@command", SqlDbType.Int).Value = SPCommand.Delete
+                        .Add("@response", SqlDbType.Int).Direction = ParameterDirection.Output
+
+                    Case SPCommand.Update
+
+                        .Add("@centro_id", SqlDbType.VarChar).Value = CApplicationController.oCWorkCenter_.id
+                        '.Add("@id", SqlDbType.VarChar).Value = oForm.oMainClass.id
+                        '.Add("@guid", SqlDbType.VarChar).Value = oForm.oMainClass.guid
+                        '.Add("@nombre", SqlDbType.VarChar).Value = oForm.oMainClass.nombre
+                        '.Add("@descripcion", SqlDbType.VarChar).Value = oForm.oMainClass.descripcion
+                        '.Add("@is_active", SqlDbType.Bit).Value = oForm.oMainClass.is_active
+                        .Add("@command", SqlDbType.Int).Value = SPCommand.Update
+                        .Add("@response", SqlDbType.Int).Direction = ParameterDirection.Output
+
+                End Select
+
+            End With
+
+            'PrepareSPCommand = True
+
+        Catch ex As Exception
+
+            MessageBox.Show(ex.Message, "Atención", MessageBoxButtons.OK, MessageBoxIcon.Error)
+
+        End Try
+
+        'Return PrepareSPCommand()
+
+    End Sub
+    Public Shared Function SaveRecord(ByVal oForm As FClientes) As Boolean
+
+        Try
+
+            Using oConnection As SqlConnection = CApplicationController.oCDataBase.GetSQLConnection()
+
+                Using oSqlCommand As New SqlCommand(oForm.stored_procedure_name, oConnection) With {.CommandType = CommandType.StoredProcedure}
+
+                    'If Not CCustomer.PrepareSPCommand(oSqlCommand, SPCommand.Save, oForm) Then Throw New CustomException
+
+                    oSqlCommand.ExecuteNonQuery()
+
+                    ' ----------------------------
+                    ' Handle SP Response. 
+                    ' ----------------------------
+                    If CInt(oSqlCommand.Parameters("@response").Value.Equals(1)) Then Throw New CustomException("El registro ya existe. No se puede duplicar el registro.")
+
+                    If CInt(oSqlCommand.Parameters("@response").Value.Equals(0)) Then MessageBox.Show("Registro dado de alta.", "Atención", MessageBoxButtons.OK, MessageBoxIcon.Information)
+
+                End Using
+
+            End Using
+
+            SaveRecord = True
+
+        Catch ex As CustomException
+
+            MessageBox.Show(ex.Message, "Atención", MessageBoxButtons.OK, MessageBoxIcon.Error)
+
+        Catch ex As Exception
+
+            MessageBox.Show(ex.Message, "Atención", MessageBoxButtons.OK, MessageBoxIcon.Error)
+
+        End Try
+
+        Return SaveRecord
+
+    End Function
+
+
+    Public Shared Function UpdateRecord(ByVal oForm As FClientes) As Boolean
+
+        Try
+
+            Using oConnection As SqlConnection = CApplicationController.oCDataBase.GetSQLConnection()
+
+                Using oSqlCommand As New SqlCommand(oForm.stored_procedure_name, oConnection) With {.CommandType = CommandType.StoredProcedure}
+
+                    'If Not CCustomer.PrepareSPCommand(oSqlCommand, SPCommand.Update, oForm) Then Throw New CustomException
+
+                    oSqlCommand.ExecuteNonQuery()
+
+                    ' -------------------------
+                    ' Handle SP Response. 
+                    ' -------------------------
+                    If CInt(oSqlCommand.Parameters("@response").Value.Equals(1)) Then Throw New CustomException("El registro ya existe. No se puede duplicar el registro.")
+
+                    If CInt(oSqlCommand.Parameters("@response").Value.Equals(0)) Then MessageBox.Show("Registro actualizado.", "Atención", MessageBoxButtons.OK, MessageBoxIcon.Information)
+
+                End Using
+            End Using
+
+            UpdateRecord = True
+
+        Catch ex As CustomException
+
+            MessageBox.Show(ex.Message, "Atención", MessageBoxButtons.OK, MessageBoxIcon.Error)
+
+        Catch ex As Exception
+
+            MessageBox.Show(ex.Message, "Atención", MessageBoxButtons.OK, MessageBoxIcon.Error)
+
+        End Try
+
+        Return UpdateRecord
+
+    End Function
+
+    Public Shared Function DeleteRecord(ByVal oForm As FClientes) As Boolean
+
+        Try
+
+            Using oConnection As SqlConnection = CApplicationController.oCDataBase.GetSQLConnection()
+
+                Using oSqlCommand As New SqlCommand(oForm.stored_procedure_name, oConnection) With {.CommandType = CommandType.StoredProcedure}
+
+                    ' ---------------------------------
+                    ' Set Command Ready and Execute
+                    ' ---------------------------------
+                    'If Not CCustomer.PrepareSPCommand(oSqlCommand, SPCommand.Delete, oForm) Then Throw New CustomException
+
+                    oSqlCommand.ExecuteNonQuery()
+
+                    ' -------------------------
+                    ' Handle SP Response. 
+                    ' -------------------------
+                    If CInt(oSqlCommand.Parameters("@response").Value.Equals(1)) Then Throw New CustomException("Ocurrio un error al actualizar la información. ")
+
+                    If CInt(oSqlCommand.Parameters("@response").Value.Equals(0)) Then MessageBox.Show("Registro actualizado.", "Atención", MessageBoxButtons.OK, MessageBoxIcon.Information)
+
+                    oForm.DataGridView.Update()
+                    oForm.DataGridView.Refresh()
+
+                End Using
+
+            End Using
+
+            DeleteRecord = True
+
+        Catch ex As CustomException
+
+            MessageBox.Show(ex.Message, "Atención", MessageBoxButtons.OK, MessageBoxIcon.Error)
+
+        Catch ex As Exception
+
+            MessageBox.Show(ex.Message, "Atención", MessageBoxButtons.OK, MessageBoxIcon.Error)
+
+        End Try
+
+        Return DeleteRecord
 
     End Function
 

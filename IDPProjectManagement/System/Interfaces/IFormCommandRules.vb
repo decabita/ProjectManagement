@@ -41,11 +41,16 @@ Public Interface IFormCommandRules
     '----------------------------------------------------
     ' ?
     '----------------------------------------------------
+
     Function SetControlsBinding() As Boolean
     Function SetControlsBindingOnNew() As Boolean
     Function ClearControlsBinding() As Boolean
     Function SetBindingSource() As Boolean
+
     Function SetBindingSource(ByRef oBindingSourceDummy As BindingSource) As Boolean
+
+    Function SetBindingSource(ByRef oForm As Form, ByRef oBindingSourceDummy As BindingSource, ByVal PrepareSPCommand As Action(Of SqlCommand, Int32, Form))
+
     Function SetBindingSourceFilter(ByRef oBindingSourceDummy As BindingSource) As Boolean
     Function PrepareSPCommand(ByRef oSqlCommandDummy As SqlCommand, ByVal spCommandValue As Integer) As Boolean
 

@@ -524,7 +524,7 @@ Public Class FCatalogFormTemplate
         ' Establece el formato de la barra de comandos.
         Call Me.ClearControlsBinding()
         Call Me.SetToolBarConfiguration(CApplication.ControlState.Add)
-        Call Me.SetControlsBindingOnNew()
+        Call CCustomer.SetControlsBindingOnNew(Me)
 
         Return True
 
@@ -607,6 +607,7 @@ Public Class FCatalogFormTemplate
     End Function
 
     Protected Friend Overridable Function CommandFind() As Boolean Implements IFormCommandRules.CommandFind
+
         Call ClearControlsBinding()
         Call Me.SetToolBarConfiguration(CApplication.ControlState.Find)
 
@@ -634,6 +635,7 @@ Public Class FCatalogFormTemplate
         Throw New NotImplementedException()
     End Function
 
+
     Protected Friend Overridable Function SetControlsBindingOnNew() As Boolean Implements IFormCommandRules.SetControlsBindingOnNew
         Throw New NotImplementedException()
     End Function
@@ -651,7 +653,7 @@ Public Class FCatalogFormTemplate
 
             If Not Me.oCollectionBSourceCombo Is Nothing Then Me.oCollectionBSourceCombo.Clear()
 
-            Return True
+            ClearControlsBinding = True
 
         Catch ex As Exception
 
@@ -659,13 +661,16 @@ Public Class FCatalogFormTemplate
 
         End Try
 
+        Return ClearControlsBinding
+
     End Function
 
     Protected Friend Overridable Function SetBindingSource() As Boolean Implements IFormCommandRules.SetBindingSource
         Throw New NotImplementedException()
     End Function
 
-    Protected Friend Overridable Function SetBindingSource(ByRef oBindingSourceDummy As BindingSource) As Boolean Implements IFormCommandRules.SetBindingSource
+
+    Protected Friend Overridable Function SetBindingSource(ByRef oForm As Form, ByRef oBindingSourceDummy As BindingSource, ByVal PrepareSPCommand As Action(Of SqlCommand, Integer, Form)) Implements IFormCommandRules.SetBindingSource
 
         Try
 
@@ -676,7 +681,9 @@ Public Class FCatalogFormTemplate
                     ' ---------------------------------
                     ' Set Command Ready and Execute
                     ' ---------------------------------
-                    If Not PrepareSPCommand(oSqlCommand, SPCommand.QueryAll) Then Throw New CustomException
+                    PrepareSPCommand(oSqlCommand, SPCommand.QueryAll, oForm)
+
+                    'If Not PrepareSPCommand(oSqlCommand, SPCommand.QueryAll, Me) Then Throw New CustomException
 
                     Using oSqlDataAdapter As New SqlDataAdapter(oSqlCommand)
 
@@ -801,6 +808,10 @@ Public Class FCatalogFormTemplate
     End Sub
 
     Protected Friend Overridable Function PrepareSPCommand(ByRef oSqlCommandDummy As SqlCommand, spCommandValue As Integer) As Boolean Implements IFormCommandRules.PrepareSPCommand
+        Throw New NotImplementedException()
+    End Function
+
+    Public Function SetBindingSource(ByRef oBindingSourceDummy As BindingSource) As Boolean Implements IFormCommandRules.SetBindingSource
         Throw New NotImplementedException()
     End Function
 End Class

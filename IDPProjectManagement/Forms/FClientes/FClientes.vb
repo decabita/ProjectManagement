@@ -1,20 +1,78 @@
 ﻿Imports System.Data.SqlClient
+Imports System.Reflection
+Imports System.ComponentModel
 
 Public Class FClientes
+
+    Private _oCCustomer As New CCustomer
+    Public Property oMainClass() As CCustomer
+        Get
+            Return _oCCustomer
+        End Get
+        Set(ByVal value As CCustomer)
+            _oCCustomer = value
+        End Set
+    End Property
 
     Protected Overrides Sub Finalize()
         MyBase.Finalize()
     End Sub
 
+    Private oCCustomer As CCustomer = New CCustomer()
+
+    Public Sub New()
+
+        ' This call is required by the Windows Form Designer.
+        InitializeComponent()
+
+
+        'oCCustomer.nombre = "nombre property"
+        'oCCustomer.nombre_corto = "nombre_corto property"
+        'oCCustomer.id = 8
+
+        'Dim type As Type = oCCustomer.[GetType]()
+
+        'Dim properties As PropertyInfo() = type.GetProperties()
+
+        'For Each [property] As PropertyInfo In properties
+
+        '    ListBox1.Items.Add(", Value" + [property].GetValue(oCCustomer, Nothing))
+
+        'Next
+
+        'For Each prop As PropertyDescriptor In
+        ' TypeDescriptor.GetProperties(oCCustomer)
+
+        '    ListBox1.Items.Add(prop.Name & "= " & prop.GetValue(oCCustomer) & "= " & prop.PropertyType.Name)
+
+        'Next
+
+
+
+    End Sub
+
     Private Sub FClientes_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
 
-        Call CApplication.SetCultureSettings()
+        'Call CApplication.SetCultureSettings()
+
+
+        'Properties in Form Templete
+        stored_procedure_name = "dbo.SP_PROCESS_CUSTOMERS"
+        parent_table_name = "GetParentTableData"
+
+        localDatagridView = Me.DataGridView
+        localBindingNavigator = Me.BindingNavigator
+        localTSDownDirectAccess = Me.TSDownDirectAcces
+        localObjectKey = Me.tGuid
+        localFocusedObject = Me.tClaveId
+
+        Me.oMainClass = New CCustomer
 
         Call CommandFind()
 
         Call Me.CommandQuery()
 
-        Call Me.SetGeneralFormat()
+        Call CCustomer.SetGeneralFormat(Me)
 
     End Sub
 
@@ -37,14 +95,15 @@ Public Class FClientes
 
         Try
 
-            If Me.oBindingSource.Count <= 0 Then Throw New CustomException
+            If Not CBool(CInt(Me.oBindingSource.Count)) Then Throw New CustomException
 
-            Call Me.SetControlsBinding()
+            ' Establece bind de los controles.
+            Call CCustomer.SetControlsBinding(Me)
 
             ' Establece formato de los controles.
-            Call Me.SetGridPropertiesFormat()
+            Call CCustomer.SetGridPropertiesFormat(Me)
 
-            Call Me.SetControlPropertiesFormat()
+            Call CCustomer.SetControlPropertiesFormat(Me)
 
             ' Establece el formato de la barra de comandos.
             Call SetToolBarConfiguration(CApplication.ControlState.InitState)
@@ -61,7 +120,6 @@ Public Class FClientes
         End Try
 
     End Sub
-
     Private Sub DataGridView_DataError(ByVal sender As Object, ByVal e As System.Windows.Forms.DataGridViewDataErrorEventArgs) Handles DataGridView.DataError
         Dim ex As Exception = e.Exception
     End Sub
@@ -73,23 +131,20 @@ Public Class FClientes
         If DataGridView.Rows(e.RowIndex) IsNot Nothing Then Me.current_row = e.RowIndex
 
     End Sub
-
     Private Sub FClientes_Activated(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Activated
 
         Me.oCFormController.active_form = Me
 
         ' TODO REPORTS
         DirectCast(Me.ParentForm, MDIMainContainer).oCFormController_.parent_form = Me
-        ' --------------------------------------------------------------------------
 
         DirectCast(Me.ParentForm, MDIMainContainer).MDICurrentForm.Text = Me.Text
         DirectCast(Me.ParentForm, MDIMainContainer).MDIFormState.Text = CApplication.GetFormStateDescription(Me.form_state)
 
         ' Establece el formato de la barra de comandos.
-        Call Me.SetToolBarConfiguration(Me.form_state)
+        Call SetToolBarConfiguration(Me.form_state)
 
     End Sub
-
     Private Sub FClientes_Deactivate(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Deactivate
 
         If Not Me.form_state = CApplication.ControlState.InitState Then Call CommandCancel()
@@ -99,14 +154,193 @@ Public Class FClientes
 
         ' TODO REPORTS
         DirectCast(Me.ParentForm, MDIMainContainer).oCFormController_.parent_form = Nothing
-        ' --------------------------------------------------------------------------
 
         Me.oCFormController.parent_form = Nothing
         DirectCast(Me.ParentForm, MDIMainContainer).TSBExit.PerformClick()
 
     End Sub
 
-    Private Sub DataGridView_CellContentClick(sender As Object, e As DataGridViewCellEventArgs) Handles DataGridView.CellContentClick
+    Dim PrepareSPAction As Action(Of SqlCommand, Integer, Form) = AddressOf CCustomer.PrepareSPCommand
 
-    End Sub
+    Protected Friend Overrides Function QueryAll() As Boolean
+
+        Try
+
+            ' Get BindingSource.
+            If Not SetBindingSource(Me, Me.oBindingSource, PrepareSPAction) Then Return QueryAll
+
+            QueryAll = True
+
+        Catch ex As Exception
+
+            MessageBox.Show(ex.Message, "Atención", MessageBoxButtons.OK, MessageBoxIcon.Error)
+
+        End Try
+
+        Return QueryAll
+
+    End Function
+
+    Protected Friend Overrides Function CommandDelete() As Boolean
+
+        Try
+
+            With Me
+
+                If Not CBool(Me.DataGridView.CurrentRow.Cells("is_active").Value) Then MessageBox.Show("El registro no está Activo.", "Atención", MessageBoxButtons.OK, MessageBoxIcon.Information) : Return CommandDelete
+
+                If MessageBox.Show("El registro cambiará de estado a Inactivo. ¿Desea continuar?", "Atención", MessageBoxButtons.YesNo, MessageBoxIcon.Question).Equals(System.Windows.Forms.DialogResult.No) Then Return CommandDelete
+
+                '-------------------------------------------------
+                ' Field Assignation-Validation.
+                '-------------------------------------------------
+
+                If Not CCustomer.DeleteRecord(Me) Then Me.form_state = CApplication.ControlState.InitState : Throw New CustomException("Error al eliminar.")
+
+                If Not Me.CommandQuery() Then Me.form_state = CApplication.ControlState.InitState : Throw New CustomException
+
+            End With
+
+            CommandDelete = True
+
+        Catch ex As CustomException
+
+            MessageBox.Show(ex.Message, "Atención", MessageBoxButtons.OK, MessageBoxIcon.Error)
+
+        Catch ex As Exception
+
+            MessageBox.Show(ex.Message, "Atención", MessageBoxButtons.OK, MessageBoxIcon.Error)
+
+        End Try
+
+        Return CommandDelete
+
+
+    End Function
+
+    Protected Friend Overrides Function CommandQuery() As Boolean
+
+        Try
+
+            ' Establece el formato de la barra de comandos.
+            Call SetToolBarConfiguration(CApplication.ControlState.Query)
+
+            ' Limpia los controles.
+            CApplication.ClearControls(Me)
+
+            ' Inicializa el vínculos de datos.
+            If Not Me.ClearControlsBinding() Then Throw New CustomException
+
+            ' Ejecuta la consulta.
+            Me.BWorkerGetData.RunWorkerAsync()
+
+            ' Muestra la ventana de progreso.
+            Me.oFProgress = New FProgress
+            Me.oFProgress.ShowDialog()
+
+            '------------------------------------
+            ' Call Child Data Refresh.
+            '------------------------------------
+            If Not Me.oCFormController.child_form Is Nothing Then CType(Me.oCFormController.child_form, IFormCommandRules).CommandQuery()
+
+            Me.Activate()
+
+            Me.DataGridView.Focus()
+
+            ' Establece el formato de la barra de comandos.
+            Call SetToolBarConfiguration(CApplication.ControlState.InitState)
+
+            CommandQuery = True
+
+        Catch ex As CustomException
+
+            MessageBox.Show(ex.Message, "Atención", MessageBoxButtons.OK, MessageBoxIcon.Error)
+
+        Catch ex As Exception
+
+            MessageBox.Show(ex.Message, "Atención", MessageBoxButtons.OK, MessageBoxIcon.Error)
+
+        End Try
+
+        Return CommandQuery
+
+    End Function
+
+    Protected Friend Overrides Function CommandSave() As Boolean
+
+        Try
+            With Me
+
+                '-------------------------------------------------
+                ' Field Assignation-Validation.
+                '-------------------------------------------------
+
+                Me.oMainClass.centro_id = CApplicationController.oCWorkCenter_.id
+
+                If (CApplication.CheckRequiredFields(.tNombre)) Then Me.oMainClass.nombre = .tNombre.Text.Trim Else Throw New CustomException
+
+                If (CApplication.CheckRequiredFields(.tDescripcion)) Then Me.oMainClass.descripcion = IIf(String.IsNullOrEmpty(.tDescripcion.Text.Trim), String.Empty, .tDescripcion.Text.Trim) Else Throw New CustomException
+
+
+                If Me.form_state = CApplication.ControlState.Add Then
+
+                    Me.oMainClass.is_active = 1
+
+                    If Not CCustomer.SaveRecord(Me) Then
+
+                        Me.CommandCancel() : Throw New CustomException
+
+                    Else
+
+                        Me.oBindingSource.EndEdit()
+                        ' Me.oBindingSource.ResetBindings(False)
+
+                        Call CommandQuery()
+
+                        Call SetToolBarConfiguration(CApplication.ControlState.InitState)
+
+                    End If
+
+                ElseIf Me.form_state = CApplication.ControlState.Edit Then
+
+                    Me.oMainClass.is_active = .ckActivo.Checked
+
+                    If Not CCustomer.UpdateRecord(Me) Then
+
+                        Me.CommandCancel() : Throw New CustomException
+
+                    Else
+
+                        Me.oBindingSource.EndEdit()
+                        ' Me.oBindingSource.ResetBindings(False)
+
+                        Dim set_current_row As Integer = Me.current_row
+
+                        Call Me.CommandQuery()
+
+                        Call Me.SetToolBarConfiguration(CApplication.ControlState.InitState)
+
+                        If set_current_row >= 0 Then Me.DataGridView.Rows(set_current_row).Selected = True : Me.oBindingSource.Position = set_current_row
+
+                    End If
+
+                End If
+
+            End With
+
+            CommandSave = True
+
+        Catch ex As CustomException
+
+            MessageBox.Show(ex.Message, "Atención", MessageBoxButtons.OK, MessageBoxIcon.Error)
+
+        Catch ex As Exception
+
+            MessageBox.Show(ex.Message, "Atención", MessageBoxButtons.OK, MessageBoxIcon.Error)
+
+        End Try
+
+        Return CommandSave
+
+    End Function
 End Class

@@ -5,6 +5,8 @@
 
         Dim oFLoginForm As New FLoginForm
 
+        Call CApplication.SetCultureSettings()
+
         If oFLoginForm.ShowDialog() = DialogResult.OK Then
             Application.Run(FAdministrationMenu)
         End If

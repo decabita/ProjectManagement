@@ -29,7 +29,7 @@ Partial Public Class FCentrosTrabajo
             ' -------------------------------------------
             ' Get BindingSource.
             ' -------------------------------------------
-            If Not SetBindingSource(Me.oBindingSource) Then Return QueryAll
+            If Not Me.SetBindingSource(Me.oBindingSource) Then Return QueryAll
 
             QueryAll = True
 
@@ -102,55 +102,55 @@ Partial Public Class FCentrosTrabajo
 
     End Function
 
-    'Protected Friend Overrides Function SetBindingSource(ByRef oBindingSourceDummy As BindingSource) As Boolean
+    Protected Friend Overloads Function SetBindingSource(ByRef oBindingSourceDummy As BindingSource) As Boolean
 
-    '    Try
+        Try
 
-    '        Using oConnection As SqlConnection = CApplicationController.oCDataBase.GetSQLConnection()
+            Using oConnection As SqlConnection = CApplicationController.oCDataBase.GetSQLConnection()
 
-    '            Using oSqlCommand As New SqlCommand(Me.stored_procedure_name, oConnection) With {.CommandType = CommandType.StoredProcedure}
+                Using oSqlCommand As New SqlCommand(Me.stored_procedure_name, oConnection) With {.CommandType = CommandType.StoredProcedure}
 
-    '                ' ---------------------------------
-    '                ' Set Command Ready and Execute
-    '                ' ---------------------------------
-    '                If Not PrepareSPCommand(oSqlCommand, SPCommand.QueryAll) Then Throw New CustomException
+                    ' ---------------------------------
+                    ' Set Command Ready and Execute
+                    ' ---------------------------------
+                    If Not PrepareSPCommand(oSqlCommand, SPCommand.QueryAll) Then Throw New CustomException
 
-    '                Using oSqlDataAdapter As New SqlDataAdapter(oSqlCommand)
+                    Using oSqlDataAdapter As New SqlDataAdapter(oSqlCommand)
 
-    '                    Using oDataSet As New DataSet
+                        Using oDataSet As New DataSet
 
-    '                        oSqlDataAdapter.Fill(oDataSet, "BindedTableDataSet")
+                            oSqlDataAdapter.Fill(oDataSet, "BindedTableDataSet")
 
-    '                        If Not CBool(CInt(oDataSet.Tables("BindedTableDataSet").Rows.Count)) Then Throw New CustomException("SetBindingSource: No existen valores en la tabla. Capture información.")
+                            If Not CBool(CInt(oDataSet.Tables("BindedTableDataSet").Rows.Count)) Then Throw New CustomException("SetBindingSource: No existen valores en la tabla. Capture información.")
 
-    '                        oBindingSourceDummy = New BindingSource
-    '                        oBindingSourceDummy.DataSource = oDataSet
-    '                        oBindingSourceDummy.DataMember = "BindedTableDataSet"
+                            oBindingSourceDummy = New BindingSource
+                            oBindingSourceDummy.DataSource = oDataSet
+                            oBindingSourceDummy.DataMember = "BindedTableDataSet"
 
-    '                        SetBindingSource = True
+                            SetBindingSource = True
 
-    '                    End Using
+                        End Using
 
-    '                End Using
+                    End Using
 
-    '            End Using
+                End Using
 
-    '        End Using
+            End Using
 
 
-    '    Catch ex As CustomException
+        Catch ex As CustomException
 
-    '        MessageBox.Show(ex.Message, "Atención", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            MessageBox.Show(ex.Message, "Atención", MessageBoxButtons.OK, MessageBoxIcon.Error)
 
-    '    Catch ex As Exception
+        Catch ex As Exception
 
-    '        MessageBox.Show(ex.Message, "Atención", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            MessageBox.Show(ex.Message, "Atención", MessageBoxButtons.OK, MessageBoxIcon.Error)
 
-    '    End Try
+        End Try
 
-    '    Return SetBindingSource
+        Return SetBindingSource
 
-    'End Function
+    End Function
     Protected Friend Overrides Function SetControlsBindingOnNew() As Boolean
 
         Return CWorkCenter_.SetControlsBindingOnNew(Me)

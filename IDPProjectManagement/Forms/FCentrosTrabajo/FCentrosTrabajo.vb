@@ -11,7 +11,7 @@ Public Class FCentrosTrabajo
 
     Private Sub FCentrosTrabajo_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
 
-        Call CApplication.SetCultureSettings()
+        'Call CApplication.SetCultureSettings()
 
         Call CommandFind()
 
@@ -41,8 +41,9 @@ Public Class FCentrosTrabajo
 
         Try
 
-            If Me.oBindingSource.Count <= 0 Then Throw New CustomException
+            If Not CBool(CInt(Me.oBindingSource.Count)) Then Throw New CustomException
 
+            ' Establece bind de los controles.
             Call Me.SetControlsBinding()
 
             ' Establece formato de los controles.
@@ -92,7 +93,6 @@ Public Class FCentrosTrabajo
 
         ' TODO REPORTS
         DirectCast(Me.ParentForm, MDIMainContainer).oCFormController_.parent_form = Me
-        ' --------------------------------------------------------------------------
 
         DirectCast(Me.ParentForm, MDIMainContainer).MDICurrentForm.Text = Me.Text
         DirectCast(Me.ParentForm, MDIMainContainer).MDIFormState.Text = CApplication.GetFormStateDescription(Me.form_state)
@@ -112,14 +112,10 @@ Public Class FCentrosTrabajo
 
         ' TODO REPORTS
         DirectCast(Me.ParentForm, MDIMainContainer).oCFormController_.parent_form = Nothing
-        ' --------------------------------------------------------------------------
 
         Me.oCFormController.parent_form = Nothing
         DirectCast(Me.ParentForm, MDIMainContainer).TSBExit.PerformClick()
 
     End Sub
 
-    Private Sub DataGridView_CellContentClick(sender As Object, e As DataGridViewCellEventArgs) Handles DataGridView.CellContentClick
-
-    End Sub
 End Class

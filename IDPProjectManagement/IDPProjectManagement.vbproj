@@ -80,12 +80,6 @@
     <Compile Include="Forms\FClientes\FClientes.Designer.vb">
       <DependentUpon>FClientes.vb</DependentUpon>
     </Compile>
-    <Compile Include="Forms\FClientes\FClientes.Methods.vb">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Forms\FClientes\FClientes.Properties.vb">
-      <SubType>Form</SubType>
-    </Compile>
     <Compile Include="Forms\FClientes\FClientes.vb">
       <SubType>Form</SubType>
     </Compile>
