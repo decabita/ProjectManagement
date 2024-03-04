@@ -520,6 +520,17 @@ Public Class FCatalogFormTemplate
         Throw New NotImplementedException()
     End Function
 
+    Protected Friend Overridable Function CommandNew(ByVal SetControlsBindingOnNew As Action(Of Form)) As Boolean Implements IFormCommandRules.CommandNew
+
+        ' Establece el formato de la barra de comandos.
+        Call Me.ClearControlsBinding()
+        Call Me.SetToolBarConfiguration(CApplication.ControlState.Add)
+        Call SetControlsBindingOnNew(Me)
+
+        Return True
+
+    End Function
+
     Protected Friend Overridable Function CommandNew() As Boolean Implements IFormCommandRules.CommandNew
         ' Establece el formato de la barra de comandos.
         Call Me.ClearControlsBinding()
@@ -670,7 +681,7 @@ Public Class FCatalogFormTemplate
     End Function
 
 
-    Protected Friend Overridable Function SetBindingSource(ByRef oForm As Form, ByRef oBindingSourceDummy As BindingSource, ByVal PrepareSPCommand As Action(Of SqlCommand, Integer, Form)) Implements IFormCommandRules.SetBindingSource
+    Protected Friend Overridable Function SetBindingSource(ByRef oForm As Form, ByRef oBindingSourceDummy As BindingSource, ByVal PrepareSPCommand As Action(Of SqlCommand, Integer, Form)) As Object Implements IFormCommandRules.SetBindingSource
 
         Try
 
@@ -681,7 +692,7 @@ Public Class FCatalogFormTemplate
                     ' ---------------------------------
                     ' Set Command Ready and Execute
                     ' ---------------------------------
-                    PrepareSPCommand(oSqlCommand, SPCommand.QueryAll, oForm)
+                    PrepareSPCommand(oSqlCommand, SPCommand.QueryAll, Me)
 
                     'If Not PrepareSPCommand(oSqlCommand, SPCommand.QueryAll, Me) Then Throw New CustomException
 
@@ -812,6 +823,10 @@ Public Class FCatalogFormTemplate
     End Function
 
     Public Function SetBindingSource(ByRef oBindingSourceDummy As BindingSource) As Boolean Implements IFormCommandRules.SetBindingSource
+        Throw New NotImplementedException()
+    End Function
+
+    Protected Friend Overridable Function CommandAddNew() As Boolean Implements IFormCommandRules.CommandAddNew
         Throw New NotImplementedException()
     End Function
 End Class

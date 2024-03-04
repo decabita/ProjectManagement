@@ -1,7 +1,7 @@
 ﻿Imports System.ComponentModel
 Imports System.Data.SqlClient
 
-Public Class CCustomerArea
+Public Class CVendor
 
     Enum SPCommand
         None = 0
@@ -260,13 +260,13 @@ Public Class CCustomerArea
 
     End Sub
 
-    Friend Function GetClassData(guid As String) As CCustomerArea
+    Friend Function GetClassData(guid As String) As CVendor
 
         Try
 
             Using oConnection As SqlConnection = CApplicationController.oCDataBase.GetSQLConnection()
 
-                Using oSqlCommand As New SqlCommand("dbo.SP_CUSTOMER_AREAS", oConnection) With {.CommandType = CommandType.StoredProcedure}
+                Using oSqlCommand As New SqlCommand("dbo.SP_VENDORS", oConnection) With {.CommandType = CommandType.StoredProcedure}
 
                     With oSqlCommand.Parameters
                         .Add("@centro_id", SqlDbType.Int).Value = CApplicationController.oCWorkCenter_.id
@@ -336,7 +336,7 @@ Public Class CCustomerArea
     End Function
 
 
-    Public Shared Function SetControlsBinding(ByVal oForm As FCustomerAreas) As Boolean
+    Public Shared Function SetControlsBinding(ByVal oForm As FVendors) As Boolean
 
         Try
 
@@ -406,7 +406,7 @@ Public Class CCustomerArea
     End Function
 
 
-    Public Shared Sub SetGridPropertiesFormat(ByVal oForm As FCustomerAreas)
+    Public Shared Sub SetGridPropertiesFormat(ByVal oForm As FVendors)
 
         Try
             With oForm.DataGridView
@@ -509,7 +509,7 @@ Public Class CCustomerArea
 
     End Sub
 
-    Public Shared Function SetControlsBindingOnNew(ByVal oForm As FCustomerAreas) As Boolean
+    Public Shared Function SetControlsBindingOnNew(ByVal oForm As FVendors) As Boolean
 
         Try
 
@@ -570,7 +570,7 @@ Public Class CCustomerArea
 
     End Function
 
-    Public Shared Sub SetControlPropertiesFormat(ByVal oForm As FCustomerAreas)
+    Public Shared Sub SetControlPropertiesFormat(ByVal oForm As FVendors)
 
         Try
             With oForm
@@ -602,7 +602,7 @@ Public Class CCustomerArea
 
     End Sub
 
-    Public Shared Sub SetGeneralFormat(ByVal oForm As FCustomerAreas)
+    Public Shared Sub SetGeneralFormat(ByVal oForm As FVendors)
 
         With oForm
 
@@ -662,28 +662,28 @@ Public Class CCustomerArea
 
                     Case SPCommand.Save
 
-                        .Add("@centro_id", SqlDbType.VarChar).Value = DirectCast(oForm, FCustomerAreas).FormRelatedClass.centro_id
-                        .Add("@nombre_corto", SqlDbType.VarChar).Value = DirectCast(oForm, FCustomerAreas).FormRelatedClass.nombre_corto
-                        .Add("@nombre", SqlDbType.VarChar).Value = DirectCast(oForm, FCustomerAreas).FormRelatedClass.nombre
-                        .Add("@descripcion", SqlDbType.VarChar).Value = DirectCast(oForm, FCustomerAreas).FormRelatedClass.descripcion
-                        .Add("@is_active", SqlDbType.Bit).Value = DirectCast(oForm, FCustomerAreas).FormRelatedClass.is_active
+                        .Add("@centro_id", SqlDbType.VarChar).Value = DirectCast(oForm, FVendors).FormRelatedClass.centro_id
+                        .Add("@nombre_corto", SqlDbType.VarChar).Value = DirectCast(oForm, FVendors).FormRelatedClass.nombre_corto
+                        .Add("@nombre", SqlDbType.VarChar).Value = DirectCast(oForm, FVendors).FormRelatedClass.nombre
+                        .Add("@descripcion", SqlDbType.VarChar).Value = DirectCast(oForm, FVendors).FormRelatedClass.descripcion
+                        .Add("@is_active", SqlDbType.Bit).Value = DirectCast(oForm, FVendors).FormRelatedClass.is_active
                         .Add("@command", SqlDbType.Int).Value = SPCommand.Save
                         .Add("@response", SqlDbType.Int).Direction = ParameterDirection.Output
 
                     Case SPCommand.Delete
 
                         .Add("@centro_id", SqlDbType.VarChar).Value = CApplicationController.oCWorkCenter_.id
-                        .Add("@guid", SqlDbType.VarChar).Value = DirectCast(oForm, FCustomerAreas).FormRelatedClass.guid
+                        .Add("@guid", SqlDbType.VarChar).Value = DirectCast(oForm, FVendors).FormRelatedClass.guid
                         .Add("@command", SqlDbType.Int).Value = SPCommand.Delete
                         .Add("@response", SqlDbType.Int).Direction = ParameterDirection.Output
 
                     Case SPCommand.Update
 
                         .Add("@centro_id", SqlDbType.VarChar).Value = CApplicationController.oCWorkCenter_.id
-                        .Add("@guid", SqlDbType.VarChar).Value = DirectCast(oForm, FCustomerAreas).FormRelatedClass.guid
-                        .Add("@nombre_corto", SqlDbType.VarChar).Value = DirectCast(oForm, FCustomerAreas).FormRelatedClass.nombre_corto
-                        .Add("@nombre", SqlDbType.VarChar).Value = DirectCast(oForm, FCustomerAreas).FormRelatedClass.nombre
-                        .Add("@descripcion", SqlDbType.VarChar).Value = DirectCast(oForm, FCustomerAreas).FormRelatedClass.descripcion
+                        .Add("@guid", SqlDbType.VarChar).Value = DirectCast(oForm, FVendors).FormRelatedClass.guid
+                        .Add("@nombre_corto", SqlDbType.VarChar).Value = DirectCast(oForm, FVendors).FormRelatedClass.nombre_corto
+                        .Add("@nombre", SqlDbType.VarChar).Value = DirectCast(oForm, FVendors).FormRelatedClass.nombre
+                        .Add("@descripcion", SqlDbType.VarChar).Value = DirectCast(oForm, FVendors).FormRelatedClass.descripcion
                         .Add("@command", SqlDbType.Int).Value = SPCommand.Update
                         .Add("@response", SqlDbType.Int).Direction = ParameterDirection.Output
 
@@ -702,7 +702,7 @@ Public Class CCustomerArea
         'Return PrepareSPCommand()
 
     End Sub
-    Public Shared Function SaveRecord(ByVal oForm As FCustomerAreas) As Boolean
+    Public Shared Function SaveRecord(ByVal oForm As FVendors) As Boolean
 
         Try
 
@@ -742,7 +742,7 @@ Public Class CCustomerArea
     End Function
 
 
-    Public Shared Function UpdateRecord(ByVal oForm As FCustomerAreas) As Boolean
+    Public Shared Function UpdateRecord(ByVal oForm As FVendors) As Boolean
 
         Try
 
@@ -750,7 +750,7 @@ Public Class CCustomerArea
 
                 Using oSqlCommand As New SqlCommand(oForm.stored_procedure_name, oConnection) With {.CommandType = CommandType.StoredProcedure}
 
-                    'If Not CCustomerArea.PrepareSPCommand(oSqlCommand, SPCommand.Update, oForm) Then Throw New CustomException
+                    'If Not CVendor.PrepareSPCommand(oSqlCommand, SPCommand.Update, oForm) Then Throw New CustomException
 
                     PrepareSPCommand(oSqlCommand, SPCommand.Update, oForm)
 
@@ -782,7 +782,7 @@ Public Class CCustomerArea
 
     End Function
 
-    Public Shared Function DeleteRecord(ByVal oForm As FCustomerAreas) As Boolean
+    Public Shared Function DeleteRecord(ByVal oForm As FVendors) As Boolean
 
         Try
 
@@ -793,7 +793,7 @@ Public Class CCustomerArea
                     ' ---------------------------------
                     ' Set Command Ready and Execute
                     ' ---------------------------------
-                    'If Not CCustomerArea.PrepareSPCommand(oSqlCommand, SPCommand.Delete, oForm) Then Throw New CustomException
+                    'If Not CVendor.PrepareSPCommand(oSqlCommand, SPCommand.Delete, oForm) Then Throw New CustomException
 
                     PrepareSPCommand(oSqlCommand, SPCommand.Delete, oForm)
 

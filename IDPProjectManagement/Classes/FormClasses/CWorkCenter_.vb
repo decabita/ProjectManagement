@@ -129,33 +129,33 @@ Public Class CWorkCenter_
 
             Using oDataSet As New DataSet
 
-                    Using oSqlCommand As New SqlCommand("dbo.ASP_PROCESS_WORK_CENTER")
+                Using oSqlCommand As New SqlCommand("dbo.SP_WORK_CENTERS")
 
-                        oSqlCommand.CommandType = CommandType.StoredProcedure
-                        oSqlCommand.Parameters.Add("@id", SqlDbType.NVarChar).Value = CApplicationController.oCWorkCenter_.id
-                        oSqlCommand.Parameters.Add("@command", SqlDbType.Int).Value = SPCommand.QueryById
-                        oSqlCommand.Connection = CApplicationController.oCDataBase.GetSQLConnection()
+                    oSqlCommand.CommandType = CommandType.StoredProcedure
+                    oSqlCommand.Parameters.Add("@id", SqlDbType.NVarChar).Value = CApplicationController.oCWorkCenter_.id
+                    oSqlCommand.Parameters.Add("@command", SqlDbType.Int).Value = SPCommand.QueryById
+                    oSqlCommand.Connection = CApplicationController.oCDataBase.GetSQLConnection()
 
-                        Dim oSqlParameterResponse = oSqlCommand.Parameters.Add("@response", SqlDbType.Int)
-                        oSqlParameterResponse.Direction = ParameterDirection.Output
+                    Dim oSqlParameterResponse = oSqlCommand.Parameters.Add("@response", SqlDbType.Int)
+                    oSqlParameterResponse.Direction = ParameterDirection.Output
 
-                        Using oSqlDataAdapter As New SqlDataAdapter(oSqlCommand)
+                    Using oSqlDataAdapter As New SqlDataAdapter(oSqlCommand)
 
-                            oSqlDataAdapter.Fill(oDataSet, "MainTable")
+                        oSqlDataAdapter.Fill(oDataSet, "MainTable")
 
-                            If Not CBool(CInt(oDataSet.Tables("MainTable").Rows.Count)) Then Throw New CustomException("No hay información en la tabla.")
+                        If Not CBool(CInt(oDataSet.Tables("MainTable").Rows.Count)) Then Throw New CustomException("No hay información en la tabla.")
 
-                            With oDataSet.Tables("MainTable").Rows(0)
-                                Me.guid = .Item("guid")
-                                Me.id = .Item("id")
-                                Me.nombre_corto = .Item("nombre_corto").ToString.Trim
-                                Me.nombre = .Item("nombre").ToString.Trim
-                                Me.descripcion = .Item("descripcion").ToString.Trim
-                                Me.is_active = .Item("is_active")
-                            End With
-                        End Using
+                        With oDataSet.Tables("MainTable").Rows(0)
+                            Me.guid = .Item("guid")
+                            Me.id = .Item("id")
+                            Me.nombre_corto = .Item("nombre_corto").ToString.Trim
+                            Me.nombre = .Item("nombre").ToString.Trim
+                            Me.descripcion = .Item("descripcion").ToString.Trim
+                            Me.is_active = .Item("is_active")
+                        End With
                     End Using
                 End Using
+            End Using
 
         Catch ex As CustomException
 

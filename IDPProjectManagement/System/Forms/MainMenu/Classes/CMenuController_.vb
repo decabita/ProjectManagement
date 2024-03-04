@@ -21,7 +21,7 @@ Public Class CMenuController_
 
     Sub MenuButtonClick(ByVal sender As Object, ByVal e As EventArgs) Implements IMenu.MenuButtonClick
 
-        Dim counter, counter2, counter3 As Integer
+        Dim counter, counter2 As Integer
 
         For Each oLevel In oLevelCollection
 

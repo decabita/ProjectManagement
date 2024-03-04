@@ -10,7 +10,7 @@ Partial Public Class FCentrosTrabajo
         InitializeComponent()
 
         ' Add any initialization after the InitializeComponent() call.
-        Me.stored_procedure_name = "dbo.ASP_PROCESS_WORK_CENTER"
+        Me.stored_procedure_name = "dbo.SP_WORK_CENTERS"
         Me.parent_table_name = "GetParentTableData"
 
         Me.localDatagridView = Me.DataGridView

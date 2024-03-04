@@ -167,7 +167,7 @@ Partial Class MDIMainContainer
         Me.ToolStripMDI.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.TSBQuery, Me.TSBNew, Me.TSBEdit, Me.TSBSave, Me.TSBDelete, Me.TSBCancel, Me.ToolStripSeparator6, Me.TSBFind, Me.TSBExecFind, Me.TSBDirectAccess, Me.ToolStripSeparator1, Me.TSBExportToExcel, Me.ToolStripSeparator8, Me.TSBExit})
         Me.ToolStripMDI.Location = New System.Drawing.Point(0, 0)
         Me.ToolStripMDI.Name = "ToolStripMDI"
-        Me.ToolStripMDI.Size = New System.Drawing.Size(818, 27)
+        Me.ToolStripMDI.Size = New System.Drawing.Size(1128, 27)
         Me.ToolStripMDI.TabIndex = 0
         Me.ToolStripMDI.TabStop = True
         Me.ToolStripMDI.Text = "ToolStrip1"
@@ -246,6 +246,7 @@ Partial Class MDIMainContainer
         Me.TSBFind.Name = "TSBFind"
         Me.TSBFind.Size = New System.Drawing.Size(76, 24)
         Me.TSBFind.Text = "Buscar"
+        Me.TSBFind.Visible = False
         '
         'TSBExecFind
         '
@@ -255,6 +256,7 @@ Partial Class MDIMainContainer
         Me.TSBExecFind.Name = "TSBExecFind"
         Me.TSBExecFind.Size = New System.Drawing.Size(154, 24)
         Me.TSBExecFind.Text = "Ejecutar Busqueda"
+        Me.TSBExecFind.Visible = False
         '
         'TSBDirectAccess
         '

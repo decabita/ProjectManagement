@@ -77,10 +77,38 @@
     <Import Include="System.Threading.Tasks" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Forms\FClientes\FClientes.Designer.vb">
+    <Compile Include="Classes\FormClasses\CCustomerArea.vb" />
+    <Compile Include="Classes\FormClasses\CEmployee.vb" />
+    <Compile Include="Classes\FormClasses\CVendor.vb" />
+    <Compile Include="Classes\FormClasses\CWarehouse.vb" />
+    <Compile Include="Forms\Forms Catalogs\FClientes\FClientes.Designer.vb">
       <DependentUpon>FClientes.vb</DependentUpon>
     </Compile>
-    <Compile Include="Forms\FClientes\FClientes.vb">
+    <Compile Include="Forms\Forms Catalogs\FClientes\FClientes.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Forms Catalogs\FCustomerAreas\FCustomerAreas.Designer.vb">
+      <DependentUpon>FCustomerAreas.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Forms Catalogs\FCustomerAreas\FCustomerAreas.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Forms Catalogs\FEmployees\FEmployees.Designer.vb">
+      <DependentUpon>FEmployees.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Forms Catalogs\FEmployees\FEmployees.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Forms Catalogs\FVendors\FVendors.Designer.vb">
+      <DependentUpon>FVendors.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Forms Catalogs\FVendors\FVendors.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Forms Catalogs\FWarehouses\FWarehouses.Designer.vb">
+      <DependentUpon>FWarehouses.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Forms Catalogs\FWarehouses\FWarehouses.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="System\0 Flow\00\FCatalogFormTemplate\FCatalogFormTemplate.Designer.vb">
@@ -92,16 +120,16 @@
     <Compile Include="System\0 Flow\00\FCatalogFormTemplate\FCatalogFormTemplate.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\FCentrosTrabajo\FCentrosTrabajo.Designer.vb">
+    <Compile Include="Forms\Forms Catalogs\FCentrosTrabajo\FCentrosTrabajo.Designer.vb">
       <DependentUpon>FCentrosTrabajo.vb</DependentUpon>
     </Compile>
-    <Compile Include="Forms\FCentrosTrabajo\FCentrosTrabajo.Methods.vb">
+    <Compile Include="Forms\Forms Catalogs\FCentrosTrabajo\FCentrosTrabajo.Methods.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\FCentrosTrabajo\FCentrosTrabajo.Properties.vb">
+    <Compile Include="Forms\Forms Catalogs\FCentrosTrabajo\FCentrosTrabajo.Properties.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\FCentrosTrabajo\FCentrosTrabajo.vb">
+    <Compile Include="Forms\Forms Catalogs\FCentrosTrabajo\FCentrosTrabajo.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Forms\FProjects\FProjects.Designer.vb">
@@ -120,13 +148,11 @@
     <Compile Include="System\Classes\CApplicationController.vb" />
     <Compile Include="System\0 Flow\00\CApplicationManager.vb" />
     <Compile Include="System\Classes\CApplicationHelper.vb" />
-    <Compile Include="System\CEmployee.vb" />
     <Compile Include="System\Classes\CFormController_.vb" />
     <Compile Include="System\Classes\CSystemParameters.vb" />
     <Compile Include="System\Classes\CUserProfileObjects.vb" />
     <Compile Include="System\Classes\CUsers.vb" />
     <Compile Include="System\Classes\CustomException.vb" />
-    <Compile Include="Classes\FormClasses\CCustomerArea.vb" />
     <Compile Include="Classes\FormClasses\CCustomer.vb" />
     <Compile Include="Classes\FormClasses\CWorkCenter_.vb" />
     <Compile Include="System\Classes\LocalExceptions.vb" />
@@ -224,14 +250,26 @@
     <Compile Include="System\Interfaces\IToolBoxCommand.vb" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Forms\FCentrosTrabajo\FCentrosTrabajo.resx">
+    <EmbeddedResource Include="Forms\Forms Catalogs\FCentrosTrabajo\FCentrosTrabajo.resx">
       <DependentUpon>FCentrosTrabajo.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\FClientes\FClientes.resx">
+    <EmbeddedResource Include="Forms\Forms Catalogs\FClientes\FClientes.resx">
       <DependentUpon>FClientes.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Forms Catalogs\FCustomerAreas\FCustomerAreas.resx">
+      <DependentUpon>FCustomerAreas.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Forms Catalogs\FEmployees\FEmployees.resx">
+      <DependentUpon>FEmployees.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Forms Catalogs\FWarehouses\FWarehouses.resx">
+      <DependentUpon>FWarehouses.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\FProjects\FProjects.resx">
       <DependentUpon>FProjects.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Forms Catalogs\FVendors\FVendors.resx">
+      <DependentUpon>FVendors.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="System\0 Flow\FLoginForm.resx">
       <DependentUpon>FLoginForm.vb</DependentUpon>

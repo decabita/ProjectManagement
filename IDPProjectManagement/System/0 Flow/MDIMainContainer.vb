@@ -173,7 +173,7 @@ Public Class MDIMainContainer
 
                 Case "TSBNew"
 
-                    DirectCast(Me.ActiveMdiChild, IFormCommandRules).CommandNew()
+                    DirectCast(Me.ActiveMdiChild, IFormCommandRules).CommandAddNew()
 
                 Case "TSBCancel"
 

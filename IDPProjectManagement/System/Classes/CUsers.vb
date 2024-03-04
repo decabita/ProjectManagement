@@ -185,7 +185,7 @@ Public Class CUsers
 
             If (System.Windows.Forms.DialogResult.OK = dr) Then
 
-                If Not String.IsNullOrEmpty(CApplicationController.oCEmployees.empleado_id) Then
+                If Not String.IsNullOrEmpty(CApplicationController.oCEmployees.id) Then
 
                     'Dim oCMailServices As New CMailServices
 

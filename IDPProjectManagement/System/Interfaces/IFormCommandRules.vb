@@ -25,6 +25,8 @@ Public Interface IFormCommandRules
     ' ToolBoxCommand
     '----------------------------------------------------
     Function CommandSave() As Boolean
+
+    Function CommandAddNew() As Boolean
     Function CommandNew() As Boolean
     Function CommandDelete() As Boolean
     Function CommandUpdate() As Boolean
@@ -58,7 +60,9 @@ Public Interface IFormCommandRules
     Sub SetGridPropertiesFormat()
     Sub SetToolBarConfiguration(ByVal State As Integer)
 
-   
+    Function CommandNew(ByVal SetControlsBindingOnNew As Action(Of Form)) As Boolean
+
+
 End Interface
 
 

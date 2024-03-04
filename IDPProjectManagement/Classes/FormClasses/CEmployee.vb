@@ -1,7 +1,7 @@
 ﻿Imports System.ComponentModel
 Imports System.Data.SqlClient
 
-Public Class CCustomerArea
+Public Class CEmployee
 
     Enum SPCommand
         None = 0
@@ -260,13 +260,13 @@ Public Class CCustomerArea
 
     End Sub
 
-    Friend Function GetClassData(guid As String) As CCustomerArea
+    Friend Function GetClassData(guid As String) As CEmployee
 
         Try
 
             Using oConnection As SqlConnection = CApplicationController.oCDataBase.GetSQLConnection()
 
-                Using oSqlCommand As New SqlCommand("dbo.SP_CUSTOMER_AREAS", oConnection) With {.CommandType = CommandType.StoredProcedure}
+                Using oSqlCommand As New SqlCommand("dbo.SP_EMPLOYEES", oConnection) With {.CommandType = CommandType.StoredProcedure}
 
                     With oSqlCommand.Parameters
                         .Add("@centro_id", SqlDbType.Int).Value = CApplicationController.oCWorkCenter_.id
@@ -286,6 +286,28 @@ Public Class CCustomerArea
                             If Not CBool(CInt(oDataSet.Tables("MainTable").Rows.Count)) Then Throw New CustomException("No hay información en la tabla.")
 
                             With oDataSet.Tables("MainTable").Rows(0)
+
+                                'Me.guid = .Item("guid")
+                                'Me.id = .Item("id")
+                                'Me.centro_id = .Item("centro_id")
+                                'Me.nombre_corto = .Item("nombre_corto").ToString.Trim
+                                'Me.nombre = .Item("nombre").ToString.Trim
+                                'Me.rfc = .Item("rfc").ToString.Trim
+                                'Me.razon_social = .Item("razon_social").ToString.Trim
+                                'Me.contacto = .Item("contacto").ToString.Trim
+                                'Me.email = .Item("email").ToString.Trim
+                                'Me.telefono = .Item("telefono").ToString.Trim
+                                'Me.celular = .Item("celular").ToString.Trim
+                                'Me.pais = .Item("pais").ToString.Trim
+                                'Me.ciudad = .Item("ciudad").ToString.Trim
+                                'Me.calle = .Item("calle").ToString.Trim
+                                'Me.numero_ext = .Item("numero_ext")
+                                'Me.numero_int = .Item("numero_int")
+                                'Me.colonia = .Item("colonia").ToString.Trim
+                                'Me.delegacion = .Item("delegacion").ToString.Trim
+                                'Me.codigo_postal = .Item("codigo_postal")
+                                'Me.descripcion = .Item("descripcion").ToString.Trim
+                                'Me.is_active = .Item("is_active")
 
                                 For Each prop As PropertyDescriptor In TypeDescriptor.GetProperties(Me)
 
@@ -336,7 +358,7 @@ Public Class CCustomerArea
     End Function
 
 
-    Public Shared Function SetControlsBinding(ByVal oForm As FCustomerAreas) As Boolean
+    Public Shared Function SetControlsBinding(ByVal oForm As FEmployees) As Boolean
 
         Try
 
@@ -406,7 +428,7 @@ Public Class CCustomerArea
     End Function
 
 
-    Public Shared Sub SetGridPropertiesFormat(ByVal oForm As FCustomerAreas)
+    Public Shared Sub SetGridPropertiesFormat(ByVal oForm As FEmployees)
 
         Try
             With oForm.DataGridView
@@ -509,7 +531,7 @@ Public Class CCustomerArea
 
     End Sub
 
-    Public Shared Function SetControlsBindingOnNew(ByVal oForm As FCustomerAreas) As Boolean
+    Public Shared Function SetControlsBindingOnNew(ByVal oForm As FEmployees) As Boolean
 
         Try
 
@@ -570,7 +592,7 @@ Public Class CCustomerArea
 
     End Function
 
-    Public Shared Sub SetControlPropertiesFormat(ByVal oForm As FCustomerAreas)
+    Public Shared Sub SetControlPropertiesFormat(ByVal oForm As FEmployees)
 
         Try
             With oForm
@@ -602,7 +624,7 @@ Public Class CCustomerArea
 
     End Sub
 
-    Public Shared Sub SetGeneralFormat(ByVal oForm As FCustomerAreas)
+    Public Shared Sub SetGeneralFormat(ByVal oForm As FEmployees)
 
         With oForm
 
@@ -662,28 +684,28 @@ Public Class CCustomerArea
 
                     Case SPCommand.Save
 
-                        .Add("@centro_id", SqlDbType.VarChar).Value = DirectCast(oForm, FCustomerAreas).FormRelatedClass.centro_id
-                        .Add("@nombre_corto", SqlDbType.VarChar).Value = DirectCast(oForm, FCustomerAreas).FormRelatedClass.nombre_corto
-                        .Add("@nombre", SqlDbType.VarChar).Value = DirectCast(oForm, FCustomerAreas).FormRelatedClass.nombre
-                        .Add("@descripcion", SqlDbType.VarChar).Value = DirectCast(oForm, FCustomerAreas).FormRelatedClass.descripcion
-                        .Add("@is_active", SqlDbType.Bit).Value = DirectCast(oForm, FCustomerAreas).FormRelatedClass.is_active
+                        .Add("@centro_id", SqlDbType.VarChar).Value = DirectCast(oForm, FEmployees).FormRelatedClass.centro_id
+                        .Add("@nombre_corto", SqlDbType.VarChar).Value = DirectCast(oForm, FEmployees).FormRelatedClass.nombre_corto
+                        .Add("@nombre", SqlDbType.VarChar).Value = DirectCast(oForm, FEmployees).FormRelatedClass.nombre
+                        .Add("@descripcion", SqlDbType.VarChar).Value = DirectCast(oForm, FEmployees).FormRelatedClass.descripcion
+                        .Add("@is_active", SqlDbType.Bit).Value = DirectCast(oForm, FEmployees).FormRelatedClass.is_active
                         .Add("@command", SqlDbType.Int).Value = SPCommand.Save
                         .Add("@response", SqlDbType.Int).Direction = ParameterDirection.Output
 
                     Case SPCommand.Delete
 
                         .Add("@centro_id", SqlDbType.VarChar).Value = CApplicationController.oCWorkCenter_.id
-                        .Add("@guid", SqlDbType.VarChar).Value = DirectCast(oForm, FCustomerAreas).FormRelatedClass.guid
+                        .Add("@guid", SqlDbType.VarChar).Value = DirectCast(oForm, FEmployees).FormRelatedClass.guid
                         .Add("@command", SqlDbType.Int).Value = SPCommand.Delete
                         .Add("@response", SqlDbType.Int).Direction = ParameterDirection.Output
 
                     Case SPCommand.Update
 
                         .Add("@centro_id", SqlDbType.VarChar).Value = CApplicationController.oCWorkCenter_.id
-                        .Add("@guid", SqlDbType.VarChar).Value = DirectCast(oForm, FCustomerAreas).FormRelatedClass.guid
-                        .Add("@nombre_corto", SqlDbType.VarChar).Value = DirectCast(oForm, FCustomerAreas).FormRelatedClass.nombre_corto
-                        .Add("@nombre", SqlDbType.VarChar).Value = DirectCast(oForm, FCustomerAreas).FormRelatedClass.nombre
-                        .Add("@descripcion", SqlDbType.VarChar).Value = DirectCast(oForm, FCustomerAreas).FormRelatedClass.descripcion
+                        .Add("@guid", SqlDbType.VarChar).Value = DirectCast(oForm, FEmployees).FormRelatedClass.guid
+                        .Add("@nombre_corto", SqlDbType.VarChar).Value = DirectCast(oForm, FEmployees).FormRelatedClass.nombre_corto
+                        .Add("@nombre", SqlDbType.VarChar).Value = DirectCast(oForm, FEmployees).FormRelatedClass.nombre
+                        .Add("@descripcion", SqlDbType.VarChar).Value = DirectCast(oForm, FEmployees).FormRelatedClass.descripcion
                         .Add("@command", SqlDbType.Int).Value = SPCommand.Update
                         .Add("@response", SqlDbType.Int).Direction = ParameterDirection.Output
 
@@ -702,7 +724,7 @@ Public Class CCustomerArea
         'Return PrepareSPCommand()
 
     End Sub
-    Public Shared Function SaveRecord(ByVal oForm As FCustomerAreas) As Boolean
+    Public Shared Function SaveRecord(ByVal oForm As FEmployees) As Boolean
 
         Try
 
@@ -742,7 +764,7 @@ Public Class CCustomerArea
     End Function
 
 
-    Public Shared Function UpdateRecord(ByVal oForm As FCustomerAreas) As Boolean
+    Public Shared Function UpdateRecord(ByVal oForm As FEmployees) As Boolean
 
         Try
 
@@ -750,7 +772,7 @@ Public Class CCustomerArea
 
                 Using oSqlCommand As New SqlCommand(oForm.stored_procedure_name, oConnection) With {.CommandType = CommandType.StoredProcedure}
 
-                    'If Not CCustomerArea.PrepareSPCommand(oSqlCommand, SPCommand.Update, oForm) Then Throw New CustomException
+                    'If Not CEmployee.PrepareSPCommand(oSqlCommand, SPCommand.Update, oForm) Then Throw New CustomException
 
                     PrepareSPCommand(oSqlCommand, SPCommand.Update, oForm)
 
@@ -782,7 +804,7 @@ Public Class CCustomerArea
 
     End Function
 
-    Public Shared Function DeleteRecord(ByVal oForm As FCustomerAreas) As Boolean
+    Public Shared Function DeleteRecord(ByVal oForm As FEmployees) As Boolean
 
         Try
 
@@ -793,7 +815,7 @@ Public Class CCustomerArea
                     ' ---------------------------------
                     ' Set Command Ready and Execute
                     ' ---------------------------------
-                    'If Not CCustomerArea.PrepareSPCommand(oSqlCommand, SPCommand.Delete, oForm) Then Throw New CustomException
+                    'If Not CEmployee.PrepareSPCommand(oSqlCommand, SPCommand.Delete, oForm) Then Throw New CustomException
 
                     PrepareSPCommand(oSqlCommand, SPCommand.Delete, oForm)
 
@@ -829,6 +851,78 @@ Public Class CCustomerArea
 
     End Function
 
+    Friend Function GetEmployeeDataById() As Boolean
+
+        Dim oDataSet As New DataSet
+        Dim oSqlCommand As New SqlCommand("dbo.SP_EMPLOYEES")
+        Dim oSqlDataAdapter As New SqlDataAdapter
+        Dim oResponse As New SqlParameter
+
+        oSqlCommand.CommandType = CommandType.StoredProcedure
+
+        Try
+
+            ' --------------------------------------------------------------------------
+            ' Parameter Assignation
+            ' --------------------------------------------------------------------------
+            With oSqlCommand.Parameters
+
+                .Add("@centro_id", SqlDbType.NVarChar).Value = CApplicationController.oCWorkCenter_.id
+                .Add("@nombre_corto", SqlDbType.NVarChar).Value = CApplicationController.oCUsers.empleado_id
+                .Add("@command", SqlDbType.Int).Value = SPCommand.QueryById
+
+            End With
+
+            oResponse = oSqlCommand.Parameters.Add("@response", SqlDbType.Int)
+            oResponse.Direction = ParameterDirection.Output
+
+            ' --------------------------------------------------------------------------
+
+            oSqlCommand.Connection = CApplicationController.oCDataBase.GetSQLConnection()
+
+            If oSqlCommand.Connection Is Nothing Then Return False : Exit Function
+
+            oSqlDataAdapter = New SqlDataAdapter(oSqlCommand)
+
+            oSqlDataAdapter.Fill(oDataSet, "Employees")
+
+            If Not CBool(CInt(oDataSet.Tables("Employees").Rows.Count)) Then Exit Function : Throw New CustomException("No hay información en la tabla de Personal para la clave proporcionada.")
+
+            With oDataSet.Tables("Employees").Rows(0)
+
+                Me.centro_id = .Item("centro_id").ToString.Trim
+                Me.nombre_corto = .Item("id").ToString.Trim
+                Me.nombre = .Item("nombre").ToString.Trim
+                'Me.empleado_paterno = .Item("empleado_paterno").ToString.Trim
+                'Me.empleado_materno = .Item("empleado_materno").ToString.Trim
+                'Me.puesto_id = .Item("puesto_id").ToString.Trim
+                'Me.empleado_email = .Item("empleado_email").ToString.Trim
+                'Me.empleado_telefono = .Item("empleado_telefono").ToString.Trim
+                'Me.empleado_celular = .Item("empleado_celular").ToString.Trim
+                'Me.supervisor_id = .Item("supervisor_id").ToString.Trim
+
+            End With
+
+            Return True
+
+        Catch ex As CustomException
+
+            MessageBox.Show(ex.Message, "Atención", MessageBoxButtons.OK, MessageBoxIcon.Error)
+
+        Catch ex As Exception
+
+            MessageBox.Show(ex.Message, "Atención", MessageBoxButtons.OK, MessageBoxIcon.Error)
+
+        Finally
+
+            If Not oDataSet Is Nothing Then oDataSet.Dispose()
+
+            If Not oSqlCommand.Connection Is Nothing Then oSqlCommand.Connection.Close() : oSqlCommand.Dispose()
+
+        End Try
+
+
+    End Function
 
 
 End Class

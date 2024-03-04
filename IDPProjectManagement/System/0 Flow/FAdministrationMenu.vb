@@ -229,49 +229,6 @@ Public Class FAdministrationMenu
 
     End Sub
 
-    Private Sub TSMAlmacen_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles TSMAlmacen.Click
-
-        Dim oFormToShow As Object = Nothing
-        Dim oMDIMainContainer As New MDIMainContainer()
-
-        ' Retrieve form object from application into type.
-        Dim oType As Type = Assembly.GetExecutingAssembly().GetType(My.Application.Info.AssemblyName & ".FAlmacenes")
-
-        Try
-
-            ' Create form instance from application from type.
-            If oType IsNot Nothing Then
-
-                If Not CApplicationController.oCUsers.oCollectionProfiles.Contains(oType.Name) Then Throw New CustomException("El usuario no tiene permisos suficientes. Consulte a Soporte Técnico.")
-
-                oFormToShow = Activator.CreateInstance(oType)
-
-                ' Assigns parent to form instance.
-                oFormToShow.MdiParent = oMDIMainContainer
-
-                ' Assigns form to show to MDI.
-                oMDIMainContainer.oCFormController_.parent_form = oFormToShow
-                oMDIMainContainer.WindowState = FormWindowState.Maximized
-                oMDIMainContainer.Show()
-
-            Else
-
-                Throw New CustomException("No se encuentra definido el formulario. Consulte a Soporte Técnico.")
-
-            End If
-
-        Catch ex As CustomException
-
-            MessageBox.Show(ex.Message, "Atención", MessageBoxButtons.OK, MessageBoxIcon.Error)
-
-        Catch ex As Exception
-
-            MessageBox.Show(ex.Message, "Atención", MessageBoxButtons.OK, MessageBoxIcon.Error)
-
-        End Try
-
-    End Sub
-
     Private Sub TSMRacks_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles TSMRacks.Click
 
         Dim oFormToShow As Object = Nothing
@@ -659,7 +616,7 @@ Public Class FAdministrationMenu
 
     End Sub
 
-    Private Sub TSMSeccionesProduccion_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles TSMSeccionesProduccion.Click
+    Private Sub TSMSeccionesProduccion_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles TSMVendors.Click
 
 
         Dim oFormToShow As Object = Nothing
@@ -1803,9 +1760,6 @@ Public Class FAdministrationMenu
 
     End Sub
 
-    Private Sub Panel1_Paint(ByVal sender As System.Object, ByVal e As System.Windows.Forms.PaintEventArgs) Handles Panel1.Paint
-
-    End Sub
 
     Private Sub OrdenesDeProducciónToolStripMenuItem1_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles OrdenesDeProducciónToolStripMenuItem1.Click
 
@@ -2001,15 +1955,7 @@ Public Class FAdministrationMenu
 
     End Sub
 
-    Private Sub ToolStripDropDownButton1_Click(sender As Object, e As EventArgs)
-
-    End Sub
-
-    Private Sub TSDBCatalogos_Click(sender As Object, e As EventArgs) Handles TSDBCatalogos.Click
-
-    End Sub
-
-    Private Sub FProjects_Click(sender As Object, e As EventArgs) Handles FProjects.Click
+    Private Sub FProjects_Click(sender As Object, e As EventArgs)
         ShowMeInMainContainer(sender.Name)
     End Sub
 
@@ -2017,7 +1963,19 @@ Public Class FAdministrationMenu
         ShowMeInMainContainer(sender.Name)
     End Sub
 
-    Private Sub CToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles FClientes.Click
+    Private Sub FClientes_Click(sender As Object, e As EventArgs) Handles FClientes.Click
+        ShowMeInMainContainer(sender.Name)
+    End Sub
+
+    Private Sub FCustomerAreas_Click(sender As Object, e As EventArgs) Handles FCustomerAreas.Click
+        ShowMeInMainContainer(sender.Name)
+    End Sub
+
+    Private Sub FVendors_Click(sender As Object, e As EventArgs) Handles FVendors.Click
+        ShowMeInMainContainer(sender.Name)
+    End Sub
+
+    Private Sub FWarehouses_Click(sender As Object, e As EventArgs) Handles FWarehouses.Click
         ShowMeInMainContainer(sender.Name)
     End Sub
 End Class

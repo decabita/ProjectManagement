@@ -5,7 +5,7 @@ Imports System.ComponentModel
 Public Class FClientes
 
     Private _oCCustomer As New CCustomer
-    Public Property oMainClass() As CCustomer
+    Public Property FormRelatedClass() As CCustomer
         Get
             Return _oCCustomer
         End Get
@@ -25,39 +25,12 @@ Public Class FClientes
         ' This call is required by the Windows Form Designer.
         InitializeComponent()
 
-
-        'oCCustomer.nombre = "nombre property"
-        'oCCustomer.nombre_corto = "nombre_corto property"
-        'oCCustomer.id = 8
-
-        'Dim type As Type = oCCustomer.[GetType]()
-
-        'Dim properties As PropertyInfo() = type.GetProperties()
-
-        'For Each [property] As PropertyInfo In properties
-
-        '    ListBox1.Items.Add(", Value" + [property].GetValue(oCCustomer, Nothing))
-
-        'Next
-
-        'For Each prop As PropertyDescriptor In
-        ' TypeDescriptor.GetProperties(oCCustomer)
-
-        '    ListBox1.Items.Add(prop.Name & "= " & prop.GetValue(oCCustomer) & "= " & prop.PropertyType.Name)
-
-        'Next
-
-
-
     End Sub
 
     Private Sub FClientes_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
 
-        'Call CApplication.SetCultureSettings()
-
-
         'Properties in Form Templete
-        stored_procedure_name = "dbo.SP_PROCESS_CUSTOMERS"
+        stored_procedure_name = "dbo.SP_CUSTOMERS"
         parent_table_name = "GetParentTableData"
 
         localDatagridView = Me.DataGridView
@@ -66,7 +39,7 @@ Public Class FClientes
         localObjectKey = Me.tGuid
         localFocusedObject = Me.tClaveId
 
-        Me.oMainClass = New CCustomer
+        Me.FormRelatedClass = New CCustomer
 
         Call CommandFind()
 
@@ -194,6 +167,11 @@ Public Class FClientes
                 '-------------------------------------------------
                 ' Field Assignation-Validation.
                 '-------------------------------------------------
+                Me.FormRelatedClass = New CCustomer With {
+                    .centro_id = CApplicationController.oCWorkCenter_.id,
+                    .nombre_corto = Me.tClaveId.Text,
+                    .guid = Me.tGuid.Text
+                }
 
                 If Not CCustomer.DeleteRecord(Me) Then Me.form_state = CApplication.ControlState.InitState : Throw New CustomException("Error al eliminar.")
 
@@ -275,16 +253,21 @@ Public Class FClientes
                 ' Field Assignation-Validation.
                 '-------------------------------------------------
 
-                Me.oMainClass.centro_id = CApplicationController.oCWorkCenter_.id
+                If (CApplication.CheckRequiredFields(.tClaveId)) Then Me.FormRelatedClass.nombre_corto = .tClaveId.Text.Trim Else Throw New CustomException
 
-                If (CApplication.CheckRequiredFields(.tNombre)) Then Me.oMainClass.nombre = .tNombre.Text.Trim Else Throw New CustomException
+                If (CApplication.CheckRequiredFields(.tNombre)) Then Me.FormRelatedClass.nombre = .tNombre.Text.Trim Else Throw New CustomException
 
-                If (CApplication.CheckRequiredFields(.tDescripcion)) Then Me.oMainClass.descripcion = IIf(String.IsNullOrEmpty(.tDescripcion.Text.Trim), String.Empty, .tDescripcion.Text.Trim) Else Throw New CustomException
-
+                Me.FormRelatedClass = New CCustomer With {
+                    .centro_id = CApplicationController.oCWorkCenter_.id,
+                    .guid = Me.tGuid.Text,
+                    .nombre_corto = Me.tClaveId.Text,
+                    .nombre = Me.tNombre.Text,
+                    .descripcion = Me.tDescripcion.Text
+                }
 
                 If Me.form_state = CApplication.ControlState.Add Then
 
-                    Me.oMainClass.is_active = 1
+                    Me.FormRelatedClass.is_active = 1
 
                     If Not CCustomer.SaveRecord(Me) Then
 
@@ -303,7 +286,7 @@ Public Class FClientes
 
                 ElseIf Me.form_state = CApplication.ControlState.Edit Then
 
-                    Me.oMainClass.is_active = .ckActivo.Checked
+                    Me.FormRelatedClass.is_active = .ckActivo.Checked
 
                     If Not CCustomer.UpdateRecord(Me) Then
 
@@ -343,4 +326,14 @@ Public Class FClientes
         Return CommandSave
 
     End Function
+
+    Dim SetControlsBindingOnNewAction As Action(Of Form) = AddressOf CCustomer.SetControlsBindingOnNew
+    Protected Friend Overrides Function CommandAddNew() As Boolean
+
+        CommandNew(SetControlsBindingOnNewAction)
+
+        Return True
+
+    End Function
+
 End Class

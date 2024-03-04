@@ -266,7 +266,7 @@ Public Class CCustomer
 
             Using oConnection As SqlConnection = CApplicationController.oCDataBase.GetSQLConnection()
 
-                Using oSqlCommand As New SqlCommand("dbo.SP_PROCESS_CUSTOMERS", oConnection) With {.CommandType = CommandType.StoredProcedure}
+                Using oSqlCommand As New SqlCommand("dbo.SP_CUSTOMERS", oConnection) With {.CommandType = CommandType.StoredProcedure}
 
                     With oSqlCommand.Parameters
                         .Add("@centro_id", SqlDbType.Int).Value = CApplicationController.oCWorkCenter_.id
@@ -461,17 +461,65 @@ Public Class CCustomer
                 .Columns("guid").Visible = True
                 .Columns("guid").DisplayIndex = 1
 
+                .Columns("nombre_corto").HeaderText = "Clave"
+                .Columns("nombre_corto").Visible = True
+                .Columns("nombre_corto").DisplayIndex = 2
+
                 .Columns("nombre").HeaderText = "Nombre"
                 .Columns("nombre").Visible = True
-                .Columns("nombre").DisplayIndex = 2
+                .Columns("nombre").DisplayIndex = 3
 
                 .Columns("descripcion").HeaderText = "Descripción"
                 .Columns("descripcion").Visible = True
-                .Columns("descripcion").DisplayIndex = 3
+                .Columns("descripcion").DisplayIndex = 4
+
+                .Columns("email").HeaderText = "Email"
+                .Columns("email").Visible = True
+                .Columns("email").DisplayIndex = 5
+
+                .Columns("telefono").HeaderText = "Teléfono"
+                .Columns("telefono").Visible = True
+                .Columns("telefono").DisplayIndex = 6
+
+                .Columns("celular").HeaderText = "Celular"
+                .Columns("celular").Visible = True
+                .Columns("celular").DisplayIndex = 7
+
+                .Columns("pais").HeaderText = "País"
+                .Columns("pais").Visible = True
+                .Columns("pais").DisplayIndex = 8
+
+                .Columns("ciudad").HeaderText = "Ciudad"
+                .Columns("ciudad").Visible = True
+                .Columns("ciudad").DisplayIndex = 9
+
+                .Columns("calle").HeaderText = "Calle"
+                .Columns("calle").Visible = True
+                .Columns("calle").DisplayIndex = 10
+
+                .Columns("numero_ext").HeaderText = "Número Ext."
+                .Columns("numero_ext").Visible = True
+                .Columns("numero_ext").DisplayIndex = 11
+
+                .Columns("numero_int").HeaderText = "Número Int."
+                .Columns("numero_int").Visible = True
+                .Columns("numero_int").DisplayIndex = 12
+
+                .Columns("colonia").HeaderText = "Colonia"
+                .Columns("colonia").Visible = True
+                .Columns("colonia").DisplayIndex = 13
+
+                .Columns("delegacion").HeaderText = "Delegación"
+                .Columns("delegacion").Visible = True
+                .Columns("delegacion").DisplayIndex = 14
+
+                .Columns("codigo_postal").HeaderText = "Código Postal"
+                .Columns("codigo_postal").Visible = True
+                .Columns("codigo_postal").DisplayIndex = 15
 
                 .Columns("is_active").HeaderText = "Activo"
                 .Columns("is_active").Visible = True
-                .Columns("is_active").DisplayIndex = 4
+                .Columns("is_active").DisplayIndex = 17
 
             End With
 
@@ -636,30 +684,28 @@ Public Class CCustomer
 
                     Case SPCommand.Save
 
-                        .Add("@centro_id", SqlDbType.VarChar).Value = DirectCast(oForm, FClientes).oMainClass.centro_id
-                        '.Add("@nombre_corto", SqlDbType.VarChar).Value = oForm.oMainClass.nombre_corto
-                        '.Add("@nombre", SqlDbType.VarChar).Value = oForm.oMainClass.nombre
-                        '.Add("@descripcion", SqlDbType.VarChar).Value = oForm.oMainClass.descripcion
-                        '.Add("@is_active", SqlDbType.Bit).Value = oForm.oMainClass.is_active
+                        .Add("@centro_id", SqlDbType.VarChar).Value = DirectCast(oForm, FClientes).FormRelatedClass.centro_id
+                        .Add("@nombre_corto", SqlDbType.VarChar).Value = DirectCast(oForm, FClientes).FormRelatedClass.nombre_corto
+                        .Add("@nombre", SqlDbType.VarChar).Value = DirectCast(oForm, FClientes).FormRelatedClass.nombre
+                        .Add("@descripcion", SqlDbType.VarChar).Value = DirectCast(oForm, FClientes).FormRelatedClass.descripcion
+                        .Add("@is_active", SqlDbType.Bit).Value = DirectCast(oForm, FClientes).FormRelatedClass.is_active
                         .Add("@command", SqlDbType.Int).Value = SPCommand.Save
                         .Add("@response", SqlDbType.Int).Direction = ParameterDirection.Output
 
                     Case SPCommand.Delete
 
                         .Add("@centro_id", SqlDbType.VarChar).Value = CApplicationController.oCWorkCenter_.id
-                        '.Add("@id", SqlDbType.VarChar).Value = oForm.oMainClass.id
-                        '.Add("@guid", SqlDbType.VarChar).Value = oForm.oMainClass.guid
+                        .Add("@guid", SqlDbType.VarChar).Value = DirectCast(oForm, FClientes).FormRelatedClass.guid
                         .Add("@command", SqlDbType.Int).Value = SPCommand.Delete
                         .Add("@response", SqlDbType.Int).Direction = ParameterDirection.Output
 
                     Case SPCommand.Update
 
                         .Add("@centro_id", SqlDbType.VarChar).Value = CApplicationController.oCWorkCenter_.id
-                        '.Add("@id", SqlDbType.VarChar).Value = oForm.oMainClass.id
-                        '.Add("@guid", SqlDbType.VarChar).Value = oForm.oMainClass.guid
-                        '.Add("@nombre", SqlDbType.VarChar).Value = oForm.oMainClass.nombre
-                        '.Add("@descripcion", SqlDbType.VarChar).Value = oForm.oMainClass.descripcion
-                        '.Add("@is_active", SqlDbType.Bit).Value = oForm.oMainClass.is_active
+                        .Add("@guid", SqlDbType.VarChar).Value = DirectCast(oForm, FClientes).FormRelatedClass.guid
+                        .Add("@nombre_corto", SqlDbType.VarChar).Value = DirectCast(oForm, FClientes).FormRelatedClass.nombre_corto
+                        .Add("@nombre", SqlDbType.VarChar).Value = DirectCast(oForm, FClientes).FormRelatedClass.nombre
+                        .Add("@descripcion", SqlDbType.VarChar).Value = DirectCast(oForm, FClientes).FormRelatedClass.descripcion
                         .Add("@command", SqlDbType.Int).Value = SPCommand.Update
                         .Add("@response", SqlDbType.Int).Direction = ParameterDirection.Output
 
@@ -686,7 +732,7 @@ Public Class CCustomer
 
                 Using oSqlCommand As New SqlCommand(oForm.stored_procedure_name, oConnection) With {.CommandType = CommandType.StoredProcedure}
 
-                    'If Not CCustomer.PrepareSPCommand(oSqlCommand, SPCommand.Save, oForm) Then Throw New CustomException
+                    PrepareSPCommand(oSqlCommand, SPCommand.Save, oForm)
 
                     oSqlCommand.ExecuteNonQuery()
 
@@ -727,6 +773,8 @@ Public Class CCustomer
                 Using oSqlCommand As New SqlCommand(oForm.stored_procedure_name, oConnection) With {.CommandType = CommandType.StoredProcedure}
 
                     'If Not CCustomer.PrepareSPCommand(oSqlCommand, SPCommand.Update, oForm) Then Throw New CustomException
+
+                    PrepareSPCommand(oSqlCommand, SPCommand.Update, oForm)
 
                     oSqlCommand.ExecuteNonQuery()
 
@@ -769,6 +817,8 @@ Public Class CCustomer
                     ' ---------------------------------
                     'If Not CCustomer.PrepareSPCommand(oSqlCommand, SPCommand.Delete, oForm) Then Throw New CustomException
 
+                    PrepareSPCommand(oSqlCommand, SPCommand.Delete, oForm)
+
                     oSqlCommand.ExecuteNonQuery()
 
                     ' -------------------------
@@ -800,5 +850,7 @@ Public Class CCustomer
         Return DeleteRecord
 
     End Function
+
+
 
 End Class
