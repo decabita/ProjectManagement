@@ -1906,55 +1906,6 @@ Public Class FAdministrationMenu
     End Sub
 
 
-    Private Sub CatalogoProductos_Click(sender As System.Object, e As System.EventArgs) Handles CatalogoProductos.Click
-
-        Dim oFormToShow As Object = Nothing
-        Dim oMDIMainContainer As New MDIMainContainer()
-
-        ' Retrieve form object from application into type.
-
-        Dim oType As Type = Assembly.GetExecutingAssembly().GetType(My.Application.Info.AssemblyName & ".FProductoTerminado")
-
-        Try
-
-            ' Create form instance from application from type.
-            If oType IsNot Nothing Then
-
-                '  If Not CApplicationController.oCUsers.oCollectionProfiles.Contains(oType.Name) Then Throw New CustomException("El usuario no tiene permisos suficientes. Consulte a Soporte Técnico.")
-
-                oFormToShow = Activator.CreateInstance(oType)
-
-                ' Assigns parent to form instance.
-                oFormToShow.MdiParent = oMDIMainContainer
-
-                Dim dummy As Form
-                dummy = DirectCast(oFormToShow, Form)
-                dummy.WindowState = FormWindowState.Maximized
-
-                ' Assigns form to show to MDI.
-                oMDIMainContainer.oCFormController_.parent_form = oFormToShow
-                oMDIMainContainer.WindowState = FormWindowState.Maximized
-                oMDIMainContainer.Show()
-
-            Else
-
-                Throw New CustomException("No se encuentra definido el formulario. Consulte a Soporte Técnico.")
-
-            End If
-
-        Catch ex As CustomException
-
-            MessageBox.Show(ex.Message, "Atención", MessageBoxButtons.OK, MessageBoxIcon.Error)
-
-        Catch ex As Exception
-
-            MessageBox.Show(ex.Message, "Atención", MessageBoxButtons.OK, MessageBoxIcon.Error)
-
-        End Try
-
-
-    End Sub
-
     Private Sub FProjects_Click(sender As Object, e As EventArgs)
         ShowMeInMainContainer(sender.Name)
     End Sub
@@ -1976,6 +1927,10 @@ Public Class FAdministrationMenu
     End Sub
 
     Private Sub FWarehouses_Click(sender As Object, e As EventArgs) Handles FWarehouses.Click
+        ShowMeInMainContainer(sender.Name)
+    End Sub
+
+    Private Sub FParts_Click(sender As Object, e As EventArgs) Handles FParts.Click
         ShowMeInMainContainer(sender.Name)
     End Sub
 End Class

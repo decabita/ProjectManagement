@@ -79,6 +79,7 @@
   <ItemGroup>
     <Compile Include="Classes\FormClasses\CCustomerArea.vb" />
     <Compile Include="Classes\FormClasses\CEmployee.vb" />
+    <Compile Include="Classes\FormClasses\CPart.vb" />
     <Compile Include="Classes\FormClasses\CVendor.vb" />
     <Compile Include="Classes\FormClasses\CWarehouse.vb" />
     <Compile Include="Forms\Forms Catalogs\FClientes\FClientes.Designer.vb">
@@ -97,6 +98,12 @@
       <DependentUpon>FEmployees.vb</DependentUpon>
     </Compile>
     <Compile Include="Forms\Forms Catalogs\FEmployees\FEmployees.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Forms Catalogs\FParts\FParts.Designer.vb">
+      <DependentUpon>FParts.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Forms Catalogs\FParts\FParts.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Forms\Forms Catalogs\FVendors\FVendors.Designer.vb">
@@ -262,6 +269,9 @@
     <EmbeddedResource Include="Forms\Forms Catalogs\FEmployees\FEmployees.resx">
       <DependentUpon>FEmployees.vb</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Forms Catalogs\FParts\FParts.resx">
+      <DependentUpon>FParts.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\Forms Catalogs\FWarehouses\FWarehouses.resx">
       <DependentUpon>FWarehouses.vb</DependentUpon>
     </EmbeddedResource>
@@ -308,7 +318,7 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <None Include="DataBase\d3c2bit2_ProjectManagement.bak" />
+    <None Include="DataBase\d3c2bit2_ProjectManagement" />
     <None Include="My Project\Application.myapp">
       <Generator>MyApplicationCodeGenerator</Generator>
       <LastGenOutput>Application.Designer.vb</LastGenOutput>
