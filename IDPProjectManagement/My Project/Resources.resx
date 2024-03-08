@@ -136,6 +136,12 @@
   <data name="CancelCommand" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Images\MDIToolBar\CancelCommand.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="ChildForm" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Images\LowerDirectAccess\ChildForm.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="SearchCommand" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Images\MDIToolBar\SearchCommand.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="MenuConfig" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Images\LowerDirectAccess\MenuConfig .png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -148,17 +154,14 @@
   <data name="ProgressGear" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Images\Mix\ProgressGear.gif;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="FilterExecCommand" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Images\MDIToolBar\FilterExecCommand.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="rss_remove" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Images\Mix\rss_remove.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="Inactive" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Images\MDIToolBar\Inactive.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="ExcelExport" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Images\LowerDirectAccess\ExcelExport.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="ButtonProcess" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Images\LowerDirectAccess\ButtonProcess.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="ButtonForm" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Images\MainMenu\ButtonForm.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -168,9 +171,6 @@
   </data>
   <data name="FactoryModelling" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Images\MainMenu\FactoryModelling.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="AppErrorIcon" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Images\Mix\AppErrorIcon.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="SystemConfiguration" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Images\MainMenu\SystemConfiguration.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -184,20 +184,17 @@
   <data name="AppSmallIcon" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Images\Mix\AppSmallIcon.ico;System.Drawing.Icon, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="Reports" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Images\LowerDirectAccess\Reports.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="WarehouseMenu" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Images\MainMenu\WarehouseMenu.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="CatalogsMenu" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Images\MainMenu\CatalogsMenu.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="CrystalReport" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Images\LowerDirectAccess\CrystalReport.jpeg;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="ExcelExport" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Images\LowerDirectAccess\ExcelExport.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="SearchCommand" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Images\MDIToolBar\SearchCommand.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="Reports" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Images\LowerDirectAccess\Reports.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="menu_config" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\menu-config.xml;System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
@@ -205,14 +202,17 @@
   <data name="ButtonMenu" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Images\LowerDirectAccess\ButtonMenu.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="CrystalReport" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Images\LowerDirectAccess\CrystalReport.jpeg;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="LM" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Images\Mix\LM.ico;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="help_dog_picture" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Images\Mix\help-dog-picture.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="ExitCommand" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Images\MDIToolBar\ExitCommand.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="IDP-LOGO" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Images\IDP-LOGO.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="FilterCommand" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Images\MDIToolBar\FilterCommand.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -220,23 +220,23 @@
   <data name="backward" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Images\Direction\backward.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="IDP-LOGO2" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Images\IDP-LOGO2.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="rss" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Images\Mix\rss.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="AppBigLogo" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Images\Mix\AppBigLogo.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="EditCommand" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Images\MDIToolBar\EditCommand.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="ButtonProcess" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Images\LowerDirectAccess\ButtonProcess.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="ChildForm" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Images\LowerDirectAccess\ChildForm.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="AppErrorIcon" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Images\Mix\AppErrorIcon.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="ProductionMenu" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Images\MainMenu\ProductionMenu.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="EditCommand" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Images\MDIToolBar\EditCommand.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="FilterExecCommand" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Images\MDIToolBar\FilterExecCommand.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="NoImage" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Images\Mix\NoImage.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -250,7 +250,7 @@
   <data name="tostart" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Images\Direction\tostart.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="IDP-LOGO" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Images\IDP-LOGO.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="IDP-LOGO3" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Images\IDP-LOGO3.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>

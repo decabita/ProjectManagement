@@ -424,6 +424,8 @@ Public Class CVendor
 
                 .DefaultCellStyle.Font = New Font(.Font.FontFamily, 10.0F, FontStyle.Regular)
 
+                .AutoGenerateColumns = False
+
                 ' .DefaultCellStyle.NullValue = "NA"
 
                 '--------------------------------------------------------------------
@@ -431,73 +433,76 @@ Public Class CVendor
                 '
                 ' Change column properties and format in accordance with data. 
                 '--------------------------------------------------------------------
+                Dim index As Integer
+
+                index = 0
 
                 .Columns("centro_id").Visible = False
                 .Columns("id").Visible = False
 
                 .Columns("guid").HeaderText = "Guid"
                 .Columns("guid").Visible = True
-                .Columns("guid").DisplayIndex = 1
-
+                .Columns("guid").DisplayIndex = index
+                index += 1
                 .Columns("nombre_corto").HeaderText = "Clave"
                 .Columns("nombre_corto").Visible = True
-                .Columns("nombre_corto").DisplayIndex = 2
-
+                .Columns("nombre_corto").DisplayIndex = index
+                index += 1
                 .Columns("nombre").HeaderText = "Nombre"
                 .Columns("nombre").Visible = True
                 .Columns("nombre").DisplayIndex = 3
-
+                index += 1
                 .Columns("descripcion").HeaderText = "Descripción"
                 .Columns("descripcion").Visible = True
-                .Columns("descripcion").DisplayIndex = 4
-
+                .Columns("descripcion").DisplayIndex = index
+                index += 1
                 .Columns("email").HeaderText = "Email"
                 .Columns("email").Visible = True
-                .Columns("email").DisplayIndex = 5
-
+                .Columns("email").DisplayIndex = index
+                index += 1
                 .Columns("telefono").HeaderText = "Teléfono"
                 .Columns("telefono").Visible = True
-                .Columns("telefono").DisplayIndex = 6
-
+                .Columns("telefono").DisplayIndex = index
+                index += 1
                 .Columns("celular").HeaderText = "Celular"
                 .Columns("celular").Visible = True
-                .Columns("celular").DisplayIndex = 7
-
+                .Columns("celular").DisplayIndex = index
+                index += 1
                 .Columns("pais").HeaderText = "País"
                 .Columns("pais").Visible = True
-                .Columns("pais").DisplayIndex = 8
-
+                .Columns("pais").DisplayIndex = index
+                index += 1
                 .Columns("ciudad").HeaderText = "Ciudad"
                 .Columns("ciudad").Visible = True
-                .Columns("ciudad").DisplayIndex = 9
-
+                .Columns("ciudad").DisplayIndex = index
+                index += 1
                 .Columns("calle").HeaderText = "Calle"
                 .Columns("calle").Visible = True
-                .Columns("calle").DisplayIndex = 10
-
+                .Columns("calle").DisplayIndex = index
+                index += 1
                 .Columns("numero_ext").HeaderText = "Número Ext."
                 .Columns("numero_ext").Visible = True
-                .Columns("numero_ext").DisplayIndex = 11
-
+                .Columns("numero_ext").DisplayIndex = index
+                index += 1
                 .Columns("numero_int").HeaderText = "Número Int."
                 .Columns("numero_int").Visible = True
-                .Columns("numero_int").DisplayIndex = 12
-
+                .Columns("numero_int").DisplayIndex = index
+                index += 1
                 .Columns("colonia").HeaderText = "Colonia"
                 .Columns("colonia").Visible = True
-                .Columns("colonia").DisplayIndex = 13
-
+                .Columns("colonia").DisplayIndex = index
+                index += 1
                 .Columns("delegacion").HeaderText = "Delegación"
                 .Columns("delegacion").Visible = True
-                .Columns("delegacion").DisplayIndex = 14
-
+                .Columns("delegacion").DisplayIndex = index
+                index += 1
                 .Columns("codigo_postal").HeaderText = "Código Postal"
                 .Columns("codigo_postal").Visible = True
-                .Columns("codigo_postal").DisplayIndex = 15
-
+                .Columns("codigo_postal").DisplayIndex = index
+                index += 1
                 .Columns("is_active").HeaderText = "Activo"
                 .Columns("is_active").Visible = True
-                .Columns("is_active").DisplayIndex = 17
+                .Columns("is_active").DisplayIndex = index
 
             End With
 

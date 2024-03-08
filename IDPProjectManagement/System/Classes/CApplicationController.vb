@@ -40,12 +40,12 @@
         End Set
     End Property
 
-    Shared _oCWorkCenter As New CWorkCenter_
-    Shared Property oCWorkCenter_() As CWorkCenter_
+    Shared _oCWorkCenter As New CWorkCenter
+    Shared Property oCWorkCenter_() As CWorkCenter
         Get
             Return _oCWorkCenter
         End Get
-        Set(ByVal value As CWorkCenter_)
+        Set(ByVal value As CWorkCenter)
             _oCWorkCenter = value
         End Set
     End Property

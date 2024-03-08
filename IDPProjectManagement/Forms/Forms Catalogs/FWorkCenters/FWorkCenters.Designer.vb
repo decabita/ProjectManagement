@@ -1,5 +1,5 @@
 ﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
-Partial Class FParts
+Partial Class FWorkCenters
     Inherits FCatalogFormTemplate
 
     'Form overrides dispose to clean up the component list.
@@ -24,12 +24,18 @@ Partial Class FParts
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
         Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(FParts))
+        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(FWorkCenters))
         Me.BWorkerGetData = New System.ComponentModel.BackgroundWorker()
         Me.TableLayoutPanel1 = New System.Windows.Forms.TableLayoutPanel()
         Me.Panel1 = New System.Windows.Forms.Panel()
         Me.TableLayoutPanel3 = New System.Windows.Forms.TableLayoutPanel()
         Me.Panel3 = New System.Windows.Forms.Panel()
+        Me.lblGuid = New System.Windows.Forms.Label()
+        Me.tGuid = New System.Windows.Forms.TextBox()
+        Me.Label3 = New System.Windows.Forms.Label()
+        Me.tNombre = New System.Windows.Forms.TextBox()
+        Me.Label1 = New System.Windows.Forms.Label()
+        Me.tClaveId = New System.Windows.Forms.TextBox()
         Me.Panel4 = New System.Windows.Forms.Panel()
         Me.TabControl1 = New System.Windows.Forms.TabControl()
         Me.TPExtras = New System.Windows.Forms.TabPage()
@@ -50,12 +56,6 @@ Partial Class FParts
         Me.BindingNavigatorMoveNextItem = New System.Windows.Forms.ToolStripButton()
         Me.BindingNavigatorMoveLastItem = New System.Windows.Forms.ToolStripButton()
         Me.BindingNavigatorSeparator2 = New System.Windows.Forms.ToolStripSeparator()
-        Me.lblGuid = New System.Windows.Forms.Label()
-        Me.tGuid = New System.Windows.Forms.TextBox()
-        Me.Label3 = New System.Windows.Forms.Label()
-        Me.tNombre = New System.Windows.Forms.TextBox()
-        Me.Label1 = New System.Windows.Forms.Label()
-        Me.tClaveId = New System.Windows.Forms.TextBox()
         Me.TableLayoutPanel1.SuspendLayout()
         Me.Panel1.SuspendLayout()
         Me.TableLayoutPanel3.SuspendLayout()
@@ -84,10 +84,10 @@ Partial Class FParts
         Me.TableLayoutPanel1.Location = New System.Drawing.Point(0, 0)
         Me.TableLayoutPanel1.Name = "TableLayoutPanel1"
         Me.TableLayoutPanel1.RowCount = 3
-        Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 31.81818!))
-        Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 63.63636!))
-        Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 4.545455!))
-        Me.TableLayoutPanel1.Size = New System.Drawing.Size(1747, 818)
+        Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 46.34146!))
+        Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 53.65854!))
+        Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40.0!))
+        Me.TableLayoutPanel1.Size = New System.Drawing.Size(1216, 410)
         Me.TableLayoutPanel1.TabIndex = 6
         '
         'Panel1
@@ -96,7 +96,7 @@ Partial Class FParts
         Me.Panel1.Dock = System.Windows.Forms.DockStyle.Fill
         Me.Panel1.Location = New System.Drawing.Point(3, 3)
         Me.Panel1.Name = "Panel1"
-        Me.Panel1.Size = New System.Drawing.Size(1741, 254)
+        Me.Panel1.Size = New System.Drawing.Size(1210, 165)
         Me.Panel1.TabIndex = 0
         '
         'TableLayoutPanel3
@@ -112,7 +112,7 @@ Partial Class FParts
         Me.TableLayoutPanel3.RowCount = 1
         Me.TableLayoutPanel3.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50.0!))
         Me.TableLayoutPanel3.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 165.0!))
-        Me.TableLayoutPanel3.Size = New System.Drawing.Size(1741, 254)
+        Me.TableLayoutPanel3.Size = New System.Drawing.Size(1210, 165)
         Me.TableLayoutPanel3.TabIndex = 0
         '
         'Panel3
@@ -126,16 +126,82 @@ Partial Class FParts
         Me.Panel3.Dock = System.Windows.Forms.DockStyle.Fill
         Me.Panel3.Location = New System.Drawing.Point(3, 3)
         Me.Panel3.Name = "Panel3"
-        Me.Panel3.Size = New System.Drawing.Size(864, 248)
+        Me.Panel3.Size = New System.Drawing.Size(599, 159)
         Me.Panel3.TabIndex = 0
+        '
+        'lblGuid
+        '
+        Me.lblGuid.Font = New System.Drawing.Font("Tahoma", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblGuid.Location = New System.Drawing.Point(24, 16)
+        Me.lblGuid.Name = "lblGuid"
+        Me.lblGuid.Size = New System.Drawing.Size(84, 21)
+        Me.lblGuid.TabIndex = 14
+        Me.lblGuid.Text = "Guid"
+        Me.lblGuid.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        '
+        'tGuid
+        '
+        Me.tGuid.BackColor = System.Drawing.SystemColors.Window
+        Me.tGuid.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.tGuid.Font = New System.Drawing.Font("Tahoma", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.tGuid.Location = New System.Drawing.Point(116, 13)
+        Me.tGuid.Name = "tGuid"
+        Me.tGuid.Size = New System.Drawing.Size(290, 26)
+        Me.tGuid.TabIndex = 13
+        Me.tGuid.Tag = "Guid"
+        Me.tGuid.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
+        '
+        'Label3
+        '
+        Me.Label3.Font = New System.Drawing.Font("Tahoma", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label3.Location = New System.Drawing.Point(24, 71)
+        Me.Label3.Name = "Label3"
+        Me.Label3.Size = New System.Drawing.Size(84, 21)
+        Me.Label3.TabIndex = 12
+        Me.Label3.Text = "Nombre"
+        Me.Label3.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        '
+        'tNombre
+        '
+        Me.tNombre.BackColor = System.Drawing.SystemColors.Window
+        Me.tNombre.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.tNombre.Font = New System.Drawing.Font("Tahoma", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.tNombre.Location = New System.Drawing.Point(116, 69)
+        Me.tNombre.Name = "tNombre"
+        Me.tNombre.Size = New System.Drawing.Size(290, 26)
+        Me.tNombre.TabIndex = 11
+        Me.tNombre.Tag = "Nombre"
+        Me.tNombre.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
+        '
+        'Label1
+        '
+        Me.Label1.Font = New System.Drawing.Font("Tahoma", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label1.Location = New System.Drawing.Point(24, 42)
+        Me.Label1.Name = "Label1"
+        Me.Label1.Size = New System.Drawing.Size(84, 21)
+        Me.Label1.TabIndex = 9
+        Me.Label1.Text = "Clave"
+        Me.Label1.TextAlign = System.Drawing.ContentAlignment.BottomRight
+        '
+        'tClaveId
+        '
+        Me.tClaveId.BackColor = System.Drawing.SystemColors.Window
+        Me.tClaveId.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.tClaveId.Font = New System.Drawing.Font("Tahoma", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.tClaveId.Location = New System.Drawing.Point(116, 41)
+        Me.tClaveId.Name = "tClaveId"
+        Me.tClaveId.Size = New System.Drawing.Size(290, 26)
+        Me.tClaveId.TabIndex = 10
+        Me.tClaveId.Tag = "Clave"
+        Me.tClaveId.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
         '
         'Panel4
         '
         Me.Panel4.Controls.Add(Me.TabControl1)
         Me.Panel4.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.Panel4.Location = New System.Drawing.Point(873, 3)
+        Me.Panel4.Location = New System.Drawing.Point(608, 3)
         Me.Panel4.Name = "Panel4"
-        Me.Panel4.Size = New System.Drawing.Size(865, 248)
+        Me.Panel4.Size = New System.Drawing.Size(599, 159)
         Me.Panel4.TabIndex = 1
         '
         'TabControl1
@@ -146,7 +212,7 @@ Partial Class FParts
         Me.TabControl1.Location = New System.Drawing.Point(0, 0)
         Me.TabControl1.Name = "TabControl1"
         Me.TabControl1.SelectedIndex = 0
-        Me.TabControl1.Size = New System.Drawing.Size(865, 248)
+        Me.TabControl1.Size = New System.Drawing.Size(599, 159)
         Me.TabControl1.TabIndex = 10
         '
         'TPExtras
@@ -157,7 +223,7 @@ Partial Class FParts
         Me.TPExtras.Location = New System.Drawing.Point(4, 27)
         Me.TPExtras.Name = "TPExtras"
         Me.TPExtras.Padding = New System.Windows.Forms.Padding(3)
-        Me.TPExtras.Size = New System.Drawing.Size(857, 217)
+        Me.TPExtras.Size = New System.Drawing.Size(591, 128)
         Me.TPExtras.TabIndex = 0
         Me.TPExtras.Text = "Datos Adicionales"
         Me.TPExtras.UseVisualStyleBackColor = True
@@ -167,7 +233,7 @@ Partial Class FParts
         Me.tDescripcion.BackColor = System.Drawing.SystemColors.Window
         Me.tDescripcion.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.tDescripcion.Font = New System.Drawing.Font("Tahoma", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.tDescripcion.Location = New System.Drawing.Point(120, 24)
+        Me.tDescripcion.Location = New System.Drawing.Point(120, 8)
         Me.tDescripcion.Multiline = True
         Me.tDescripcion.Name = "tDescripcion"
         Me.tDescripcion.Size = New System.Drawing.Size(424, 64)
@@ -179,7 +245,7 @@ Partial Class FParts
         '
         Me.Label2.AutoSize = True
         Me.Label2.Font = New System.Drawing.Font("Tahoma", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label2.Location = New System.Drawing.Point(16, 32)
+        Me.Label2.Location = New System.Drawing.Point(16, 16)
         Me.Label2.Name = "Label2"
         Me.Label2.Size = New System.Drawing.Size(80, 18)
         Me.Label2.TabIndex = 0
@@ -192,7 +258,7 @@ Partial Class FParts
         Me.ckActivo.Enabled = False
         Me.ckActivo.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.ckActivo.Font = New System.Drawing.Font("Tahoma", 9.0!)
-        Me.ckActivo.Location = New System.Drawing.Point(16, 96)
+        Me.ckActivo.Location = New System.Drawing.Point(16, 80)
         Me.ckActivo.Name = "ckActivo"
         Me.ckActivo.Size = New System.Drawing.Size(120, 24)
         Me.ckActivo.TabIndex = 2
@@ -204,9 +270,9 @@ Partial Class FParts
         '
         Me.Panel2.Controls.Add(Me.DataGridView)
         Me.Panel2.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.Panel2.Location = New System.Drawing.Point(3, 263)
+        Me.Panel2.Location = New System.Drawing.Point(3, 174)
         Me.Panel2.Name = "Panel2"
-        Me.Panel2.Size = New System.Drawing.Size(1741, 514)
+        Me.Panel2.Size = New System.Drawing.Size(1210, 192)
         Me.Panel2.TabIndex = 1
         '
         'DataGridView
@@ -223,7 +289,7 @@ Partial Class FParts
         Me.DataGridView.Name = "DataGridView"
         Me.DataGridView.ReadOnly = True
         Me.DataGridView.RowHeadersWidth = 51
-        Me.DataGridView.Size = New System.Drawing.Size(1741, 514)
+        Me.DataGridView.Size = New System.Drawing.Size(1210, 192)
         Me.DataGridView.TabIndex = 5
         Me.DataGridView.Tag = "Grid"
         '
@@ -237,11 +303,11 @@ Partial Class FParts
         Me.TableLayoutPanel2.Controls.Add(Me.TSDownDirectAcces, 0, 0)
         Me.TableLayoutPanel2.Controls.Add(Me.BindingNavigator, 1, 0)
         Me.TableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.TableLayoutPanel2.Location = New System.Drawing.Point(3, 783)
+        Me.TableLayoutPanel2.Location = New System.Drawing.Point(3, 372)
         Me.TableLayoutPanel2.Name = "TableLayoutPanel2"
         Me.TableLayoutPanel2.RowCount = 1
         Me.TableLayoutPanel2.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50.0!))
-        Me.TableLayoutPanel2.Size = New System.Drawing.Size(1741, 32)
+        Me.TableLayoutPanel2.Size = New System.Drawing.Size(1210, 35)
         Me.TableLayoutPanel2.TabIndex = 2
         '
         'TSDownDirectAcces
@@ -251,7 +317,7 @@ Partial Class FParts
         Me.TSDownDirectAcces.ImageScalingSize = New System.Drawing.Size(20, 20)
         Me.TSDownDirectAcces.Location = New System.Drawing.Point(2, 2)
         Me.TSDownDirectAcces.Name = "TSDownDirectAcces"
-        Me.TSDownDirectAcces.Size = New System.Drawing.Size(1266, 28)
+        Me.TSDownDirectAcces.Size = New System.Drawing.Size(878, 31)
         Me.TSDownDirectAcces.TabIndex = 6
         Me.TSDownDirectAcces.TabStop = True
         Me.TSDownDirectAcces.Text = "ToolStrip1"
@@ -266,14 +332,14 @@ Partial Class FParts
         Me.BindingNavigator.Dock = System.Windows.Forms.DockStyle.Fill
         Me.BindingNavigator.ImageScalingSize = New System.Drawing.Size(20, 20)
         Me.BindingNavigator.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.BindingNavigatorMoveFirstItem, Me.BindingNavigatorMovePreviousItem, Me.BindingNavigatorSeparator, Me.BindingNavigatorPositionItem, Me.BindingNavigatorCountItem, Me.BindingNavigatorSeparator1, Me.BindingNavigatorMoveNextItem, Me.BindingNavigatorMoveLastItem, Me.BindingNavigatorSeparator2})
-        Me.BindingNavigator.Location = New System.Drawing.Point(1270, 2)
+        Me.BindingNavigator.Location = New System.Drawing.Point(882, 2)
         Me.BindingNavigator.MoveFirstItem = Me.BindingNavigatorMoveFirstItem
         Me.BindingNavigator.MoveLastItem = Me.BindingNavigatorMoveLastItem
         Me.BindingNavigator.MoveNextItem = Me.BindingNavigatorMoveNextItem
         Me.BindingNavigator.MovePreviousItem = Me.BindingNavigatorMovePreviousItem
         Me.BindingNavigator.Name = "BindingNavigator"
         Me.BindingNavigator.PositionItem = Me.BindingNavigatorPositionItem
-        Me.BindingNavigator.Size = New System.Drawing.Size(469, 28)
+        Me.BindingNavigator.Size = New System.Drawing.Size(326, 31)
         Me.BindingNavigator.TabIndex = 7
         Me.BindingNavigator.TabStop = True
         Me.BindingNavigator.Text = "BindingNavigator1"
@@ -281,7 +347,7 @@ Partial Class FParts
         'BindingNavigatorCountItem
         '
         Me.BindingNavigatorCountItem.Name = "BindingNavigatorCountItem"
-        Me.BindingNavigatorCountItem.Size = New System.Drawing.Size(45, 25)
+        Me.BindingNavigatorCountItem.Size = New System.Drawing.Size(45, 28)
         Me.BindingNavigatorCountItem.Text = "of {0}"
         Me.BindingNavigatorCountItem.ToolTipText = "Total number of items"
         '
@@ -291,7 +357,7 @@ Partial Class FParts
         Me.BindingNavigatorMoveFirstItem.Image = CType(resources.GetObject("BindingNavigatorMoveFirstItem.Image"), System.Drawing.Image)
         Me.BindingNavigatorMoveFirstItem.Name = "BindingNavigatorMoveFirstItem"
         Me.BindingNavigatorMoveFirstItem.RightToLeftAutoMirrorImage = True
-        Me.BindingNavigatorMoveFirstItem.Size = New System.Drawing.Size(29, 25)
+        Me.BindingNavigatorMoveFirstItem.Size = New System.Drawing.Size(29, 28)
         Me.BindingNavigatorMoveFirstItem.Text = "Move first"
         '
         'BindingNavigatorMovePreviousItem
@@ -300,13 +366,13 @@ Partial Class FParts
         Me.BindingNavigatorMovePreviousItem.Image = CType(resources.GetObject("BindingNavigatorMovePreviousItem.Image"), System.Drawing.Image)
         Me.BindingNavigatorMovePreviousItem.Name = "BindingNavigatorMovePreviousItem"
         Me.BindingNavigatorMovePreviousItem.RightToLeftAutoMirrorImage = True
-        Me.BindingNavigatorMovePreviousItem.Size = New System.Drawing.Size(29, 25)
+        Me.BindingNavigatorMovePreviousItem.Size = New System.Drawing.Size(29, 28)
         Me.BindingNavigatorMovePreviousItem.Text = "Move previous"
         '
         'BindingNavigatorSeparator
         '
         Me.BindingNavigatorSeparator.Name = "BindingNavigatorSeparator"
-        Me.BindingNavigatorSeparator.Size = New System.Drawing.Size(6, 28)
+        Me.BindingNavigatorSeparator.Size = New System.Drawing.Size(6, 31)
         '
         'BindingNavigatorPositionItem
         '
@@ -321,7 +387,7 @@ Partial Class FParts
         'BindingNavigatorSeparator1
         '
         Me.BindingNavigatorSeparator1.Name = "BindingNavigatorSeparator1"
-        Me.BindingNavigatorSeparator1.Size = New System.Drawing.Size(6, 28)
+        Me.BindingNavigatorSeparator1.Size = New System.Drawing.Size(6, 31)
         '
         'BindingNavigatorMoveNextItem
         '
@@ -329,7 +395,7 @@ Partial Class FParts
         Me.BindingNavigatorMoveNextItem.Image = CType(resources.GetObject("BindingNavigatorMoveNextItem.Image"), System.Drawing.Image)
         Me.BindingNavigatorMoveNextItem.Name = "BindingNavigatorMoveNextItem"
         Me.BindingNavigatorMoveNextItem.RightToLeftAutoMirrorImage = True
-        Me.BindingNavigatorMoveNextItem.Size = New System.Drawing.Size(29, 25)
+        Me.BindingNavigatorMoveNextItem.Size = New System.Drawing.Size(29, 28)
         Me.BindingNavigatorMoveNextItem.Text = "Move next"
         '
         'BindingNavigatorMoveLastItem
@@ -338,89 +404,23 @@ Partial Class FParts
         Me.BindingNavigatorMoveLastItem.Image = CType(resources.GetObject("BindingNavigatorMoveLastItem.Image"), System.Drawing.Image)
         Me.BindingNavigatorMoveLastItem.Name = "BindingNavigatorMoveLastItem"
         Me.BindingNavigatorMoveLastItem.RightToLeftAutoMirrorImage = True
-        Me.BindingNavigatorMoveLastItem.Size = New System.Drawing.Size(29, 25)
+        Me.BindingNavigatorMoveLastItem.Size = New System.Drawing.Size(29, 28)
         Me.BindingNavigatorMoveLastItem.Text = "Move last"
         '
         'BindingNavigatorSeparator2
         '
         Me.BindingNavigatorSeparator2.Name = "BindingNavigatorSeparator2"
-        Me.BindingNavigatorSeparator2.Size = New System.Drawing.Size(6, 28)
+        Me.BindingNavigatorSeparator2.Size = New System.Drawing.Size(6, 31)
         '
-        'lblGuid
-        '
-        Me.lblGuid.Font = New System.Drawing.Font("Tahoma", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblGuid.Location = New System.Drawing.Point(4, 23)
-        Me.lblGuid.Name = "lblGuid"
-        Me.lblGuid.Size = New System.Drawing.Size(84, 21)
-        Me.lblGuid.TabIndex = 26
-        Me.lblGuid.Text = "Guid"
-        Me.lblGuid.TextAlign = System.Drawing.ContentAlignment.MiddleRight
-        '
-        'tGuid
-        '
-        Me.tGuid.BackColor = System.Drawing.SystemColors.Window
-        Me.tGuid.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.tGuid.Font = New System.Drawing.Font("Tahoma", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.tGuid.Location = New System.Drawing.Point(96, 20)
-        Me.tGuid.Name = "tGuid"
-        Me.tGuid.Size = New System.Drawing.Size(290, 26)
-        Me.tGuid.TabIndex = 25
-        Me.tGuid.Tag = "Guid"
-        Me.tGuid.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
-        '
-        'Label3
-        '
-        Me.Label3.Font = New System.Drawing.Font("Tahoma", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label3.Location = New System.Drawing.Point(4, 78)
-        Me.Label3.Name = "Label3"
-        Me.Label3.Size = New System.Drawing.Size(84, 21)
-        Me.Label3.TabIndex = 24
-        Me.Label3.Text = "Nombre"
-        Me.Label3.TextAlign = System.Drawing.ContentAlignment.MiddleRight
-        '
-        'tNombre
-        '
-        Me.tNombre.BackColor = System.Drawing.SystemColors.Window
-        Me.tNombre.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.tNombre.Font = New System.Drawing.Font("Tahoma", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.tNombre.Location = New System.Drawing.Point(96, 76)
-        Me.tNombre.Name = "tNombre"
-        Me.tNombre.Size = New System.Drawing.Size(290, 26)
-        Me.tNombre.TabIndex = 23
-        Me.tNombre.Tag = "Nombre"
-        Me.tNombre.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
-        '
-        'Label1
-        '
-        Me.Label1.Font = New System.Drawing.Font("Tahoma", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label1.Location = New System.Drawing.Point(4, 49)
-        Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(84, 21)
-        Me.Label1.TabIndex = 21
-        Me.Label1.Text = "Clave"
-        Me.Label1.TextAlign = System.Drawing.ContentAlignment.BottomRight
-        '
-        'tClaveId
-        '
-        Me.tClaveId.BackColor = System.Drawing.SystemColors.Window
-        Me.tClaveId.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.tClaveId.Font = New System.Drawing.Font("Tahoma", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.tClaveId.Location = New System.Drawing.Point(96, 48)
-        Me.tClaveId.Name = "tClaveId"
-        Me.tClaveId.Size = New System.Drawing.Size(290, 26)
-        Me.tClaveId.TabIndex = 22
-        Me.tClaveId.Tag = "Clave"
-        Me.tClaveId.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
-        '
-        'FParts
+        'FWorkCenters
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(1747, 818)
+        Me.ClientSize = New System.Drawing.Size(1216, 410)
         Me.Controls.Add(Me.TableLayoutPanel1)
         Me.Font = New System.Drawing.Font("Arial", 8.25!)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow
-        Me.Name = "FParts"
+        Me.Name = "FWorkCenters"
         Me.Text = "Catálogo de Clientes"
         Me.TableLayoutPanel1.ResumeLayout(False)
         Me.Panel1.ResumeLayout(False)
@@ -446,6 +446,12 @@ Partial Class FParts
     Friend WithEvents Panel1 As Panel
     Friend WithEvents TableLayoutPanel3 As TableLayoutPanel
     Friend WithEvents Panel3 As Panel
+    Friend WithEvents lblGuid As Label
+    Friend WithEvents tGuid As TextBox
+    Friend WithEvents Label3 As Label
+    Friend WithEvents tNombre As TextBox
+    Friend WithEvents Label1 As Label
+    Friend WithEvents tClaveId As TextBox
     Friend WithEvents Panel4 As Panel
     Friend WithEvents TabControl1 As TabControl
     Friend WithEvents TPExtras As TabPage
@@ -466,11 +472,5 @@ Partial Class FParts
     Friend WithEvents BindingNavigatorMoveNextItem As ToolStripButton
     Friend WithEvents BindingNavigatorMoveLastItem As ToolStripButton
     Friend WithEvents BindingNavigatorSeparator2 As ToolStripSeparator
-    Friend WithEvents lblGuid As Label
-    Friend WithEvents tGuid As TextBox
-    Friend WithEvents Label3 As Label
-    Friend WithEvents tNombre As TextBox
-    Friend WithEvents Label1 As Label
-    Friend WithEvents tClaveId As TextBox
     '  Friend WithEvents DbNavigationBar1 As DBNavigation.DbNavigationBar
 End Class

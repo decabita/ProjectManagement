@@ -221,6 +221,7 @@ Partial Class MDIMainContainer
         Me.TSBDelete.Size = New System.Drawing.Size(100, 24)
         Me.TSBDelete.Text = "Desac&tivar"
         Me.TSBDelete.ToolTipText = "Desactivar - F2"
+        Me.TSBDelete.Visible = False
         '
         'TSBCancel
         '

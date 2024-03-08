@@ -307,36 +307,92 @@ Public Class CPart
 
                 .DefaultCellStyle.Font = New Font(.Font.FontFamily, 10.0F, FontStyle.Regular)
 
-                ' .DefaultCellStyle.NullValue = "NA"
+                .AutoGenerateColumns = False
 
+                ' .DefaultCellStyle.NullValue = "NA"
                 '--------------------------------------------------------------------
                 ' TODO 
                 '
                 ' Change column properties and format in accordance with data. 
                 '--------------------------------------------------------------------
+                Dim index As Integer = 0
 
                 .Columns("centro_id").Visible = False
                 .Columns("id").Visible = False
 
                 .Columns("guid").HeaderText = "Guid"
                 .Columns("guid").Visible = True
-                .Columns("guid").DisplayIndex = 1
+                .Columns("guid").DisplayIndex = index
 
+                index += 1
                 .Columns("nombre_corto").HeaderText = "Clave"
                 .Columns("nombre_corto").Visible = True
-                .Columns("nombre_corto").DisplayIndex = 2
+                .Columns("nombre_corto").DisplayIndex = index
 
+                index += 1
                 .Columns("nombre").HeaderText = "Nombre"
                 .Columns("nombre").Visible = True
-                .Columns("nombre").DisplayIndex = 3
+                .Columns("nombre").DisplayIndex = index
 
+                index += 1
                 .Columns("descripcion").HeaderText = "Descripción"
                 .Columns("descripcion").Visible = True
-                .Columns("descripcion").DisplayIndex = 4
+                .Columns("descripcion").DisplayIndex = index
 
+                index += 1
+                .Columns("tipo_id").HeaderText = "Tipo"
+                .Columns("tipo_id").Visible = True
+                .Columns("tipo_id").DisplayIndex = index
+
+                index += 1
+                .Columns("unidad_id").HeaderText = "UM"
+                .Columns("unidad_id").Visible = True
+                .Columns("unidad_id").DisplayIndex = index
+
+                index += 1
+                .Columns("presentacion_id").HeaderText = "Presentacion"
+                .Columns("presentacion_id").Visible = True
+                .Columns("presentacion_id").DisplayIndex = index
+
+                index += 1
+                .Columns("precio_compra").HeaderText = "Precio Compra"
+                .Columns("precio_compra").Visible = True
+                .Columns("precio_compra").DisplayIndex = index
+
+                'index += 1
+                '.Columns("porcentaje_utilidad").HeaderText = "PU"
+                .Columns("porcentaje_utilidad").Visible = False
+                '.Columns("porcentaje_utilidad").DisplayIndex = index
+
+                'index += 1
+                '.Columns("precio_venta").HeaderText = "Precio Venta"
+                .Columns("precio_venta").Visible = False
+                '.Columns("precio_venta").DisplayIndex = index
+
+                index += 1
+                .Columns("iva").HeaderText = "I.V.A"
+                .Columns("iva").Visible = True
+                .Columns("iva").DisplayIndex = index
+
+                index += 1
+                .Columns("inventario_minimo").HeaderText = "Inventario Mínimo"
+                .Columns("inventario_minimo").Visible = True
+                .Columns("inventario_minimo").DisplayIndex = index
+
+                index += 1
+                .Columns("inventario_maximo").HeaderText = "Inventario Máximo"
+                .Columns("inventario_maximo").Visible = True
+                .Columns("inventario_maximo").DisplayIndex = index
+
+                index += 1
+                .Columns("punto_reorden").HeaderText = "Punto Reorden"
+                .Columns("punto_reorden").Visible = True
+                .Columns("punto_reorden").DisplayIndex = index
+
+                index += 1
                 .Columns("is_active").HeaderText = "Activo"
                 .Columns("is_active").Visible = True
-                .Columns("is_active").DisplayIndex = 5
+                .Columns("is_active").DisplayIndex = index
 
             End With
 
@@ -462,7 +518,7 @@ Public Class CPart
                     Case 0
 
                         .TableLayoutPanel1.RowStyles.Item(i).SizeType = SizeType.Percent
-                        .TableLayoutPanel1.RowStyles.Item(i).Height = 20
+                        .TableLayoutPanel1.RowStyles.Item(i).Height = 30
 
                     Case 1
 

@@ -211,7 +211,7 @@ Public Class FLoginForm
     Private Function PrepareCommand(ByVal value As Integer) As Boolean
 
         Try
-            oSqlCommand = New SqlCommand("dbo.ASP_PROCESS_USERS")
+            oSqlCommand = New SqlCommand("dbo.SP_USERS")
             oSqlCommand.CommandType = CommandType.StoredProcedure
 
             ' --------------------------------------------------------------------------

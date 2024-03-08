@@ -3196,7 +3196,7 @@ Friend Class CApplication
 
             If Not IsNumeric(oRequiredText) Then oObject.Focus() : Throw New LocalExceptions.NumericFieldException(oObject.Tag)
 
-            Return True
+            oRequiredText = True
 
         Catch ex As CustomException
 
@@ -3207,6 +3207,8 @@ Friend Class CApplication
             MessageBox.Show(ex.Message, "Atención", MessageBoxButtons.OK, MessageBoxIcon.Error)
 
         End Try
+
+        Return oRequiredText
 
     End Function
 
@@ -3691,7 +3693,7 @@ Friend Class CApplication
                 '.FormBorderStyle = Windows.Forms.FormBorderStyle.FixedToolWindow
                 .MaximizeBox = False
                 .MinimizeBox = False
-                .Size = New Size(550, 400)
+                .Size = New Size(600, 450)
                 .Icon = GetApplicationIcon()
                 .WindowState = FormWindowState.Normal
                 .Dock = DockStyle.None

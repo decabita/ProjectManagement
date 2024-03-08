@@ -63,16 +63,6 @@ Namespace My.Resources
         '''<summary>
         '''  Looks up a localized resource of type System.Drawing.Bitmap.
         '''</summary>
-        Friend ReadOnly Property AppBigLogo() As System.Drawing.Bitmap
-            Get
-                Dim obj As Object = ResourceManager.GetObject("AppBigLogo", resourceCulture)
-                Return CType(obj,System.Drawing.Bitmap)
-            End Get
-        End Property
-        
-        '''<summary>
-        '''  Looks up a localized resource of type System.Drawing.Bitmap.
-        '''</summary>
         Friend ReadOnly Property AppErrorIcon() As System.Drawing.Bitmap
             Get
                 Dim obj As Object = ResourceManager.GetObject("AppErrorIcon", resourceCulture)
@@ -273,9 +263,9 @@ Namespace My.Resources
         '''<summary>
         '''  Looks up a localized resource of type System.Drawing.Bitmap.
         '''</summary>
-        Friend ReadOnly Property help_dog_picture() As System.Drawing.Bitmap
+        Friend ReadOnly Property IDP_LOGO() As System.Drawing.Bitmap
             Get
-                Dim obj As Object = ResourceManager.GetObject("help_dog_picture", resourceCulture)
+                Dim obj As Object = ResourceManager.GetObject("IDP-LOGO", resourceCulture)
                 Return CType(obj,System.Drawing.Bitmap)
             End Get
         End Property
@@ -283,9 +273,19 @@ Namespace My.Resources
         '''<summary>
         '''  Looks up a localized resource of type System.Drawing.Bitmap.
         '''</summary>
-        Friend ReadOnly Property IDP_LOGO() As System.Drawing.Bitmap
+        Friend ReadOnly Property IDP_LOGO2() As System.Drawing.Bitmap
             Get
-                Dim obj As Object = ResourceManager.GetObject("IDP-LOGO", resourceCulture)
+                Dim obj As Object = ResourceManager.GetObject("IDP-LOGO2", resourceCulture)
+                Return CType(obj,System.Drawing.Bitmap)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized resource of type System.Drawing.Bitmap.
+        '''</summary>
+        Friend ReadOnly Property IDP_LOGO3() As System.Drawing.Bitmap
+            Get
+                Dim obj As Object = ResourceManager.GetObject("IDP-LOGO3", resourceCulture)
                 Return CType(obj,System.Drawing.Bitmap)
             End Get
         End Property

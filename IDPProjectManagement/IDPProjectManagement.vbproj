@@ -11,10 +11,28 @@
     <AssemblyName>IDPProjectManagement</AssemblyName>
     <FileAlignment>512</FileAlignment>
     <MyType>WindowsFormsWithCustomSubMain</MyType>
-    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <Deterministic>true</Deterministic>
     <TargetFrameworkProfile />
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <PublishUrl>C:\Users\orbit\Desktop\ProjectManagement Publish\</PublishUrl>
+    <Install>false</Install>
+    <InstallFrom>Unc</InstallFrom>
+    <UpdateEnabled>true</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <InstallUrl>\\Users\orbit\Desktop\ProjectManagement Publish\</InstallUrl>
+    <AutorunEnabled>true</AutorunEnabled>
+    <ApplicationRevision>4</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <PublishWizardCompleted>true</PublishWizardCompleted>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -50,6 +68,18 @@
   <PropertyGroup>
     <OptionInfer>On</OptionInfer>
   </PropertyGroup>
+  <PropertyGroup>
+    <ManifestCertificateThumbprint>57E0E181CBA29CB27A2D135FB560528631F8DD32</ManifestCertificateThumbprint>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ManifestKeyFile>IDPProjectManagement_TemporaryKey.pfx</ManifestKeyFile>
+  </PropertyGroup>
+  <PropertyGroup>
+    <GenerateManifests>true</GenerateManifests>
+  </PropertyGroup>
+  <PropertyGroup>
+    <SignManifests>true</SignManifests>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
@@ -82,6 +112,7 @@
     <Compile Include="Classes\FormClasses\CPart.vb" />
     <Compile Include="Classes\FormClasses\CVendor.vb" />
     <Compile Include="Classes\FormClasses\CWarehouse.vb" />
+    <Compile Include="Classes\FormClasses\CWorkCenter.vb" />
     <Compile Include="Forms\Forms Catalogs\FClientes\FClientes.Designer.vb">
       <DependentUpon>FClientes.vb</DependentUpon>
     </Compile>
@@ -118,6 +149,12 @@
     <Compile Include="Forms\Forms Catalogs\FWarehouses\FWarehouses.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Forms\Forms Catalogs\FWorkCenters\FWorkCenters.Designer.vb">
+      <DependentUpon>FWorkCenters.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Forms Catalogs\FWorkCenters\FWorkCenters.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="System\0 Flow\00\FCatalogFormTemplate\FCatalogFormTemplate.Designer.vb">
       <DependentUpon>FCatalogFormTemplate.vb</DependentUpon>
     </Compile>
@@ -125,18 +162,6 @@
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="System\0 Flow\00\FCatalogFormTemplate\FCatalogFormTemplate.vb">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Forms\Forms Catalogs\FCentrosTrabajo\FCentrosTrabajo.Designer.vb">
-      <DependentUpon>FCentrosTrabajo.vb</DependentUpon>
-    </Compile>
-    <Compile Include="Forms\Forms Catalogs\FCentrosTrabajo\FCentrosTrabajo.Methods.vb">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Forms\Forms Catalogs\FCentrosTrabajo\FCentrosTrabajo.Properties.vb">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Forms\Forms Catalogs\FCentrosTrabajo\FCentrosTrabajo.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Forms\FProjects\FProjects.Designer.vb">
@@ -161,7 +186,6 @@
     <Compile Include="System\Classes\CUsers.vb" />
     <Compile Include="System\Classes\CustomException.vb" />
     <Compile Include="Classes\FormClasses\CCustomer.vb" />
-    <Compile Include="Classes\FormClasses\CWorkCenter_.vb" />
     <Compile Include="System\Classes\LocalExceptions.vb" />
     <Compile Include="System\DataBase\CDataBase.vb" />
     <Compile Include="System\DataBase\CSQLServer.vb" />
@@ -257,9 +281,6 @@
     <Compile Include="System\Interfaces\IToolBoxCommand.vb" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Forms\Forms Catalogs\FCentrosTrabajo\FCentrosTrabajo.resx">
-      <DependentUpon>FCentrosTrabajo.vb</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Forms\Forms Catalogs\FClientes\FClientes.resx">
       <DependentUpon>FClientes.vb</DependentUpon>
     </EmbeddedResource>
@@ -274,6 +295,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Forms Catalogs\FWarehouses\FWarehouses.resx">
       <DependentUpon>FWarehouses.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Forms Catalogs\FWorkCenters\FWorkCenters.resx">
+      <DependentUpon>FWorkCenters.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\FProjects\FProjects.resx">
       <DependentUpon>FProjects.vb</DependentUpon>
@@ -319,6 +343,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="DataBase\d3c2bit2_ProjectManagement" />
+    <None Include="IDPProjectManagement_TemporaryKey.pfx" />
     <None Include="My Project\Application.myapp">
       <Generator>MyApplicationCodeGenerator</Generator>
       <LastGenOutput>Application.Designer.vb</LastGenOutput>
@@ -346,6 +371,8 @@
     <Content Include="Resources\Images\Direction\toend.png" />
     <Content Include="Resources\Images\Direction\tostart.png" />
     <Content Include="Resources\Images\IDP-LOGO.png" />
+    <None Include="Resources\Images\IDP-LOGO2.png" />
+    <None Include="Resources\Images\IDP-LOGO3.png" />
     <Content Include="Resources\Images\LowerDirectAccess\ButtonMenu.png" />
     <Content Include="Resources\Images\LowerDirectAccess\ButtonProcess.png" />
     <Content Include="Resources\Images\LowerDirectAccess\ChildForm.png" />
@@ -390,6 +417,18 @@
     <Content Include="Resources\Images\Mix\rss_remove.png" />
     <Content Include="Resources\Images\Mix\warning.png" />
     <Content Include="Resources\menu-config.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include=".NETFramework,Version=v4.6.1">
+      <Visible>False</Visible>
+      <ProductName>Microsoft .NET Framework 4.6.1 %28x86 and x64%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
 </Project>

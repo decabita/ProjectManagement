@@ -2,14 +2,14 @@
 Imports System.Reflection
 Imports System.ComponentModel
 
-Public Class FClientes
+Public Class FWorkCenters
 
-    Private _oCurrentForm As New CCustomer
-    Public Property FormRelatedClass() As CCustomer
+    Private _oCurrentForm As New CWorkCenter
+    Public Property FormRelatedClass() As CWorkCenter
         Get
             Return _oCurrentForm
         End Get
-        Set(ByVal value As CCustomer)
+        Set(ByVal value As CWorkCenter)
             _oCurrentForm = value
         End Set
     End Property
@@ -25,10 +25,10 @@ Public Class FClientes
 
     End Sub
 
-    Private Sub FClientes_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
+    Private Sub FWorkCenters_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
 
         'Properties in Form Templete
-        stored_procedure_name = "dbo.SP_CUSTOMERS"
+        stored_procedure_name = "dbo.SP_WORK_CENTERS"
         parent_table_name = "GetParentTableData"
 
         localDatagridView = Me.DataGridView
@@ -37,13 +37,13 @@ Public Class FClientes
         localObjectKey = Me.tGuid
         localFocusedObject = Me.tClaveId
 
-        Me.FormRelatedClass = New CCustomer
+        Me.FormRelatedClass = New CWorkCenter
 
         Call CommandFind()
 
         Call Me.CommandQuery()
 
-        Call CCustomer.SetGeneralFormat(Me)
+        Call CWorkCenter.SetGeneralFormat(Me)
 
     End Sub
 
@@ -69,12 +69,12 @@ Public Class FClientes
             If Not CBool(CInt(Me.oBindingSource.Count)) Then Throw New CustomException
 
             ' Establece bind de los controles.
-            Call CCustomer.SetControlsBinding(Me)
+            Call CWorkCenter.SetControlsBinding(Me)
 
             ' Establece formato de los controles.
-            Call CCustomer.SetGridPropertiesFormat(Me)
+            Call CWorkCenter.SetGridPropertiesFormat(Me)
 
-            Call CCustomer.SetControlPropertiesFormat(Me)
+            Call CWorkCenter.SetControlPropertiesFormat(Me)
 
             ' Establece el formato de la barra de comandos.
             Call SetToolBarConfiguration(CApplication.ControlState.InitState)
@@ -102,7 +102,7 @@ Public Class FClientes
         If DataGridView.Rows(e.RowIndex) IsNot Nothing Then Me.current_row = e.RowIndex
 
     End Sub
-    Private Sub FClientes_Activated(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Activated
+    Private Sub FWorkCenters_Activated(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Activated
 
         Me.oCFormController.active_form = Me
 
@@ -116,12 +116,12 @@ Public Class FClientes
         Call SetToolBarConfiguration(Me.form_state)
 
     End Sub
-    Private Sub FClientes_Deactivate(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Deactivate
+    Private Sub FWorkCenters_Deactivate(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Deactivate
 
         If Not Me.form_state = CApplication.ControlState.InitState Then Call CommandCancel()
 
     End Sub
-    Private Sub FClientes_FormClosed(ByVal sender As Object, ByVal e As System.Windows.Forms.FormClosedEventArgs) Handles Me.FormClosed
+    Private Sub FWorkCenters_FormClosed(ByVal sender As Object, ByVal e As System.Windows.Forms.FormClosedEventArgs) Handles Me.FormClosed
 
         ' TODO REPORTS
         DirectCast(Me.ParentForm, MDIMainContainer).oCFormController_.parent_form = Nothing
@@ -131,7 +131,7 @@ Public Class FClientes
 
     End Sub
 
-    Dim PrepareSPAction As Action(Of SqlCommand, Integer, Form) = AddressOf CCustomer.PrepareSPCommand
+    Dim PrepareSPAction As Action(Of SqlCommand, Integer, Form) = AddressOf CWorkCenter.PrepareSPCommand
 
     Protected Friend Overrides Function QueryAll() As Boolean
 
@@ -165,13 +165,13 @@ Public Class FClientes
                 '-------------------------------------------------
                 ' Field Assignation-Validation.
                 '-------------------------------------------------
-                Me.FormRelatedClass = New CCustomer With {
-                    .centro_id = CApplicationController.oCWorkCenter_.id,
+                Me.FormRelatedClass = New CWorkCenter With {
+                    .id = CApplicationController.oCWorkCenter_.id,
                     .nombre_corto = Me.tClaveId.Text,
                     .guid = Me.tGuid.Text
                 }
 
-                If Not CCustomer.DeleteRecord(Me) Then Me.form_state = CApplication.ControlState.InitState : Throw New CustomException("Error al eliminar.")
+                If Not CWorkCenter.DeleteRecord(Me) Then Me.form_state = CApplication.ControlState.InitState : Throw New CustomException("Error al eliminar.")
 
                 If Not Me.CommandQuery() Then Me.form_state = CApplication.ControlState.InitState : Throw New CustomException
 
@@ -255,8 +255,8 @@ Public Class FClientes
 
                 If (CApplication.CheckRequiredFields(.tNombre)) Then Me.FormRelatedClass.nombre = .tNombre.Text.Trim Else Throw New CustomException
 
-                Me.FormRelatedClass = New CCustomer With {
-                    .centro_id = CApplicationController.oCWorkCenter_.id,
+                Me.FormRelatedClass = New CWorkCenter With {
+                    .id = CApplicationController.oCWorkCenter_.id,
                     .guid = Me.tGuid.Text,
                     .nombre_corto = Me.tClaveId.Text,
                     .nombre = Me.tNombre.Text,
@@ -267,7 +267,7 @@ Public Class FClientes
 
                     Me.FormRelatedClass.is_active = 1
 
-                    If Not CCustomer.SaveRecord(Me) Then
+                    If Not CWorkCenter.SaveRecord(Me) Then
 
                         Me.CommandCancel() : Throw New CustomException
 
@@ -286,7 +286,7 @@ Public Class FClientes
 
                     Me.FormRelatedClass.is_active = .ckActivo.Checked
 
-                    If Not CCustomer.UpdateRecord(Me) Then
+                    If Not CWorkCenter.UpdateRecord(Me) Then
 
                         Me.CommandCancel() : Throw New CustomException
 
@@ -325,7 +325,7 @@ Public Class FClientes
 
     End Function
 
-    Dim SetControlsBindingOnNewAction As Action(Of Form) = AddressOf CCustomer.SetControlsBindingOnNew
+    Dim SetControlsBindingOnNewAction As Action(Of Form) = AddressOf CWorkCenter.SetControlsBindingOnNew
     Protected Friend Overrides Function CommandAddNew() As Boolean
 
         CommandNew(SetControlsBindingOnNewAction)

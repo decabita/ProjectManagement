@@ -1,7 +1,7 @@
 ﻿Imports System.ComponentModel
 Imports System.Data.SqlClient
 
-Public Class CWarehouse
+Public Class CWorkCenter
 
     Enum SPCommand
         None = 0
@@ -46,15 +46,15 @@ Public Class CWarehouse
         End Set
     End Property
 
-    Private _centro_id As Integer
-    Public Property centro_id() As Integer
-        Get
-            Return _centro_id
-        End Get
-        Set(ByVal value As Integer)
-            _centro_id = value
-        End Set
-    End Property
+    'Private _centro_id As Integer
+    'Public Property centro_id() As Integer
+    '    Get
+    '        Return _centro_id
+    '    End Get
+    '    Set(ByVal value As Integer)
+    '        _centro_id = value
+    '    End Set
+    'End Property
 
     Private _nombre_corto As String
     Public Property nombre_corto() As String
@@ -73,6 +73,123 @@ Public Class CWarehouse
         End Get
         Set(ByVal value As String)
             _nombre = value
+        End Set
+    End Property
+
+    Private _rfc As String
+    Public Property rfc() As String
+        Get
+            Return _rfc
+        End Get
+        Set(ByVal value As String)
+            _rfc = value
+        End Set
+    End Property
+
+    Private _razon_social As String
+    Public Property razon_social() As String
+        Get
+            Return _razon_social
+        End Get
+        Set(ByVal value As String)
+            _razon_social = value
+        End Set
+    End Property
+
+    Private _contacto As String
+    Public Property contacto() As String
+        Get
+            Return _contacto
+        End Get
+        Set(ByVal value As String)
+            _contacto = value
+        End Set
+    End Property
+
+    Private _email As String
+    Public Property email() As String
+        Get
+            Return _email
+        End Get
+        Set(ByVal value As String)
+            _email = value
+        End Set
+    End Property
+
+    Private _telefono As String
+    Public Property telefono() As String
+        Get
+            Return _telefono
+        End Get
+        Set(ByVal value As String)
+            _telefono = value
+        End Set
+    End Property
+    Private _celular As String
+    Public Property celular() As String
+        Get
+            Return _celular
+        End Get
+        Set(ByVal value As String)
+            _celular = value
+        End Set
+    End Property
+
+    Private _pais As String
+    Public Property pais() As String
+        Get
+            Return _pais
+        End Get
+        Set(ByVal value As String)
+            _pais = value
+        End Set
+    End Property
+
+    Private _ciudad As String
+    Public Property ciudad() As String
+        Get
+            Return _ciudad
+        End Get
+        Set(ByVal value As String)
+            _ciudad = value
+        End Set
+    End Property
+    Private _calle As String
+    Public Property calle() As String
+        Get
+            Return _calle
+        End Get
+        Set(ByVal value As String)
+            _calle = value
+        End Set
+    End Property
+    Private _numero_ext As Integer
+    Public Property numero_ext() As Integer
+        Get
+            Return _numero_ext
+        End Get
+        Set(ByVal value As Integer)
+            _numero_ext = value
+        End Set
+    End Property
+
+    Private _numero_int As Integer
+    Public Property numero_int() As Integer
+        Get
+            Return _numero_int
+        End Get
+        Set(ByVal value As Integer)
+            _numero_int = value
+        End Set
+    End Property
+
+    Private _colonia As String
+    Public Property colonia() As String
+        Get
+            Return _colonia
+        End Get
+        Set(ByVal value As String)
+            _colonia = value
         End Set
     End Property
 
@@ -143,55 +260,44 @@ Public Class CWarehouse
 
     End Sub
 
-    Friend Function GetClassData(guid As String) As CWarehouse
+    Friend Function IsValidWorkCenterData() As Boolean
+
+        Dim oCWorkCenter = GetClassData()
+
+        Return (oCWorkCenter.guid.Length > 0)
+
+    End Function
+
+    Friend Function GetClassData() As CWorkCenter
 
         Try
 
-            Using oConnection As SqlConnection = CApplicationController.oCDataBase.GetSQLConnection()
+            Using oDataSet As New DataSet
 
-                Using oSqlCommand As New SqlCommand("dbo.SP_WAREHOUSES", oConnection) With {.CommandType = CommandType.StoredProcedure}
+                Using oSqlCommand As New SqlCommand("dbo.SP_WORK_CENTERS")
 
-                    With oSqlCommand.Parameters
-                        .Add("@centro_id", SqlDbType.Int).Value = CApplicationController.oCWorkCenter_.id
-                        .Add("@guid", SqlDbType.NVarChar).Value = CApplicationController.oCWorkCenter_.id
-                        .Add("@command", SqlDbType.Int).Value = SPCommand.QueryById
+                    oSqlCommand.CommandType = CommandType.StoredProcedure
+                    oSqlCommand.Parameters.Add("@id", SqlDbType.Int).Value = CApplicationController.oCWorkCenter_.id
+                    oSqlCommand.Parameters.Add("@command", SqlDbType.Int).Value = SPCommand.QueryById
+                    oSqlCommand.Connection = CApplicationController.oCDataBase.GetSQLConnection()
 
-                        Dim oSqlParameterResponse = .Add("@response", SqlDbType.Int).Direction = ParameterDirection.Output
-
-                    End With
+                    Dim oSqlParameterResponse = oSqlCommand.Parameters.Add("@response", SqlDbType.Int)
+                    oSqlParameterResponse.Direction = ParameterDirection.Output
 
                     Using oSqlDataAdapter As New SqlDataAdapter(oSqlCommand)
 
-                        Using oDataSet As New DataSet
+                        oSqlDataAdapter.Fill(oDataSet, "MainTable")
 
-                            oSqlDataAdapter.Fill(oDataSet, "MainTable")
+                        If Not CBool(CInt(oDataSet.Tables("MainTable").Rows.Count)) Then Throw New CustomException("No hay información en la tabla.")
 
-                            If Not CBool(CInt(oDataSet.Tables("MainTable").Rows.Count)) Then Throw New CustomException("No hay información en la tabla.")
-
-                            With oDataSet.Tables("MainTable").Rows(0)
-
-                                For Each prop As PropertyDescriptor In TypeDescriptor.GetProperties(Me)
-
-                                    Select Case prop.PropertyType.Name
-
-                                        Case "String"
-
-                                            prop.SetValue(Me, .Item(prop.Name).ToString.Trim)
-
-                                        Case "Boolean"
-
-                                            prop.SetValue(Me, .Item(prop.Name))
-
-                                        Case "Int32"
-
-                                            prop.SetValue(Me, .Item(prop.Name))
-
-                                    End Select
-                                Next
-
-                            End With
-
-                        End Using
+                        With oDataSet.Tables("MainTable").Rows(0)
+                            Me.guid = .Item("guid")
+                            Me.id = .Item("id")
+                            Me.nombre_corto = .Item("nombre_corto").ToString.Trim
+                            Me.nombre = .Item("nombre").ToString.Trim
+                            Me.descripcion = .Item("descripcion").ToString.Trim
+                            Me.is_active = .Item("is_active")
+                        End With
                     End Using
                 End Using
             End Using
@@ -199,6 +305,7 @@ Public Class CWarehouse
         Catch ex As CustomException
 
             MessageBox.Show(ex.Message, "Atención", MessageBoxButtons.OK, MessageBoxIcon.Error)
+
 
         Catch ex As Exception
 
@@ -219,7 +326,7 @@ Public Class CWarehouse
     End Function
 
 
-    Public Shared Function SetControlsBinding(ByVal oForm As FWarehouses) As Boolean
+    Public Shared Function SetControlsBinding(ByVal oForm As FWorkCenters) As Boolean
 
         Try
 
@@ -289,7 +396,7 @@ Public Class CWarehouse
     End Function
 
 
-    Public Shared Sub SetGridPropertiesFormat(ByVal oForm As FWarehouses)
+    Public Shared Sub SetGridPropertiesFormat(ByVal oForm As FWorkCenters)
 
         Try
             With oForm.DataGridView
@@ -310,38 +417,79 @@ Public Class CWarehouse
                 .AutoGenerateColumns = False
 
                 ' .DefaultCellStyle.NullValue = "NA"
-
                 '--------------------------------------------------------------------
                 ' TODO 
                 '
                 ' Change column properties and format in accordance with data. 
                 '--------------------------------------------------------------------
-                Dim index As Integer
+                Dim index As Integer = 0
 
-                index = 0
-
-                .Columns("centro_id").Visible = False
+                .Columns("id").Visible = False
                 .Columns("id").Visible = False
 
                 .Columns("guid").HeaderText = "Guid"
                 .Columns("guid").Visible = True
-                .Columns("guid").DisplayIndex = index
-                index += 1
+                .Columns("guid").DisplayIndex = Index
+                Index += 1
                 .Columns("nombre_corto").HeaderText = "Clave"
                 .Columns("nombre_corto").Visible = True
-                .Columns("nombre_corto").DisplayIndex = index
-                index += 1
+                .Columns("nombre_corto").DisplayIndex = Index
+                Index += 1
                 .Columns("nombre").HeaderText = "Nombre"
                 .Columns("nombre").Visible = True
-                .Columns("nombre").DisplayIndex = index
-                index += 1
+                .Columns("nombre").DisplayIndex = Index
+                Index += 1
                 .Columns("descripcion").HeaderText = "Descripción"
                 .Columns("descripcion").Visible = True
-                .Columns("descripcion").DisplayIndex = index
-                index += 1
+                .Columns("descripcion").DisplayIndex = Index
+                Index += 1
+                .Columns("email").HeaderText = "Email"
+                .Columns("email").Visible = True
+                .Columns("email").DisplayIndex = Index
+                Index += 1
+                .Columns("telefono").HeaderText = "Teléfono"
+                .Columns("telefono").Visible = True
+                .Columns("telefono").DisplayIndex = Index
+                Index += 1
+                .Columns("celular").HeaderText = "Celular"
+                .Columns("celular").Visible = True
+                .Columns("celular").DisplayIndex = Index
+                Index += 1
+                .Columns("pais").HeaderText = "País"
+                .Columns("pais").Visible = True
+                .Columns("pais").DisplayIndex = Index
+                Index += 1
+                .Columns("ciudad").HeaderText = "Ciudad"
+                .Columns("ciudad").Visible = True
+                .Columns("ciudad").DisplayIndex = Index
+                Index += 1
+                .Columns("calle").HeaderText = "Calle"
+                .Columns("calle").Visible = True
+                .Columns("calle").DisplayIndex = Index
+                Index += 1
+                .Columns("numero_ext").HeaderText = "Número Ext."
+                .Columns("numero_ext").Visible = True
+                .Columns("numero_ext").DisplayIndex = Index
+                Index += 1
+                .Columns("numero_int").HeaderText = "Número Int."
+                .Columns("numero_int").Visible = True
+                .Columns("numero_int").DisplayIndex = Index
+                Index += 1
+                .Columns("colonia").HeaderText = "Colonia"
+                .Columns("colonia").Visible = True
+                .Columns("colonia").DisplayIndex = Index
+                Index += 1
+                .Columns("delegacion").HeaderText = "Delegación"
+                .Columns("delegacion").Visible = True
+                .Columns("delegacion").DisplayIndex = Index
+                Index += 1
+                .Columns("codigo_postal").HeaderText = "Código Postal"
+                .Columns("codigo_postal").Visible = True
+                .Columns("codigo_postal").DisplayIndex = Index
+                Index += 1
                 .Columns("is_active").HeaderText = "Activo"
                 .Columns("is_active").Visible = True
-                .Columns("is_active").DisplayIndex = index
+                .Columns("is_active").DisplayIndex = Index
 
             End With
 
@@ -353,7 +501,7 @@ Public Class CWarehouse
 
     End Sub
 
-    Public Shared Function SetControlsBindingOnNew(ByVal oForm As FWarehouses) As Boolean
+    Public Shared Function SetControlsBindingOnNew(ByVal oForm As FWorkCenters) As Boolean
 
         Try
 
@@ -414,7 +562,7 @@ Public Class CWarehouse
 
     End Function
 
-    Public Shared Sub SetControlPropertiesFormat(ByVal oForm As FWarehouses)
+    Public Shared Sub SetControlPropertiesFormat(ByVal oForm As FWorkCenters)
 
         Try
             With oForm
@@ -446,7 +594,7 @@ Public Class CWarehouse
 
     End Sub
 
-    Public Shared Sub SetGeneralFormat(ByVal oForm As FWarehouses)
+    Public Shared Sub SetGeneralFormat(ByVal oForm As FWorkCenters)
 
         With oForm
 
@@ -500,34 +648,34 @@ Public Class CWarehouse
 
                     Case SPCommand.QueryAll
 
-                        .Add("@centro_id", SqlDbType.NVarChar).Value = CApplicationController.oCWorkCenter_.id
+                        .Add("@id", SqlDbType.NVarChar).Value = CApplicationController.oCWorkCenter_.id
                         .Add("@command", SqlDbType.Int).Value = SPCommand.QueryAll
                         .Add("@response", SqlDbType.Int).Direction = ParameterDirection.Output
 
                     Case SPCommand.Save
 
-                        .Add("@centro_id", SqlDbType.VarChar).Value = DirectCast(oForm, FWarehouses).FormRelatedClass.centro_id
-                        .Add("@nombre_corto", SqlDbType.VarChar).Value = DirectCast(oForm, FWarehouses).FormRelatedClass.nombre_corto
-                        .Add("@nombre", SqlDbType.VarChar).Value = DirectCast(oForm, FWarehouses).FormRelatedClass.nombre
-                        .Add("@descripcion", SqlDbType.VarChar).Value = DirectCast(oForm, FWarehouses).FormRelatedClass.descripcion
-                        .Add("@is_active", SqlDbType.Bit).Value = DirectCast(oForm, FWarehouses).FormRelatedClass.is_active
+                        .Add("@id", SqlDbType.VarChar).Value = DirectCast(oForm, FWorkCenters).FormRelatedClass.id
+                        .Add("@nombre_corto", SqlDbType.VarChar).Value = DirectCast(oForm, FWorkCenters).FormRelatedClass.nombre_corto
+                        .Add("@nombre", SqlDbType.VarChar).Value = DirectCast(oForm, FWorkCenters).FormRelatedClass.nombre
+                        .Add("@descripcion", SqlDbType.VarChar).Value = DirectCast(oForm, FWorkCenters).FormRelatedClass.descripcion
+                        .Add("@is_active", SqlDbType.Bit).Value = DirectCast(oForm, FWorkCenters).FormRelatedClass.is_active
                         .Add("@command", SqlDbType.Int).Value = SPCommand.Save
                         .Add("@response", SqlDbType.Int).Direction = ParameterDirection.Output
 
                     Case SPCommand.Delete
 
-                        .Add("@centro_id", SqlDbType.VarChar).Value = CApplicationController.oCWorkCenter_.id
-                        .Add("@guid", SqlDbType.VarChar).Value = DirectCast(oForm, FWarehouses).FormRelatedClass.guid
+                        .Add("@id", SqlDbType.VarChar).Value = CApplicationController.oCWorkCenter_.id
+                        .Add("@guid", SqlDbType.VarChar).Value = DirectCast(oForm, FWorkCenters).FormRelatedClass.guid
                         .Add("@command", SqlDbType.Int).Value = SPCommand.Delete
                         .Add("@response", SqlDbType.Int).Direction = ParameterDirection.Output
 
                     Case SPCommand.Update
 
-                        .Add("@centro_id", SqlDbType.VarChar).Value = CApplicationController.oCWorkCenter_.id
-                        .Add("@guid", SqlDbType.VarChar).Value = DirectCast(oForm, FWarehouses).FormRelatedClass.guid
-                        .Add("@nombre_corto", SqlDbType.VarChar).Value = DirectCast(oForm, FWarehouses).FormRelatedClass.nombre_corto
-                        .Add("@nombre", SqlDbType.VarChar).Value = DirectCast(oForm, FWarehouses).FormRelatedClass.nombre
-                        .Add("@descripcion", SqlDbType.VarChar).Value = DirectCast(oForm, FWarehouses).FormRelatedClass.descripcion
+                        .Add("@id", SqlDbType.VarChar).Value = CApplicationController.oCWorkCenter_.id
+                        .Add("@guid", SqlDbType.VarChar).Value = DirectCast(oForm, FWorkCenters).FormRelatedClass.guid
+                        .Add("@nombre_corto", SqlDbType.VarChar).Value = DirectCast(oForm, FWorkCenters).FormRelatedClass.nombre_corto
+                        .Add("@nombre", SqlDbType.VarChar).Value = DirectCast(oForm, FWorkCenters).FormRelatedClass.nombre
+                        .Add("@descripcion", SqlDbType.VarChar).Value = DirectCast(oForm, FWorkCenters).FormRelatedClass.descripcion
                         .Add("@command", SqlDbType.Int).Value = SPCommand.Update
                         .Add("@response", SqlDbType.Int).Direction = ParameterDirection.Output
 
@@ -546,7 +694,7 @@ Public Class CWarehouse
         'Return PrepareSPCommand()
 
     End Sub
-    Public Shared Function SaveRecord(ByVal oForm As FWarehouses) As Boolean
+    Public Shared Function SaveRecord(ByVal oForm As FWorkCenters) As Boolean
 
         Try
 
@@ -586,7 +734,7 @@ Public Class CWarehouse
     End Function
 
 
-    Public Shared Function UpdateRecord(ByVal oForm As FWarehouses) As Boolean
+    Public Shared Function UpdateRecord(ByVal oForm As FWorkCenters) As Boolean
 
         Try
 
@@ -594,7 +742,7 @@ Public Class CWarehouse
 
                 Using oSqlCommand As New SqlCommand(oForm.stored_procedure_name, oConnection) With {.CommandType = CommandType.StoredProcedure}
 
-                    'If Not CWarehouse.PrepareSPCommand(oSqlCommand, SPCommand.Update, oForm) Then Throw New CustomException
+                    'If Not CWorkCenter.PrepareSPCommand(oSqlCommand, SPCommand.Update, oForm) Then Throw New CustomException
 
                     PrepareSPCommand(oSqlCommand, SPCommand.Update, oForm)
 
@@ -626,7 +774,7 @@ Public Class CWarehouse
 
     End Function
 
-    Public Shared Function DeleteRecord(ByVal oForm As FWarehouses) As Boolean
+    Public Shared Function DeleteRecord(ByVal oForm As FWorkCenters) As Boolean
 
         Try
 
@@ -637,7 +785,7 @@ Public Class CWarehouse
                     ' ---------------------------------
                     ' Set Command Ready and Execute
                     ' ---------------------------------
-                    'If Not CWarehouse.PrepareSPCommand(oSqlCommand, SPCommand.Delete, oForm) Then Throw New CustomException
+                    'If Not CWorkCenter.PrepareSPCommand(oSqlCommand, SPCommand.Delete, oForm) Then Throw New CustomException
 
                     PrepareSPCommand(oSqlCommand, SPCommand.Delete, oForm)
 

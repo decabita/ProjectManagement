@@ -147,7 +147,7 @@ Public Class CUsers
         Dim oResponse As New SqlParameter
 
         oDataSet = New DataSet
-        oSqlCommand = New SqlCommand("dbo.ASP_PROCESS_USERS")
+        oSqlCommand = New SqlCommand("dbo.SP_USERS")
         oSqlCommand.CommandType = CommandType.StoredProcedure
 
         Try
@@ -243,7 +243,7 @@ Public Class CUsers
         Dim oResponse As New SqlParameter
 
         oDataSet = New DataSet
-        oSqlCommand = New SqlCommand("dbo.ASP_PROCESS_USERS")
+        oSqlCommand = New SqlCommand("dbo.SP_USERS")
         oSqlCommand.CommandType = CommandType.StoredProcedure
 
         Try
