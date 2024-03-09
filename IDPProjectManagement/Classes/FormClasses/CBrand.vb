@@ -1,7 +1,7 @@
 ﻿Imports System.ComponentModel
 Imports System.Data.SqlClient
 
-Public Class CPart
+Public Class CBrand
 
     Enum SPCommand
         None = 0
@@ -123,13 +123,13 @@ Public Class CPart
 
     End Sub
 
-    Friend Function GetClassData(guid As String) As CPart
+    Friend Function GetClassData(guid As String) As CBrand
 
         Try
 
             Using oConnection As SqlConnection = CApplicationController.oCDataBase.GetSQLConnection()
 
-                Using oSqlCommand As New SqlCommand("dbo.SP_PARTS", oConnection) With {.CommandType = CommandType.StoredProcedure}
+                Using oSqlCommand As New SqlCommand("dbo.SP_BRANDS", oConnection) With {.CommandType = CommandType.StoredProcedure}
 
                     With oSqlCommand.Parameters
                         .Add("@centro_id", SqlDbType.Int).Value = CApplicationController.oCWorkCenter_.id
@@ -199,7 +199,7 @@ Public Class CPart
     End Function
 
 
-    Public Shared Function SetControlsBinding(ByVal oForm As FParts) As Boolean
+    Public Shared Function SetControlsBinding(ByVal oForm As FBrands) As Boolean
 
         Try
 
@@ -269,7 +269,7 @@ Public Class CPart
     End Function
 
 
-    Public Shared Sub SetGridPropertiesFormat(ByVal oForm As FParts)
+    Public Shared Sub SetGridPropertiesFormat(ByVal oForm As FBrands)
 
         Try
             With oForm.DataGridView
@@ -318,57 +318,7 @@ Public Class CPart
                 .Columns("descripcion").HeaderText = "Descripción"
                 .Columns("descripcion").Visible = True
                 .Columns("descripcion").DisplayIndex = index
-
-                index += 1
-                .Columns("tipo_id").HeaderText = "Tipo"
-                .Columns("tipo_id").Visible = True
-                .Columns("tipo_id").DisplayIndex = index
-
-                index += 1
-                .Columns("unidad_id").HeaderText = "UM"
-                .Columns("unidad_id").Visible = True
-                .Columns("unidad_id").DisplayIndex = index
-
-                index += 1
-                .Columns("presentacion_id").HeaderText = "Presentacion"
-                .Columns("presentacion_id").Visible = True
-                .Columns("presentacion_id").DisplayIndex = index
-
-                index += 1
-                .Columns("precio_compra").HeaderText = "Precio Compra"
-                .Columns("precio_compra").Visible = True
-                .Columns("precio_compra").DisplayIndex = index
-
-                'index += 1
-                '.Columns("porcentaje_utilidad").HeaderText = "PU"
-                .Columns("porcentaje_utilidad").Visible = False
-                '.Columns("porcentaje_utilidad").DisplayIndex = index
-
-                'index += 1
-                '.Columns("precio_venta").HeaderText = "Precio Venta"
-                .Columns("precio_venta").Visible = False
-                '.Columns("precio_venta").DisplayIndex = index
-
-                index += 1
-                .Columns("iva").HeaderText = "I.V.A"
-                .Columns("iva").Visible = True
-                .Columns("iva").DisplayIndex = index
-
-                index += 1
-                .Columns("inventario_minimo").HeaderText = "Inventario Mínimo"
-                .Columns("inventario_minimo").Visible = True
-                .Columns("inventario_minimo").DisplayIndex = index
-
-                index += 1
-                .Columns("inventario_maximo").HeaderText = "Inventario Máximo"
-                .Columns("inventario_maximo").Visible = True
-                .Columns("inventario_maximo").DisplayIndex = index
-
-                index += 1
-                .Columns("punto_reorden").HeaderText = "Punto Reorden"
-                .Columns("punto_reorden").Visible = True
-                .Columns("punto_reorden").DisplayIndex = index
-
+                
                 index += 1
                 .Columns("is_active").HeaderText = "Activo"
                 .Columns("is_active").Visible = True
@@ -384,7 +334,7 @@ Public Class CPart
 
     End Sub
 
-    Public Shared Function SetControlsBindingOnNew(ByVal oForm As FParts) As Boolean
+    Public Shared Function SetControlsBindingOnNew(ByVal oForm As FBrands) As Boolean
 
         Try
 
@@ -445,7 +395,7 @@ Public Class CPart
 
     End Function
 
-    Public Shared Sub SetControlPropertiesFormat(ByVal oForm As FParts)
+    Public Shared Sub SetControlPropertiesFormat(ByVal oForm As FBrands)
 
         Try
             With oForm
@@ -477,7 +427,7 @@ Public Class CPart
 
     End Sub
 
-    Public Shared Sub SetGeneralFormat(ByVal oForm As FParts)
+    Public Shared Sub SetGeneralFormat(ByVal oForm As FBrands)
 
         With oForm
 
@@ -537,28 +487,28 @@ Public Class CPart
 
                     Case SPCommand.Save
 
-                        .Add("@centro_id", SqlDbType.VarChar).Value = DirectCast(oForm, FParts).FormRelatedClass.centro_id
-                        .Add("@nombre_corto", SqlDbType.VarChar).Value = DirectCast(oForm, FParts).FormRelatedClass.nombre_corto
-                        .Add("@nombre", SqlDbType.VarChar).Value = DirectCast(oForm, FParts).FormRelatedClass.nombre
-                        .Add("@descripcion", SqlDbType.VarChar).Value = DirectCast(oForm, FParts).FormRelatedClass.descripcion
-                        .Add("@is_active", SqlDbType.Bit).Value = DirectCast(oForm, FParts).FormRelatedClass.is_active
+                        .Add("@centro_id", SqlDbType.VarChar).Value = DirectCast(oForm, FBrands).FormRelatedClass.centro_id
+                        .Add("@nombre_corto", SqlDbType.VarChar).Value = DirectCast(oForm, FBrands).FormRelatedClass.nombre_corto
+                        .Add("@nombre", SqlDbType.VarChar).Value = DirectCast(oForm, FBrands).FormRelatedClass.nombre
+                        .Add("@descripcion", SqlDbType.VarChar).Value = DirectCast(oForm, FBrands).FormRelatedClass.descripcion
+                        .Add("@is_active", SqlDbType.Bit).Value = DirectCast(oForm, FBrands).FormRelatedClass.is_active
                         .Add("@command", SqlDbType.Int).Value = SPCommand.Save
                         .Add("@response", SqlDbType.Int).Direction = ParameterDirection.Output
 
                     Case SPCommand.Delete
 
                         .Add("@centro_id", SqlDbType.VarChar).Value = CApplicationController.oCWorkCenter_.id
-                        .Add("@guid", SqlDbType.VarChar).Value = DirectCast(oForm, FParts).FormRelatedClass.guid
+                        .Add("@guid", SqlDbType.VarChar).Value = DirectCast(oForm, FBrands).FormRelatedClass.guid
                         .Add("@command", SqlDbType.Int).Value = SPCommand.Delete
                         .Add("@response", SqlDbType.Int).Direction = ParameterDirection.Output
 
                     Case SPCommand.Update
 
                         .Add("@centro_id", SqlDbType.VarChar).Value = CApplicationController.oCWorkCenter_.id
-                        .Add("@guid", SqlDbType.VarChar).Value = DirectCast(oForm, FParts).FormRelatedClass.guid
-                        .Add("@nombre_corto", SqlDbType.VarChar).Value = DirectCast(oForm, FParts).FormRelatedClass.nombre_corto
-                        .Add("@nombre", SqlDbType.VarChar).Value = DirectCast(oForm, FParts).FormRelatedClass.nombre
-                        .Add("@descripcion", SqlDbType.VarChar).Value = DirectCast(oForm, FParts).FormRelatedClass.descripcion
+                        .Add("@guid", SqlDbType.VarChar).Value = DirectCast(oForm, FBrands).FormRelatedClass.guid
+                        .Add("@nombre_corto", SqlDbType.VarChar).Value = DirectCast(oForm, FBrands).FormRelatedClass.nombre_corto
+                        .Add("@nombre", SqlDbType.VarChar).Value = DirectCast(oForm, FBrands).FormRelatedClass.nombre
+                        .Add("@descripcion", SqlDbType.VarChar).Value = DirectCast(oForm, FBrands).FormRelatedClass.descripcion
                         .Add("@command", SqlDbType.Int).Value = SPCommand.Update
                         .Add("@response", SqlDbType.Int).Direction = ParameterDirection.Output
 
@@ -577,7 +527,7 @@ Public Class CPart
         'Return PrepareSPCommand()
 
     End Sub
-    Public Shared Function SaveRecord(ByVal oForm As FParts) As Boolean
+    Public Shared Function SaveRecord(ByVal oForm As FBrands) As Boolean
 
         Try
 
@@ -617,7 +567,7 @@ Public Class CPart
     End Function
 
 
-    Public Shared Function UpdateRecord(ByVal oForm As FParts) As Boolean
+    Public Shared Function UpdateRecord(ByVal oForm As FBrands) As Boolean
 
         Try
 
@@ -625,7 +575,7 @@ Public Class CPart
 
                 Using oSqlCommand As New SqlCommand(oForm.stored_procedure_name, oConnection) With {.CommandType = CommandType.StoredProcedure}
 
-                    'If Not CPart.PrepareSPCommand(oSqlCommand, SPCommand.Update, oForm) Then Throw New CustomException
+                    'If Not CBrand.PrepareSPCommand(oSqlCommand, SPCommand.Update, oForm) Then Throw New CustomException
 
                     PrepareSPCommand(oSqlCommand, SPCommand.Update, oForm)
 
@@ -657,7 +607,7 @@ Public Class CPart
 
     End Function
 
-    Public Shared Function DeleteRecord(ByVal oForm As FParts) As Boolean
+    Public Shared Function DeleteRecord(ByVal oForm As FBrands) As Boolean
 
         Try
 
@@ -668,7 +618,7 @@ Public Class CPart
                     ' ---------------------------------
                     ' Set Command Ready and Execute
                     ' ---------------------------------
-                    'If Not CPart.PrepareSPCommand(oSqlCommand, SPCommand.Delete, oForm) Then Throw New CustomException
+                    'If Not CBrand.PrepareSPCommand(oSqlCommand, SPCommand.Delete, oForm) Then Throw New CustomException
 
                     PrepareSPCommand(oSqlCommand, SPCommand.Delete, oForm)
 

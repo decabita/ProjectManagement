@@ -54,7 +54,7 @@ Public Class CSystemParameters
     End Property
 
 
-    Private _sql_connection_string As String = ConfigurationManager.ConnectionStrings("RemoteConnection").ConnectionString
+    Private _sql_connection_string As String = ConfigurationManager.ConnectionStrings("LocalConnection").ConnectionString
 
 
 

@@ -107,12 +107,32 @@
     <Import Include="System.Threading.Tasks" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Classes\FormClasses\CActivities.vb" />
+    <Compile Include="Classes\FormClasses\CBrand.vb" />
     <Compile Include="Classes\FormClasses\CCustomerArea.vb" />
     <Compile Include="Classes\FormClasses\CEmployee.vb" />
+    <Compile Include="Classes\FormClasses\CMachinery.vb" />
+    <Compile Include="Classes\FormClasses\CMeasurements.vb" />
     <Compile Include="Classes\FormClasses\CPart.vb" />
+    <Compile Include="Classes\FormClasses\CPerson.vb" />
+    <Compile Include="Classes\FormClasses\CPositions.vb" />
+    <Compile Include="Classes\FormClasses\CProspect.vb" />
+    <Compile Include="Classes\FormClasses\CServiceProvided.vb" />
     <Compile Include="Classes\FormClasses\CVendor.vb" />
     <Compile Include="Classes\FormClasses\CWarehouse.vb" />
     <Compile Include="Classes\FormClasses\CWorkCenter.vb" />
+    <Compile Include="Forms\Forms Catalogs\FActivities\FActivities.Designer.vb">
+      <DependentUpon>FActivities.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Forms Catalogs\FActivities\FActivities.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Forms Catalogs\FBrands\FBrands.Designer.vb">
+      <DependentUpon>FBrands.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Forms Catalogs\FBrands\FBrands.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Forms\Forms Catalogs\FClientes\FClientes.Designer.vb">
       <DependentUpon>FClientes.vb</DependentUpon>
     </Compile>
@@ -131,10 +151,46 @@
     <Compile Include="Forms\Forms Catalogs\FEmployees\FEmployees.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Forms\Forms Catalogs\FMachinery\FMachinery.Designer.vb">
+      <DependentUpon>FMachinery.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Forms Catalogs\FMachinery\FMachinery.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Forms Catalogs\FMeasurements\FMeasurements.Designer.vb">
+      <DependentUpon>FMeasurements.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Forms Catalogs\FMeasurements\FMeasurements.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Forms\Forms Catalogs\FParts\FParts.Designer.vb">
       <DependentUpon>FParts.vb</DependentUpon>
     </Compile>
     <Compile Include="Forms\Forms Catalogs\FParts\FParts.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Forms Catalogs\FPersons\FPersons.Designer.vb">
+      <DependentUpon>FPersons.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Forms Catalogs\FPersons\FPersons.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Forms Catalogs\FPositions\FPositions.Designer.vb">
+      <DependentUpon>FPositions.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Forms Catalogs\FPositions\FPositions.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Forms Catalogs\FProspects\FProspects.Designer.vb">
+      <DependentUpon>FProspects.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Forms Catalogs\FProspects\FProspects.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Forms Catalogs\FServicesProvided\FServicesProvided.Designer.vb">
+      <DependentUpon>FServicesProvided.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Forms Catalogs\FServicesProvided\FServicesProvided.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Forms\Forms Catalogs\FVendors\FVendors.Designer.vb">
@@ -281,6 +337,12 @@
     <Compile Include="System\Interfaces\IToolBoxCommand.vb" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Forms\Forms Catalogs\FActivities\FActivities.resx">
+      <DependentUpon>FActivities.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Forms Catalogs\FBrands\FBrands.resx">
+      <DependentUpon>FBrands.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\Forms Catalogs\FClientes\FClientes.resx">
       <DependentUpon>FClientes.vb</DependentUpon>
     </EmbeddedResource>
@@ -290,8 +352,26 @@
     <EmbeddedResource Include="Forms\Forms Catalogs\FEmployees\FEmployees.resx">
       <DependentUpon>FEmployees.vb</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Forms Catalogs\FMachinery\FMachinery.resx">
+      <DependentUpon>FMachinery.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Forms Catalogs\FMeasurements\FMeasurements.resx">
+      <DependentUpon>FMeasurements.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\Forms Catalogs\FParts\FParts.resx">
       <DependentUpon>FParts.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Forms Catalogs\FPersons\FPersons.resx">
+      <DependentUpon>FPersons.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Forms Catalogs\FPositions\FPositions.resx">
+      <DependentUpon>FPositions.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Forms Catalogs\FProspects\FProspects.resx">
+      <DependentUpon>FProspects.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Forms Catalogs\FServicesProvided\FServicesProvided.resx">
+      <DependentUpon>FServicesProvided.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Forms Catalogs\FWarehouses\FWarehouses.resx">
       <DependentUpon>FWarehouses.vb</DependentUpon>

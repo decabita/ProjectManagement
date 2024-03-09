@@ -1,7 +1,7 @@
 ﻿Imports System.ComponentModel
 Imports System.Data.SqlClient
 
-Public Class CPart
+Public Class CPerson
 
     Enum SPCommand
         None = 0
@@ -76,6 +76,143 @@ Public Class CPart
         End Set
     End Property
 
+    Private _rfc As String
+    Public Property rfc() As String
+        Get
+            Return _rfc
+        End Get
+        Set(ByVal value As String)
+            _rfc = value
+        End Set
+    End Property
+
+    Private _razon_social As String
+    Public Property razon_social() As String
+        Get
+            Return _razon_social
+        End Get
+        Set(ByVal value As String)
+            _razon_social = value
+        End Set
+    End Property
+
+    Private _contacto As String
+    Public Property contacto() As String
+        Get
+            Return _contacto
+        End Get
+        Set(ByVal value As String)
+            _contacto = value
+        End Set
+    End Property
+
+    Private _email As String
+    Public Property email() As String
+        Get
+            Return _email
+        End Get
+        Set(ByVal value As String)
+            _email = value
+        End Set
+    End Property
+
+    Private _telefono As String
+    Public Property telefono() As String
+        Get
+            Return _telefono
+        End Get
+        Set(ByVal value As String)
+            _telefono = value
+        End Set
+    End Property
+    Private _celular As String
+    Public Property celular() As String
+        Get
+            Return _celular
+        End Get
+        Set(ByVal value As String)
+            _celular = value
+        End Set
+    End Property
+
+    Private _pais As String
+    Public Property pais() As String
+        Get
+            Return _pais
+        End Get
+        Set(ByVal value As String)
+            _pais = value
+        End Set
+    End Property
+
+    Private _ciudad As String
+    Public Property ciudad() As String
+        Get
+            Return _ciudad
+        End Get
+        Set(ByVal value As String)
+            _ciudad = value
+        End Set
+    End Property
+    Private _calle As String
+    Public Property calle() As String
+        Get
+            Return _calle
+        End Get
+        Set(ByVal value As String)
+            _calle = value
+        End Set
+    End Property
+    Private _numero_ext As Integer
+    Public Property numero_ext() As Integer
+        Get
+            Return _numero_ext
+        End Get
+        Set(ByVal value As Integer)
+            _numero_ext = value
+        End Set
+    End Property
+
+    Private _numero_int As Integer
+    Public Property numero_int() As Integer
+        Get
+            Return _numero_int
+        End Get
+        Set(ByVal value As Integer)
+            _numero_int = value
+        End Set
+    End Property
+
+    Private _colonia As String
+    Public Property colonia() As String
+        Get
+            Return _colonia
+        End Get
+        Set(ByVal value As String)
+            _colonia = value
+        End Set
+    End Property
+
+    Private _delegacion As String
+    Public Property delegacion() As String
+        Get
+            Return _delegacion
+        End Get
+        Set(ByVal value As String)
+            _delegacion = value
+        End Set
+    End Property
+
+    Private _codigo_postal As Integer
+    Public Property codigo_postal() As Integer
+        Get
+            Return _codigo_postal
+        End Get
+        Set(ByVal value As Integer)
+            _codigo_postal = value
+        End Set
+    End Property
+
     Private _descripcion As String
     Public Property descripcion() As String
         Get
@@ -123,13 +260,13 @@ Public Class CPart
 
     End Sub
 
-    Friend Function GetClassData(guid As String) As CPart
+    Friend Function GetClassData(guid As String) As CPerson
 
         Try
 
             Using oConnection As SqlConnection = CApplicationController.oCDataBase.GetSQLConnection()
 
-                Using oSqlCommand As New SqlCommand("dbo.SP_PARTS", oConnection) With {.CommandType = CommandType.StoredProcedure}
+                Using oSqlCommand As New SqlCommand("dbo.SP_PERSONS", oConnection) With {.CommandType = CommandType.StoredProcedure}
 
                     With oSqlCommand.Parameters
                         .Add("@centro_id", SqlDbType.Int).Value = CApplicationController.oCWorkCenter_.id
@@ -149,6 +286,28 @@ Public Class CPart
                             If Not CBool(CInt(oDataSet.Tables("MainTable").Rows.Count)) Then Throw New CustomException("No hay información en la tabla.")
 
                             With oDataSet.Tables("MainTable").Rows(0)
+
+                                'Me.guid = .Item("guid")
+                                'Me.id = .Item("id")
+                                'Me.centro_id = .Item("centro_id")
+                                'Me.nombre_corto = .Item("nombre_corto").ToString.Trim
+                                'Me.nombre = .Item("nombre").ToString.Trim
+                                'Me.rfc = .Item("rfc").ToString.Trim
+                                'Me.razon_social = .Item("razon_social").ToString.Trim
+                                'Me.contacto = .Item("contacto").ToString.Trim
+                                'Me.email = .Item("email").ToString.Trim
+                                'Me.telefono = .Item("telefono").ToString.Trim
+                                'Me.celular = .Item("celular").ToString.Trim
+                                'Me.pais = .Item("pais").ToString.Trim
+                                'Me.ciudad = .Item("ciudad").ToString.Trim
+                                'Me.calle = .Item("calle").ToString.Trim
+                                'Me.numero_ext = .Item("numero_ext")
+                                'Me.numero_int = .Item("numero_int")
+                                'Me.colonia = .Item("colonia").ToString.Trim
+                                'Me.delegacion = .Item("delegacion").ToString.Trim
+                                'Me.codigo_postal = .Item("codigo_postal")
+                                'Me.descripcion = .Item("descripcion").ToString.Trim
+                                'Me.is_active = .Item("is_active")
 
                                 For Each prop As PropertyDescriptor In TypeDescriptor.GetProperties(Me)
 
@@ -199,7 +358,7 @@ Public Class CPart
     End Function
 
 
-    Public Shared Function SetControlsBinding(ByVal oForm As FParts) As Boolean
+    Public Shared Function SetControlsBinding(ByVal oForm As FPersons) As Boolean
 
         Try
 
@@ -269,7 +428,7 @@ Public Class CPart
     End Function
 
 
-    Public Shared Sub SetGridPropertiesFormat(ByVal oForm As FParts)
+    Public Shared Sub SetGridPropertiesFormat(ByVal oForm As FPersons)
 
         Try
             With oForm.DataGridView
@@ -290,12 +449,15 @@ Public Class CPart
                 .AutoGenerateColumns = False
 
                 ' .DefaultCellStyle.NullValue = "NA"
+
                 '--------------------------------------------------------------------
                 ' TODO 
                 '
                 ' Change column properties and format in accordance with data. 
                 '--------------------------------------------------------------------
-                Dim index As Integer = 0
+                Dim index As Integer
+
+                index = 0
 
                 .Columns("centro_id").Visible = False
                 .Columns("id").Visible = False
@@ -303,72 +465,62 @@ Public Class CPart
                 .Columns("guid").HeaderText = "Guid"
                 .Columns("guid").Visible = True
                 .Columns("guid").DisplayIndex = index
-
                 index += 1
                 .Columns("nombre_corto").HeaderText = "Clave"
                 .Columns("nombre_corto").Visible = True
                 .Columns("nombre_corto").DisplayIndex = index
-
                 index += 1
                 .Columns("nombre").HeaderText = "Nombre"
                 .Columns("nombre").Visible = True
                 .Columns("nombre").DisplayIndex = index
-
                 index += 1
                 .Columns("descripcion").HeaderText = "Descripción"
                 .Columns("descripcion").Visible = True
                 .Columns("descripcion").DisplayIndex = index
-
                 index += 1
-                .Columns("tipo_id").HeaderText = "Tipo"
-                .Columns("tipo_id").Visible = True
-                .Columns("tipo_id").DisplayIndex = index
-
+                .Columns("email").HeaderText = "Email"
+                .Columns("email").Visible = True
+                .Columns("email").DisplayIndex = index
                 index += 1
-                .Columns("unidad_id").HeaderText = "UM"
-                .Columns("unidad_id").Visible = True
-                .Columns("unidad_id").DisplayIndex = index
-
+                .Columns("telefono").HeaderText = "Teléfono"
+                .Columns("telefono").Visible = True
+                .Columns("telefono").DisplayIndex = index
                 index += 1
-                .Columns("presentacion_id").HeaderText = "Presentacion"
-                .Columns("presentacion_id").Visible = True
-                .Columns("presentacion_id").DisplayIndex = index
-
+                .Columns("celular").HeaderText = "Celular"
+                .Columns("celular").Visible = True
+                .Columns("celular").DisplayIndex = index
                 index += 1
-                .Columns("precio_compra").HeaderText = "Precio Compra"
-                .Columns("precio_compra").Visible = True
-                .Columns("precio_compra").DisplayIndex = index
-
-                'index += 1
-                '.Columns("porcentaje_utilidad").HeaderText = "PU"
-                .Columns("porcentaje_utilidad").Visible = False
-                '.Columns("porcentaje_utilidad").DisplayIndex = index
-
-                'index += 1
-                '.Columns("precio_venta").HeaderText = "Precio Venta"
-                .Columns("precio_venta").Visible = False
-                '.Columns("precio_venta").DisplayIndex = index
-
+                .Columns("pais").HeaderText = "País"
+                .Columns("pais").Visible = True
+                .Columns("pais").DisplayIndex = index
                 index += 1
-                .Columns("iva").HeaderText = "I.V.A"
-                .Columns("iva").Visible = True
-                .Columns("iva").DisplayIndex = index
-
+                .Columns("ciudad").HeaderText = "Ciudad"
+                .Columns("ciudad").Visible = True
+                .Columns("ciudad").DisplayIndex = index
                 index += 1
-                .Columns("inventario_minimo").HeaderText = "Inventario Mínimo"
-                .Columns("inventario_minimo").Visible = True
-                .Columns("inventario_minimo").DisplayIndex = index
-
+                .Columns("calle").HeaderText = "Calle"
+                .Columns("calle").Visible = True
+                .Columns("calle").DisplayIndex = index
                 index += 1
-                .Columns("inventario_maximo").HeaderText = "Inventario Máximo"
-                .Columns("inventario_maximo").Visible = True
-                .Columns("inventario_maximo").DisplayIndex = index
-
+                .Columns("numero_ext").HeaderText = "Número Ext."
+                .Columns("numero_ext").Visible = True
+                .Columns("numero_ext").DisplayIndex = index
                 index += 1
-                .Columns("punto_reorden").HeaderText = "Punto Reorden"
-                .Columns("punto_reorden").Visible = True
-                .Columns("punto_reorden").DisplayIndex = index
-
+                .Columns("numero_int").HeaderText = "Número Int."
+                .Columns("numero_int").Visible = True
+                .Columns("numero_int").DisplayIndex = index
+                index += 1
+                .Columns("colonia").HeaderText = "Colonia"
+                .Columns("colonia").Visible = True
+                .Columns("colonia").DisplayIndex = index
+                index += 1
+                .Columns("delegacion").HeaderText = "Delegación"
+                .Columns("delegacion").Visible = True
+                .Columns("delegacion").DisplayIndex = index
+                index += 1
+                .Columns("codigo_postal").HeaderText = "Código Postal"
+                .Columns("codigo_postal").Visible = True
+                .Columns("codigo_postal").DisplayIndex = index
                 index += 1
                 .Columns("is_active").HeaderText = "Activo"
                 .Columns("is_active").Visible = True
@@ -384,7 +536,7 @@ Public Class CPart
 
     End Sub
 
-    Public Shared Function SetControlsBindingOnNew(ByVal oForm As FParts) As Boolean
+    Public Shared Function SetControlsBindingOnNew(ByVal oForm As FPersons) As Boolean
 
         Try
 
@@ -445,7 +597,7 @@ Public Class CPart
 
     End Function
 
-    Public Shared Sub SetControlPropertiesFormat(ByVal oForm As FParts)
+    Public Shared Sub SetControlPropertiesFormat(ByVal oForm As FPersons)
 
         Try
             With oForm
@@ -477,7 +629,7 @@ Public Class CPart
 
     End Sub
 
-    Public Shared Sub SetGeneralFormat(ByVal oForm As FParts)
+    Public Shared Sub SetGeneralFormat(ByVal oForm As FPersons)
 
         With oForm
 
@@ -498,7 +650,7 @@ Public Class CPart
                     Case 0
 
                         .TableLayoutPanel1.RowStyles.Item(i).SizeType = SizeType.Percent
-                        .TableLayoutPanel1.RowStyles.Item(i).Height = 30
+                        .TableLayoutPanel1.RowStyles.Item(i).Height = 20
 
                     Case 1
 
@@ -537,28 +689,28 @@ Public Class CPart
 
                     Case SPCommand.Save
 
-                        .Add("@centro_id", SqlDbType.VarChar).Value = DirectCast(oForm, FParts).FormRelatedClass.centro_id
-                        .Add("@nombre_corto", SqlDbType.VarChar).Value = DirectCast(oForm, FParts).FormRelatedClass.nombre_corto
-                        .Add("@nombre", SqlDbType.VarChar).Value = DirectCast(oForm, FParts).FormRelatedClass.nombre
-                        .Add("@descripcion", SqlDbType.VarChar).Value = DirectCast(oForm, FParts).FormRelatedClass.descripcion
-                        .Add("@is_active", SqlDbType.Bit).Value = DirectCast(oForm, FParts).FormRelatedClass.is_active
+                        .Add("@centro_id", SqlDbType.VarChar).Value = DirectCast(oForm, FPersons).FormRelatedClass.centro_id
+                        .Add("@nombre_corto", SqlDbType.VarChar).Value = DirectCast(oForm, FPersons).FormRelatedClass.nombre_corto
+                        .Add("@nombre", SqlDbType.VarChar).Value = DirectCast(oForm, FPersons).FormRelatedClass.nombre
+                        .Add("@descripcion", SqlDbType.VarChar).Value = DirectCast(oForm, FPersons).FormRelatedClass.descripcion
+                        .Add("@is_active", SqlDbType.Bit).Value = DirectCast(oForm, FPersons).FormRelatedClass.is_active
                         .Add("@command", SqlDbType.Int).Value = SPCommand.Save
                         .Add("@response", SqlDbType.Int).Direction = ParameterDirection.Output
 
                     Case SPCommand.Delete
 
                         .Add("@centro_id", SqlDbType.VarChar).Value = CApplicationController.oCWorkCenter_.id
-                        .Add("@guid", SqlDbType.VarChar).Value = DirectCast(oForm, FParts).FormRelatedClass.guid
+                        .Add("@guid", SqlDbType.VarChar).Value = DirectCast(oForm, FPersons).FormRelatedClass.guid
                         .Add("@command", SqlDbType.Int).Value = SPCommand.Delete
                         .Add("@response", SqlDbType.Int).Direction = ParameterDirection.Output
 
                     Case SPCommand.Update
 
                         .Add("@centro_id", SqlDbType.VarChar).Value = CApplicationController.oCWorkCenter_.id
-                        .Add("@guid", SqlDbType.VarChar).Value = DirectCast(oForm, FParts).FormRelatedClass.guid
-                        .Add("@nombre_corto", SqlDbType.VarChar).Value = DirectCast(oForm, FParts).FormRelatedClass.nombre_corto
-                        .Add("@nombre", SqlDbType.VarChar).Value = DirectCast(oForm, FParts).FormRelatedClass.nombre
-                        .Add("@descripcion", SqlDbType.VarChar).Value = DirectCast(oForm, FParts).FormRelatedClass.descripcion
+                        .Add("@guid", SqlDbType.VarChar).Value = DirectCast(oForm, FPersons).FormRelatedClass.guid
+                        .Add("@nombre_corto", SqlDbType.VarChar).Value = DirectCast(oForm, FPersons).FormRelatedClass.nombre_corto
+                        .Add("@nombre", SqlDbType.VarChar).Value = DirectCast(oForm, FPersons).FormRelatedClass.nombre
+                        .Add("@descripcion", SqlDbType.VarChar).Value = DirectCast(oForm, FPersons).FormRelatedClass.descripcion
                         .Add("@command", SqlDbType.Int).Value = SPCommand.Update
                         .Add("@response", SqlDbType.Int).Direction = ParameterDirection.Output
 
@@ -577,7 +729,7 @@ Public Class CPart
         'Return PrepareSPCommand()
 
     End Sub
-    Public Shared Function SaveRecord(ByVal oForm As FParts) As Boolean
+    Public Shared Function SaveRecord(ByVal oForm As FPersons) As Boolean
 
         Try
 
@@ -617,7 +769,7 @@ Public Class CPart
     End Function
 
 
-    Public Shared Function UpdateRecord(ByVal oForm As FParts) As Boolean
+    Public Shared Function UpdateRecord(ByVal oForm As FPersons) As Boolean
 
         Try
 
@@ -625,7 +777,7 @@ Public Class CPart
 
                 Using oSqlCommand As New SqlCommand(oForm.stored_procedure_name, oConnection) With {.CommandType = CommandType.StoredProcedure}
 
-                    'If Not CPart.PrepareSPCommand(oSqlCommand, SPCommand.Update, oForm) Then Throw New CustomException
+                    'If Not CPerson.PrepareSPCommand(oSqlCommand, SPCommand.Update, oForm) Then Throw New CustomException
 
                     PrepareSPCommand(oSqlCommand, SPCommand.Update, oForm)
 
@@ -657,7 +809,7 @@ Public Class CPart
 
     End Function
 
-    Public Shared Function DeleteRecord(ByVal oForm As FParts) As Boolean
+    Public Shared Function DeleteRecord(ByVal oForm As FPersons) As Boolean
 
         Try
 
@@ -668,7 +820,7 @@ Public Class CPart
                     ' ---------------------------------
                     ' Set Command Ready and Execute
                     ' ---------------------------------
-                    'If Not CPart.PrepareSPCommand(oSqlCommand, SPCommand.Delete, oForm) Then Throw New CustomException
+                    'If Not CPerson.PrepareSPCommand(oSqlCommand, SPCommand.Delete, oForm) Then Throw New CustomException
 
                     PrepareSPCommand(oSqlCommand, SPCommand.Delete, oForm)
 
@@ -704,6 +856,78 @@ Public Class CPart
 
     End Function
 
+    Friend Function GetEmployeeDataById() As Boolean
+
+        Dim oDataSet As New DataSet
+        Dim oSqlCommand As New SqlCommand("dbo.SP_EMPLOYEES")
+        Dim oSqlDataAdapter As New SqlDataAdapter
+        Dim oResponse As New SqlParameter
+
+        oSqlCommand.CommandType = CommandType.StoredProcedure
+
+        Try
+
+            ' --------------------------------------------------------------------------
+            ' Parameter Assignation
+            ' --------------------------------------------------------------------------
+            With oSqlCommand.Parameters
+
+                .Add("@centro_id", SqlDbType.NVarChar).Value = CApplicationController.oCWorkCenter_.id
+                .Add("@nombre_corto", SqlDbType.NVarChar).Value = CApplicationController.oCUsers.empleado_id
+                .Add("@command", SqlDbType.Int).Value = SPCommand.QueryById
+
+            End With
+
+            oResponse = oSqlCommand.Parameters.Add("@response", SqlDbType.Int)
+            oResponse.Direction = ParameterDirection.Output
+
+            ' --------------------------------------------------------------------------
+
+            oSqlCommand.Connection = CApplicationController.oCDataBase.GetSQLConnection()
+
+            If oSqlCommand.Connection Is Nothing Then Return False : Exit Function
+
+            oSqlDataAdapter = New SqlDataAdapter(oSqlCommand)
+
+            oSqlDataAdapter.Fill(oDataSet, "Employees")
+
+            If Not CBool(CInt(oDataSet.Tables("Employees").Rows.Count)) Then Exit Function : Throw New CustomException("No hay información en la tabla de Personal para la clave proporcionada.")
+
+            With oDataSet.Tables("Employees").Rows(0)
+
+                Me.centro_id = .Item("centro_id").ToString.Trim
+                Me.nombre_corto = .Item("id").ToString.Trim
+                Me.nombre = .Item("nombre").ToString.Trim
+                'Me.empleado_paterno = .Item("empleado_paterno").ToString.Trim
+                'Me.empleado_materno = .Item("empleado_materno").ToString.Trim
+                'Me.puesto_id = .Item("puesto_id").ToString.Trim
+                'Me.empleado_email = .Item("empleado_email").ToString.Trim
+                'Me.empleado_telefono = .Item("empleado_telefono").ToString.Trim
+                'Me.empleado_celular = .Item("empleado_celular").ToString.Trim
+                'Me.supervisor_id = .Item("supervisor_id").ToString.Trim
+
+            End With
+
+            Return True
+
+        Catch ex As CustomException
+
+            MessageBox.Show(ex.Message, "Atención", MessageBoxButtons.OK, MessageBoxIcon.Error)
+
+        Catch ex As Exception
+
+            MessageBox.Show(ex.Message, "Atención", MessageBoxButtons.OK, MessageBoxIcon.Error)
+
+        Finally
+
+            If Not oDataSet Is Nothing Then oDataSet.Dispose()
+
+            If Not oSqlCommand.Connection Is Nothing Then oSqlCommand.Connection.Close() : oSqlCommand.Dispose()
+
+        End Try
+
+
+    End Function
 
 
 End Class
