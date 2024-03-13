@@ -28,7 +28,7 @@
     <MapFileExtensions>true</MapFileExtensions>
     <InstallUrl>\\Users\orbit\Desktop\ProjectManagement Publish\</InstallUrl>
     <AutorunEnabled>true</AutorunEnabled>
-    <ApplicationRevision>4</ApplicationRevision>
+    <ApplicationRevision>5</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -234,7 +234,6 @@
     </Compile>
     <Compile Include="System\Classes\CApplication.vb" />
     <Compile Include="System\Classes\CApplicationController.vb" />
-    <Compile Include="System\0 Flow\00\CApplicationManager.vb" />
     <Compile Include="System\Classes\CApplicationHelper.vb" />
     <Compile Include="System\Classes\CFormController_.vb" />
     <Compile Include="System\Classes\CSystemParameters.vb" />

@@ -7,6 +7,22 @@ Imports System.ComponentModel
 
 Friend Class CApplication
 
+    <STAThread()>
+    Shared Sub Main()
+
+        Dim oFLoginForm As New FLoginForm
+
+        Call CApplication.SetCultureSettings()
+
+        If oFLoginForm.ShowDialog() = DialogResult.OK Then
+            Application.Run(FAdministrationMenu)
+        End If
+
+        FCatalogFormTemplate.Show()
+
+    End Sub
+
+
     Public Enum FormatPattern
         NumericDouble = 2
     End Enum
@@ -3667,11 +3683,6 @@ Friend Class CApplication
 
     Public Shared Sub SetFormFormat(ByVal oForm As Object)
 
-        'oForm.FormBorderStyle = Windows.Forms.FormBorderStyle.FixedSingle
-        'oForm.MaximizeBox = False
-        'oForm.MinimizeBox = False
-        'oForm.Size = New Size(1000, 316)
-        'oForm.Icon = GetApplicationIcon()
 
         If String.Compare(DirectCast(oForm, Form).Name, "FLoginForm") < 0 Then
 
@@ -3685,10 +3696,42 @@ Friend Class CApplication
                 .FormBorderStyle = FormBorderStyle.FixedToolWindow
                 .WindowState = FormWindowState.Maximized
 
+
+                '.FormBorderStyle = Windows.Forms.FormBorderStyle.FixedSingle
+                '.MaximizeBox = False
+                '.MinimizeBox = False
+                '.Size = New Size(1000, 316)
+                '.Icon = GetApplicationIcon()
+
             End With
 
-        Else
+            'With oForm
+            '    For i = 0 To .TableLayoutPanel1.RowStyles.Count
 
+            '        Select Case i
+            '            Case 0
+
+            '                .TableLayoutPanel1.RowStyles.Item(i).SizeType = SizeType.Percent
+            '                .TableLayoutPanel1.RowStyles.Item(i).Height = 20
+
+            '            Case 1
+
+            '                .TableLayoutPanel1.RowStyles.Item(i).SizeType = SizeType.Percent
+            '                .TableLayoutPanel1.RowStyles.Item(i).Height = 70
+
+            '            Case 2
+            '                .TableLayoutPanel1.RowStyles.Item(i).SizeType = SizeType.Percent
+            '                .TableLayoutPanel1.RowStyles.Item(i).Height = 5
+
+            '        End Select
+
+            '    Next
+            'End With
+
+        Else
+            '-----------------------------
+            ' Formatting LogIn Form
+            ' ----------------------------
             With DirectCast(oForm, FLoginForm)
                 '.FormBorderStyle = Windows.Forms.FormBorderStyle.FixedToolWindow
                 .MaximizeBox = False
