@@ -60,10 +60,6 @@ Public Class MDIMainContainer
 
         Me.Icon = CApplication.GetApplicationIcon
 
-        Me.MDIWorkCenter.Text = CApplicationController.oCWorkCenter_.id
-        Me.MDIUser.Text = CApplicationController.oCUsers.usuario_id
-
-
 
         Select Case CApplicationController.oCSystemParameters.environment_id
 
@@ -79,31 +75,49 @@ Public Class MDIMainContainer
 
 
         ' Set Command Bar Format.
-        Me.TSBNew.Enabled = False
-        Me.TSBSave.Enabled = False
-        Me.TSBCancel.Enabled = False
-        Me.TSBQuery.Enabled = False
-        Me.TSBEdit.Enabled = False
-        Me.TSBDelete.Enabled = False
-        Me.TSBExit.Enabled = False
+        With Me
+            .TSBNew.Enabled = .TSBSave.Enabled = .TSBCancel.Enabled = .TSBQuery.Enabled = .TSBEdit.Enabled = .TSBDelete.Enabled = .TSBExit.Enabled = False
+        End With
+
 
         ' Assigs form from menu.
         If Me.oCFormController_.parent_form.IsMdiChild Then
-            With Me.oCFormController_.parent_form
-                .FormBorderStyle = Windows.Forms.FormBorderStyle.None
-                .ControlBox = False
-                .MaximizeBox = False
-                .MinimizeBox = False
-                .ShowIcon = False
-                .Text = ""
-                .Dock = DockStyle.Fill
-                .Show()
+
+            'With Me.oCFormController_.parent_form
+            '    .FormBorderStyle = Windows.Forms.FormBorderStyle.None
+            '    .ControlBox = False
+            '    .MaximizeBox = False
+            '    .MinimizeBox = False
+            '    .ShowIcon = False
+            '    .Text = ""
+            '    '.Dock = DockStyle.Fill
+            '    .Show()
+            'End With
+
+
+            'Dim oType As Type = Assembly.GetExecutingAssembly().GetType("IDPProjectManagement." & Me.oCFormController_.parent_form.Name)
+
+            'CApplication.SetFormFormat(Me.oCFormController_.parent_form, Me.oCFormController_.parent_form.Name)
+
+
+            '--------------------------------------
+            ' Info Label In the Form Button
+            '--------------------------------------
+            With Me
+                .MDIWorkCenter.Text = CApplicationController.oCWorkCenter_.nombre_corto
+                .MDIUser.Text = CApplicationController.oCUsers.usuario_nombre
+
+                .MDIEnvironment.Text = CApplicationController.oCSystemParameters.environment_id
+                .MDICurrentForm.Text = Me.oCFormController_.parent_form.Text
+
             End With
+
+            Me.oCFormController_.parent_form.Show()
 
         End If
 
         'Me.PnlMainFormContainer.Controls.Add(Me.oCFormController_.parent_form)
-        '    Me.oCFormController_.parent_form.Show()
+        'Me.oCFormController_.parent_form.Show()
         'End If
 
     End Sub
@@ -145,7 +159,6 @@ Public Class MDIMainContainer
     End Sub
 
     Private Sub TSBCancel_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles TSBCancel.Click
-
 
         Call ShowToolBarSelection(sender)
 

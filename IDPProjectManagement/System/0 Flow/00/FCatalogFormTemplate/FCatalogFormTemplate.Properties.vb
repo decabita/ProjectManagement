@@ -236,6 +236,16 @@ Partial Public Class FCatalogFormTemplate
         End Set
     End Property
 
+    Private _formProcessType As Integer = CApplication.FormProcessType.Catalog
+    Public Property MyProcessType() As Integer
+        Get
+            Return _formProcessType
+        End Get
+        Set(ByVal value As Integer)
+            _formProcessType = value
+        End Set
+    End Property
+
     Private _data_relation_name As String
     Public Property data_relation_name() As String
         Get
@@ -314,5 +324,7 @@ Partial Public Class FCatalogFormTemplate
         GetRelatedSpecs = 30
 
     End Enum
+
+
 
 End Class

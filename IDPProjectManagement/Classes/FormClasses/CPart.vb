@@ -1,5 +1,6 @@
 ﻿Imports System.ComponentModel
 Imports System.Data.SqlClient
+Imports System.Reflection
 
 Public Class CPart
 
@@ -36,7 +37,7 @@ Public Class CPart
         End Set
     End Property
 
-    Private Property  _guid As String
+    Private Property _guid As String
     Public Property guid() As String
         Get
             Return _guid
@@ -189,6 +190,7 @@ Public Class CPart
         Return Me
 
     End Function
+
     Public Shared Function FillCustomersCombo(ByRef oComboDummy As ComboBox) As Boolean
 
         ' Call  combo filler
@@ -198,8 +200,21 @@ Public Class CPart
 
     End Function
 
+    Public Shared Sub SetFormFormat(ByVal oForm As Form)
 
-    Public Shared Function SetControlsBinding(ByVal oForm As FParts) As Boolean
+        ' This should be called first, somehow the grid doesnt binds when set maximaxed
+        CApplication.SetFormDisplayFormat(oForm, 1)
+
+        SetControlsBinding(oForm)
+
+        ' Establece formato de los controles.
+        SetGridPropertiesFormat(oForm)
+
+        SetControlPropertiesFormat(oForm)
+
+    End Sub
+
+    Public Shared Function SetControlsBinding(ByRef oForm As FParts) As Boolean
 
         Try
 
@@ -252,7 +267,7 @@ Public Class CPart
                 ' -------------------------------------------------------------
                 ' Reset Binding.
                 ' -------------------------------------------------------------
-                .oBindingSource.ResetBindings(False)
+                .oBindingSource.ResetBindings(True)
 
             End With
 
@@ -268,7 +283,128 @@ Public Class CPart
 
     End Function
 
+    'Public Shared Sub SetFormDisplayFormat(ByVal oForm As Form, ByVal processType As Integer)
 
+
+    '    Select Case processType
+
+    '        Case 1
+
+    '            With oForm
+    '                .ControlBox = False
+    '                .MaximizeBox = False
+    '                .MinimizeBox = False
+    '                '   Me.ShowIcon = False
+    '                '    Me.Text = ""
+    '                .Dock = DockStyle.Fill
+    '                .FormBorderStyle = FormBorderStyle.FixedToolWindow
+    '                .WindowState = FormWindowState.Maximized
+
+    '            End With
+
+    '            Dim oTableLayoutPanel As TableLayoutPanel = DirectCast(oForm, Form).Controls("TableLayoutPanel1")
+
+    '            With oTableLayoutPanel
+
+    '                For i = 0 To .RowStyles.Count
+
+    '                    Select Case i
+    '                        Case 0
+
+    '                            .RowStyles.Item(i).SizeType = SizeType.Percent
+    '                            .RowStyles.Item(i).Height = 30
+
+    '                        Case 1
+
+    '                            .RowStyles.Item(i).SizeType = SizeType.Percent
+    '                            .RowStyles.Item(i).Height = 70
+
+    '                        Case 2
+    '                            .RowStyles.Item(i).SizeType = SizeType.Percent
+    '                            .RowStyles.Item(i).Height = 5
+
+    '                    End Select
+
+    '                Next
+
+    '            End With
+
+    '        Case 2
+
+    '            With oForm
+
+    '                .FormBorderStyle = Windows.Forms.FormBorderStyle.FixedSingle
+    '                .MaximizeBox = False
+    '                .MinimizeBox = False
+    '                '.Size = New Size(1000, 400)
+    '                .WindowState = FormWindowState.Maximized
+
+    '                '.Icon = GetApplicationIcon()
+
+    '            End With
+
+
+    '            Dim oTableLayoutPanel As TableLayoutPanel = DirectCast(oForm, Form).Controls("TableLayoutPanel1")
+
+    '            With oTableLayoutPanel
+
+    '                For i = 0 To .RowStyles.Count
+
+    '                    Select Case i
+    '                        Case 0
+
+    '                            .RowStyles.Item(i).SizeType = SizeType.Percent
+    '                            .RowStyles.Item(i).Height = 30
+
+    '                        Case 1
+
+    '                            .RowStyles.Item(i).SizeType = SizeType.Percent
+    '                            .RowStyles.Item(i).Height = 70
+
+    '                        Case 2
+    '                            .RowStyles.Item(i).SizeType = SizeType.Percent
+    '                            .RowStyles.Item(i).Height = 5
+
+    '                    End Select
+
+    '                Next
+    '            End With
+
+
+    '    End Select
+
+    '    'If String.Compare(DirectCast(oForm, Form).Name, "FLoginForm") > 0 Then
+
+
+
+    '    'Else
+    '    '    '-----------------------------
+    '    '    ' Formatting LogIn Form
+    '    '    ' ----------------------------
+    '    '    With DirectCast(oForm, FLoginForm)
+    '    '        '.FormBorderStyle = Windows.Forms.FormBorderStyle.FixedToolWindow
+    '    '        .MaximizeBox = False
+    '    '        .MinimizeBox = False
+    '    '        .Size = New Size(600, 450)
+    '    '        .Icon = GetApplicationIcon()
+    '    '        .WindowState = FormWindowState.Normal
+    '    '        .Dock = DockStyle.None
+    '    '        .StartPosition = Windows.Forms.FormStartPosition.CenterScreen
+
+    '    '    End With
+
+    '    'End If
+
+    '    'Dim xc As Form
+    '    'xc = oForm
+
+    '    'Dim gr As DataGridView
+
+    '    'gr = xc.Controls.Item("DataGridView")
+
+
+
+    'End Sub
     Public Shared Sub SetGridPropertiesFormat(ByVal oForm As FParts)
 
         Try
@@ -384,6 +520,52 @@ Public Class CPart
 
     End Sub
 
+    Public Shared Sub SetControlPropertiesFormat(ByVal oForm As FParts)
+
+        Try
+            With oForm
+
+                .tClaveId.Tag = "Clave"
+                .tClaveId.MaxLength = 18
+                .tClaveId.TextAlign = HorizontalAlignment.Right
+
+                .tNombre.Tag = "Nombre"
+                .tNombre.MaxLength = 80
+                .tNombre.TextAlign = HorizontalAlignment.Left
+
+                .tDescripcion.Tag = "Descripción"
+                .tDescripcion.MaxLength = 120
+                .tDescripcion.TextAlign = HorizontalAlignment.Left
+
+                .ckActivo.Tag = "Activo"
+
+                .DataGridView.Tag = "DataGrid"
+
+
+
+                ' Add behaviour events to controls.
+                AddHandler .tClaveId.GotFocus, AddressOf CApplication.HandleGotFocus
+                AddHandler .tClaveId.LostFocus, AddressOf CApplication.HandleLostFocus
+                AddHandler .tClaveId.KeyPress, AddressOf CApplication.HandleNotSpaces
+
+                AddHandler .tNombre.GotFocus, AddressOf CApplication.HandleGotFocus
+                AddHandler .tNombre.LostFocus, AddressOf CApplication.HandleLostFocus
+
+                AddHandler .tDescripcion.GotFocus, AddressOf CApplication.HandleGotFocus
+                AddHandler .tDescripcion.LostFocus, AddressOf CApplication.HandleLostFocus
+
+            End With
+
+        Catch ex As Exception
+
+            MessageBox.Show(ex.Message, "Atención", MessageBoxButtons.OK, MessageBoxIcon.Error)
+
+        End Try
+
+
+    End Sub
+
+
     Public Shared Function SetControlsBindingOnNew(ByVal oForm As FParts) As Boolean
 
         Try
@@ -444,78 +626,6 @@ Public Class CPart
         Return SetControlsBindingOnNew
 
     End Function
-
-    Public Shared Sub SetControlPropertiesFormat(ByVal oForm As FParts)
-
-        Try
-            With oForm
-
-                .tClaveId.Tag = "Clave"
-                .tClaveId.MaxLength = 18
-                .tClaveId.TextAlign = HorizontalAlignment.Right
-
-                .tNombre.Tag = "Nombre"
-                .tNombre.MaxLength = 80
-                .tNombre.TextAlign = HorizontalAlignment.Left
-
-                .tDescripcion.Tag = "Descripción"
-                .tDescripcion.MaxLength = 120
-                .tDescripcion.TextAlign = HorizontalAlignment.Left
-
-                .ckActivo.Tag = "Activo"
-
-                .DataGridView.Tag = "DataGrid"
-
-            End With
-
-        Catch ex As Exception
-
-            MessageBox.Show(ex.Message, "Atención", MessageBoxButtons.OK, MessageBoxIcon.Error)
-
-        End Try
-
-
-    End Sub
-
-    Public Shared Sub SetGeneralFormat(ByVal oForm As FParts)
-
-        With oForm
-
-            ' Add behaviour events to controls.
-            AddHandler .tClaveId.GotFocus, AddressOf CApplication.HandleGotFocus
-            AddHandler .tClaveId.LostFocus, AddressOf CApplication.HandleLostFocus
-            AddHandler .tClaveId.KeyPress, AddressOf CApplication.HandleNotSpaces
-
-            AddHandler .tNombre.GotFocus, AddressOf CApplication.HandleGotFocus
-            AddHandler .tNombre.LostFocus, AddressOf CApplication.HandleLostFocus
-
-            AddHandler .tDescripcion.GotFocus, AddressOf CApplication.HandleGotFocus
-            AddHandler .tDescripcion.LostFocus, AddressOf CApplication.HandleLostFocus
-
-            For i = 0 To .TableLayoutPanel1.RowStyles.Count
-
-                Select Case i
-                    Case 0
-
-                        .TableLayoutPanel1.RowStyles.Item(i).SizeType = SizeType.Percent
-                        .TableLayoutPanel1.RowStyles.Item(i).Height = 30
-
-                    Case 1
-
-                        .TableLayoutPanel1.RowStyles.Item(i).SizeType = SizeType.Percent
-                        .TableLayoutPanel1.RowStyles.Item(i).Height = 70
-
-                    Case 2
-                        .TableLayoutPanel1.RowStyles.Item(i).SizeType = SizeType.Percent
-                        .TableLayoutPanel1.RowStyles.Item(i).Height = 5
-
-                End Select
-
-            Next
-
-        End With
-
-    End Sub
 
 
     Public Shared Sub PrepareSPCommand(ByVal oSqlCommand As SqlCommand, ByVal spCommandValue As Integer, ByVal oForm As Form)

@@ -644,26 +644,26 @@ Public Class CEmployee
             AddHandler .tDescripcion.GotFocus, AddressOf CApplication.HandleGotFocus
             AddHandler .tDescripcion.LostFocus, AddressOf CApplication.HandleLostFocus
 
-            For i = 0 To .TableLayoutPanel1.RowStyles.Count
+            'For i = 0 To .TableLayoutPanel1.RowStyles.Count
 
-                Select Case i
-                    Case 0
+            '    Select Case i
+            '        Case 0
 
-                        .TableLayoutPanel1.RowStyles.Item(i).SizeType = SizeType.Percent
-                        .TableLayoutPanel1.RowStyles.Item(i).Height = 20
+            '            .TableLayoutPanel1.RowStyles.Item(i).SizeType = SizeType.Percent
+            '            .TableLayoutPanel1.RowStyles.Item(i).Height = 20
 
-                    Case 1
+            '        Case 1
 
-                        .TableLayoutPanel1.RowStyles.Item(i).SizeType = SizeType.Percent
-                        .TableLayoutPanel1.RowStyles.Item(i).Height = 70
+            '            .TableLayoutPanel1.RowStyles.Item(i).SizeType = SizeType.Percent
+            '            .TableLayoutPanel1.RowStyles.Item(i).Height = 70
 
-                    Case 2
-                        .TableLayoutPanel1.RowStyles.Item(i).SizeType = SizeType.Percent
-                        .TableLayoutPanel1.RowStyles.Item(i).Height = 5
+            '        Case 2
+            '            .TableLayoutPanel1.RowStyles.Item(i).SizeType = SizeType.Percent
+            '            .TableLayoutPanel1.RowStyles.Item(i).Height = 5
 
-                End Select
+            '    End Select
 
-            Next
+            'Next
 
         End With
 

@@ -795,10 +795,12 @@ Public Class FCatalogFormTemplate
                 'dummy = DirectCast(oFormToShow, Form)
                 'dummy.WindowState = FormWindowState.Maximized
 
-                ' Assigns form to show to MDI.
-                oMDIMainContainer.oCFormController_.parent_form = oFormToShow
-                oMDIMainContainer.WindowState = FormWindowState.Maximized
-                oMDIMainContainer.Show()
+                ' Assigns the form to be displayed by the MDI form.
+                With oMDIMainContainer
+                    .oCFormController_.parent_form = oFormToShow
+                    .WindowState = FormWindowState.Maximized
+                    .Show()
+                End With
 
             Else
 
