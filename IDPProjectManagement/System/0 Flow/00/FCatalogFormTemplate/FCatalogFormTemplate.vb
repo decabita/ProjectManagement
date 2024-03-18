@@ -7,6 +7,24 @@ Public Class FCatalogFormTemplate
 
     Friend WithEvents BackgroundWorkerTemplate As System.ComponentModel.BackgroundWorker
 
+    Public Enum FormProcessType
+        Catalog = 1
+        Parent = 2
+        Child = 3
+    End Enum
+
+    Private _DisplayMode As Integer
+
+    Public Property DisplayMode() As Integer
+        Get
+            Return _DisplayMode
+        End Get
+        Set(ByVal value As Integer)
+            _DisplayMode = value
+        End Set
+    End Property
+
+
     Public Sub New()
 
         ' This call is required by the designer.
@@ -622,6 +640,8 @@ Public Class FCatalogFormTemplate
         Call ClearControlsBinding()
         Call Me.SetToolBarConfiguration(CApplication.ControlState.Find)
 
+        Return CommandFind = True
+
     End Function
 
     Protected Friend Overridable Function CommandQueryFind() As Boolean Implements IFormCommandRules.CommandQueryFind
@@ -772,11 +792,11 @@ Public Class FCatalogFormTemplate
 
     End Sub
 
-    Protected Friend Overridable Sub ShowMeInMainContainer(FormName As String)
+    Protected Friend Overridable Sub ShowMeInMainContainer(FormName As String, Optional ByVal FormProcessType As Integer = CApplication.FormProcessType.Catalog)
 
         Dim oFormToShow As Object = Nothing
-        Dim oMDIMainContainer As New MDIMainContainer()
 
+        ' Gets the type of the form selected in the menu button.
         Dim oType As Type = Assembly.GetExecutingAssembly().GetType(My.Application.Info.AssemblyName & "." & FormName)
 
         Try
@@ -786,21 +806,18 @@ Public Class FCatalogFormTemplate
 
                 '  If Not CApplicationController.oCUsers.oCollectionProfiles.Contains(oType.Name) Then Throw New CustomException("El usuario no tiene permisos suficientes. Consulte a Soporte Técnico.")
 
+                ' Create a form instance from the menu button clicked. FormProcessType indicates if the form is a catalog or a parent form.
                 oFormToShow = Activator.CreateInstance(oType)
+                oFormToShow.DisplayMode = FormProcessType
+
+                'Pass the created from to MDIMainContainer to be processed and displayed.
+                Dim oMDIMainContainer As New MDIMainContainer(oFormToShow)
 
                 ' Assigns parent to form instance.
                 oFormToShow.MdiParent = oMDIMainContainer
 
-                'Dim dummy As Form
-                'dummy = DirectCast(oFormToShow, Form)
-                'dummy.WindowState = FormWindowState.Maximized
-
-                ' Assigns the form to be displayed by the MDI form.
-                With oMDIMainContainer
-                    .oCFormController_.parent_form = oFormToShow
-                    .WindowState = FormWindowState.Maximized
-                    .Show()
-                End With
+                ' Shows the Main Form Container 
+                oMDIMainContainer.Show()
 
             Else
 
@@ -831,4 +848,134 @@ Public Class FCatalogFormTemplate
     Protected Friend Overridable Function CommandAddNew() As Boolean Implements IFormCommandRules.CommandAddNew
         Throw New NotImplementedException()
     End Function
+
+    Public Shared Sub SetFormDisplayFormat(ByVal oForm As Form, ByVal processType As Integer)
+
+
+        Select Case processType
+
+            Case FormProcessType.Catalog
+
+                With oForm
+                    .ControlBox = False
+                    .MaximizeBox = False
+                    .MinimizeBox = False
+                    '   Me.ShowIcon = False
+                    '    Me.Text = ""
+                    .Dock = DockStyle.Fill
+                    .FormBorderStyle = FormBorderStyle.FixedToolWindow
+                    .WindowState = FormWindowState.Maximized
+
+                End With
+
+                Dim oTableLayoutPanel As TableLayoutPanel = DirectCast(oForm, Form).Controls("TableLayoutPanel1")
+
+                With oTableLayoutPanel
+
+                    For i = 0 To .RowStyles.Count
+
+                        Select Case i
+                            Case 0
+
+                                .RowStyles.Item(i).SizeType = SizeType.Percent
+                                .RowStyles.Item(i).Height = 30
+
+                            Case 1
+
+                                .RowStyles.Item(i).SizeType = SizeType.Percent
+                                .RowStyles.Item(i).Height = 70
+
+                            Case 2
+                                .RowStyles.Item(i).SizeType = SizeType.Percent
+                                .RowStyles.Item(i).Height = 5
+
+                        End Select
+
+                    Next
+
+                End With
+
+            Case FormProcessType.Parent
+
+                With oForm
+
+                    '.FormBorderStyle = Windows.Forms.FormBorderStyle.FixedSingle
+                    .MaximizeBox = False
+                    .MinimizeBox = False
+                    .Size = New Size(1300, 400)
+                    '.Icon = GetApplicationIcon()
+
+                    .ControlBox = False
+                    .ShowIcon = False
+                    '    Me.Text = ""
+
+                    .FormBorderStyle = FormBorderStyle.FixedToolWindow
+
+
+                End With
+
+
+                Dim oTableLayoutPanel As TableLayoutPanel = DirectCast(oForm, Form).Controls("TableLayoutPanel1")
+
+                'With oTableLayoutPanel
+
+                '    For i = 0 To .RowStyles.Count
+
+                '        Select Case i
+                '            Case 0
+
+                '                .RowStyles.Item(i).SizeType = SizeType.Percent
+                '                .RowStyles.Item(i).Height = 30
+
+                '            Case 1
+
+                '                .RowStyles.Item(i).SizeType = SizeType.Percent
+                '                .RowStyles.Item(i).Height = 70
+
+                '            Case 2
+                '                .RowStyles.Item(i).SizeType = SizeType.Percent
+                '                .RowStyles.Item(i).Height = 5
+
+                '        End Select
+
+                '    Next
+                'End With
+
+
+        End Select
+
+        'If String.Compare(DirectCast(oForm, Form).Name, "FLoginForm") > 0 Then
+
+
+
+        'Else
+        '    '-----------------------------
+        '    ' Formatting LogIn Form
+        '    ' ----------------------------
+        '    With DirectCast(oForm, FLoginForm)
+        '        '.FormBorderStyle = Windows.Forms.FormBorderStyle.FixedToolWindow
+        '        .MaximizeBox = False
+        '        .MinimizeBox = False
+        '        .Size = New Size(600, 450)
+        '        .Icon = GetApplicationIcon()
+        '        .WindowState = FormWindowState.Normal
+        '        .Dock = DockStyle.None
+        '        .StartPosition = Windows.Forms.FormStartPosition.CenterScreen
+
+        '    End With
+
+        'End If
+
+        'Dim xc As Form
+        'xc = oForm
+
+        'Dim gr As DataGridView
+
+        'gr = xc.Controls.Item("DataGridView")
+
+
+
+    End Sub
+
+
 End Class

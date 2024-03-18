@@ -2,15 +2,15 @@
 Imports System.Reflection
 Imports System.ComponentModel
 
-Public Class FBrands
+Public Class FParts
 
-    Private _oCBrand As New CBrand
-    Public Property FormRelatedClass() As CBrand
+    Private _oCPart As New CPart
+    Public Property FormRelatedClass() As CPart
         Get
-            Return _oCBrand
+            Return _oCPart
         End Get
-        Set(ByVal value As CBrand)
-            _oCBrand = value
+        Set(ByVal value As CPart)
+            _oCPart = value
         End Set
     End Property
 
@@ -18,7 +18,7 @@ Public Class FBrands
         MyBase.Finalize()
     End Sub
 
-    Private oCBrand As CBrand = New CBrand()
+    Private oCPart As CPart = New CPart()
 
     Public Sub New()
 
@@ -27,10 +27,10 @@ Public Class FBrands
 
     End Sub
 
-    Private Sub FBrands_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
+    Private Sub FParts_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
 
         'Properties in Form Templete
-        stored_procedure_name = "dbo.SP_BRANDS"
+        stored_procedure_name = "dbo.SP_PARTS"
         parent_table_name = "GetParentTableData"
 
         localDatagridView = Me.DataGridView
@@ -39,13 +39,11 @@ Public Class FBrands
         localObjectKey = Me.tGuid
         localFocusedObject = Me.tClaveId
 
-        Me.FormRelatedClass = New CBrand
+        Me.FormRelatedClass = New CPart
 
         Call CommandFind()
 
         Call Me.CommandQuery()
-
-        Call CBrand.SetGeneralFormat(Me)
 
     End Sub
 
@@ -70,20 +68,26 @@ Public Class FBrands
 
             If Not CBool(CInt(Me.oBindingSource.Count)) Then Throw New CustomException
 
-            ' Establece bind de los controles.
-            Call CBrand.SetControlsBinding(Me)
+            'CPart.CurrentForm = Me
 
-            ' Establece formato de los controles.
-            Call CBrand.SetGridPropertiesFormat(Me)
+            CPart.SetFormFormat(Me)
 
-            Call CBrand.SetControlPropertiesFormat(Me)
+            '' This should be called first, somehow the grid doesnt binds when set maximaxed
+            'CApplication.SetFormDisplayFormat(Me, 2)
+
+            'CPart.SetControlsBinding(Me)
+
+            '' Establece formato de los controles.
+            'CPart.SetGridPropertiesFormat(Me)
+
+            'CPart.SetControlPropertiesFormat(Me)
 
             ' Establece el formato de la barra de comandos.
-            Call SetToolBarConfiguration(CApplication.ControlState.InitState)
+            SetToolBarConfiguration(CApplication.ControlState.InitState)
 
         Catch ex As CustomException
 
-            Call SetToolBarConfiguration(CApplication.ControlState.None)
+            SetToolBarConfiguration(CApplication.ControlState.None)
 
         Finally
 
@@ -104,7 +108,7 @@ Public Class FBrands
         If DataGridView.Rows(e.RowIndex) IsNot Nothing Then Me.current_row = e.RowIndex
 
     End Sub
-    Private Sub FBrands_Activated(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Activated
+    Private Sub FParts_Activated(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Activated
 
         Me.oCFormController.active_form = Me
 
@@ -118,12 +122,12 @@ Public Class FBrands
         Call SetToolBarConfiguration(Me.form_state)
 
     End Sub
-    Private Sub FBrands_Deactivate(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Deactivate
+    Private Sub FParts_Deactivate(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Deactivate
 
         If Not Me.form_state = CApplication.ControlState.InitState Then Call CommandCancel()
 
     End Sub
-    Private Sub FBrands_FormClosed(ByVal sender As Object, ByVal e As System.Windows.Forms.FormClosedEventArgs) Handles Me.FormClosed
+    Private Sub FParts_FormClosed(ByVal sender As Object, ByVal e As System.Windows.Forms.FormClosedEventArgs) Handles Me.FormClosed
 
         ' TODO REPORTS
         DirectCast(Me.ParentForm, MDIMainContainer).oCFormController_.parent_form = Nothing
@@ -133,7 +137,7 @@ Public Class FBrands
 
     End Sub
 
-    Dim PrepareSPAction As Action(Of SqlCommand, Integer, Form) = AddressOf CBrand.PrepareSPCommand
+    Dim PrepareSPAction As Action(Of SqlCommand, Integer, Form) = AddressOf CPart.PrepareSPCommand
 
     Protected Friend Overrides Function QueryAll() As Boolean
 
@@ -167,13 +171,13 @@ Public Class FBrands
                 '-------------------------------------------------
                 ' Field Assignation-Validation.
                 '-------------------------------------------------
-                Me.FormRelatedClass = New CBrand With {
+                Me.FormRelatedClass = New CPart With {
                     .centro_id = CApplicationController.oCWorkCenter_.id,
                     .nombre_corto = Me.tClaveId.Text,
                     .guid = Me.tGuid.Text
                 }
 
-                If Not CBrand.DeleteRecord(Me) Then Me.form_state = CApplication.ControlState.InitState : Throw New CustomException("Error al eliminar.")
+                If Not CPart.DeleteRecord(Me) Then Me.form_state = CApplication.ControlState.InitState : Throw New CustomException("Error al eliminar.")
 
                 If Not Me.CommandQuery() Then Me.form_state = CApplication.ControlState.InitState : Throw New CustomException
 
@@ -257,7 +261,7 @@ Public Class FBrands
 
                 If (CApplication.CheckRequiredFields(.tNombre)) Then Me.FormRelatedClass.nombre = .tNombre.Text.Trim Else Throw New CustomException
 
-                Me.FormRelatedClass = New CBrand With {
+                Me.FormRelatedClass = New CPart With {
                     .centro_id = CApplicationController.oCWorkCenter_.id,
                     .guid = Me.tGuid.Text,
                     .nombre_corto = Me.tClaveId.Text,
@@ -269,7 +273,7 @@ Public Class FBrands
 
                     Me.FormRelatedClass.is_active = 1
 
-                    If Not CBrand.SaveRecord(Me) Then
+                    If Not CPart.SaveRecord(Me) Then
 
                         Me.CommandCancel() : Throw New CustomException
 
@@ -288,7 +292,7 @@ Public Class FBrands
 
                     Me.FormRelatedClass.is_active = .ckActivo.Checked
 
-                    If Not CBrand.UpdateRecord(Me) Then
+                    If Not CPart.UpdateRecord(Me) Then
 
                         Me.CommandCancel() : Throw New CustomException
 
@@ -327,7 +331,7 @@ Public Class FBrands
 
     End Function
 
-    Dim SetControlsBindingOnNewAction As Action(Of Form) = AddressOf CBrand.SetControlsBindingOnNew
+    Dim SetControlsBindingOnNewAction As Action(Of Form) = AddressOf CPart.SetControlsBindingOnNew
     Protected Friend Overrides Function CommandAddNew() As Boolean
 
         CommandNew(SetControlsBindingOnNewAction)

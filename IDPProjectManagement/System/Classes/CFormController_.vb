@@ -210,7 +210,7 @@ Public Class CFormController_
 
         Dim oRetForm As Object = Nothing
 
-        Dim oMDIMainContainer As New MDIMainContainer()
+        Dim oMDIMainContainer As New MDIMainContainer(oRetForm)
 
         Dim oType As Type = Assembly.GetExecutingAssembly().GetType("IDPProjectManagement." & Me.form_name)
 

@@ -308,7 +308,7 @@ Partial Class FAdministrationMenu
         '
         Me.ReporteDeProducciónToolStripMenuItem.Image = Global.IDPProjectManagement.My.Resources.Resources.ButtonForm
         Me.ReporteDeProducciónToolStripMenuItem.Name = "ReporteDeProducciónToolStripMenuItem"
-        Me.ReporteDeProducciónToolStripMenuItem.Size = New System.Drawing.Size(262, 38)
+        Me.ReporteDeProducciónToolStripMenuItem.Size = New System.Drawing.Size(250, 26)
         Me.ReporteDeProducciónToolStripMenuItem.Text = "Reporte de Producción"
         Me.ReporteDeProducciónToolStripMenuItem.Visible = False
         '
@@ -316,7 +316,7 @@ Partial Class FAdministrationMenu
         '
         Me.OrdenesDeProducciónToolStripMenuItem1.Image = Global.IDPProjectManagement.My.Resources.Resources.ButtonForm
         Me.OrdenesDeProducciónToolStripMenuItem1.Name = "OrdenesDeProducciónToolStripMenuItem1"
-        Me.OrdenesDeProducciónToolStripMenuItem1.Size = New System.Drawing.Size(262, 38)
+        Me.OrdenesDeProducciónToolStripMenuItem1.Size = New System.Drawing.Size(250, 26)
         Me.OrdenesDeProducciónToolStripMenuItem1.Text = "Ordenes de Producción"
         Me.OrdenesDeProducciónToolStripMenuItem1.Visible = False
         '
@@ -325,20 +325,20 @@ Partial Class FAdministrationMenu
         Me.FWorkCenters.ForeColor = System.Drawing.SystemColors.ControlText
         Me.FWorkCenters.Image = Global.IDPProjectManagement.My.Resources.Resources.ButtonForm
         Me.FWorkCenters.Name = "FWorkCenters"
-        Me.FWorkCenters.Size = New System.Drawing.Size(262, 38)
+        Me.FWorkCenters.Size = New System.Drawing.Size(250, 26)
         Me.FWorkCenters.Text = "Centros de Trabajo"
         Me.FWorkCenters.Visible = False
         '
         'ToolStripSeparator30
         '
         Me.ToolStripSeparator30.Name = "ToolStripSeparator30"
-        Me.ToolStripSeparator30.Size = New System.Drawing.Size(259, 6)
+        Me.ToolStripSeparator30.Size = New System.Drawing.Size(247, 6)
         '
         'FMachinery
         '
         Me.FMachinery.Image = Global.IDPProjectManagement.My.Resources.Resources.ButtonForm
         Me.FMachinery.Name = "FMachinery"
-        Me.FMachinery.Size = New System.Drawing.Size(262, 38)
+        Me.FMachinery.Size = New System.Drawing.Size(250, 26)
         Me.FMachinery.Text = "Maquinaria y Equipo"
         '
         'ToolStripSeparator12
@@ -590,7 +590,7 @@ Partial Class FAdministrationMenu
         '
         Me.FParts.Image = Global.IDPProjectManagement.My.Resources.Resources.ButtonForm
         Me.FParts.Name = "FParts"
-        Me.FParts.Size = New System.Drawing.Size(248, 26)
+        Me.FParts.Size = New System.Drawing.Size(260, 38)
         Me.FParts.Text = "Cátalogo de Productos"
         '
         'ToolStripSeparator26

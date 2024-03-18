@@ -200,10 +200,9 @@ Public Class CPart
 
     End Function
 
-    Public Shared Sub SetFormFormat(ByVal oForm As Form)
+    Public Shared Sub SetFormFormat(ByVal oForm As Object)
 
-        ' This should be called first, somehow the grid doesnt binds when set maximaxed
-        CApplication.SetFormDisplayFormat(oForm, 1)
+        CApplication.SetFormDisplayFormat(oForm)
 
         SetControlsBinding(oForm)
 

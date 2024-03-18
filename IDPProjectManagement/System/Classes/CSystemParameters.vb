@@ -56,8 +56,6 @@ Public Class CSystemParameters
 
     Private _sql_connection_string As String = ConfigurationManager.ConnectionStrings("LocalConnection").ConnectionString
 
-
-
     Public Property sql_connection_string() As String
         Get
             Return _sql_connection_string

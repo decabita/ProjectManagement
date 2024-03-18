@@ -1,5 +1,6 @@
 ﻿Imports System.Reflection
 Imports System.Windows.Forms
+Imports IDPProjectManagement.CApplication
 
 Public Class MDIMainContainer
 
@@ -12,6 +13,135 @@ Public Class MDIMainContainer
             _oCFormController_ = value
         End Set
     End Property
+
+    Private _DisplayMode As Integer
+
+    Public Property DisplayMode() As Integer
+        Get
+            Return _DisplayMode
+        End Get
+        Set(ByVal value As Integer)
+            _DisplayMode = value
+        End Set
+    End Property
+
+    Public Sub New(ByVal oFormToShow As Object)
+
+        ' This call is required by the Windows Form Designer.
+        InitializeComponent()
+
+        Initialize(oFormToShow)
+
+    End Sub
+
+    Private Sub Initialize(ByVal oFormToShow As Object)
+
+        With Me
+
+            .oCFormController_.parent_form = oFormToShow
+
+            ' Configures TLP   
+            .TLPFormContainer.RowCount = oFormToShow.DisplayMode
+
+            .DisplayMode = oFormToShow.DisplayMode
+            .WindowState = FormWindowState.Maximized
+
+            ' Add any initialization after the InitializeComponent() call.
+            .KeyPreview = True
+            .Icon = CApplication.GetApplicationIcon
+
+        End With
+
+        ' Set Command Bar initial state.
+        With Me
+            .TSBNew.Enabled = .TSBSave.Enabled = .TSBCancel.Enabled = .TSBQuery.Enabled = .TSBEdit.Enabled = .TSBDelete.Enabled = .TSBExit.Enabled = False
+        End With
+
+    End Sub
+
+    Private Sub MDIMainContainer_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
+
+        Select Case CApplicationController.oCSystemParameters.environment_id
+
+            Case "SYS_DEV"
+
+                Me.MDIEnvironment.Text = "DESARROLLO"
+
+            Case "SYS_PROD"
+
+                Me.MDIEnvironment.Text = "PRODUCCION"
+
+        End Select
+
+
+        ' Assigs form from menu.
+        If Me.oCFormController_.parent_form.IsMdiChild Then
+
+            'With Me.oCFormController_.parent_form
+            '    .FormBorderStyle = Windows.Forms.FormBorderStyle.None
+            '    .ControlBox = False
+            '    .MaximizeBox = False
+            '    .MinimizeBox = False
+            '    .ShowIcon = False
+            '    .Text = ""
+            '    .Dock = DockStyle.Fill
+            '    .Show()
+            'End With
+
+
+            'Dim oType As Type = Assembly.GetExecutingAssembly().GetType("IDPProjectManagement." & Me.oCFormController_.parent_form.Name)
+
+            'CApplication.SetFormFormat(Me.oCFormController_.parent_form, Me.oCFormController_.parent_form.Name)
+
+            With Me
+
+                ' Sets info form bottom bar
+
+                .MDIWorkCenter.Text = CApplicationController.oCWorkCenter_.nombre_corto
+                .MDIUser.Text = CApplicationController.oCUsers.usuario_nombre
+                .MDIEnvironment.Text = CApplicationController.oCSystemParameters.environment_id
+                .MDICurrentForm.Text = .oCFormController_.parent_form.Text
+                .MDIFormState.Text = CApplication.GetFormStateDescription(ControlStateDefinition.InitState)
+
+                ' Shows the form selected from the main menu.
+                Select Case .DisplayMode
+
+                    Case CApplication.FormProcessType.Catalog
+
+                        .TLPFormContainer.RowStyles.Item(1).Height = 0
+
+                        .TLPFormContainer.Controls.Item("PnlParentFormContainer").Controls.Add(.oCFormController_.parent_form)
+                        .oCFormController_.parent_form.WindowState = FormWindowState.Maximized
+
+                    Case CApplication.FormProcessType.Parent
+
+                        .TLPFormContainer.Controls.Item("PnlParentFormContainer").Controls.Add(.oCFormController_.parent_form)
+                        .oCFormController_.parent_form.WindowState = FormWindowState.Maximized
+
+                    Case CApplication.FormProcessType.Child
+
+                        .TLPFormContainer.Controls.Item("PnlChildFormContainer").Controls.Add(.oCFormController_.parent_form)
+                        .oCFormController_.parent_form.WindowState = FormWindowState.Maximized
+
+                End Select
+
+                .oCFormController_.parent_form.Show()
+
+            End With
+
+        End If
+
+        'Me.PnlMainFormContainer.Controls.Add(Me.oCFormController_.parent_form)
+        'Me.oCFormController_.parent_form.Show()
+        'End If
+
+    End Sub
+
+    Private Sub TSBExit_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles TSBExit.Click
+
+        Me.Dispose()
+
+    End Sub
 
     Private Sub MDIMainContainer_KeyDown(ByVal sender As Object, ByVal e As System.Windows.Forms.KeyEventArgs) Handles Me.KeyDown
 
@@ -55,78 +185,6 @@ Public Class MDIMainContainer
 
     End Sub
 
-
-    Private Sub MDIMainContainer_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
-
-        Me.Icon = CApplication.GetApplicationIcon
-
-
-        Select Case CApplicationController.oCSystemParameters.environment_id
-
-            Case "SYS_DEV"
-
-                Me.MDIEnvironment.Text = "DESARROLLO"
-
-            Case "SYS_PROD"
-
-                Me.MDIEnvironment.Text = "PRODUCCION"
-
-        End Select
-
-
-        ' Set Command Bar Format.
-        With Me
-            .TSBNew.Enabled = .TSBSave.Enabled = .TSBCancel.Enabled = .TSBQuery.Enabled = .TSBEdit.Enabled = .TSBDelete.Enabled = .TSBExit.Enabled = False
-        End With
-
-
-        ' Assigs form from menu.
-        If Me.oCFormController_.parent_form.IsMdiChild Then
-
-            'With Me.oCFormController_.parent_form
-            '    .FormBorderStyle = Windows.Forms.FormBorderStyle.None
-            '    .ControlBox = False
-            '    .MaximizeBox = False
-            '    .MinimizeBox = False
-            '    .ShowIcon = False
-            '    .Text = ""
-            '    '.Dock = DockStyle.Fill
-            '    .Show()
-            'End With
-
-
-            'Dim oType As Type = Assembly.GetExecutingAssembly().GetType("IDPProjectManagement." & Me.oCFormController_.parent_form.Name)
-
-            'CApplication.SetFormFormat(Me.oCFormController_.parent_form, Me.oCFormController_.parent_form.Name)
-
-
-            '--------------------------------------
-            ' Info Label In the Form Button
-            '--------------------------------------
-            With Me
-                .MDIWorkCenter.Text = CApplicationController.oCWorkCenter_.nombre_corto
-                .MDIUser.Text = CApplicationController.oCUsers.usuario_nombre
-
-                .MDIEnvironment.Text = CApplicationController.oCSystemParameters.environment_id
-                .MDICurrentForm.Text = Me.oCFormController_.parent_form.Text
-
-            End With
-
-            Me.oCFormController_.parent_form.Show()
-
-        End If
-
-        'Me.PnlMainFormContainer.Controls.Add(Me.oCFormController_.parent_form)
-        'Me.oCFormController_.parent_form.Show()
-        'End If
-
-    End Sub
-
-    Private Sub TSBExit_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles TSBExit.Click
-
-        Me.Dispose()
-
-    End Sub
 
     Private Sub TSBNew_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles TSBNew.Click
 
@@ -349,15 +407,6 @@ Me.ActiveMdiChild.Name.Equals("FProductoTerminado") Or Me.ActiveMdiChild.Name.Eq
 
     End Sub
 
-    Public Sub New()
-
-        ' This call is required by the Windows Form Designer.
-        InitializeComponent()
-
-        ' Add any initialization after the InitializeComponent() call.
-        Me.KeyPreview = True
-
-    End Sub
 
     Private Sub TSBBuscar_Click(ByVal sender As System.Object, ByVal e As System.EventArgs)
 

@@ -3761,10 +3761,10 @@ Friend Class CApplication
 
     End Sub
 
-    Public Shared Sub SetFormDisplayFormat(ByVal oForm As Form, ByVal processType As Integer)
+    Public Shared Sub SetFormDisplayFormat(ByVal oForm As Object)
 
 
-        Select Case processType
+        Select Case oForm.DisplayMode
 
             Case FormProcessType.Catalog
 
@@ -3775,7 +3775,7 @@ Friend Class CApplication
                     '   Me.ShowIcon = False
                     '    Me.Text = ""
                     .Dock = DockStyle.Fill
-                    .FormBorderStyle = FormBorderStyle.FixedToolWindow
+                    .FormBorderStyle = FormBorderStyle.None
                     .WindowState = FormWindowState.Maximized
 
                 End With
@@ -3811,40 +3811,47 @@ Friend Class CApplication
 
                 With oForm
 
-                    .FormBorderStyle = Windows.Forms.FormBorderStyle.FixedSingle
+                    '.FormBorderStyle = Windows.Forms.FormBorderStyle.FixedSingle
                     .MaximizeBox = False
                     .MinimizeBox = False
-                    .Size = New Size(1000, 400)
-                    .Icon = GetApplicationIcon()
+                    .Size = New Size(1300, 400)
+                    '.Icon = GetApplicationIcon()
+
+                    .ControlBox = False
+                    .ShowIcon = False
+                    '    Me.Text = ""
+
+                    .FormBorderStyle = FormBorderStyle.FixedToolWindow
+
 
                 End With
 
 
                 Dim oTableLayoutPanel As TableLayoutPanel = DirectCast(oForm, Form).Controls("TableLayoutPanel1")
 
-                With oTableLayoutPanel
+                'With oTableLayoutPanel
 
-                    For i = 0 To .RowStyles.Count
+                '    For i = 0 To .RowStyles.Count
 
-                        Select Case i
-                            Case 0
+                '        Select Case i
+                '            Case 0
 
-                                .RowStyles.Item(i).SizeType = SizeType.Percent
-                                .RowStyles.Item(i).Height = 30
+                '                .RowStyles.Item(i).SizeType = SizeType.Percent
+                '                .RowStyles.Item(i).Height = 30
 
-                            Case 1
+                '            Case 1
 
-                                .RowStyles.Item(i).SizeType = SizeType.Percent
-                                .RowStyles.Item(i).Height = 70
+                '                .RowStyles.Item(i).SizeType = SizeType.Percent
+                '                .RowStyles.Item(i).Height = 70
 
-                            Case 2
-                                .RowStyles.Item(i).SizeType = SizeType.Percent
-                                .RowStyles.Item(i).Height = 5
+                '            Case 2
+                '                .RowStyles.Item(i).SizeType = SizeType.Percent
+                '                .RowStyles.Item(i).Height = 5
 
-                        End Select
+                '        End Select
 
-                    Next
-                End With
+                '    Next
+                'End With
 
 
         End Select

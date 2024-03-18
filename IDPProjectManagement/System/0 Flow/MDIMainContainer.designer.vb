@@ -26,8 +26,6 @@ Partial Class MDIMainContainer
         Me.MDIStatusStrip = New System.Windows.Forms.StatusStrip()
         Me.MDIWorkCenter = New System.Windows.Forms.ToolStripStatusLabel()
         Me.MDIUser = New System.Windows.Forms.ToolStripStatusLabel()
-        Me.MDIEnvironment = New System.Windows.Forms.ToolStripStatusLabel()
-        Me.MDIFormState = New System.Windows.Forms.ToolStripStatusLabel()
         Me.MDICurrentForm = New System.Windows.Forms.ToolStripStatusLabel()
         Me.TLPStatusStrip = New System.Windows.Forms.TableLayoutPanel()
         Me.Panel1 = New System.Windows.Forms.Panel()
@@ -52,12 +50,18 @@ Partial Class MDIMainContainer
         Me.SalirToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.ToolStripMenuItem2 = New System.Windows.Forms.ToolStripMenuItem()
         Me.AcercaDeAtlasToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.MDIFormState = New System.Windows.Forms.ToolStripStatusLabel()
+        Me.MDIEnvironment = New System.Windows.Forms.ToolStripStatusLabel()
+        Me.TLPFormContainer = New System.Windows.Forms.TableLayoutPanel()
+        Me.PnlChildFormContainer = New System.Windows.Forms.Panel()
+        Me.PnlParentFormContainer = New System.Windows.Forms.Panel()
         Me.MDIStatusStrip.SuspendLayout()
         Me.TLPStatusStrip.SuspendLayout()
         Me.Panel1.SuspendLayout()
         Me.ToolStripMDI.SuspendLayout()
         Me.TLPanel1.SuspendLayout()
         Me.MenuStrip2.SuspendLayout()
+        Me.TLPFormContainer.SuspendLayout()
         Me.SuspendLayout()
         '
         'MDIStatusStrip
@@ -65,7 +69,7 @@ Partial Class MDIMainContainer
         Me.MDIStatusStrip.AutoSize = False
         Me.MDIStatusStrip.Dock = System.Windows.Forms.DockStyle.Fill
         Me.MDIStatusStrip.ImageScalingSize = New System.Drawing.Size(20, 20)
-        Me.MDIStatusStrip.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.MDIWorkCenter, Me.MDIUser, Me.MDIEnvironment, Me.MDIFormState, Me.MDICurrentForm})
+        Me.MDIStatusStrip.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.MDIWorkCenter, Me.MDIUser, Me.MDICurrentForm, Me.MDIFormState, Me.MDIEnvironment})
         Me.MDIStatusStrip.Location = New System.Drawing.Point(0, 0)
         Me.MDIStatusStrip.Name = "MDIStatusStrip"
         Me.MDIStatusStrip.Size = New System.Drawing.Size(1083, 26)
@@ -99,30 +103,6 @@ Partial Class MDIMainContainer
         Me.MDIUser.Name = "MDIUser"
         Me.MDIUser.Size = New System.Drawing.Size(100, 20)
         Me.MDIUser.Text = "User"
-        '
-        'MDIEnvironment
-        '
-        Me.MDIEnvironment.AutoSize = False
-        Me.MDIEnvironment.BorderSides = CType((((System.Windows.Forms.ToolStripStatusLabelBorderSides.Left Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Top) _
-            Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Right) _
-            Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Bottom), System.Windows.Forms.ToolStripStatusLabelBorderSides)
-        Me.MDIEnvironment.BorderStyle = System.Windows.Forms.Border3DStyle.SunkenInner
-        Me.MDIEnvironment.Font = New System.Drawing.Font("Arial", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.MDIEnvironment.Name = "MDIEnvironment"
-        Me.MDIEnvironment.Size = New System.Drawing.Size(100, 20)
-        Me.MDIEnvironment.Text = "Environment"
-        '
-        'MDIFormState
-        '
-        Me.MDIFormState.AutoSize = False
-        Me.MDIFormState.BorderSides = CType((((System.Windows.Forms.ToolStripStatusLabelBorderSides.Left Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Top) _
-            Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Right) _
-            Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Bottom), System.Windows.Forms.ToolStripStatusLabelBorderSides)
-        Me.MDIFormState.BorderStyle = System.Windows.Forms.Border3DStyle.SunkenInner
-        Me.MDIFormState.Font = New System.Drawing.Font("Arial", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.MDIFormState.Name = "MDIFormState"
-        Me.MDIFormState.Size = New System.Drawing.Size(100, 20)
-        Me.MDIFormState.Text = "Form State"
         '
         'MDICurrentForm
         '
@@ -167,7 +147,7 @@ Partial Class MDIMainContainer
         Me.ToolStripMDI.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.TSBQuery, Me.TSBNew, Me.TSBEdit, Me.TSBSave, Me.TSBDelete, Me.TSBCancel, Me.ToolStripSeparator6, Me.TSBFind, Me.TSBExecFind, Me.TSBDirectAccess, Me.ToolStripSeparator1, Me.TSBExportToExcel, Me.ToolStripSeparator8, Me.TSBExit})
         Me.ToolStripMDI.Location = New System.Drawing.Point(0, 0)
         Me.ToolStripMDI.Name = "ToolStripMDI"
-        Me.ToolStripMDI.Size = New System.Drawing.Size(1128, 27)
+        Me.ToolStripMDI.Size = New System.Drawing.Size(488, 27)
         Me.ToolStripMDI.TabIndex = 0
         Me.ToolStripMDI.TabStop = True
         Me.ToolStripMDI.Text = "ToolStrip1"
@@ -358,6 +338,63 @@ Partial Class MDIMainContainer
         Me.AcercaDeAtlasToolStripMenuItem.Size = New System.Drawing.Size(137, 26)
         Me.AcercaDeAtlasToolStripMenuItem.Text = "Acerca"
         '
+        'MDIFormState
+        '
+        Me.MDIFormState.AutoSize = False
+        Me.MDIFormState.BorderSides = CType((((System.Windows.Forms.ToolStripStatusLabelBorderSides.Left Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Top) _
+            Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Right) _
+            Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Bottom), System.Windows.Forms.ToolStripStatusLabelBorderSides)
+        Me.MDIFormState.BorderStyle = System.Windows.Forms.Border3DStyle.SunkenInner
+        Me.MDIFormState.Font = New System.Drawing.Font("Arial", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.MDIFormState.Name = "MDIFormState"
+        Me.MDIFormState.Size = New System.Drawing.Size(100, 20)
+        Me.MDIFormState.Text = "Form State"
+        '
+        'MDIEnvironment
+        '
+        Me.MDIEnvironment.AutoSize = False
+        Me.MDIEnvironment.BorderSides = CType((((System.Windows.Forms.ToolStripStatusLabelBorderSides.Left Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Top) _
+            Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Right) _
+            Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Bottom), System.Windows.Forms.ToolStripStatusLabelBorderSides)
+        Me.MDIEnvironment.BorderStyle = System.Windows.Forms.Border3DStyle.SunkenInner
+        Me.MDIEnvironment.Font = New System.Drawing.Font("Arial", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.MDIEnvironment.Name = "MDIEnvironment"
+        Me.MDIEnvironment.Size = New System.Drawing.Size(100, 20)
+        Me.MDIEnvironment.Text = "Environment"
+        '
+        'TLPFormContainer
+        '
+        Me.TLPFormContainer.ColumnCount = 1
+        Me.TLPFormContainer.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
+        Me.TLPFormContainer.Controls.Add(Me.PnlChildFormContainer, 0, 1)
+        Me.TLPFormContainer.Controls.Add(Me.PnlParentFormContainer, 0, 0)
+        Me.TLPFormContainer.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.TLPFormContainer.Location = New System.Drawing.Point(0, 58)
+        Me.TLPFormContainer.Name = "TLPFormContainer"
+        Me.TLPFormContainer.RowCount = 2
+        Me.TLPFormContainer.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50.0!))
+        Me.TLPFormContainer.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50.0!))
+        Me.TLPFormContainer.Size = New System.Drawing.Size(1106, 589)
+        Me.TLPFormContainer.TabIndex = 20
+        '
+        'PnlChildFormContainer
+        '
+        Me.PnlChildFormContainer.BackColor = System.Drawing.SystemColors.HotTrack
+        Me.PnlChildFormContainer.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.PnlChildFormContainer.Location = New System.Drawing.Point(3, 297)
+        Me.PnlChildFormContainer.Name = "PnlChildFormContainer"
+        Me.PnlChildFormContainer.Size = New System.Drawing.Size(1100, 289)
+        Me.PnlChildFormContainer.TabIndex = 0
+        '
+        'PnlParentFormContainer
+        '
+        Me.PnlParentFormContainer.BackColor = System.Drawing.SystemColors.ActiveCaption
+        Me.PnlParentFormContainer.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.PnlParentFormContainer.Location = New System.Drawing.Point(3, 3)
+        Me.PnlParentFormContainer.Name = "PnlParentFormContainer"
+        Me.PnlParentFormContainer.Size = New System.Drawing.Size(1100, 288)
+        Me.PnlParentFormContainer.TabIndex = 1
+        '
         'MDIMainContainer
         '
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None
@@ -365,6 +402,7 @@ Partial Class MDIMainContainer
         Me.BackColor = System.Drawing.SystemColors.Control
         Me.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None
         Me.ClientSize = New System.Drawing.Size(1106, 673)
+        Me.Controls.Add(Me.TLPFormContainer)
         Me.Controls.Add(Me.Panel1)
         Me.Controls.Add(Me.TLPanel1)
         Me.Controls.Add(Me.TLPStatusStrip)
@@ -383,14 +421,13 @@ Partial Class MDIMainContainer
         Me.TLPanel1.PerformLayout()
         Me.MenuStrip2.ResumeLayout(False)
         Me.MenuStrip2.PerformLayout()
+        Me.TLPFormContainer.ResumeLayout(False)
         Me.ResumeLayout(False)
 
     End Sub
     Friend WithEvents MDIStatusStrip As System.Windows.Forms.StatusStrip
     Friend WithEvents MDIWorkCenter As System.Windows.Forms.ToolStripStatusLabel
     Friend WithEvents MDIUser As System.Windows.Forms.ToolStripStatusLabel
-    Friend WithEvents MDIEnvironment As System.Windows.Forms.ToolStripStatusLabel
-    Friend WithEvents MDIFormState As System.Windows.Forms.ToolStripStatusLabel
     Friend WithEvents MDICurrentForm As System.Windows.Forms.ToolStripStatusLabel
     Friend WithEvents TLPStatusStrip As System.Windows.Forms.TableLayoutPanel
     Friend WithEvents Panel1 As Panel
@@ -415,4 +452,9 @@ Partial Class MDIMainContainer
     Friend WithEvents SalirToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents ToolStripMenuItem2 As ToolStripMenuItem
     Friend WithEvents AcercaDeAtlasToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents MDIFormState As ToolStripStatusLabel
+    Friend WithEvents MDIEnvironment As ToolStripStatusLabel
+    Friend WithEvents TLPFormContainer As TableLayoutPanel
+    Friend WithEvents PnlChildFormContainer As Panel
+    Friend WithEvents PnlParentFormContainer As Panel
 End Class

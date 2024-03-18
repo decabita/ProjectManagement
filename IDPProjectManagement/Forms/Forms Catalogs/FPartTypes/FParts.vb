@@ -4,17 +4,15 @@ Imports System.ComponentModel
 
 Public Class FParts
 
-    'Private _oCPart As New CPart
-    'Public Property FormRelatedClass() As CPart
-    '    Get
-    '        Return _oCPart
-    '    End Get
-    '    Set(ByVal value As CPart)
-    '        _oCPart = value
-    '    End Set
-    'End Property
-
-
+    Private _oCPart As New CPart
+    Public Property FormRelatedClass() As CPart
+        Get
+            Return _oCPart
+        End Get
+        Set(ByVal value As CPart)
+            _oCPart = value
+        End Set
+    End Property
 
     Protected Overrides Sub Finalize()
         MyBase.Finalize()
@@ -41,10 +39,9 @@ Public Class FParts
         localObjectKey = Me.tGuid
         localFocusedObject = Me.tClaveId
 
-        'Me.FormRelatedClass = New CPart
-        FormRelatedClass = New CPart
+        Me.FormRelatedClass = New CPart
 
-        'Call CommandFind()
+        Call CommandFind()
 
         Call Me.CommandQuery()
 
