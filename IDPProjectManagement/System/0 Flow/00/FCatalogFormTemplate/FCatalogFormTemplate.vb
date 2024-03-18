@@ -795,6 +795,7 @@ Public Class FCatalogFormTemplate
     Protected Friend Overridable Sub ShowMeInMainContainer(FormName As String, Optional ByVal FormProcessType As Integer = CApplication.FormProcessType.Catalog)
 
         Dim oFormToShow As Object = Nothing
+        Dim oMDIMainContainer As New MDIMainContainer()
 
         ' Gets the type of the form selected in the menu button.
         Dim oType As Type = Assembly.GetExecutingAssembly().GetType(My.Application.Info.AssemblyName & "." & FormName)
@@ -811,13 +812,23 @@ Public Class FCatalogFormTemplate
                 oFormToShow.DisplayMode = FormProcessType
 
                 'Pass the created from to MDIMainContainer to be processed and displayed.
-                Dim oMDIMainContainer As New MDIMainContainer(oFormToShow)
+                '''Dim oMDIMainContainer As New MDIMainContainer(oFormToShow)
 
-                ' Assigns parent to form instance.
-                oFormToShow.MdiParent = oMDIMainContainer
 
-                ' Shows the Main Form Container 
-                oMDIMainContainer.Show()
+                ' MDIContainer Display.
+                With oMDIMainContainer
+
+                    ' Assigns parent to form instance.
+                    oFormToShow.MdiParent = oMDIMainContainer
+
+                    ' Assigns the form to be displayed by the MDI form.
+                    .oCFormController_.parent_form = oFormToShow
+
+                    ' Shows the Main Form Container 
+                    .Show()
+
+                End With
+
 
             Else
 
@@ -836,7 +847,98 @@ Public Class FCatalogFormTemplate
         End Try
 
     End Sub
+    Public Shared Sub SetFormDisplayFormat(ByVal oForm As Object)
 
+
+        Select Case oForm.DisplayMode
+
+            Case FormProcessType.Catalog
+
+                With oForm
+                    .ControlBox = False
+                    .MaximizeBox = False
+                    .MinimizeBox = False
+                    .ShowIcon = False
+                    '.Text = "" THIS FUCKED UP THE FORM BECASUE IT'S USED BEFORE THE FORM IS SHOWED, DON'T USE IT
+                    .Dock = DockStyle.Fill
+                    .FormBorderStyle = FormBorderStyle.None
+                    .WindowState = FormWindowState.Maximized
+
+
+                End With
+
+                Dim oTableLayoutPanel As TableLayoutPanel = DirectCast(oForm, Form).Controls("TableLayoutPanel1")
+
+                With oTableLayoutPanel
+
+                    For i = 0 To .RowStyles.Count
+
+                        Select Case i
+                            Case 0
+
+                                .RowStyles.Item(i).SizeType = SizeType.Percent
+                                .RowStyles.Item(i).Height = 30
+
+                            Case 1
+
+                                .RowStyles.Item(i).SizeType = SizeType.Percent
+                                .RowStyles.Item(i).Height = 70
+
+                            Case 2
+                                .RowStyles.Item(i).SizeType = SizeType.Percent
+                                .RowStyles.Item(i).Height = 5
+
+                        End Select
+
+                    Next
+
+                End With
+
+            Case FormProcessType.Parent
+
+                With oForm
+                    .ControlBox = False
+                    .MaximizeBox = False
+                    .MinimizeBox = False
+                    .ShowIcon = False
+                    '.Dock = DockStyle.Fill
+                    .FormBorderStyle = FormBorderStyle.None
+                    '.WindowState = FormWindowState.Maximized
+                    .Size = New Size(1300, 400)
+
+                End With
+
+
+                Dim oTableLayoutPanel As TableLayoutPanel = DirectCast(oForm, Form).Controls("TableLayoutPanel1")
+
+                With oTableLayoutPanel
+
+                    For i = 0 To .RowStyles.Count
+
+                        Select Case i
+                            Case 0
+
+                                .RowStyles.Item(i).SizeType = SizeType.Percent
+                                .RowStyles.Item(i).Height = 30
+
+                            Case 1
+
+                                .RowStyles.Item(i).SizeType = SizeType.Percent
+                                .RowStyles.Item(i).Height = 60
+
+                            Case 2
+                                .RowStyles.Item(i).SizeType = SizeType.Percent
+                                .RowStyles.Item(i).Height = 10
+
+                        End Select
+
+                    Next
+                End With
+
+
+        End Select
+
+    End Sub
     Protected Friend Overridable Function PrepareSPCommand(ByRef oSqlCommandDummy As SqlCommand, spCommandValue As Integer) As Boolean Implements IFormCommandRules.PrepareSPCommand
         Throw New NotImplementedException()
     End Function

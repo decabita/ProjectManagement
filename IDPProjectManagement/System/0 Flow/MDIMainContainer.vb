@@ -25,12 +25,12 @@ Public Class MDIMainContainer
         End Set
     End Property
 
-    Public Sub New(ByVal oFormToShow As Object)
+    Public Sub New()
 
         ' This call is required by the Windows Form Designer.
         InitializeComponent()
 
-        Initialize(oFormToShow)
+        'Initialize(oFormToShow)
 
     End Sub
 
@@ -41,7 +41,7 @@ Public Class MDIMainContainer
             .oCFormController_.parent_form = oFormToShow
 
             ' Configures TLP   
-            .TLPFormContainer.RowCount = oFormToShow.DisplayMode
+            '.TLPFormContainer.RowCount = oFormToShow.DisplayMode
 
             .DisplayMode = oFormToShow.DisplayMode
             .WindowState = FormWindowState.Maximized
@@ -61,6 +61,18 @@ Public Class MDIMainContainer
 
     Private Sub MDIMainContainer_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
 
+        ' Set Command Bar initial state.
+        With Me
+            .TSBNew.Enabled = .TSBSave.Enabled = .TSBCancel.Enabled = .TSBQuery.Enabled = .TSBEdit.Enabled = .TSBDelete.Enabled = .TSBExit.Enabled = False
+
+            .KeyPreview = True
+            .Icon = CApplication.GetApplicationIcon
+
+            .WindowState = FormWindowState.Maximized
+        End With
+
+
+
         Select Case CApplicationController.oCSystemParameters.environment_id
 
             Case "SYS_DEV"
@@ -77,23 +89,9 @@ Public Class MDIMainContainer
         ' Assigs form from menu.
         If Me.oCFormController_.parent_form.IsMdiChild Then
 
-            'With Me.oCFormController_.parent_form
-            '    .FormBorderStyle = Windows.Forms.FormBorderStyle.None
-            '    .ControlBox = False
-            '    .MaximizeBox = False
-            '    .MinimizeBox = False
-            '    .ShowIcon = False
-            '    .Text = ""
-            '    .Dock = DockStyle.Fill
-            '    .Show()
-            'End With
-
-
-            'Dim oType As Type = Assembly.GetExecutingAssembly().GetType("IDPProjectManagement." & Me.oCFormController_.parent_form.Name)
-
-            'CApplication.SetFormFormat(Me.oCFormController_.parent_form, Me.oCFormController_.parent_form.Name)
-
             With Me
+
+                .DisplayMode = Me.oCFormController_.parent_form.DisplayMode
 
                 ' Sets info form bottom bar
 
@@ -108,19 +106,19 @@ Public Class MDIMainContainer
 
                     Case CApplication.FormProcessType.Catalog
 
-                        .TLPFormContainer.RowStyles.Item(1).Height = 0
+                        '.TLPFormContainer.RowStyles.Item(1).Height = 0
 
-                        .TLPFormContainer.Controls.Item("PnlParentFormContainer").Controls.Add(.oCFormController_.parent_form)
-                        .oCFormController_.parent_form.WindowState = FormWindowState.Maximized
+                        '.TLPFormContainer.Controls.Item("PnlParentFormContainer").Controls.Add(.oCFormController_.parent_form)
+                        '.oCFormController_.parent_form.WindowState = FormWindowState.Maximized
 
                     Case CApplication.FormProcessType.Parent
 
-                        .TLPFormContainer.Controls.Item("PnlParentFormContainer").Controls.Add(.oCFormController_.parent_form)
-                        .oCFormController_.parent_form.WindowState = FormWindowState.Maximized
+                        '.TLPFormContainer.Controls.Item("PnlParentFormContainer").Controls.Add(.oCFormController_.parent_form)
+                        '.oCFormController_.parent_form.WindowState = FormWindowState.Maximized
 
                     Case CApplication.FormProcessType.Child
 
-                        .TLPFormContainer.Controls.Item("PnlChildFormContainer").Controls.Add(.oCFormController_.parent_form)
+                        '.TLPFormContainer.Controls.Item("PnlChildFormContainer").Controls.Add(.oCFormController_.parent_form)
                         .oCFormController_.parent_form.WindowState = FormWindowState.Maximized
 
                 End Select

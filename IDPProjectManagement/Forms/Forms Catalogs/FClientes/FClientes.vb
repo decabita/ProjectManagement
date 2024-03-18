@@ -69,15 +69,15 @@ Public Class FClientes
             If Not CBool(CInt(Me.oBindingSource.Count)) Then Throw New CustomException
 
             ' Establece bind de los controles.
-            Call CCustomer.SetControlsBinding(Me)
+            CCustomer.SetControlsBinding(Me)
 
             ' Establece formato de los controles.
-            Call CCustomer.SetGridPropertiesFormat(Me)
+            CCustomer.SetGridPropertiesFormat(Me)
 
-            Call CCustomer.SetControlPropertiesFormat(Me)
+            CCustomer.SetControlPropertiesFormat(Me)
 
             ' Establece el formato de la barra de comandos.
-            Call SetToolBarConfiguration(CApplication.ControlState.InitState)
+            SetToolBarConfiguration(CApplication.ControlState.InitState)
 
         Catch ex As CustomException
 

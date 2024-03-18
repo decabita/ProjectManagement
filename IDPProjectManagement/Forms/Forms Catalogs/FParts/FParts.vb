@@ -4,17 +4,25 @@ Imports System.ComponentModel
 
 Public Class FParts
 
-    'Private _oCPart As New CPart
-    'Public Property FormRelatedClass() As CPart
+    'Private _oCPart As New Object
+    'Public Property FormRelatedClass() As Object
     '    Get
     '        Return _oCPart
     '    End Get
-    '    Set(ByVal value As CPart)
+    '    Set(ByVal value As Object)
     '        _oCPart = value
     '    End Set
     'End Property
 
-
+    Private _oCPart As New CPart
+    Public Property FormRelatedClass() As CPart
+        Get
+            Return _oCPart
+        End Get
+        Set(ByVal value As CPart)
+            _oCPart = value
+        End Set
+    End Property
 
     Protected Overrides Sub Finalize()
         MyBase.Finalize()
@@ -41,8 +49,7 @@ Public Class FParts
         localObjectKey = Me.tGuid
         localFocusedObject = Me.tClaveId
 
-        'Me.FormRelatedClass = New CPart
-        FormRelatedClass = New CPart
+        Me.FormRelatedClass = New CPart
 
         'Call CommandFind()
 
@@ -75,8 +82,11 @@ Public Class FParts
 
             CPart.SetFormFormat(Me)
 
-            '' This should be called first, somehow the grid doesnt binds when set maximaxed
-            'CApplication.SetFormDisplayFormat(Me, 2)
+
+            ' old flow
+
+            ' This should be called first, somehow the grid doesnt binds when set maximaxed
+            'CApplication.SetFormDisplayFormat(Me)
 
             'CPart.SetControlsBinding(Me)
 
@@ -84,6 +94,7 @@ Public Class FParts
             'CPart.SetGridPropertiesFormat(Me)
 
             'CPart.SetControlPropertiesFormat(Me)
+            '//////////////////
 
             ' Establece el formato de la barra de comandos.
             SetToolBarConfiguration(CApplication.ControlState.InitState)

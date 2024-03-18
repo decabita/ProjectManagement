@@ -3772,11 +3772,12 @@ Friend Class CApplication
                     .ControlBox = False
                     .MaximizeBox = False
                     .MinimizeBox = False
-                    '   Me.ShowIcon = False
-                    '    Me.Text = ""
+                    .ShowIcon = False
+                    '.Text = "" THIS FUCKED UP THE FORM BECASUE IT'S USED BEFORE THE FORM IS SHOWED, DON'T USE IT
                     .Dock = DockStyle.Fill
                     .FormBorderStyle = FormBorderStyle.None
                     .WindowState = FormWindowState.Maximized
+
 
                 End With
 
@@ -3809,49 +3810,62 @@ Friend Class CApplication
 
             Case FormProcessType.Parent
 
-                With oForm
+                'With oForm
 
-                    '.FormBorderStyle = Windows.Forms.FormBorderStyle.FixedSingle
+                '    '.FormBorderStyle = Windows.Forms.FormBorderStyle.FixedSingle
+                '    .MaximizeBox = False
+                '    .MinimizeBox = False
+                '    .Size = New Size(1300, 400)
+                '    '.Icon = GetApplicationIcon()
+
+                '    .ControlBox = False
+                '    .ShowIcon = False
+                '    '    Me.Text = ""
+
+                '    .FormBorderStyle = FormBorderStyle.FixedToolWindow
+
+
+                'End With
+
+
+                With oForm
+                    .ControlBox = False
                     .MaximizeBox = False
                     .MinimizeBox = False
-                    .Size = New Size(1300, 400)
-                    '.Icon = GetApplicationIcon()
-
-                    .ControlBox = False
                     .ShowIcon = False
-                    '    Me.Text = ""
-
-                    .FormBorderStyle = FormBorderStyle.FixedToolWindow
-
+                    '.Dock = DockStyle.Fill
+                    .FormBorderStyle = FormBorderStyle.None
+                    '.WindowState = FormWindowState.Maximized
+                    .Size = New Size(1300, 400)
 
                 End With
 
 
                 Dim oTableLayoutPanel As TableLayoutPanel = DirectCast(oForm, Form).Controls("TableLayoutPanel1")
 
-                'With oTableLayoutPanel
+                With oTableLayoutPanel
 
-                '    For i = 0 To .RowStyles.Count
+                    For i = 0 To .RowStyles.Count
 
-                '        Select Case i
-                '            Case 0
+                        Select Case i
+                            Case 0
 
-                '                .RowStyles.Item(i).SizeType = SizeType.Percent
-                '                .RowStyles.Item(i).Height = 30
+                                .RowStyles.Item(i).SizeType = SizeType.Percent
+                                .RowStyles.Item(i).Height = 30
 
-                '            Case 1
+                            Case 1
 
-                '                .RowStyles.Item(i).SizeType = SizeType.Percent
-                '                .RowStyles.Item(i).Height = 70
+                                .RowStyles.Item(i).SizeType = SizeType.Percent
+                                .RowStyles.Item(i).Height = 60
 
-                '            Case 2
-                '                .RowStyles.Item(i).SizeType = SizeType.Percent
-                '                .RowStyles.Item(i).Height = 5
+                            Case 2
+                                .RowStyles.Item(i).SizeType = SizeType.Percent
+                                .RowStyles.Item(i).Height = 10
 
-                '        End Select
+                        End Select
 
-                '    Next
-                'End With
+                    Next
+                End With
 
 
         End Select

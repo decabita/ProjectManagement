@@ -200,9 +200,10 @@ Public Class CPart
 
     End Function
 
-    Public Shared Sub SetFormFormat(ByVal oForm As Object)
+    Public Shared Sub SetFormFormat(ByVal oForm As Form)
 
-        CApplication.SetFormDisplayFormat(oForm)
+        ' This should be called first, somehow the grid doesnt binds when set maximaxed
+        FCatalogFormTemplate.SetFormDisplayFormat(oForm)
 
         SetControlsBinding(oForm)
 
@@ -210,6 +211,7 @@ Public Class CPart
         SetGridPropertiesFormat(oForm)
 
         SetControlPropertiesFormat(oForm)
+
 
     End Sub
 
@@ -541,7 +543,6 @@ Public Class CPart
                 .DataGridView.Tag = "DataGrid"
 
 
-
                 ' Add behaviour events to controls.
                 AddHandler .tClaveId.GotFocus, AddressOf CApplication.HandleGotFocus
                 AddHandler .tClaveId.LostFocus, AddressOf CApplication.HandleLostFocus
@@ -554,6 +555,8 @@ Public Class CPart
                 AddHandler .tDescripcion.LostFocus, AddressOf CApplication.HandleLostFocus
 
             End With
+
+
 
         Catch ex As Exception
 

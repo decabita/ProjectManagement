@@ -23,7 +23,7 @@ Partial Class FParts
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
-        Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(FParts))
         Me.BWorkerGetData = New System.ComponentModel.BackgroundWorker()
         Me.TableLayoutPanel1 = New System.Windows.Forms.TableLayoutPanel()
@@ -84,9 +84,9 @@ Partial Class FParts
         Me.TableLayoutPanel1.Location = New System.Drawing.Point(0, 0)
         Me.TableLayoutPanel1.Name = "TableLayoutPanel1"
         Me.TableLayoutPanel1.RowCount = 3
-        Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 31.81818!))
-        Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 63.63636!))
-        Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 4.545455!))
+        Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 30.0!))
+        Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 60.0!))
+        Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 10.0!))
         Me.TableLayoutPanel1.Size = New System.Drawing.Size(1747, 416)
         Me.TableLayoutPanel1.TabIndex = 6
         '
@@ -96,7 +96,7 @@ Partial Class FParts
         Me.Panel1.Dock = System.Windows.Forms.DockStyle.Fill
         Me.Panel1.Location = New System.Drawing.Point(3, 3)
         Me.Panel1.Name = "Panel1"
-        Me.Panel1.Size = New System.Drawing.Size(1741, 126)
+        Me.Panel1.Size = New System.Drawing.Size(1741, 118)
         Me.Panel1.TabIndex = 0
         '
         'TableLayoutPanel3
@@ -112,7 +112,7 @@ Partial Class FParts
         Me.TableLayoutPanel3.RowCount = 1
         Me.TableLayoutPanel3.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50.0!))
         Me.TableLayoutPanel3.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 126.0!))
-        Me.TableLayoutPanel3.Size = New System.Drawing.Size(1741, 126)
+        Me.TableLayoutPanel3.Size = New System.Drawing.Size(1741, 118)
         Me.TableLayoutPanel3.TabIndex = 0
         '
         'Panel3
@@ -126,7 +126,7 @@ Partial Class FParts
         Me.Panel3.Dock = System.Windows.Forms.DockStyle.Fill
         Me.Panel3.Location = New System.Drawing.Point(3, 3)
         Me.Panel3.Name = "Panel3"
-        Me.Panel3.Size = New System.Drawing.Size(864, 120)
+        Me.Panel3.Size = New System.Drawing.Size(864, 112)
         Me.Panel3.TabIndex = 0
         '
         'lblGuid
@@ -201,7 +201,7 @@ Partial Class FParts
         Me.Panel4.Dock = System.Windows.Forms.DockStyle.Fill
         Me.Panel4.Location = New System.Drawing.Point(873, 3)
         Me.Panel4.Name = "Panel4"
-        Me.Panel4.Size = New System.Drawing.Size(865, 120)
+        Me.Panel4.Size = New System.Drawing.Size(865, 112)
         Me.Panel4.TabIndex = 1
         '
         'TabControl1
@@ -212,7 +212,7 @@ Partial Class FParts
         Me.TabControl1.Location = New System.Drawing.Point(0, 0)
         Me.TabControl1.Name = "TabControl1"
         Me.TabControl1.SelectedIndex = 0
-        Me.TabControl1.Size = New System.Drawing.Size(865, 120)
+        Me.TabControl1.Size = New System.Drawing.Size(865, 112)
         Me.TabControl1.TabIndex = 10
         '
         'TPExtras
@@ -223,7 +223,7 @@ Partial Class FParts
         Me.TPExtras.Location = New System.Drawing.Point(4, 27)
         Me.TPExtras.Name = "TPExtras"
         Me.TPExtras.Padding = New System.Windows.Forms.Padding(3)
-        Me.TPExtras.Size = New System.Drawing.Size(857, 89)
+        Me.TPExtras.Size = New System.Drawing.Size(857, 81)
         Me.TPExtras.TabIndex = 0
         Me.TPExtras.Text = "Datos Adicionales"
         Me.TPExtras.UseVisualStyleBackColor = True
@@ -270,17 +270,17 @@ Partial Class FParts
         '
         Me.Panel2.Controls.Add(Me.DataGridView)
         Me.Panel2.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.Panel2.Location = New System.Drawing.Point(3, 135)
+        Me.Panel2.Location = New System.Drawing.Point(3, 127)
         Me.Panel2.Name = "Panel2"
-        Me.Panel2.Size = New System.Drawing.Size(1741, 258)
+        Me.Panel2.Size = New System.Drawing.Size(1741, 243)
         Me.Panel2.TabIndex = 1
         '
         'DataGridView
         '
         Me.DataGridView.AllowUserToAddRows = False
         Me.DataGridView.AllowUserToDeleteRows = False
-        DataGridViewCellStyle2.BackColor = System.Drawing.Color.LightBlue
-        Me.DataGridView.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle2
+        DataGridViewCellStyle1.BackColor = System.Drawing.Color.LightBlue
+        Me.DataGridView.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle1
         Me.DataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.DataGridView.Dock = System.Windows.Forms.DockStyle.Fill
         Me.DataGridView.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically
@@ -289,7 +289,7 @@ Partial Class FParts
         Me.DataGridView.Name = "DataGridView"
         Me.DataGridView.ReadOnly = True
         Me.DataGridView.RowHeadersWidth = 51
-        Me.DataGridView.Size = New System.Drawing.Size(1741, 258)
+        Me.DataGridView.Size = New System.Drawing.Size(1741, 243)
         Me.DataGridView.TabIndex = 5
         Me.DataGridView.Tag = "Grid"
         '
@@ -303,11 +303,11 @@ Partial Class FParts
         Me.TableLayoutPanel2.Controls.Add(Me.TSDownDirectAcces, 0, 0)
         Me.TableLayoutPanel2.Controls.Add(Me.BindingNavigator, 1, 0)
         Me.TableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.TableLayoutPanel2.Location = New System.Drawing.Point(3, 399)
+        Me.TableLayoutPanel2.Location = New System.Drawing.Point(3, 376)
         Me.TableLayoutPanel2.Name = "TableLayoutPanel2"
         Me.TableLayoutPanel2.RowCount = 1
         Me.TableLayoutPanel2.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50.0!))
-        Me.TableLayoutPanel2.Size = New System.Drawing.Size(1741, 14)
+        Me.TableLayoutPanel2.Size = New System.Drawing.Size(1741, 37)
         Me.TableLayoutPanel2.TabIndex = 2
         '
         'TSDownDirectAcces
@@ -317,7 +317,7 @@ Partial Class FParts
         Me.TSDownDirectAcces.ImageScalingSize = New System.Drawing.Size(20, 20)
         Me.TSDownDirectAcces.Location = New System.Drawing.Point(2, 2)
         Me.TSDownDirectAcces.Name = "TSDownDirectAcces"
-        Me.TSDownDirectAcces.Size = New System.Drawing.Size(1266, 10)
+        Me.TSDownDirectAcces.Size = New System.Drawing.Size(1266, 33)
         Me.TSDownDirectAcces.TabIndex = 6
         Me.TSDownDirectAcces.TabStop = True
         Me.TSDownDirectAcces.Text = "ToolStrip1"
@@ -339,7 +339,7 @@ Partial Class FParts
         Me.BindingNavigator.MovePreviousItem = Me.BindingNavigatorMovePreviousItem
         Me.BindingNavigator.Name = "BindingNavigator"
         Me.BindingNavigator.PositionItem = Me.BindingNavigatorPositionItem
-        Me.BindingNavigator.Size = New System.Drawing.Size(469, 10)
+        Me.BindingNavigator.Size = New System.Drawing.Size(469, 33)
         Me.BindingNavigator.TabIndex = 7
         Me.BindingNavigator.TabStop = True
         Me.BindingNavigator.Text = "BindingNavigator1"
@@ -347,7 +347,7 @@ Partial Class FParts
         'BindingNavigatorCountItem
         '
         Me.BindingNavigatorCountItem.Name = "BindingNavigatorCountItem"
-        Me.BindingNavigatorCountItem.Size = New System.Drawing.Size(45, 7)
+        Me.BindingNavigatorCountItem.Size = New System.Drawing.Size(45, 30)
         Me.BindingNavigatorCountItem.Text = "of {0}"
         Me.BindingNavigatorCountItem.ToolTipText = "Total number of items"
         '
@@ -357,7 +357,7 @@ Partial Class FParts
         Me.BindingNavigatorMoveFirstItem.Image = CType(resources.GetObject("BindingNavigatorMoveFirstItem.Image"), System.Drawing.Image)
         Me.BindingNavigatorMoveFirstItem.Name = "BindingNavigatorMoveFirstItem"
         Me.BindingNavigatorMoveFirstItem.RightToLeftAutoMirrorImage = True
-        Me.BindingNavigatorMoveFirstItem.Size = New System.Drawing.Size(29, 7)
+        Me.BindingNavigatorMoveFirstItem.Size = New System.Drawing.Size(29, 30)
         Me.BindingNavigatorMoveFirstItem.Text = "Move first"
         '
         'BindingNavigatorMovePreviousItem
@@ -366,13 +366,13 @@ Partial Class FParts
         Me.BindingNavigatorMovePreviousItem.Image = CType(resources.GetObject("BindingNavigatorMovePreviousItem.Image"), System.Drawing.Image)
         Me.BindingNavigatorMovePreviousItem.Name = "BindingNavigatorMovePreviousItem"
         Me.BindingNavigatorMovePreviousItem.RightToLeftAutoMirrorImage = True
-        Me.BindingNavigatorMovePreviousItem.Size = New System.Drawing.Size(29, 7)
+        Me.BindingNavigatorMovePreviousItem.Size = New System.Drawing.Size(29, 30)
         Me.BindingNavigatorMovePreviousItem.Text = "Move previous"
         '
         'BindingNavigatorSeparator
         '
         Me.BindingNavigatorSeparator.Name = "BindingNavigatorSeparator"
-        Me.BindingNavigatorSeparator.Size = New System.Drawing.Size(6, 10)
+        Me.BindingNavigatorSeparator.Size = New System.Drawing.Size(6, 33)
         '
         'BindingNavigatorPositionItem
         '
@@ -387,7 +387,7 @@ Partial Class FParts
         'BindingNavigatorSeparator1
         '
         Me.BindingNavigatorSeparator1.Name = "BindingNavigatorSeparator1"
-        Me.BindingNavigatorSeparator1.Size = New System.Drawing.Size(6, 10)
+        Me.BindingNavigatorSeparator1.Size = New System.Drawing.Size(6, 33)
         '
         'BindingNavigatorMoveNextItem
         '
@@ -395,7 +395,7 @@ Partial Class FParts
         Me.BindingNavigatorMoveNextItem.Image = CType(resources.GetObject("BindingNavigatorMoveNextItem.Image"), System.Drawing.Image)
         Me.BindingNavigatorMoveNextItem.Name = "BindingNavigatorMoveNextItem"
         Me.BindingNavigatorMoveNextItem.RightToLeftAutoMirrorImage = True
-        Me.BindingNavigatorMoveNextItem.Size = New System.Drawing.Size(29, 7)
+        Me.BindingNavigatorMoveNextItem.Size = New System.Drawing.Size(29, 30)
         Me.BindingNavigatorMoveNextItem.Text = "Move next"
         '
         'BindingNavigatorMoveLastItem
@@ -404,13 +404,13 @@ Partial Class FParts
         Me.BindingNavigatorMoveLastItem.Image = CType(resources.GetObject("BindingNavigatorMoveLastItem.Image"), System.Drawing.Image)
         Me.BindingNavigatorMoveLastItem.Name = "BindingNavigatorMoveLastItem"
         Me.BindingNavigatorMoveLastItem.RightToLeftAutoMirrorImage = True
-        Me.BindingNavigatorMoveLastItem.Size = New System.Drawing.Size(29, 7)
+        Me.BindingNavigatorMoveLastItem.Size = New System.Drawing.Size(29, 30)
         Me.BindingNavigatorMoveLastItem.Text = "Move last"
         '
         'BindingNavigatorSeparator2
         '
         Me.BindingNavigatorSeparator2.Name = "BindingNavigatorSeparator2"
-        Me.BindingNavigatorSeparator2.Size = New System.Drawing.Size(6, 10)
+        Me.BindingNavigatorSeparator2.Size = New System.Drawing.Size(6, 33)
         '
         'FParts
         '
@@ -419,7 +419,7 @@ Partial Class FParts
         Me.ClientSize = New System.Drawing.Size(1747, 416)
         Me.Controls.Add(Me.TableLayoutPanel1)
         Me.Font = New System.Drawing.Font("Arial", 8.25!)
-        Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None
+        Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow
         Me.Name = "FParts"
         Me.Text = "Catálogo de Productos"
         Me.TableLayoutPanel1.ResumeLayout(False)

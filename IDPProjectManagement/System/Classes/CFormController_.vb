@@ -22,12 +22,12 @@ Public Class CFormController_
         End Set
     End Property
 
-    Private _parent_form As Form
-    Public Property parent_form() As Form
+    Private _parent_form As Object
+    Public Property parent_form() As Object
         Get
             Return _parent_form
         End Get
-        Set(ByVal value As Form)
+        Set(ByVal value As Object)
             _parent_form = value
         End Set
     End Property
@@ -210,7 +210,7 @@ Public Class CFormController_
 
         Dim oRetForm As Object = Nothing
 
-        Dim oMDIMainContainer As New MDIMainContainer(oRetForm)
+        Dim oMDIMainContainer As New MDIMainContainer()
 
         Dim oType As Type = Assembly.GetExecutingAssembly().GetType("IDPProjectManagement." & Me.form_name)
 

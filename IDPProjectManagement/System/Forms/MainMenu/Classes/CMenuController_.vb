@@ -83,7 +83,7 @@ Public Class CMenuController_
                             ' Call CApplication.SetCultureSettings()
 
                             Dim oFormToShow As Object = Nothing
-                            Dim oMDIMainContainer As New MDIMainContainer(oFormToShow)
+                            Dim oMDIMainContainer As New MDIMainContainer()
 
                             ' Retrieve form object from application into type.
                             Dim oType As Type = Assembly.GetExecutingAssembly().GetType("IDPProjectManagement." & sender.object_id)

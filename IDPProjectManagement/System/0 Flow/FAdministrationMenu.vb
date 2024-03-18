@@ -68,7 +68,7 @@ Public Class FAdministrationMenu
     End Sub
 
     Private Sub FParts_Click(sender As Object, e As EventArgs) Handles FParts.Click
-        ShowMeInMainContainer(sender.Name)
+        ShowMeInMainContainer(sender.Name, 2)
     End Sub
 
     Private Sub FWorkCenters_Click(sender As Object, e As EventArgs) Handles FWorkCenters.Click
