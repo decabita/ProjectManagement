@@ -854,6 +854,39 @@ Public Class FCatalogFormTemplate
 
             Case FormProcessType.Catalog
 
+                ' Shows the form selected from the main menu.
+
+                Dim oTableLayoutPanel As Object = oForm.Controls.Find("TableLayoutPanel1", True)
+
+                If oTableLayoutPanel IsNot Nothing Then
+
+                    With oTableLayoutPanel(0)
+
+                        For i = 0 To .RowStyles.Count
+
+                            Select Case i
+                                Case 0
+
+                                    .RowStyles.Item(i).SizeType = SizeType.Percent
+                                    .RowStyles.Item(i).Height = 20
+
+                                Case 1
+
+                                    .RowStyles.Item(i).SizeType = SizeType.Percent
+                                    .RowStyles.Item(i).Height = 75
+
+                                Case 2
+                                    .RowStyles.Item(i).SizeType = SizeType.Percent
+                                    .RowStyles.Item(i).Height = 5
+
+                            End Select
+
+                        Next
+
+                    End With
+                End If
+
+
                 With oForm
                     .ControlBox = False
                     .MaximizeBox = False
@@ -864,37 +897,44 @@ Public Class FCatalogFormTemplate
                     .FormBorderStyle = FormBorderStyle.None
                     .WindowState = FormWindowState.Maximized
 
-
                 End With
 
-                Dim oTableLayoutPanel As TableLayoutPanel = DirectCast(oForm, Form).Controls("TableLayoutPanel1")
+                Dim oTLPModeContainer As TableLayoutPanel = DirectCast(oForm, Form).Controls("TLPModeContainer")
 
-                With oTableLayoutPanel
+                oTLPModeContainer.RowStyles.Item(1).Height = 0
 
-                    For i = 0 To .RowStyles.Count
-
-                        Select Case i
-                            Case 0
-
-                                .RowStyles.Item(i).SizeType = SizeType.Percent
-                                .RowStyles.Item(i).Height = 30
-
-                            Case 1
-
-                                .RowStyles.Item(i).SizeType = SizeType.Percent
-                                .RowStyles.Item(i).Height = 70
-
-                            Case 2
-                                .RowStyles.Item(i).SizeType = SizeType.Percent
-                                .RowStyles.Item(i).Height = 5
-
-                        End Select
-
-                    Next
-
-                End With
 
             Case FormProcessType.Parent
+
+                Dim oTableLayoutPanel As Object = oForm.Controls.Find("TableLayoutPanel1", True)
+
+                If oTableLayoutPanel IsNot Nothing Then
+
+                    With oTableLayoutPanel(0)
+
+                        For i = 0 To .RowStyles.Count
+
+                            Select Case i
+                                Case 0
+
+                                    .RowStyles.Item(i).SizeType = SizeType.Percent
+                                    .RowStyles.Item(i).Height = 30
+
+                                Case 1
+
+                                    .RowStyles.Item(i).SizeType = SizeType.Percent
+                                    .RowStyles.Item(i).Height = 60
+
+                                Case 2
+                                    .RowStyles.Item(i).SizeType = SizeType.Percent
+                                    .RowStyles.Item(i).Height = 10
+
+                            End Select
+
+                        Next
+
+                    End With
+                End If
 
                 With oForm
                     .ControlBox = False
@@ -908,33 +948,88 @@ Public Class FCatalogFormTemplate
 
                 End With
 
+                Dim oTLPModeContainer As TableLayoutPanel = DirectCast(oForm, Form).Controls("TLPModeContainer")
+                oTLPModeContainer.RowStyles.Item(1).SizeType = SizeType.Percent
+                oTLPModeContainer.RowStyles.Item(1).Height = 50
 
-                Dim oTableLayoutPanel As TableLayoutPanel = DirectCast(oForm, Form).Controls("TableLayoutPanel1")
+            Case FormProcessType.Child
 
-                With oTableLayoutPanel
+                Dim oTableLayoutPanel As Object = oForm.Controls.Find("TableLayoutPanel1", True)
 
-                    For i = 0 To .RowStyles.Count
+                If oTableLayoutPanel IsNot Nothing Then
 
-                        Select Case i
-                            Case 0
+                    With oTableLayoutPanel(0)
 
-                                .RowStyles.Item(i).SizeType = SizeType.Percent
-                                .RowStyles.Item(i).Height = 30
+                        For i = 0 To .RowStyles.Count
 
-                            Case 1
+                            Select Case i
+                                Case 0
 
-                                .RowStyles.Item(i).SizeType = SizeType.Percent
-                                .RowStyles.Item(i).Height = 60
+                                    .RowStyles.Item(i).SizeType = SizeType.Percent
+                                    .RowStyles.Item(i).Height = 30
 
-                            Case 2
-                                .RowStyles.Item(i).SizeType = SizeType.Percent
-                                .RowStyles.Item(i).Height = 10
+                                Case 1
 
-                        End Select
+                                    .RowStyles.Item(i).SizeType = SizeType.Percent
+                                    .RowStyles.Item(i).Height = 60
 
-                    Next
+                                Case 2
+                                    .RowStyles.Item(i).SizeType = SizeType.Percent
+                                    .RowStyles.Item(i).Height = 10
+
+                            End Select
+
+                        Next
+
+                    End With
+                End If
+
+                With oForm
+                    .ControlBox = False
+                    .MaximizeBox = False
+                    .MinimizeBox = False
+                    .ShowIcon = False
+                    '.Dock = DockStyle.Fill
+                    .FormBorderStyle = FormBorderStyle.None
+                    '.WindowState = FormWindowState.Maximized
+                    .Size = New Size(1300, 400)
+
                 End With
 
+                Dim oTLPModeContainer As TableLayoutPanel = DirectCast(oForm, Form).Controls("TLPModeContainer")
+                oTLPModeContainer.RowStyles.Item(1).SizeType = SizeType.Percent
+                oTLPModeContainer.RowStyles.Item(1).Height = 50
+
+
+                ' Sets Form Location.
+                ' -----------------------------------------------------------------
+
+                Dim left As Integer = DirectCast(DirectCast(oForm.ParentForm, MDIMainContainer).oCFormController_.parent_form, FParts).Left
+
+                Dim top As Integer = DirectCast(DirectCast(oForm.ParentForm, MDIMainContainer).oCFormController_.parent_form, FParts).Top
+
+                Dim height As Integer = DirectCast(DirectCast(oForm.ParentForm, MDIMainContainer).oCFormController_.parent_form, FParts).Height
+
+
+                oForm.Location = New Point(left, top + height)
+
+
+                'Me.Location = New Point(DirectCast(Me.oFormController.parent_form, FProductos).Left, DirectCast(Me.oFormController.parent_form, FProductos).Top + DirectCast(Me.oFormController.parent_form, FProductos).Height)
+
+
+
+
+
+                'If Not CommandQuery() Then
+
+                '    Me.oFormController.child_form = Nothing
+                '    Me.Dispose()
+                '    DirectCast(Me.oFormController.parent_form, FProductos).Focus()
+                '    Exit Sub
+
+                'End If
+
+                'Me.oFormController.child_form = Me
 
         End Select
 

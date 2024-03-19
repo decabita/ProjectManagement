@@ -91,7 +91,7 @@ Public Class MDIMainContainer
 
             With Me
 
-                .DisplayMode = Me.oCFormController_.parent_form.DisplayMode
+                .DisplayMode = .oCFormController_.parent_form.DisplayMode
 
                 ' Sets info form bottom bar
 
@@ -105,6 +105,9 @@ Public Class MDIMainContainer
                 Select Case .DisplayMode
 
                     Case CApplication.FormProcessType.Catalog
+
+
+                        'oCFormController_.parent_form.TlPModeContainer.Controls.Item("PnlParentFormContainer").Controls.Add(.oCFormController_.parent_form)
 
                         '.TLPFormContainer.RowStyles.Item(1).Height = 0
 
@@ -123,7 +126,16 @@ Public Class MDIMainContainer
 
                 End Select
 
-                .oCFormController_.parent_form.Show()
+
+                Try
+                    .oCFormController_.parent_form.Show()
+                Catch ex As Exception
+
+                    MsgBox(ex.Message)
+
+                End Try
+
+
 
             End With
 

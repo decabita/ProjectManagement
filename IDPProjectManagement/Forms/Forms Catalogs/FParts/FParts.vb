@@ -56,7 +56,6 @@ Public Class FParts
         Call Me.CommandQuery()
 
     End Sub
-
     Private Sub BWorkerGetData_DoWork(ByVal sender As System.Object, ByVal e As System.ComponentModel.DoWorkEventArgs) Handles BWorkerGetData.DoWork
 
         Try
@@ -99,6 +98,7 @@ Public Class FParts
             ' Establece el formato de la barra de comandos.
             SetToolBarConfiguration(CApplication.ControlState.InitState)
 
+
         Catch ex As CustomException
 
             SetToolBarConfiguration(CApplication.ControlState.None)
@@ -111,11 +111,11 @@ Public Class FParts
         End Try
 
     End Sub
-    Private Sub DataGridView_DataError(ByVal sender As Object, ByVal e As System.Windows.Forms.DataGridViewDataErrorEventArgs) Handles DataGridView.DataError
+    Private Sub DataGridView_DataError(ByVal sender As Object, ByVal e As System.Windows.Forms.DataGridViewDataErrorEventArgs)
         Dim ex As Exception = e.Exception
     End Sub
 
-    Private Sub DataGridView_RowEnter(ByVal sender As Object, ByVal e As System.Windows.Forms.DataGridViewCellEventArgs) Handles DataGridView.RowEnter
+    Private Sub DataGridView_RowEnter(ByVal sender As Object, ByVal e As System.Windows.Forms.DataGridViewCellEventArgs)
 
         If Not CBool(CInt(Me.oBindingSource.Count)) Then Exit Sub
 
@@ -353,5 +353,46 @@ Public Class FParts
         Return True
 
     End Function
+
+    Private Sub TSBBom_Click(sender As Object, e As EventArgs) Handles TSBBom.Click
+
+        Try
+
+            If Not Me.oCFormController.child_form Is Nothing Then Throw New CustomException("El formulario ya estáa abierto.")
+
+            'If Not (Me.DataGridView.CurrentRow.Cells("tipo_id").Value.Equals("PT") Or
+            'Me.DataGridView.CurrentRow.Cells("tipo_id").Value.Equals("COM")) Then Throw New CustomException("Solo se puede especificar la lista a los productos terminados y compuestos.")
+
+            ' ----------------------------------------------------------
+            ' Create Child Form
+            ' ----------------------------------------------------------
+            Dim oFBomChild As FParts = New FParts
+
+            With oFBomChild
+
+                ' TODO REPORTS
+                Me.data_relation_name = oFBomChild.data_relation_name
+                .oCFormController = Me.oCFormController
+
+
+                .MdiParent = Me.ParentForm
+                .DisplayMode = CApplication.FormProcessType.Child
+                .Show()
+
+            End With
+
+        Catch ex As CustomException
+
+            MessageBox.Show(ex.Message, "Atención", MessageBoxButtons.OK, MessageBoxIcon.Information)
+
+        Catch ex As Exception
+
+            Me.oCFormController.child_form = Nothing
+            MessageBox.Show(ex.Message, "Atención", MessageBoxButtons.OK, MessageBoxIcon.Error)
+
+        End Try
+
+
+    End Sub
 
 End Class

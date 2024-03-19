@@ -202,15 +202,23 @@ Public Class CPart
 
     Public Shared Sub SetFormFormat(ByVal oForm As Form)
 
-        ' This should be called first, somehow the grid doesnt binds when set maximaxed
-        FCatalogFormTemplate.SetFormDisplayFormat(oForm)
+        Try
 
-        SetControlsBinding(oForm)
+            ' This should be called first, somehow the grid doesnt binds when set maximaxed
+            FCatalogFormTemplate.SetFormDisplayFormat(oForm)
 
-        ' Establece formato de los controles.
-        SetGridPropertiesFormat(oForm)
+            SetControlsBinding(oForm)
 
-        SetControlPropertiesFormat(oForm)
+            ' Establece formato de los controles.
+            SetGridPropertiesFormat(oForm)
+
+            SetControlPropertiesFormat(oForm)
+
+        Catch ex As Exception
+
+            Dim p As String = ex.Message
+
+        End Try
 
 
     End Sub
