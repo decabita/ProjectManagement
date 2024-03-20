@@ -48,10 +48,9 @@ Partial Class FLoginForm
         Me.Cancel.FlatAppearance.CheckedBackColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(255, Byte), Integer), CType(CType(192, Byte), Integer))
         Me.Cancel.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.Cancel.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Cancel.Location = New System.Drawing.Point(480, 400)
-        Me.Cancel.Margin = New System.Windows.Forms.Padding(4)
+        Me.Cancel.Location = New System.Drawing.Point(360, 325)
         Me.Cancel.Name = "Cancel"
-        Me.Cancel.Size = New System.Drawing.Size(115, 47)
+        Me.Cancel.Size = New System.Drawing.Size(86, 38)
         Me.Cancel.TabIndex = 319
         Me.Cancel.Text = "&Salir"
         '
@@ -61,10 +60,9 @@ Partial Class FLoginForm
         Me.lbCapsLockWarning.ForeColor = System.Drawing.Color.Red
         Me.lbCapsLockWarning.Image = Global.IDPProjectManagement.My.Resources.Resources.warning
         Me.lbCapsLockWarning.ImageAlign = System.Drawing.ContentAlignment.TopLeft
-        Me.lbCapsLockWarning.Location = New System.Drawing.Point(288, 464)
-        Me.lbCapsLockWarning.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
+        Me.lbCapsLockWarning.Location = New System.Drawing.Point(216, 377)
         Me.lbCapsLockWarning.Name = "lbCapsLockWarning"
-        Me.lbCapsLockWarning.Size = New System.Drawing.Size(248, 37)
+        Me.lbCapsLockWarning.Size = New System.Drawing.Size(186, 30)
         Me.lbCapsLockWarning.TabIndex = 24
         Me.lbCapsLockWarning.Text = "Bloq Mayúsculas Activado"
         Me.lbCapsLockWarning.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
@@ -74,20 +72,18 @@ Partial Class FLoginForm
         Me.cbWorkCenter.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cbWorkCenter.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.cbWorkCenter.FormattingEnabled = True
-        Me.cbWorkCenter.Location = New System.Drawing.Point(240, 344)
-        Me.cbWorkCenter.Margin = New System.Windows.Forms.Padding(4)
+        Me.cbWorkCenter.Location = New System.Drawing.Point(180, 280)
         Me.cbWorkCenter.Name = "cbWorkCenter"
-        Me.cbWorkCenter.Size = New System.Drawing.Size(356, 30)
+        Me.cbWorkCenter.Size = New System.Drawing.Size(268, 25)
         Me.cbWorkCenter.TabIndex = 29
         '
         'PlantaLabel
         '
         Me.PlantaLabel.AutoSize = True
         Me.PlantaLabel.Font = New System.Drawing.Font("Tahoma", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.PlantaLabel.Location = New System.Drawing.Point(167, 350)
-        Me.PlantaLabel.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
+        Me.PlantaLabel.Location = New System.Drawing.Point(125, 284)
         Me.PlantaLabel.Name = "PlantaLabel"
-        Me.PlantaLabel.Size = New System.Drawing.Size(65, 18)
+        Me.PlantaLabel.Size = New System.Drawing.Size(53, 14)
         Me.PlantaLabel.TabIndex = 32
         Me.PlantaLabel.Text = "Empresa"
         Me.PlantaLabel.TextAlign = System.Drawing.ContentAlignment.MiddleRight
@@ -98,10 +94,9 @@ Partial Class FLoginForm
         Me.bLogin.FlatAppearance.CheckedBackColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(255, Byte), Integer), CType(CType(192, Byte), Integer))
         Me.bLogin.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.bLogin.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.bLogin.Location = New System.Drawing.Point(240, 400)
-        Me.bLogin.Margin = New System.Windows.Forms.Padding(4)
+        Me.bLogin.Location = New System.Drawing.Point(180, 325)
         Me.bLogin.Name = "bLogin"
-        Me.bLogin.Size = New System.Drawing.Size(112, 47)
+        Me.bLogin.Size = New System.Drawing.Size(84, 38)
         Me.bLogin.TabIndex = 30
         Me.bLogin.Text = "&Entrar"
         '
@@ -109,11 +104,10 @@ Partial Class FLoginForm
         '
         Me.tPassword.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.tPassword.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.tPassword.Location = New System.Drawing.Point(240, 286)
-        Me.tPassword.Margin = New System.Windows.Forms.Padding(4)
+        Me.tPassword.Location = New System.Drawing.Point(180, 232)
         Me.tPassword.Name = "tPassword"
         Me.tPassword.PasswordChar = Global.Microsoft.VisualBasic.ChrW(42)
-        Me.tPassword.Size = New System.Drawing.Size(357, 28)
+        Me.tPassword.Size = New System.Drawing.Size(268, 24)
         Me.tPassword.TabIndex = 27
         Me.tPassword.Tag = "Contraseña"
         Me.tPassword.Text = "admin"
@@ -122,10 +116,9 @@ Partial Class FLoginForm
         '
         Me.tUsuarioId.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.tUsuarioId.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.tUsuarioId.Location = New System.Drawing.Point(240, 232)
-        Me.tUsuarioId.Margin = New System.Windows.Forms.Padding(4)
+        Me.tUsuarioId.Location = New System.Drawing.Point(180, 188)
         Me.tUsuarioId.Name = "tUsuarioId"
-        Me.tUsuarioId.Size = New System.Drawing.Size(357, 28)
+        Me.tUsuarioId.Size = New System.Drawing.Size(268, 24)
         Me.tUsuarioId.TabIndex = 25
         Me.tUsuarioId.Tag = "Usuario"
         Me.tUsuarioId.Text = "admin"
@@ -134,10 +127,9 @@ Partial Class FLoginForm
         '
         Me.PasswordLabel.AutoSize = True
         Me.PasswordLabel.Font = New System.Drawing.Font("Tahoma", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.PasswordLabel.Location = New System.Drawing.Point(150, 293)
-        Me.PasswordLabel.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
+        Me.PasswordLabel.Location = New System.Drawing.Point(112, 238)
         Me.PasswordLabel.Name = "PasswordLabel"
-        Me.PasswordLabel.Size = New System.Drawing.Size(82, 18)
+        Me.PasswordLabel.Size = New System.Drawing.Size(68, 14)
         Me.PasswordLabel.TabIndex = 28
         Me.PasswordLabel.Text = "Contraseña"
         Me.PasswordLabel.TextAlign = System.Drawing.ContentAlignment.MiddleRight
@@ -146,10 +138,9 @@ Partial Class FLoginForm
         '
         Me.UsernameLabel.AutoSize = True
         Me.UsernameLabel.Font = New System.Drawing.Font("Tahoma", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.UsernameLabel.Location = New System.Drawing.Point(176, 240)
-        Me.UsernameLabel.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
+        Me.UsernameLabel.Location = New System.Drawing.Point(132, 195)
         Me.UsernameLabel.Name = "UsernameLabel"
-        Me.UsernameLabel.Size = New System.Drawing.Size(56, 18)
+        Me.UsernameLabel.Size = New System.Drawing.Size(46, 14)
         Me.UsernameLabel.TabIndex = 26
         Me.UsernameLabel.Text = "Usuario"
         Me.UsernameLabel.TextAlign = System.Drawing.ContentAlignment.MiddleRight
@@ -160,10 +151,9 @@ Partial Class FLoginForm
         Me.Button1.FlatAppearance.CheckedBackColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(255, Byte), Integer), CType(CType(192, Byte), Integer))
         Me.Button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.Button1.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Button1.Location = New System.Drawing.Point(552, 16)
-        Me.Button1.Margin = New System.Windows.Forms.Padding(4)
+        Me.Button1.Location = New System.Drawing.Point(414, 13)
         Me.Button1.Name = "Button1"
-        Me.Button1.Size = New System.Drawing.Size(112, 47)
+        Me.Button1.Size = New System.Drawing.Size(84, 38)
         Me.Button1.TabIndex = 320
         Me.Button1.Text = "&Entrar"
         Me.Button1.Visible = False
@@ -173,21 +163,23 @@ Partial Class FLoginForm
         Me.PictureBox1.Dock = System.Windows.Forms.DockStyle.Top
         Me.PictureBox1.Image = Global.IDPProjectManagement.My.Resources.Resources.IDP_LOGO3
         Me.PictureBox1.Location = New System.Drawing.Point(0, 0)
+        Me.PictureBox1.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
         Me.PictureBox1.Name = "PictureBox1"
-        Me.PictureBox1.Size = New System.Drawing.Size(736, 192)
+        Me.PictureBox1.Size = New System.Drawing.Size(552, 156)
         Me.PictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
         Me.PictureBox1.TabIndex = 321
         Me.PictureBox1.TabStop = False
+        Me.PictureBox1.Visible = False
         '
         'FLoginForm
         '
         Me.AcceptButton = Me.bLogin
-        Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
+        Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.SystemColors.Window
         Me.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
         Me.CancelButton = Me.Cancel
-        Me.ClientSize = New System.Drawing.Size(736, 521)
+        Me.ClientSize = New System.Drawing.Size(552, 423)
         Me.Controls.Add(Me.PictureBox1)
         Me.Controls.Add(Me.Button1)
         Me.Controls.Add(Me.Cancel)
@@ -201,7 +193,6 @@ Partial Class FLoginForm
         Me.Controls.Add(Me.tUsuarioId)
         Me.DoubleBuffered = True
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle
-        Me.Margin = New System.Windows.Forms.Padding(4)
         Me.Name = "FLoginForm"
         Me.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Hide
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent

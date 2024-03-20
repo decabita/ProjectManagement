@@ -3353,6 +3353,129 @@ Friend Class CApplication
 
     End Sub
 
+    Public Shared Sub ClearFormControls(ByVal oForm As Object)
+
+
+        Try
+            For Each oCtrl As Control In oForm.Controls
+
+                If TypeOf oCtrl Is TextBox Then
+
+                    CType(oCtrl, TextBox).Clear()
+
+                ElseIf TypeOf oCtrl Is ComboBox Then
+
+                    CType(oCtrl, ComboBox).SelectedIndex = -1
+
+                ElseIf TypeOf oCtrl Is Label And oCtrl.Name.Equals("lbFolioAtlas") Then
+
+                    CType(oCtrl, Label).Text = String.Empty
+
+                ElseIf TypeOf oCtrl Is ToolStrip Then
+
+                    For Each itm As ToolStripItem In DirectCast(oCtrl, ToolStrip).Items
+
+                        If itm.Name.Equals("lbFolioSap") Or itm.Name.Equals("lbConsecutivoSap") Then
+                            itm.Text = String.Empty
+                        End If
+                    Next
+
+                ElseIf TypeOf oCtrl Is CheckBox Then
+
+                    CType(oCtrl, CheckBox).CheckState = CheckState.Unchecked
+
+                ElseIf TypeOf oCtrl Is DataGridView Then
+                    'CType(oCtrl, DataGridView).clea()
+                    CType(oCtrl, DataGridView).DataSource = Nothing
+
+                ElseIf TypeOf oCtrl Is PictureBox Then
+
+                    CType(oCtrl, PictureBox).Image = New Bitmap(Global.IDPProjectManagement.My.Resources.NoImage)
+
+                Else
+
+                    If oCtrl.Controls.Count > 0 Then
+                        If oCtrl.Name.Equals("TSDownDirectAcces") Then
+
+                        End If
+
+                        ClearFormControls(oCtrl)
+
+                    End If
+
+                End If
+
+            Next
+
+        Catch ex As Exception
+
+            MessageBox.Show(ex.Message, "Atención", MessageBoxButtons.OK, MessageBoxIcon.Information)
+
+        End Try
+
+    End Sub
+    Public Shared Sub ClearFormControlsBinding(ByVal oForm As Object)
+
+        Try
+
+            For Each oCtrl As Control In oForm.Controls
+
+                If TypeOf oCtrl Is TextBox Then
+
+                    CType(oCtrl, TextBox).DataBindings.Clear()
+
+                ElseIf TypeOf oCtrl Is ComboBox Then
+
+                    CType(oCtrl, ComboBox).DataBindings.Clear()
+
+                ElseIf TypeOf oCtrl Is DateTimePicker Then
+
+                    CType(oCtrl, DateTimePicker).DataBindings.Clear()
+
+                    ' TODO DATETIME
+                    CType(oCtrl, DateTimePicker).Format = DateTimePickerFormat.Custom
+                    CType(oCtrl, DateTimePicker).CustomFormat = " "
+
+
+                ElseIf TypeOf oCtrl Is CheckBox Then
+
+                    CType(oCtrl, CheckBox).DataBindings.Clear()
+
+                ElseIf TypeOf oCtrl Is BindingNavigator Then
+
+                    CType(oCtrl, BindingNavigator).DataBindings.Clear()
+
+                ElseIf TypeOf oCtrl Is DataGridView Then
+
+                    CType(oCtrl, DataGridView).DataSource = Nothing
+                    CType(oCtrl, DataGridView).Rows.Clear()
+                    '   CType(oCtrl, DataGridView).Columns.Clear()
+                Else
+
+                    If oCtrl.Controls.Count > 0 Then
+
+                        ClearFormControlsBinding(oCtrl)
+
+                    End If
+
+                End If
+
+            Next oCtrl
+
+            Dim oTableLayoutPanel As Object = oForm.Find("TableLayoutPanel1", True)
+
+            oForm.oDataSet = New DataSet
+
+            If Not oForm.oCollectionBSourceCombo Is Nothing Then oForm.oCollectionBSourceCombo.Clear()
+
+        Catch ex As Exception
+
+            MessageBox.Show(ex.Message, "Atención", MessageBoxButtons.OK, MessageBoxIcon.Error)
+
+        End Try
+
+    End Sub
+
     Public Shared Sub ClearControlsOnAddState(ByVal Page As Control)
 
         For Each oCtrl As Control In Page.Controls

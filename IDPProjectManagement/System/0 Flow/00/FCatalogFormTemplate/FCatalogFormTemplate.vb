@@ -676,9 +676,11 @@ Public Class FCatalogFormTemplate
         Try
 
             ' -------------------------------------------
-            ' Clear Binding.
+            ' Clear Controls And Binding.
             ' -------------------------------------------
-            Call CApplication.ClearControlBinding(Me)
+
+            CApplication.ClearControls(Me)
+            CApplication.ClearControlBinding(Me)
 
             Me.oDataSet = New DataSet
 
@@ -693,6 +695,35 @@ Public Class FCatalogFormTemplate
         End Try
 
         Return ClearControlsBinding
+
+    End Function
+    Protected Friend Overridable Function ClearFormControlsBinding() As Boolean Implements IFormCommandRules.ClearFormControlsBinding
+
+        Try
+
+            ' -------------------------------------------
+            ' Clear Controls And Binding.
+            ' -------------------------------------------
+
+            'CApplication.ClearControls(Me)
+            'CApplication.ClearControlBinding(Me)
+
+            CApplication.ClearFormControls(Me)
+            CApplication.ClearFormControlsBinding(Me)
+
+            'Me.oDataSet = New DataSet
+
+            'If Not Me.oCollectionBSourceCombo Is Nothing Then Me.oCollectionBSourceCombo.Clear()
+
+            ClearFormControlsBinding = True
+
+        Catch ex As Exception
+
+            MessageBox.Show(ex.Message, "Atención", MessageBoxButtons.OK, MessageBoxIcon.Error)
+
+        End Try
+
+        Return ClearControlsBinding()
 
     End Function
 

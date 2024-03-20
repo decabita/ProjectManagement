@@ -101,41 +101,15 @@ Public Class MDIMainContainer
                 .MDICurrentForm.Text = .oCFormController_.parent_form.Text
                 .MDIFormState.Text = CApplication.GetFormStateDescription(ControlStateDefinition.InitState)
 
-                ' Shows the form selected from the main menu.
-                Select Case .DisplayMode
-
-                    Case CApplication.FormProcessType.Catalog
-
-
-                        'oCFormController_.parent_form.TlPModeContainer.Controls.Item("PnlParentFormContainer").Controls.Add(.oCFormController_.parent_form)
-
-                        '.TLPFormContainer.RowStyles.Item(1).Height = 0
-
-                        '.TLPFormContainer.Controls.Item("PnlParentFormContainer").Controls.Add(.oCFormController_.parent_form)
-                        '.oCFormController_.parent_form.WindowState = FormWindowState.Maximized
-
-                    Case CApplication.FormProcessType.Parent
-
-                        '.TLPFormContainer.Controls.Item("PnlParentFormContainer").Controls.Add(.oCFormController_.parent_form)
-                        '.oCFormController_.parent_form.WindowState = FormWindowState.Maximized
-
-                    Case CApplication.FormProcessType.Child
-
-                        '.TLPFormContainer.Controls.Item("PnlChildFormContainer").Controls.Add(.oCFormController_.parent_form)
-                        .oCFormController_.parent_form.WindowState = FormWindowState.Maximized
-
-                End Select
-
-
                 Try
+
                     .oCFormController_.parent_form.Show()
+
                 Catch ex As Exception
 
                     MsgBox(ex.Message)
 
                 End Try
-
-
 
             End With
 

@@ -47,6 +47,7 @@ Public Interface IFormCommandRules
     Function SetControlsBinding() As Boolean
     Function SetControlsBindingOnNew() As Boolean
     Function ClearControlsBinding() As Boolean
+    Function ClearFormControlsBinding() As Boolean
     Function SetBindingSource() As Boolean
 
     Function SetBindingSource(ByRef oBindingSourceDummy As BindingSource) As Boolean

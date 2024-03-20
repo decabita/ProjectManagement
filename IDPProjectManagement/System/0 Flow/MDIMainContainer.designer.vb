@@ -83,7 +83,7 @@ Partial Class MDIMainContainer
         Me.MDIWorkCenter.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text
         Me.MDIWorkCenter.Font = New System.Drawing.Font("Arial", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.MDIWorkCenter.Name = "MDIWorkCenter"
-        Me.MDIWorkCenter.Size = New System.Drawing.Size(100, 20)
+        Me.MDIWorkCenter.Size = New System.Drawing.Size(100, 21)
         Me.MDIWorkCenter.Text = "Wok Center"
         Me.MDIWorkCenter.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         '
@@ -97,7 +97,7 @@ Partial Class MDIMainContainer
         Me.MDIUser.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text
         Me.MDIUser.Font = New System.Drawing.Font("Arial", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.MDIUser.Name = "MDIUser"
-        Me.MDIUser.Size = New System.Drawing.Size(100, 20)
+        Me.MDIUser.Size = New System.Drawing.Size(100, 21)
         Me.MDIUser.Text = "User"
         '
         'MDICurrentForm
@@ -109,7 +109,7 @@ Partial Class MDIMainContainer
         Me.MDICurrentForm.BorderStyle = System.Windows.Forms.Border3DStyle.SunkenInner
         Me.MDICurrentForm.Font = New System.Drawing.Font("Arial", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.MDICurrentForm.Name = "MDICurrentForm"
-        Me.MDICurrentForm.Size = New System.Drawing.Size(300, 20)
+        Me.MDICurrentForm.Size = New System.Drawing.Size(300, 21)
         Me.MDICurrentForm.Text = "Current Form"
         '
         'MDIFormState
@@ -121,7 +121,7 @@ Partial Class MDIMainContainer
         Me.MDIFormState.BorderStyle = System.Windows.Forms.Border3DStyle.SunkenInner
         Me.MDIFormState.Font = New System.Drawing.Font("Arial", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.MDIFormState.Name = "MDIFormState"
-        Me.MDIFormState.Size = New System.Drawing.Size(100, 20)
+        Me.MDIFormState.Size = New System.Drawing.Size(100, 21)
         Me.MDIFormState.Text = "Form State"
         '
         'MDIEnvironment
@@ -133,7 +133,7 @@ Partial Class MDIMainContainer
         Me.MDIEnvironment.BorderStyle = System.Windows.Forms.Border3DStyle.SunkenInner
         Me.MDIEnvironment.Font = New System.Drawing.Font("Arial", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.MDIEnvironment.Name = "MDIEnvironment"
-        Me.MDIEnvironment.Size = New System.Drawing.Size(100, 20)
+        Me.MDIEnvironment.Size = New System.Drawing.Size(100, 21)
         Me.MDIEnvironment.Text = "Environment"
         '
         'TLPStatusStrip
@@ -167,7 +167,7 @@ Partial Class MDIMainContainer
         Me.ToolStripMDI.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.TSBQuery, Me.TSBNew, Me.TSBEdit, Me.TSBSave, Me.TSBDelete, Me.TSBCancel, Me.ToolStripSeparator6, Me.TSBFind, Me.TSBExecFind, Me.TSBDirectAccess, Me.ToolStripSeparator1, Me.TSBExportToExcel, Me.ToolStripSeparator8, Me.TSBExit})
         Me.ToolStripMDI.Location = New System.Drawing.Point(0, 0)
         Me.ToolStripMDI.Name = "ToolStripMDI"
-        Me.ToolStripMDI.Size = New System.Drawing.Size(488, 27)
+        Me.ToolStripMDI.Size = New System.Drawing.Size(436, 27)
         Me.ToolStripMDI.TabIndex = 0
         Me.ToolStripMDI.TabStop = True
         Me.ToolStripMDI.Text = "ToolStrip1"
@@ -178,7 +178,7 @@ Partial Class MDIMainContainer
         Me.TSBQuery.Image = Global.IDPProjectManagement.My.Resources.Resources.SearchCommand
         Me.TSBQuery.ImageTransparentColor = System.Drawing.Color.Magenta
         Me.TSBQuery.Name = "TSBQuery"
-        Me.TSBQuery.Size = New System.Drawing.Size(87, 24)
+        Me.TSBQuery.Size = New System.Drawing.Size(77, 24)
         Me.TSBQuery.Text = "&Consulta"
         Me.TSBQuery.ToolTipText = "Consulta - F7"
         '
@@ -188,7 +188,7 @@ Partial Class MDIMainContainer
         Me.TSBNew.Image = Global.IDPProjectManagement.My.Resources.Resources.NewCommand
         Me.TSBNew.ImageTransparentColor = System.Drawing.Color.Magenta
         Me.TSBNew.Name = "TSBNew"
-        Me.TSBNew.Size = New System.Drawing.Size(74, 24)
+        Me.TSBNew.Size = New System.Drawing.Size(66, 24)
         Me.TSBNew.Text = "Nue&vo"
         Me.TSBNew.ToolTipText = "Nuevo - F5"
         '
@@ -198,7 +198,7 @@ Partial Class MDIMainContainer
         Me.TSBEdit.Image = Global.IDPProjectManagement.My.Resources.Resources.EditCommand
         Me.TSBEdit.ImageTransparentColor = System.Drawing.Color.Magenta
         Me.TSBEdit.Name = "TSBEdit"
-        Me.TSBEdit.Size = New System.Drawing.Size(68, 24)
+        Me.TSBEdit.Size = New System.Drawing.Size(62, 24)
         Me.TSBEdit.Text = "&Editar"
         Me.TSBEdit.ToolTipText = "Editar - F6"
         '
@@ -208,7 +208,7 @@ Partial Class MDIMainContainer
         Me.TSBSave.Image = Global.IDPProjectManagement.My.Resources.Resources.SaveCommand
         Me.TSBSave.ImageTransparentColor = System.Drawing.Color.Magenta
         Me.TSBSave.Name = "TSBSave"
-        Me.TSBSave.Size = New System.Drawing.Size(84, 24)
+        Me.TSBSave.Size = New System.Drawing.Size(73, 24)
         Me.TSBSave.Text = "&Guardar"
         Me.TSBSave.ToolTipText = "Guardar - F8"
         '
@@ -218,7 +218,7 @@ Partial Class MDIMainContainer
         Me.TSBDelete.Image = Global.IDPProjectManagement.My.Resources.Resources.Inactive
         Me.TSBDelete.ImageTransparentColor = System.Drawing.Color.Magenta
         Me.TSBDelete.Name = "TSBDelete"
-        Me.TSBDelete.Size = New System.Drawing.Size(100, 24)
+        Me.TSBDelete.Size = New System.Drawing.Size(86, 24)
         Me.TSBDelete.Text = "Desac&tivar"
         Me.TSBDelete.ToolTipText = "Desactivar - F2"
         Me.TSBDelete.Visible = False
@@ -229,7 +229,7 @@ Partial Class MDIMainContainer
         Me.TSBCancel.Image = CType(resources.GetObject("TSBCancel.Image"), System.Drawing.Image)
         Me.TSBCancel.ImageTransparentColor = System.Drawing.Color.Magenta
         Me.TSBCancel.Name = "TSBCancel"
-        Me.TSBCancel.Size = New System.Drawing.Size(87, 24)
+        Me.TSBCancel.Size = New System.Drawing.Size(76, 24)
         Me.TSBCancel.Text = "Ca&ncelar"
         Me.TSBCancel.ToolTipText = "Cancelar - F12"
         '
@@ -245,7 +245,7 @@ Partial Class MDIMainContainer
         Me.TSBFind.ImageAlign = System.Drawing.ContentAlignment.BottomCenter
         Me.TSBFind.ImageTransparentColor = System.Drawing.Color.Magenta
         Me.TSBFind.Name = "TSBFind"
-        Me.TSBFind.Size = New System.Drawing.Size(76, 24)
+        Me.TSBFind.Size = New System.Drawing.Size(66, 24)
         Me.TSBFind.Text = "Buscar"
         Me.TSBFind.Visible = False
         '
@@ -255,7 +255,7 @@ Partial Class MDIMainContainer
         Me.TSBExecFind.Image = Global.IDPProjectManagement.My.Resources.Resources.FilterExecCommand
         Me.TSBExecFind.ImageTransparentColor = System.Drawing.Color.Magenta
         Me.TSBExecFind.Name = "TSBExecFind"
-        Me.TSBExecFind.Size = New System.Drawing.Size(154, 24)
+        Me.TSBExecFind.Size = New System.Drawing.Size(133, 24)
         Me.TSBExecFind.Text = "Ejecutar Busqueda"
         Me.TSBExecFind.Visible = False
         '
@@ -266,7 +266,7 @@ Partial Class MDIMainContainer
         Me.TSBDirectAccess.ImageAlign = System.Drawing.ContentAlignment.BottomCenter
         Me.TSBDirectAccess.ImageTransparentColor = System.Drawing.Color.Magenta
         Me.TSBDirectAccess.Name = "TSBDirectAccess"
-        Me.TSBDirectAccess.Size = New System.Drawing.Size(133, 24)
+        Me.TSBDirectAccess.Size = New System.Drawing.Size(117, 24)
         Me.TSBDirectAccess.Text = "A&cceso Directo "
         Me.TSBDirectAccess.ToolTipText = "Acceso Directo - F9"
         Me.TSBDirectAccess.Visible = False
@@ -284,7 +284,7 @@ Partial Class MDIMainContainer
         Me.TSBExportToExcel.ImageAlign = System.Drawing.ContentAlignment.BottomCenter
         Me.TSBExportToExcel.ImageTransparentColor = System.Drawing.Color.Magenta
         Me.TSBExportToExcel.Name = "TSBExportToExcel"
-        Me.TSBExportToExcel.Size = New System.Drawing.Size(138, 24)
+        Me.TSBExportToExcel.Size = New System.Drawing.Size(119, 24)
         Me.TSBExportToExcel.Text = "E&xportar a Excel"
         Me.TSBExportToExcel.Visible = False
         '
@@ -299,7 +299,7 @@ Partial Class MDIMainContainer
         Me.TSBExit.Image = Global.IDPProjectManagement.My.Resources.Resources.ExitCommand
         Me.TSBExit.ImageTransparentColor = System.Drawing.Color.Magenta
         Me.TSBExit.Name = "TSBExit"
-        Me.TSBExit.Size = New System.Drawing.Size(57, 24)
+        Me.TSBExit.Size = New System.Drawing.Size(52, 24)
         Me.TSBExit.Text = "&Salir"
         Me.TSBExit.ToolTipText = "Salir - F3"
         '
@@ -326,7 +326,7 @@ Partial Class MDIMainContainer
         Me.MenuStrip2.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ToolStripMenuItem1, Me.ToolStripMenuItem2})
         Me.MenuStrip2.Location = New System.Drawing.Point(2, 2)
         Me.MenuStrip2.Name = "MenuStrip2"
-        Me.MenuStrip2.Size = New System.Drawing.Size(166, 26)
+        Me.MenuStrip2.Size = New System.Drawing.Size(141, 26)
         Me.MenuStrip2.TabIndex = 11
         Me.MenuStrip2.Text = "MenuStrip2"
         '
@@ -335,27 +335,27 @@ Partial Class MDIMainContainer
         Me.ToolStripMenuItem1.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.SalirToolStripMenuItem})
         Me.ToolStripMenuItem1.Image = CType(resources.GetObject("ToolStripMenuItem1.Image"), System.Drawing.Image)
         Me.ToolStripMenuItem1.Name = "ToolStripMenuItem1"
-        Me.ToolStripMenuItem1.Size = New System.Drawing.Size(93, 22)
+        Me.ToolStripMenuItem1.Size = New System.Drawing.Size(80, 22)
         Me.ToolStripMenuItem1.Text = "&Archivo"
         '
         'SalirToolStripMenuItem
         '
         Me.SalirToolStripMenuItem.Image = Global.IDPProjectManagement.My.Resources.Resources.ExitCommand
         Me.SalirToolStripMenuItem.Name = "SalirToolStripMenuItem"
-        Me.SalirToolStripMenuItem.Size = New System.Drawing.Size(121, 26)
+        Me.SalirToolStripMenuItem.Size = New System.Drawing.Size(96, 22)
         Me.SalirToolStripMenuItem.Text = "Salir"
         '
         'ToolStripMenuItem2
         '
         Me.ToolStripMenuItem2.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.AcercaDeAtlasToolStripMenuItem})
         Me.ToolStripMenuItem2.Name = "ToolStripMenuItem2"
-        Me.ToolStripMenuItem2.Size = New System.Drawing.Size(65, 22)
+        Me.ToolStripMenuItem2.Size = New System.Drawing.Size(53, 22)
         Me.ToolStripMenuItem2.Text = "Ayuda"
         '
         'AcercaDeAtlasToolStripMenuItem
         '
         Me.AcercaDeAtlasToolStripMenuItem.Name = "AcercaDeAtlasToolStripMenuItem"
-        Me.AcercaDeAtlasToolStripMenuItem.Size = New System.Drawing.Size(137, 26)
+        Me.AcercaDeAtlasToolStripMenuItem.Size = New System.Drawing.Size(110, 22)
         Me.AcercaDeAtlasToolStripMenuItem.Text = "Acerca"
         '
         'MDIMainContainer

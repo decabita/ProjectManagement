@@ -23,26 +23,12 @@ Partial Class FParts
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
+        Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(FParts))
-        Dim DataGridViewCellStyle5 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Me.BWorkerGetData = New System.ComponentModel.BackgroundWorker()
         Me.TLPModeContainer = New System.Windows.Forms.TableLayoutPanel()
         Me.PnlParentFormContainer = New System.Windows.Forms.Panel()
         Me.TableLayoutPanel1 = New System.Windows.Forms.TableLayoutPanel()
-        Me.PnlGridContainer = New System.Windows.Forms.Panel()
-        Me.TLPBottomDAccessContainer = New System.Windows.Forms.TableLayoutPanel()
-        Me.BindingNavigator = New System.Windows.Forms.BindingNavigator(Me.components)
-        Me.BindingNavigatorCountItem = New System.Windows.Forms.ToolStripLabel()
-        Me.BindingNavigatorMoveFirstItem = New System.Windows.Forms.ToolStripButton()
-        Me.BindingNavigatorMovePreviousItem = New System.Windows.Forms.ToolStripButton()
-        Me.BindingNavigatorSeparator = New System.Windows.Forms.ToolStripSeparator()
-        Me.BindingNavigatorPositionItem = New System.Windows.Forms.ToolStripTextBox()
-        Me.BindingNavigatorSeparator1 = New System.Windows.Forms.ToolStripSeparator()
-        Me.BindingNavigatorMoveNextItem = New System.Windows.Forms.ToolStripButton()
-        Me.BindingNavigatorMoveLastItem = New System.Windows.Forms.ToolStripButton()
-        Me.BindingNavigatorSeparator2 = New System.Windows.Forms.ToolStripSeparator()
-        Me.PnlChildFormContainer = New System.Windows.Forms.Panel()
-        Me.DataGridView = New System.Windows.Forms.DataGridView()
         Me.PnlUpperDataContainer = New System.Windows.Forms.Panel()
         Me.TLPFormUpperData = New System.Windows.Forms.TableLayoutPanel()
         Me.PnlDataContainerLeft = New System.Windows.Forms.Panel()
@@ -58,23 +44,36 @@ Partial Class FParts
         Me.tDescripcion = New System.Windows.Forms.TextBox()
         Me.Label2 = New System.Windows.Forms.Label()
         Me.ckActivo = New System.Windows.Forms.CheckBox()
-        Me.TSBBom = New System.Windows.Forms.ToolStripButton()
+        Me.PnlGridContainer = New System.Windows.Forms.Panel()
+        Me.DataGridView = New System.Windows.Forms.DataGridView()
+        Me.TLPBottomDAccessContainer = New System.Windows.Forms.TableLayoutPanel()
         Me.TSDownDirectAcces = New System.Windows.Forms.ToolStrip()
+        Me.TSBBom = New System.Windows.Forms.ToolStripButton()
+        Me.BindingNavigator = New System.Windows.Forms.BindingNavigator(Me.components)
+        Me.BindingNavigatorCountItem = New System.Windows.Forms.ToolStripLabel()
+        Me.BindingNavigatorMoveFirstItem = New System.Windows.Forms.ToolStripButton()
+        Me.BindingNavigatorMovePreviousItem = New System.Windows.Forms.ToolStripButton()
+        Me.BindingNavigatorSeparator = New System.Windows.Forms.ToolStripSeparator()
+        Me.BindingNavigatorPositionItem = New System.Windows.Forms.ToolStripTextBox()
+        Me.BindingNavigatorSeparator1 = New System.Windows.Forms.ToolStripSeparator()
+        Me.BindingNavigatorMoveNextItem = New System.Windows.Forms.ToolStripButton()
+        Me.BindingNavigatorMoveLastItem = New System.Windows.Forms.ToolStripButton()
+        Me.BindingNavigatorSeparator2 = New System.Windows.Forms.ToolStripSeparator()
         Me.TLPModeContainer.SuspendLayout()
         Me.PnlParentFormContainer.SuspendLayout()
         Me.TableLayoutPanel1.SuspendLayout()
-        Me.PnlGridContainer.SuspendLayout()
-        Me.TLPBottomDAccessContainer.SuspendLayout()
-        CType(Me.BindingNavigator, System.ComponentModel.ISupportInitialize).BeginInit()
-        Me.BindingNavigator.SuspendLayout()
-        CType(Me.DataGridView, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.PnlUpperDataContainer.SuspendLayout()
         Me.TLPFormUpperData.SuspendLayout()
         Me.PnlDataContainerLeft.SuspendLayout()
         Me.PnlDataContainerRight.SuspendLayout()
         Me.TCAdditionalData.SuspendLayout()
         Me.TPExtras.SuspendLayout()
+        Me.PnlGridContainer.SuspendLayout()
+        CType(Me.DataGridView, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.TLPBottomDAccessContainer.SuspendLayout()
         Me.TSDownDirectAcces.SuspendLayout()
+        CType(Me.BindingNavigator, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.BindingNavigator.SuspendLayout()
         Me.SuspendLayout()
         '
         'BWorkerGetData
@@ -83,16 +82,15 @@ Partial Class FParts
         'TLPModeContainer
         '
         Me.TLPModeContainer.ColumnCount = 1
-        Me.TLPModeContainer.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50.0!))
+        Me.TLPModeContainer.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
         Me.TLPModeContainer.Controls.Add(Me.PnlParentFormContainer, 0, 0)
-        Me.TLPModeContainer.Controls.Add(Me.PnlChildFormContainer, 0, 1)
         Me.TLPModeContainer.Dock = System.Windows.Forms.DockStyle.Fill
         Me.TLPModeContainer.Location = New System.Drawing.Point(0, 0)
         Me.TLPModeContainer.Name = "TLPModeContainer"
-        Me.TLPModeContainer.RowCount = 2
-        Me.TLPModeContainer.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50.0!))
-        Me.TLPModeContainer.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50.0!))
-        Me.TLPModeContainer.Size = New System.Drawing.Size(1581, 862)
+        Me.TLPModeContainer.RowCount = 1
+        Me.TLPModeContainer.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
+        Me.TLPModeContainer.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
+        Me.TLPModeContainer.Size = New System.Drawing.Size(1581, 449)
         Me.TLPModeContainer.TabIndex = 0
         '
         'PnlParentFormContainer
@@ -102,7 +100,7 @@ Partial Class FParts
         Me.PnlParentFormContainer.Dock = System.Windows.Forms.DockStyle.Fill
         Me.PnlParentFormContainer.Location = New System.Drawing.Point(3, 3)
         Me.PnlParentFormContainer.Name = "PnlParentFormContainer"
-        Me.PnlParentFormContainer.Size = New System.Drawing.Size(1575, 425)
+        Me.PnlParentFormContainer.Size = New System.Drawing.Size(1575, 443)
         Me.PnlParentFormContainer.TabIndex = 0
         '
         'TableLayoutPanel1
@@ -120,154 +118,8 @@ Partial Class FParts
         Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 60.0!))
         Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 10.0!))
         Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
-        Me.TableLayoutPanel1.Size = New System.Drawing.Size(1575, 425)
+        Me.TableLayoutPanel1.Size = New System.Drawing.Size(1575, 443)
         Me.TableLayoutPanel1.TabIndex = 7
-        '
-        'PnlGridContainer
-        '
-        Me.PnlGridContainer.Controls.Add(Me.DataGridView)
-        Me.PnlGridContainer.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.PnlGridContainer.Location = New System.Drawing.Point(1, 128)
-        Me.PnlGridContainer.Margin = New System.Windows.Forms.Padding(1)
-        Me.PnlGridContainer.Name = "PnlGridContainer"
-        Me.PnlGridContainer.Size = New System.Drawing.Size(1573, 253)
-        Me.PnlGridContainer.TabIndex = 1
-        '
-        'TLPBottomDAccessContainer
-        '
-        Me.TLPBottomDAccessContainer.BackColor = System.Drawing.Color.Orange
-        Me.TLPBottomDAccessContainer.CellBorderStyle = System.Windows.Forms.TableLayoutPanelCellBorderStyle.Inset
-        Me.TLPBottomDAccessContainer.ColumnCount = 2
-        Me.TLPBottomDAccessContainer.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 72.98245!))
-        Me.TLPBottomDAccessContainer.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 27.01754!))
-        Me.TLPBottomDAccessContainer.Controls.Add(Me.TSDownDirectAcces, 0, 0)
-        Me.TLPBottomDAccessContainer.Controls.Add(Me.BindingNavigator, 1, 0)
-        Me.TLPBottomDAccessContainer.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.TLPBottomDAccessContainer.Location = New System.Drawing.Point(1, 383)
-        Me.TLPBottomDAccessContainer.Margin = New System.Windows.Forms.Padding(1)
-        Me.TLPBottomDAccessContainer.Name = "TLPBottomDAccessContainer"
-        Me.TLPBottomDAccessContainer.RowCount = 1
-        Me.TLPBottomDAccessContainer.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50.0!))
-        Me.TLPBottomDAccessContainer.Size = New System.Drawing.Size(1573, 41)
-        Me.TLPBottomDAccessContainer.TabIndex = 2
-        '
-        'BindingNavigator
-        '
-        Me.BindingNavigator.AddNewItem = Nothing
-        Me.BindingNavigator.AutoSize = False
-        Me.BindingNavigator.BackColor = System.Drawing.SystemColors.Control
-        Me.BindingNavigator.CountItem = Me.BindingNavigatorCountItem
-        Me.BindingNavigator.DeleteItem = Nothing
-        Me.BindingNavigator.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.BindingNavigator.ImageScalingSize = New System.Drawing.Size(20, 20)
-        Me.BindingNavigator.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.BindingNavigatorMoveFirstItem, Me.BindingNavigatorMovePreviousItem, Me.BindingNavigatorSeparator, Me.BindingNavigatorPositionItem, Me.BindingNavigatorCountItem, Me.BindingNavigatorSeparator1, Me.BindingNavigatorMoveNextItem, Me.BindingNavigatorMoveLastItem, Me.BindingNavigatorSeparator2})
-        Me.BindingNavigator.Location = New System.Drawing.Point(1147, 2)
-        Me.BindingNavigator.MoveFirstItem = Me.BindingNavigatorMoveFirstItem
-        Me.BindingNavigator.MoveLastItem = Me.BindingNavigatorMoveLastItem
-        Me.BindingNavigator.MoveNextItem = Me.BindingNavigatorMoveNextItem
-        Me.BindingNavigator.MovePreviousItem = Me.BindingNavigatorMovePreviousItem
-        Me.BindingNavigator.Name = "BindingNavigator"
-        Me.BindingNavigator.PositionItem = Me.BindingNavigatorPositionItem
-        Me.BindingNavigator.Size = New System.Drawing.Size(424, 37)
-        Me.BindingNavigator.TabIndex = 7
-        Me.BindingNavigator.TabStop = True
-        Me.BindingNavigator.Text = "BindingNavigator1"
-        '
-        'BindingNavigatorCountItem
-        '
-        Me.BindingNavigatorCountItem.Name = "BindingNavigatorCountItem"
-        Me.BindingNavigatorCountItem.Size = New System.Drawing.Size(45, 34)
-        Me.BindingNavigatorCountItem.Text = "of {0}"
-        Me.BindingNavigatorCountItem.ToolTipText = "Total number of items"
-        '
-        'BindingNavigatorMoveFirstItem
-        '
-        Me.BindingNavigatorMoveFirstItem.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
-        Me.BindingNavigatorMoveFirstItem.Image = CType(resources.GetObject("BindingNavigatorMoveFirstItem.Image"), System.Drawing.Image)
-        Me.BindingNavigatorMoveFirstItem.Name = "BindingNavigatorMoveFirstItem"
-        Me.BindingNavigatorMoveFirstItem.RightToLeftAutoMirrorImage = True
-        Me.BindingNavigatorMoveFirstItem.Size = New System.Drawing.Size(29, 34)
-        Me.BindingNavigatorMoveFirstItem.Text = "Move first"
-        '
-        'BindingNavigatorMovePreviousItem
-        '
-        Me.BindingNavigatorMovePreviousItem.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
-        Me.BindingNavigatorMovePreviousItem.Image = CType(resources.GetObject("BindingNavigatorMovePreviousItem.Image"), System.Drawing.Image)
-        Me.BindingNavigatorMovePreviousItem.Name = "BindingNavigatorMovePreviousItem"
-        Me.BindingNavigatorMovePreviousItem.RightToLeftAutoMirrorImage = True
-        Me.BindingNavigatorMovePreviousItem.Size = New System.Drawing.Size(29, 34)
-        Me.BindingNavigatorMovePreviousItem.Text = "Move previous"
-        '
-        'BindingNavigatorSeparator
-        '
-        Me.BindingNavigatorSeparator.Name = "BindingNavigatorSeparator"
-        Me.BindingNavigatorSeparator.Size = New System.Drawing.Size(6, 37)
-        '
-        'BindingNavigatorPositionItem
-        '
-        Me.BindingNavigatorPositionItem.AccessibleName = "Position"
-        Me.BindingNavigatorPositionItem.AutoSize = False
-        Me.BindingNavigatorPositionItem.Font = New System.Drawing.Font("Segoe UI", 9.0!)
-        Me.BindingNavigatorPositionItem.Name = "BindingNavigatorPositionItem"
-        Me.BindingNavigatorPositionItem.Size = New System.Drawing.Size(50, 21)
-        Me.BindingNavigatorPositionItem.Text = "0"
-        Me.BindingNavigatorPositionItem.ToolTipText = "Current position"
-        '
-        'BindingNavigatorSeparator1
-        '
-        Me.BindingNavigatorSeparator1.Name = "BindingNavigatorSeparator1"
-        Me.BindingNavigatorSeparator1.Size = New System.Drawing.Size(6, 37)
-        '
-        'BindingNavigatorMoveNextItem
-        '
-        Me.BindingNavigatorMoveNextItem.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
-        Me.BindingNavigatorMoveNextItem.Image = CType(resources.GetObject("BindingNavigatorMoveNextItem.Image"), System.Drawing.Image)
-        Me.BindingNavigatorMoveNextItem.Name = "BindingNavigatorMoveNextItem"
-        Me.BindingNavigatorMoveNextItem.RightToLeftAutoMirrorImage = True
-        Me.BindingNavigatorMoveNextItem.Size = New System.Drawing.Size(29, 34)
-        Me.BindingNavigatorMoveNextItem.Text = "Move next"
-        '
-        'BindingNavigatorMoveLastItem
-        '
-        Me.BindingNavigatorMoveLastItem.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
-        Me.BindingNavigatorMoveLastItem.Image = CType(resources.GetObject("BindingNavigatorMoveLastItem.Image"), System.Drawing.Image)
-        Me.BindingNavigatorMoveLastItem.Name = "BindingNavigatorMoveLastItem"
-        Me.BindingNavigatorMoveLastItem.RightToLeftAutoMirrorImage = True
-        Me.BindingNavigatorMoveLastItem.Size = New System.Drawing.Size(29, 34)
-        Me.BindingNavigatorMoveLastItem.Text = "Move last"
-        '
-        'BindingNavigatorSeparator2
-        '
-        Me.BindingNavigatorSeparator2.Name = "BindingNavigatorSeparator2"
-        Me.BindingNavigatorSeparator2.Size = New System.Drawing.Size(6, 37)
-        '
-        'PnlChildFormContainer
-        '
-        Me.PnlChildFormContainer.BackColor = System.Drawing.SystemColors.MenuHighlight
-        Me.PnlChildFormContainer.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.PnlChildFormContainer.Location = New System.Drawing.Point(1, 432)
-        Me.PnlChildFormContainer.Margin = New System.Windows.Forms.Padding(1)
-        Me.PnlChildFormContainer.Name = "PnlChildFormContainer"
-        Me.PnlChildFormContainer.Size = New System.Drawing.Size(1579, 429)
-        Me.PnlChildFormContainer.TabIndex = 1
-        '
-        'DataGridView
-        '
-        Me.DataGridView.AllowUserToAddRows = False
-        Me.DataGridView.AllowUserToDeleteRows = False
-        DataGridViewCellStyle5.BackColor = System.Drawing.Color.LightBlue
-        Me.DataGridView.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle5
-        Me.DataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.DataGridView.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.DataGridView.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically
-        Me.DataGridView.Location = New System.Drawing.Point(0, 0)
-        Me.DataGridView.MultiSelect = False
-        Me.DataGridView.Name = "DataGridView"
-        Me.DataGridView.ReadOnly = True
-        Me.DataGridView.RowHeadersWidth = 51
-        Me.DataGridView.Size = New System.Drawing.Size(1573, 253)
-        Me.DataGridView.TabIndex = 6
-        Me.DataGridView.Tag = "Grid"
         '
         'PnlUpperDataContainer
         '
@@ -277,7 +129,7 @@ Partial Class FParts
         Me.PnlUpperDataContainer.Location = New System.Drawing.Point(1, 1)
         Me.PnlUpperDataContainer.Margin = New System.Windows.Forms.Padding(1)
         Me.PnlUpperDataContainer.Name = "PnlUpperDataContainer"
-        Me.PnlUpperDataContainer.Size = New System.Drawing.Size(1573, 125)
+        Me.PnlUpperDataContainer.Size = New System.Drawing.Size(1573, 130)
         Me.PnlUpperDataContainer.TabIndex = 0
         '
         'TLPFormUpperData
@@ -293,9 +145,9 @@ Partial Class FParts
         Me.TLPFormUpperData.Name = "TLPFormUpperData"
         Me.TLPFormUpperData.RowCount = 1
         Me.TLPFormUpperData.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50.0!))
-        Me.TLPFormUpperData.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 113.0!))
-        Me.TLPFormUpperData.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
-        Me.TLPFormUpperData.Size = New System.Drawing.Size(1573, 125)
+        Me.TLPFormUpperData.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 130.0!))
+        Me.TLPFormUpperData.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 130.0!))
+        Me.TLPFormUpperData.Size = New System.Drawing.Size(1573, 130)
         Me.TLPFormUpperData.TabIndex = 1
         '
         'PnlDataContainerLeft
@@ -311,7 +163,7 @@ Partial Class FParts
         Me.PnlDataContainerLeft.Location = New System.Drawing.Point(1, 1)
         Me.PnlDataContainerLeft.Margin = New System.Windows.Forms.Padding(1)
         Me.PnlDataContainerLeft.Name = "PnlDataContainerLeft"
-        Me.PnlDataContainerLeft.Size = New System.Drawing.Size(784, 123)
+        Me.PnlDataContainerLeft.Size = New System.Drawing.Size(784, 128)
         Me.PnlDataContainerLeft.TabIndex = 0
         '
         'lblGuid
@@ -320,7 +172,7 @@ Partial Class FParts
         Me.lblGuid.Font = New System.Drawing.Font("Tahoma", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lblGuid.Location = New System.Drawing.Point(48, 16)
         Me.lblGuid.Name = "lblGuid"
-        Me.lblGuid.Size = New System.Drawing.Size(36, 18)
+        Me.lblGuid.Size = New System.Drawing.Size(31, 14)
         Me.lblGuid.TabIndex = 26
         Me.lblGuid.Text = "Guid"
         Me.lblGuid.TextAlign = System.Drawing.ContentAlignment.MiddleRight
@@ -332,7 +184,7 @@ Partial Class FParts
         Me.tGuid.Font = New System.Drawing.Font("Tahoma", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.tGuid.Location = New System.Drawing.Point(96, 12)
         Me.tGuid.Name = "tGuid"
-        Me.tGuid.Size = New System.Drawing.Size(290, 26)
+        Me.tGuid.Size = New System.Drawing.Size(290, 22)
         Me.tGuid.TabIndex = 25
         Me.tGuid.Tag = "Guid"
         Me.tGuid.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
@@ -343,7 +195,7 @@ Partial Class FParts
         Me.Label3.Font = New System.Drawing.Font("Tahoma", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label3.Location = New System.Drawing.Point(24, 80)
         Me.Label3.Name = "Label3"
-        Me.Label3.Size = New System.Drawing.Size(60, 18)
+        Me.Label3.Size = New System.Drawing.Size(50, 14)
         Me.Label3.TabIndex = 24
         Me.Label3.Text = "Nombre"
         Me.Label3.TextAlign = System.Drawing.ContentAlignment.MiddleRight
@@ -355,7 +207,7 @@ Partial Class FParts
         Me.tNombre.Font = New System.Drawing.Font("Tahoma", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.tNombre.Location = New System.Drawing.Point(96, 76)
         Me.tNombre.Name = "tNombre"
-        Me.tNombre.Size = New System.Drawing.Size(290, 26)
+        Me.tNombre.Size = New System.Drawing.Size(290, 22)
         Me.tNombre.TabIndex = 23
         Me.tNombre.Tag = "Nombre"
         Me.tNombre.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
@@ -366,7 +218,7 @@ Partial Class FParts
         Me.Label1.Font = New System.Drawing.Font("Tahoma", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label1.Location = New System.Drawing.Point(40, 48)
         Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(43, 18)
+        Me.Label1.Size = New System.Drawing.Size(35, 14)
         Me.Label1.TabIndex = 21
         Me.Label1.Text = "Clave"
         Me.Label1.TextAlign = System.Drawing.ContentAlignment.BottomRight
@@ -378,7 +230,7 @@ Partial Class FParts
         Me.tClaveId.Font = New System.Drawing.Font("Tahoma", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.tClaveId.Location = New System.Drawing.Point(96, 44)
         Me.tClaveId.Name = "tClaveId"
-        Me.tClaveId.Size = New System.Drawing.Size(290, 26)
+        Me.tClaveId.Size = New System.Drawing.Size(290, 22)
         Me.tClaveId.TabIndex = 22
         Me.tClaveId.Tag = "Clave"
         Me.tClaveId.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
@@ -390,7 +242,7 @@ Partial Class FParts
         Me.PnlDataContainerRight.Location = New System.Drawing.Point(787, 1)
         Me.PnlDataContainerRight.Margin = New System.Windows.Forms.Padding(1)
         Me.PnlDataContainerRight.Name = "PnlDataContainerRight"
-        Me.PnlDataContainerRight.Size = New System.Drawing.Size(785, 123)
+        Me.PnlDataContainerRight.Size = New System.Drawing.Size(785, 128)
         Me.PnlDataContainerRight.TabIndex = 1
         '
         'TCAdditionalData
@@ -401,7 +253,7 @@ Partial Class FParts
         Me.TCAdditionalData.Location = New System.Drawing.Point(0, 0)
         Me.TCAdditionalData.Name = "TCAdditionalData"
         Me.TCAdditionalData.SelectedIndex = 0
-        Me.TCAdditionalData.Size = New System.Drawing.Size(785, 123)
+        Me.TCAdditionalData.Size = New System.Drawing.Size(785, 128)
         Me.TCAdditionalData.TabIndex = 10
         '
         'TPExtras
@@ -409,10 +261,10 @@ Partial Class FParts
         Me.TPExtras.Controls.Add(Me.tDescripcion)
         Me.TPExtras.Controls.Add(Me.Label2)
         Me.TPExtras.Controls.Add(Me.ckActivo)
-        Me.TPExtras.Location = New System.Drawing.Point(4, 27)
+        Me.TPExtras.Location = New System.Drawing.Point(4, 24)
         Me.TPExtras.Name = "TPExtras"
         Me.TPExtras.Padding = New System.Windows.Forms.Padding(3)
-        Me.TPExtras.Size = New System.Drawing.Size(777, 92)
+        Me.TPExtras.Size = New System.Drawing.Size(777, 100)
         Me.TPExtras.TabIndex = 0
         Me.TPExtras.Text = "Datos Adicionales"
         Me.TPExtras.UseVisualStyleBackColor = True
@@ -436,7 +288,7 @@ Partial Class FParts
         Me.Label2.Font = New System.Drawing.Font("Tahoma", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label2.Location = New System.Drawing.Point(16, 8)
         Me.Label2.Name = "Label2"
-        Me.Label2.Size = New System.Drawing.Size(80, 18)
+        Me.Label2.Size = New System.Drawing.Size(68, 14)
         Me.Label2.TabIndex = 0
         Me.Label2.Text = "Descripción"
         Me.Label2.TextAlign = System.Drawing.ContentAlignment.MiddleRight
@@ -455,14 +307,51 @@ Partial Class FParts
         Me.ckActivo.Text = "Activo"
         Me.ckActivo.UseVisualStyleBackColor = True
         '
-        'TSBBom
+        'PnlGridContainer
         '
-        Me.TSBBom.Font = New System.Drawing.Font("Tahoma", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.TSBBom.Image = Global.IDPProjectManagement.My.Resources.Resources.ChildForm
-        Me.TSBBom.ImageTransparentColor = System.Drawing.Color.Magenta
-        Me.TSBBom.Name = "TSBBom"
-        Me.TSBBom.Size = New System.Drawing.Size(175, 34)
-        Me.TSBBom.Text = "Lista de Materiales"
+        Me.PnlGridContainer.Controls.Add(Me.DataGridView)
+        Me.PnlGridContainer.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.PnlGridContainer.Location = New System.Drawing.Point(1, 133)
+        Me.PnlGridContainer.Margin = New System.Windows.Forms.Padding(1)
+        Me.PnlGridContainer.Name = "PnlGridContainer"
+        Me.PnlGridContainer.Size = New System.Drawing.Size(1573, 263)
+        Me.PnlGridContainer.TabIndex = 1
+        '
+        'DataGridView
+        '
+        Me.DataGridView.AllowUserToAddRows = False
+        Me.DataGridView.AllowUserToDeleteRows = False
+        DataGridViewCellStyle1.BackColor = System.Drawing.Color.LightBlue
+        Me.DataGridView.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle1
+        Me.DataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        Me.DataGridView.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.DataGridView.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically
+        Me.DataGridView.Location = New System.Drawing.Point(0, 0)
+        Me.DataGridView.MultiSelect = False
+        Me.DataGridView.Name = "DataGridView"
+        Me.DataGridView.ReadOnly = True
+        Me.DataGridView.RowHeadersWidth = 51
+        Me.DataGridView.Size = New System.Drawing.Size(1573, 263)
+        Me.DataGridView.TabIndex = 6
+        Me.DataGridView.Tag = "Grid"
+        '
+        'TLPBottomDAccessContainer
+        '
+        Me.TLPBottomDAccessContainer.BackColor = System.Drawing.Color.Orange
+        Me.TLPBottomDAccessContainer.CellBorderStyle = System.Windows.Forms.TableLayoutPanelCellBorderStyle.Inset
+        Me.TLPBottomDAccessContainer.ColumnCount = 2
+        Me.TLPBottomDAccessContainer.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 72.98245!))
+        Me.TLPBottomDAccessContainer.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 27.01754!))
+        Me.TLPBottomDAccessContainer.Controls.Add(Me.TSDownDirectAcces, 0, 0)
+        Me.TLPBottomDAccessContainer.Controls.Add(Me.BindingNavigator, 1, 0)
+        Me.TLPBottomDAccessContainer.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.TLPBottomDAccessContainer.Location = New System.Drawing.Point(1, 398)
+        Me.TLPBottomDAccessContainer.Margin = New System.Windows.Forms.Padding(1)
+        Me.TLPBottomDAccessContainer.Name = "TLPBottomDAccessContainer"
+        Me.TLPBottomDAccessContainer.RowCount = 1
+        Me.TLPBottomDAccessContainer.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50.0!))
+        Me.TLPBottomDAccessContainer.Size = New System.Drawing.Size(1573, 44)
+        Me.TLPBottomDAccessContainer.TabIndex = 2
         '
         'TSDownDirectAcces
         '
@@ -472,16 +361,114 @@ Partial Class FParts
         Me.TSDownDirectAcces.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.TSBBom})
         Me.TSDownDirectAcces.Location = New System.Drawing.Point(2, 2)
         Me.TSDownDirectAcces.Name = "TSDownDirectAcces"
-        Me.TSDownDirectAcces.Size = New System.Drawing.Size(1143, 37)
+        Me.TSDownDirectAcces.Size = New System.Drawing.Size(1143, 40)
         Me.TSDownDirectAcces.TabIndex = 6
         Me.TSDownDirectAcces.TabStop = True
         Me.TSDownDirectAcces.Text = "ToolStrip1"
         '
+        'TSBBom
+        '
+        Me.TSBBom.Font = New System.Drawing.Font("Tahoma", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.TSBBom.Image = Global.IDPProjectManagement.My.Resources.Resources.ChildForm
+        Me.TSBBom.ImageTransparentColor = System.Drawing.Color.Magenta
+        Me.TSBBom.Name = "TSBBom"
+        Me.TSBBom.Size = New System.Drawing.Size(145, 37)
+        Me.TSBBom.Text = "Lista de Materiales"
+        '
+        'BindingNavigator
+        '
+        Me.BindingNavigator.AddNewItem = Nothing
+        Me.BindingNavigator.AutoSize = False
+        Me.BindingNavigator.BackColor = System.Drawing.SystemColors.Control
+        Me.BindingNavigator.CountItem = Me.BindingNavigatorCountItem
+        Me.BindingNavigator.DeleteItem = Nothing
+        Me.BindingNavigator.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.BindingNavigator.ImageScalingSize = New System.Drawing.Size(20, 20)
+        Me.BindingNavigator.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.BindingNavigatorMoveFirstItem, Me.BindingNavigatorMovePreviousItem, Me.BindingNavigatorSeparator, Me.BindingNavigatorPositionItem, Me.BindingNavigatorCountItem, Me.BindingNavigatorSeparator1, Me.BindingNavigatorMoveNextItem, Me.BindingNavigatorMoveLastItem, Me.BindingNavigatorSeparator2})
+        Me.BindingNavigator.Location = New System.Drawing.Point(1147, 2)
+        Me.BindingNavigator.MoveFirstItem = Me.BindingNavigatorMoveFirstItem
+        Me.BindingNavigator.MoveLastItem = Me.BindingNavigatorMoveLastItem
+        Me.BindingNavigator.MoveNextItem = Me.BindingNavigatorMoveNextItem
+        Me.BindingNavigator.MovePreviousItem = Me.BindingNavigatorMovePreviousItem
+        Me.BindingNavigator.Name = "BindingNavigator"
+        Me.BindingNavigator.PositionItem = Me.BindingNavigatorPositionItem
+        Me.BindingNavigator.Size = New System.Drawing.Size(424, 40)
+        Me.BindingNavigator.TabIndex = 7
+        Me.BindingNavigator.TabStop = True
+        Me.BindingNavigator.Text = "BindingNavigator1"
+        '
+        'BindingNavigatorCountItem
+        '
+        Me.BindingNavigatorCountItem.Name = "BindingNavigatorCountItem"
+        Me.BindingNavigatorCountItem.Size = New System.Drawing.Size(35, 37)
+        Me.BindingNavigatorCountItem.Text = "of {0}"
+        Me.BindingNavigatorCountItem.ToolTipText = "Total number of items"
+        '
+        'BindingNavigatorMoveFirstItem
+        '
+        Me.BindingNavigatorMoveFirstItem.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
+        Me.BindingNavigatorMoveFirstItem.Image = CType(resources.GetObject("BindingNavigatorMoveFirstItem.Image"), System.Drawing.Image)
+        Me.BindingNavigatorMoveFirstItem.Name = "BindingNavigatorMoveFirstItem"
+        Me.BindingNavigatorMoveFirstItem.RightToLeftAutoMirrorImage = True
+        Me.BindingNavigatorMoveFirstItem.Size = New System.Drawing.Size(24, 37)
+        Me.BindingNavigatorMoveFirstItem.Text = "Move first"
+        '
+        'BindingNavigatorMovePreviousItem
+        '
+        Me.BindingNavigatorMovePreviousItem.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
+        Me.BindingNavigatorMovePreviousItem.Image = CType(resources.GetObject("BindingNavigatorMovePreviousItem.Image"), System.Drawing.Image)
+        Me.BindingNavigatorMovePreviousItem.Name = "BindingNavigatorMovePreviousItem"
+        Me.BindingNavigatorMovePreviousItem.RightToLeftAutoMirrorImage = True
+        Me.BindingNavigatorMovePreviousItem.Size = New System.Drawing.Size(24, 37)
+        Me.BindingNavigatorMovePreviousItem.Text = "Move previous"
+        '
+        'BindingNavigatorSeparator
+        '
+        Me.BindingNavigatorSeparator.Name = "BindingNavigatorSeparator"
+        Me.BindingNavigatorSeparator.Size = New System.Drawing.Size(6, 40)
+        '
+        'BindingNavigatorPositionItem
+        '
+        Me.BindingNavigatorPositionItem.AccessibleName = "Position"
+        Me.BindingNavigatorPositionItem.AutoSize = False
+        Me.BindingNavigatorPositionItem.Name = "BindingNavigatorPositionItem"
+        Me.BindingNavigatorPositionItem.Size = New System.Drawing.Size(50, 21)
+        Me.BindingNavigatorPositionItem.Text = "0"
+        Me.BindingNavigatorPositionItem.ToolTipText = "Current position"
+        '
+        'BindingNavigatorSeparator1
+        '
+        Me.BindingNavigatorSeparator1.Name = "BindingNavigatorSeparator1"
+        Me.BindingNavigatorSeparator1.Size = New System.Drawing.Size(6, 40)
+        '
+        'BindingNavigatorMoveNextItem
+        '
+        Me.BindingNavigatorMoveNextItem.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
+        Me.BindingNavigatorMoveNextItem.Image = CType(resources.GetObject("BindingNavigatorMoveNextItem.Image"), System.Drawing.Image)
+        Me.BindingNavigatorMoveNextItem.Name = "BindingNavigatorMoveNextItem"
+        Me.BindingNavigatorMoveNextItem.RightToLeftAutoMirrorImage = True
+        Me.BindingNavigatorMoveNextItem.Size = New System.Drawing.Size(24, 37)
+        Me.BindingNavigatorMoveNextItem.Text = "Move next"
+        '
+        'BindingNavigatorMoveLastItem
+        '
+        Me.BindingNavigatorMoveLastItem.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
+        Me.BindingNavigatorMoveLastItem.Image = CType(resources.GetObject("BindingNavigatorMoveLastItem.Image"), System.Drawing.Image)
+        Me.BindingNavigatorMoveLastItem.Name = "BindingNavigatorMoveLastItem"
+        Me.BindingNavigatorMoveLastItem.RightToLeftAutoMirrorImage = True
+        Me.BindingNavigatorMoveLastItem.Size = New System.Drawing.Size(24, 37)
+        Me.BindingNavigatorMoveLastItem.Text = "Move last"
+        '
+        'BindingNavigatorSeparator2
+        '
+        Me.BindingNavigatorSeparator2.Name = "BindingNavigatorSeparator2"
+        Me.BindingNavigatorSeparator2.Size = New System.Drawing.Size(6, 40)
+        '
         'FParts
         '
-        Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
+        Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 14.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(1581, 862)
+        Me.ClientSize = New System.Drawing.Size(1581, 449)
         Me.Controls.Add(Me.TLPModeContainer)
         Me.Font = New System.Drawing.Font("Arial", 8.25!)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow
@@ -490,13 +477,6 @@ Partial Class FParts
         Me.TLPModeContainer.ResumeLayout(False)
         Me.PnlParentFormContainer.ResumeLayout(False)
         Me.TableLayoutPanel1.ResumeLayout(False)
-        Me.PnlGridContainer.ResumeLayout(False)
-        Me.TLPBottomDAccessContainer.ResumeLayout(False)
-        Me.TLPBottomDAccessContainer.PerformLayout()
-        CType(Me.BindingNavigator, System.ComponentModel.ISupportInitialize).EndInit()
-        Me.BindingNavigator.ResumeLayout(False)
-        Me.BindingNavigator.PerformLayout()
-        CType(Me.DataGridView, System.ComponentModel.ISupportInitialize).EndInit()
         Me.PnlUpperDataContainer.ResumeLayout(False)
         Me.TLPFormUpperData.ResumeLayout(False)
         Me.PnlDataContainerLeft.ResumeLayout(False)
@@ -505,8 +485,15 @@ Partial Class FParts
         Me.TCAdditionalData.ResumeLayout(False)
         Me.TPExtras.ResumeLayout(False)
         Me.TPExtras.PerformLayout()
+        Me.PnlGridContainer.ResumeLayout(False)
+        CType(Me.DataGridView, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.TLPBottomDAccessContainer.ResumeLayout(False)
+        Me.TLPBottomDAccessContainer.PerformLayout()
         Me.TSDownDirectAcces.ResumeLayout(False)
         Me.TSDownDirectAcces.PerformLayout()
+        CType(Me.BindingNavigator, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.BindingNavigator.ResumeLayout(False)
+        Me.BindingNavigator.PerformLayout()
         Me.ResumeLayout(False)
 
     End Sub
@@ -526,7 +513,6 @@ Partial Class FParts
     Friend WithEvents BindingNavigatorMoveNextItem As ToolStripButton
     Friend WithEvents BindingNavigatorMoveLastItem As ToolStripButton
     Friend WithEvents BindingNavigatorSeparator2 As ToolStripSeparator
-    Friend WithEvents PnlChildFormContainer As Panel
     Friend WithEvents DataGridView As DataGridView
     Friend WithEvents PnlUpperDataContainer As Panel
     Friend WithEvents TLPFormUpperData As TableLayoutPanel

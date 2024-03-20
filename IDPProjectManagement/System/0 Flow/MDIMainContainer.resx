@@ -127,7 +127,7 @@
   <data name="TSBCancel.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
-        YQUAAAAJcEhZcwAAEnQAABJ0Ad5mH3gAAAVWSURBVEhLjZVbTFRXFIbPnBmrqcpN5a7cVECBQRiBtlyi
+        YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAVWSURBVEhLjZVbTFRXFIbPnBmrqcpN5a7cVECBQRiBtlyi
         jZom2saamtQaY2Ljgy82Gq3SVnmw1ZpakxoVMCnSGm9tQVNTGTuOMo6jyFgVsB1kHOQyo1VbpFShEvj7
         r+OpqWKMK/k5e9Ze69vr7L32QXmeVZhMeZWquq7SYKjaazR6Ko3G+yJtTJ/MSYwe/uL2tclUUGE0lu42
         GrvciUloSzfj3vQc9L+Wr0nG4pM5iZFYydHTn29lqrqijBU2T0lD/4J3gNI9wOnTQGMj0OR5pPPngaoq
@@ -172,6 +172,6 @@
 </value>
   </data>
   <metadata name="$this.TrayHeight" type="System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>25</value>
+    <value>275</value>
   </metadata>
 </root>

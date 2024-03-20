@@ -219,13 +219,13 @@ Public Class FParts
         Try
 
             ' Establece el formato de la barra de comandos.
-            Call SetToolBarConfiguration(CApplication.ControlState.Query)
+            SetToolBarConfiguration(CApplication.ControlState.Query)
 
-            ' Limpia los controles.
-            CApplication.ClearControls(Me)
+            '' Limpia los controles.
+            'CApplication.ClearControls(Me)
 
             ' Inicializa el vínculos de datos.
-            If Not Me.ClearControlsBinding() Then Throw New CustomException
+            If Not ClearFormControlsBinding() Then Throw New CustomException
 
             ' Ejecuta la consulta.
             Me.BWorkerGetData.RunWorkerAsync()
@@ -244,7 +244,7 @@ Public Class FParts
             Me.DataGridView.Focus()
 
             ' Establece el formato de la barra de comandos.
-            Call SetToolBarConfiguration(CApplication.ControlState.InitState)
+            SetToolBarConfiguration(CApplication.ControlState.InitState)
 
             CommandQuery = True
 
