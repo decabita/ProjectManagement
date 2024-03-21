@@ -249,6 +249,9 @@
     <Compile Include="System\0 Flow\00\FCatalogFormTemplate\FCatalogFormTemplate.Designer.vb">
       <DependentUpon>FCatalogFormTemplate.vb</DependentUpon>
     </Compile>
+    <Compile Include="System\0 Flow\00\FCatalogFormTemplate\FCatalogFormTemplate.LogicHelper.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="System\0 Flow\00\FCatalogFormTemplate\FCatalogFormTemplate.Properties.vb">
       <SubType>Form</SubType>
     </Compile>

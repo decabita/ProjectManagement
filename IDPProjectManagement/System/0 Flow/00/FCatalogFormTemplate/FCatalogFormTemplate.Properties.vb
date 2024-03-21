@@ -16,15 +16,15 @@ Partial Public Class FCatalogFormTemplate
 
     End Enum
 
-    'Private _oFormRelatedClass As New Object
-    'Public Property FormRelatedClass() As CPart
-    '    Get
-    '        Return _oFormRelatedClass
-    '    End Get
-    '    Set(ByVal value As CPart)
-    '        _oFormRelatedClass = value
-    '    End Set
-    'End Property
+    Private _oFormRelated As New Form
+    Public Property FormRelated() As Form
+        Get
+            Return _oFormRelated
+        End Get
+        Set(ByVal value As Form)
+            _oFormRelated = value
+        End Set
+    End Property
 
     Private _oCFormController As CFormController_
 

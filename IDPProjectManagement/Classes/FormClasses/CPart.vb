@@ -200,14 +200,14 @@ Public Class CPart
 
     End Function
 
-    Public Shared Sub SetFormFormat(ByVal oForm As Form)
+    Public Shared Sub SetFormFormat(ByVal oForm As Object)
 
         Try
 
             ' This should be called first, somehow the grid doesnt binds when set maximaxed
             FCatalogFormTemplate.SetFormDisplayFormat(oForm)
 
-            SetControlsBinding(oForm)
+            FCatalogFormTemplate.SetControlsBinding(oForm, oForm.oBindingSource)
 
             ' Establece formato de los controles.
             SetGridPropertiesFormat(oForm)
@@ -223,197 +223,8 @@ Public Class CPart
 
     End Sub
 
-    Public Shared Function SetControlsBinding(ByRef oForm As FParts) As Boolean
 
-        Try
 
-            With oForm
-                ' ----------------
-                ' TEXTBOX BINDING.
-                ' ----------------
-
-                .tGuid.DataBindings.Add("text", .oBindingSource, "guid", True)
-
-                .tClaveId.DataBindings.Add("text", .oBindingSource, "nombre_corto", True)
-
-                .tNombre.DataBindings.Add("text", .oBindingSource, "nombre", True)
-
-                .tDescripcion.DataBindings.Add("text", .oBindingSource, "descripcion", True).NullValue = CApplication.NotAssignedValue
-
-                ' ------------------------
-                ' CHECK BOX BINDING. 
-                ' ------------------------
-                .ckActivo.DataBindings.Add("CheckState", .oBindingSource, "is_active", True)
-
-                ' -------------------------------------------------------------
-                ' PICTURE BOX BINDING. 
-                ' -------------------------------------------------------------
-
-                ' -------------------
-                ' COMBO BINDING.
-                ' -------------------
-
-                ' --------------------------------------
-                ' Get combo data for each Combobox in Form.
-                ' --------------------------------------
-
-                ' 1. Fill Combo Binding Source and Add Combo Binding Source to Collection.
-
-                ' 2. Add combo to Form in Simple View.
-
-                ' 3. Add combo to Grid in Multi View.
-
-                ' -------------------------------------------------------------
-                ' DATAGRIDVIEW BINDING.
-                ' -------------------------------------------------------------
-                .DataGridView.DataSource = .oBindingSource
-
-                ' -------------------------------------------------------------
-                ' NAVIGATOR BINDING.
-                ' -------------------------------------------------------------
-                .BindingNavigator.BindingSource = .oBindingSource
-
-                ' -------------------------------------------------------------
-                ' Reset Binding.
-                ' -------------------------------------------------------------
-                .oBindingSource.ResetBindings(True)
-
-            End With
-
-            SetControlsBinding = True
-
-        Catch ex As Exception
-
-            MessageBox.Show(ex.Message, "Atención", MessageBoxButtons.OK, MessageBoxIcon.Error)
-
-        End Try
-
-        Return SetControlsBinding
-
-    End Function
-
-    'Public Shared Sub SetFormDisplayFormat(ByVal oForm As Form, ByVal processType As Integer)
-
-
-    '    Select Case processType
-
-    '        Case 1
-
-    '            With oForm
-    '                .ControlBox = False
-    '                .MaximizeBox = False
-    '                .MinimizeBox = False
-    '                '   Me.ShowIcon = False
-    '                '    Me.Text = ""
-    '                .Dock = DockStyle.Fill
-    '                .FormBorderStyle = FormBorderStyle.FixedToolWindow
-    '                .WindowState = FormWindowState.Maximized
-
-    '            End With
-
-    '            Dim oTableLayoutPanel As TableLayoutPanel = DirectCast(oForm, Form).Controls("TableLayoutPanel1")
-
-    '            With oTableLayoutPanel
-
-    '                For i = 0 To .RowStyles.Count
-
-    '                    Select Case i
-    '                        Case 0
-
-    '                            .RowStyles.Item(i).SizeType = SizeType.Percent
-    '                            .RowStyles.Item(i).Height = 30
-
-    '                        Case 1
-
-    '                            .RowStyles.Item(i).SizeType = SizeType.Percent
-    '                            .RowStyles.Item(i).Height = 70
-
-    '                        Case 2
-    '                            .RowStyles.Item(i).SizeType = SizeType.Percent
-    '                            .RowStyles.Item(i).Height = 5
-
-    '                    End Select
-
-    '                Next
-
-    '            End With
-
-    '        Case 2
-
-    '            With oForm
-
-    '                .FormBorderStyle = Windows.Forms.FormBorderStyle.FixedSingle
-    '                .MaximizeBox = False
-    '                .MinimizeBox = False
-    '                '.Size = New Size(1000, 400)
-    '                .WindowState = FormWindowState.Maximized
-
-    '                '.Icon = GetApplicationIcon()
-
-    '            End With
-
-
-    '            Dim oTableLayoutPanel As TableLayoutPanel = DirectCast(oForm, Form).Controls("TableLayoutPanel1")
-
-    '            With oTableLayoutPanel
-
-    '                For i = 0 To .RowStyles.Count
-
-    '                    Select Case i
-    '                        Case 0
-
-    '                            .RowStyles.Item(i).SizeType = SizeType.Percent
-    '                            .RowStyles.Item(i).Height = 30
-
-    '                        Case 1
-
-    '                            .RowStyles.Item(i).SizeType = SizeType.Percent
-    '                            .RowStyles.Item(i).Height = 70
-
-    '                        Case 2
-    '                            .RowStyles.Item(i).SizeType = SizeType.Percent
-    '                            .RowStyles.Item(i).Height = 5
-
-    '                    End Select
-
-    '                Next
-    '            End With
-
-
-    '    End Select
-
-    '    'If String.Compare(DirectCast(oForm, Form).Name, "FLoginForm") > 0 Then
-
-
-
-    '    'Else
-    '    '    '-----------------------------
-    '    '    ' Formatting LogIn Form
-    '    '    ' ----------------------------
-    '    '    With DirectCast(oForm, FLoginForm)
-    '    '        '.FormBorderStyle = Windows.Forms.FormBorderStyle.FixedToolWindow
-    '    '        .MaximizeBox = False
-    '    '        .MinimizeBox = False
-    '    '        .Size = New Size(600, 450)
-    '    '        .Icon = GetApplicationIcon()
-    '    '        .WindowState = FormWindowState.Normal
-    '    '        .Dock = DockStyle.None
-    '    '        .StartPosition = Windows.Forms.FormStartPosition.CenterScreen
-
-    '    '    End With
-
-    '    'End If
-
-    '    'Dim xc As Form
-    '    'xc = oForm
-
-    '    'Dim gr As DataGridView
-
-    '    'gr = xc.Controls.Item("DataGridView")
-
-
-
-    'End Sub
     Public Shared Sub SetGridPropertiesFormat(ByVal oForm As FParts)
 
         Try

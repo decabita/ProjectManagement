@@ -51,6 +51,8 @@ Public Class FParts
 
         Me.FormRelatedClass = New CPart
 
+        FormRelated = Me
+
         'Call CommandFind()
 
         Call Me.CommandQuery()
@@ -79,7 +81,7 @@ Public Class FParts
 
             'CPart.CurrentForm = Me
 
-            CPart.SetFormFormat(Me)
+            SetFormFormat(Me)
 
 
             ' old flow
@@ -225,7 +227,7 @@ Public Class FParts
             'CApplication.ClearControls(Me)
 
             ' Inicializa el vínculos de datos.
-            If Not ClearFormControlsBinding() Then Throw New CustomException
+            If Not ClearControlsBinding() Then Throw New CustomException
 
             ' Ejecuta la consulta.
             Me.BWorkerGetData.RunWorkerAsync()

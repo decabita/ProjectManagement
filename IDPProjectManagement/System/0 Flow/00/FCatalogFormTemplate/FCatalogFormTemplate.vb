@@ -40,6 +40,8 @@ Public Class FCatalogFormTemplate
         Me.view_mode = CApplication.ViewMode.SingleView
         Me.form_state = CApplication.ControlState.InitState
 
+        Me.oDataSet = New DataSet
+
         AddHandler Me.KeyPress, AddressOf Me.CommandClose
 
     End Sub
@@ -541,9 +543,9 @@ Public Class FCatalogFormTemplate
     Protected Friend Overridable Function CommandNew(ByVal SetControlsBindingOnNew As Action(Of Form)) As Boolean Implements IFormCommandRules.CommandNew
 
         ' Establece el formato de la barra de comandos.
-        Call Me.ClearControlsBinding()
-        Call Me.SetToolBarConfiguration(CApplication.ControlState.Add)
-        Call SetControlsBindingOnNew(Me)
+        ClearControlsBinding()
+        SetToolBarConfiguration(CApplication.ControlState.Add)
+        SetControlsBindingOnNew(Me)
 
         Return True
 
@@ -671,6 +673,34 @@ Public Class FCatalogFormTemplate
         Throw New NotImplementedException()
     End Function
 
+
+    ''  TODO : DELETE AFTER TEST 
+    'Protected Friend Overridable Function ClearControlsBinding() As Boolean Implements IFormCommandRules.ClearControlsBinding
+
+    '    Try
+
+    '        ' -------------------------------------------
+    '        ' Clear Controls And Binding.
+    '        ' -------------------------------------------
+
+    '        CApplication.ClearControls(Me)
+    '        CApplication.ClearControlBinding(Me)
+
+    '        Me.oDataSet = New DataSet
+
+    '        If Not Me.oCollectionBSourceCombo Is Nothing Then Me.oCollectionBSourceCombo.Clear()
+
+    '        ClearControlsBinding = True
+
+    '    Catch ex As Exception
+
+    '        MessageBox.Show(ex.Message, "Atención", MessageBoxButtons.OK, MessageBoxIcon.Error)
+
+    '    End Try
+
+    '    Return ClearControlsBinding
+
+    'End Function
     Protected Friend Overridable Function ClearControlsBinding() As Boolean Implements IFormCommandRules.ClearControlsBinding
 
         Try
@@ -678,13 +708,14 @@ Public Class FCatalogFormTemplate
             ' -------------------------------------------
             ' Clear Controls And Binding.
             ' -------------------------------------------
+            'CApplication.ClearControls(Me)
+            'CApplication.ClearControlBinding(Me)
 
-            CApplication.ClearControls(Me)
-            CApplication.ClearControlBinding(Me)
+            ClearAndUnbindFormControls(Me)
 
-            Me.oDataSet = New DataSet
+            'Me.oDataSet = New DataSet
 
-            If Not Me.oCollectionBSourceCombo Is Nothing Then Me.oCollectionBSourceCombo.Clear()
+            ''If Not Me.oCollectionBSourceCombo Is Nothing Then Me.oCollectionBSourceCombo.Clear()
 
             ClearControlsBinding = True
 
@@ -697,42 +728,13 @@ Public Class FCatalogFormTemplate
         Return ClearControlsBinding
 
     End Function
-    Protected Friend Overridable Function ClearFormControlsBinding() As Boolean Implements IFormCommandRules.ClearFormControlsBinding
-
-        Try
-
-            ' -------------------------------------------
-            ' Clear Controls And Binding.
-            ' -------------------------------------------
-
-            'CApplication.ClearControls(Me)
-            'CApplication.ClearControlBinding(Me)
-
-            CApplication.ClearFormControls(Me)
-            CApplication.ClearFormControlsBinding(Me)
-
-            'Me.oDataSet = New DataSet
-
-            'If Not Me.oCollectionBSourceCombo Is Nothing Then Me.oCollectionBSourceCombo.Clear()
-
-            ClearFormControlsBinding = True
-
-        Catch ex As Exception
-
-            MessageBox.Show(ex.Message, "Atención", MessageBoxButtons.OK, MessageBoxIcon.Error)
-
-        End Try
-
-        Return ClearControlsBinding()
-
-    End Function
 
     Protected Friend Overridable Function SetBindingSource() As Boolean Implements IFormCommandRules.SetBindingSource
         Throw New NotImplementedException()
     End Function
 
 
-    Protected Friend Overridable Function SetBindingSource(ByRef oForm As Form, ByRef oBindingSourceDummy As BindingSource, ByVal PrepareSPCommand As Action(Of SqlCommand, Integer, Form)) As Object Implements IFormCommandRules.SetBindingSource
+    Protected Friend Overridable Function SetBindingSource(ByRef oForm As Form, ByRef oBindingSourceDummy As BindingSource, ByVal PrepareSPCommand As Action(Of SqlCommand, Integer, Form)) As Boolean Implements IFormCommandRules.SetBindingSource
 
         Try
 
@@ -769,6 +771,7 @@ Public Class FCatalogFormTemplate
 
             End Using
 
+            SetBindingSource = True
 
         Catch ex As CustomException
 
@@ -878,193 +881,197 @@ Public Class FCatalogFormTemplate
         End Try
 
     End Sub
-    Public Shared Sub SetFormDisplayFormat(ByVal oForm As Object)
+    'Public Shared Sub SetFormDisplayFormat(ByVal oForm As Object)
 
 
-        Select Case oForm.DisplayMode
+    '    Select Case oForm.DisplayMode
 
-            Case FormProcessType.Catalog
+    '        Case FormProcessType.Catalog
 
-                ' Shows the form selected from the main menu.
+    '            ' Shows the form selected from the main menu.
 
-                Dim oTableLayoutPanel As Object = oForm.Controls.Find("TableLayoutPanel1", True)
+    '            Dim oTableLayoutPanel As Object = oForm.Controls.Find("TableLayoutPanel1", True)
 
-                If oTableLayoutPanel IsNot Nothing Then
+    '            If oTableLayoutPanel IsNot Nothing Then
 
-                    With oTableLayoutPanel(0)
+    '                With oTableLayoutPanel(0)
 
-                        For i = 0 To .RowStyles.Count
+    '                    For i = 0 To .RowStyles.Count
 
-                            Select Case i
-                                Case 0
+    '                        Select Case i
+    '                            Case 0
 
-                                    .RowStyles.Item(i).SizeType = SizeType.Percent
-                                    .RowStyles.Item(i).Height = 20
+    '                                .RowStyles.Item(i).SizeType = SizeType.Percent
+    '                                .RowStyles.Item(i).Height = 20
 
-                                Case 1
+    '                            Case 1
 
-                                    .RowStyles.Item(i).SizeType = SizeType.Percent
-                                    .RowStyles.Item(i).Height = 75
+    '                                .RowStyles.Item(i).SizeType = SizeType.Percent
+    '                                .RowStyles.Item(i).Height = 75
 
-                                Case 2
-                                    .RowStyles.Item(i).SizeType = SizeType.Percent
-                                    .RowStyles.Item(i).Height = 5
+    '                            Case 2
+    '                                .RowStyles.Item(i).SizeType = SizeType.Percent
+    '                                .RowStyles.Item(i).Height = 5
 
-                            End Select
+    '                        End Select
 
-                        Next
+    '                    Next
 
-                    End With
-                End If
+    '                End With
+    '            End If
 
 
-                With oForm
-                    .ControlBox = False
-                    .MaximizeBox = False
-                    .MinimizeBox = False
-                    .ShowIcon = False
-                    '.Text = "" THIS FUCKED UP THE FORM BECASUE IT'S USED BEFORE THE FORM IS SHOWED, DON'T USE IT
-                    .Dock = DockStyle.Fill
-                    .FormBorderStyle = FormBorderStyle.None
-                    .WindowState = FormWindowState.Maximized
+    '            With oForm
+    '                .ControlBox = False
+    '                .MaximizeBox = False
+    '                .MinimizeBox = False
+    '                .ShowIcon = False
+    '                '.Text = "" THIS FUCKED UP THE FORM BECASUE IT'S USED BEFORE THE FORM IS SHOWED, DON'T USE IT
+    '                .Dock = DockStyle.Fill
+    '                .FormBorderStyle = FormBorderStyle.None
+    '                .WindowState = FormWindowState.Maximized
 
-                End With
+    '            End With
 
-                Dim oTLPModeContainer As TableLayoutPanel = DirectCast(oForm, Form).Controls("TLPModeContainer")
+    '            Dim oTLPModeContainer As TableLayoutPanel = DirectCast(oForm, Form).Controls("TLPModeContainer")
 
-                oTLPModeContainer.RowStyles.Item(1).Height = 0
+    '            oTLPModeContainer.RowStyles.Item(1).Height = 0
 
 
-            Case FormProcessType.Parent
+    '        Case FormProcessType.Parent
 
-                Dim oTableLayoutPanel As Object = oForm.Controls.Find("TableLayoutPanel1", True)
+    '            Dim oTableLayoutPanel As Object = oForm.Controls.Find("TableLayoutPanel1", True)
 
-                If oTableLayoutPanel IsNot Nothing Then
+    '            If oTableLayoutPanel IsNot Nothing Then
 
-                    With oTableLayoutPanel(0)
+    '                With oTableLayoutPanel(0)
 
-                        For i = 0 To .RowStyles.Count
+    '                    For i = 0 To .RowStyles.Count
 
-                            Select Case i
-                                Case 0
+    '                        Select Case i
+    '                            Case 0
 
-                                    .RowStyles.Item(i).SizeType = SizeType.Percent
-                                    .RowStyles.Item(i).Height = 30
+    '                                .RowStyles.Item(i).SizeType = SizeType.Percent
+    '                                .RowStyles.Item(i).Height = 30
 
-                                Case 1
+    '                            Case 1
 
-                                    .RowStyles.Item(i).SizeType = SizeType.Percent
-                                    .RowStyles.Item(i).Height = 60
+    '                                .RowStyles.Item(i).SizeType = SizeType.Percent
+    '                                .RowStyles.Item(i).Height = 60
 
-                                Case 2
-                                    .RowStyles.Item(i).SizeType = SizeType.Percent
-                                    .RowStyles.Item(i).Height = 10
+    '                            Case 2
+    '                                .RowStyles.Item(i).SizeType = SizeType.Percent
+    '                                .RowStyles.Item(i).Height = 10
 
-                            End Select
+    '                        End Select
 
-                        Next
+    '                    Next
 
-                    End With
-                End If
+    '                End With
+    '            End If
 
-                With oForm
-                    .ControlBox = False
-                    .MaximizeBox = False
-                    .MinimizeBox = False
-                    .ShowIcon = False
-                    '.Dock = DockStyle.Fill
-                    .FormBorderStyle = FormBorderStyle.None
-                    '.WindowState = FormWindowState.Maximized
-                    .Size = New Size(1300, 400)
+    '            With oForm
+    '                .ControlBox = False
+    '                .MaximizeBox = False
+    '                .MinimizeBox = False
+    '                .ShowIcon = False
+    '                '.Dock = DockStyle.Fill
+    '                .FormBorderStyle = FormBorderStyle.None
+    '                '.WindowState = FormWindowState.Maximized
+    '                .Size = New Size(1300, 400)
 
-                End With
+    '            End With
 
-                Dim oTLPModeContainer As TableLayoutPanel = DirectCast(oForm, Form).Controls("TLPModeContainer")
-                oTLPModeContainer.RowStyles.Item(1).SizeType = SizeType.Percent
-                oTLPModeContainer.RowStyles.Item(1).Height = 50
+    '            Dim oTLPModeContainer As TableLayoutPanel = DirectCast(oForm, Form).Controls("TLPModeContainer")
+    '            oTLPModeContainer.RowStyles.Item(1).SizeType = SizeType.Percent
+    '            oTLPModeContainer.RowStyles.Item(1).Height = 50
 
-            Case FormProcessType.Child
+    '        Case FormProcessType.Child
 
-                Dim oTableLayoutPanel As Object = oForm.Controls.Find("TableLayoutPanel1", True)
+    '            Dim oTableLayoutPanel As Object = oForm.Controls.Find("TableLayoutPanel1", True)
 
-                If oTableLayoutPanel IsNot Nothing Then
+    '            If oTableLayoutPanel IsNot Nothing Then
 
-                    With oTableLayoutPanel(0)
+    '                With oTableLayoutPanel(0)
 
-                        For i = 0 To .RowStyles.Count
+    '                    For i = 0 To .RowStyles.Count
 
-                            Select Case i
-                                Case 0
+    '                        Select Case i
+    '                            Case 0
 
-                                    .RowStyles.Item(i).SizeType = SizeType.Percent
-                                    .RowStyles.Item(i).Height = 30
+    '                                .RowStyles.Item(i).SizeType = SizeType.Percent
+    '                                .RowStyles.Item(i).Height = 30
 
-                                Case 1
+    '                            Case 1
 
-                                    .RowStyles.Item(i).SizeType = SizeType.Percent
-                                    .RowStyles.Item(i).Height = 60
+    '                                .RowStyles.Item(i).SizeType = SizeType.Percent
+    '                                .RowStyles.Item(i).Height = 60
 
-                                Case 2
-                                    .RowStyles.Item(i).SizeType = SizeType.Percent
-                                    .RowStyles.Item(i).Height = 10
+    '                            Case 2
+    '                                .RowStyles.Item(i).SizeType = SizeType.Percent
+    '                                .RowStyles.Item(i).Height = 10
 
-                            End Select
+    '                        End Select
 
-                        Next
+    '                    Next
 
-                    End With
-                End If
+    '                End With
+    '            End If
 
-                With oForm
-                    .ControlBox = False
-                    .MaximizeBox = False
-                    .MinimizeBox = False
-                    .ShowIcon = False
-                    '.Dock = DockStyle.Fill
-                    .FormBorderStyle = FormBorderStyle.None
-                    '.WindowState = FormWindowState.Maximized
-                    .Size = New Size(1300, 400)
+    '            With oForm
+    '                .ControlBox = False
+    '                .MaximizeBox = False
+    '                .MinimizeBox = False
+    '                .ShowIcon = False
+    '                '.Dock = DockStyle.Fill
+    '                .FormBorderStyle = FormBorderStyle.None
+    '                '.WindowState = FormWindowState.Maximized
+    '                .Size = New Size(1300, 400)
 
-                End With
+    '            End With
 
-                Dim oTLPModeContainer As TableLayoutPanel = DirectCast(oForm, Form).Controls("TLPModeContainer")
-                oTLPModeContainer.RowStyles.Item(1).SizeType = SizeType.Percent
-                oTLPModeContainer.RowStyles.Item(1).Height = 50
+    '            Dim oTLPModeContainer As TableLayoutPanel = DirectCast(oForm, Form).Controls("TLPModeContainer")
+    '            oTLPModeContainer.RowStyles.Item(1).SizeType = SizeType.Percent
+    '            oTLPModeContainer.RowStyles.Item(1).Height = 50
 
 
-                ' Sets Form Location.
-                ' -----------------------------------------------------------------
+    '            ' Sets Form Location.
+    '            ' -----------------------------------------------------------------
 
-                Dim left As Integer = DirectCast(DirectCast(oForm.ParentForm, MDIMainContainer).oCFormController_.parent_form, FParts).Left
+    '             Dim oType As Type = Assembly.GetExecutingAssembly().GetType(My.Application.Info.AssemblyName & "." & oForm.Name)
 
-                Dim top As Integer = DirectCast(DirectCast(oForm.ParentForm, MDIMainContainer).oCFormController_.parent_form, FParts).Top
+    '            Dim oFormToShow As Form = Nothing
+    '            oFormToShow = Activator.CreateInstance(oType)
 
-                Dim height As Integer = DirectCast(DirectCast(oForm.ParentForm, MDIMainContainer).oCFormController_.parent_form, FParts).Height
+    '            Dim oFormToShowS As Form = DirectCast(oForm, Form).Controls(oForm.Name)
 
+    '            Dim frm = Application.OpenForms.Item(3)
 
-                oForm.Location = New Point(left, top + height)
+    '            Dim left As Integer = frm.Left
 
 
-                'Me.Location = New Point(DirectCast(Me.oFormController.parent_form, FProductos).Left, DirectCast(Me.oFormController.parent_form, FProductos).Top + DirectCast(Me.oFormController.parent_form, FProductos).Height)
+    '            'left = DirectCast(DirectCast(oForm.ParentForm, MDIMainContainer).oCFormController_.parent_form, oType).Left
 
+    '            Dim top As Integer = DirectCast(DirectCast(oForm.ParentForm, MDIMainContainer).oCFormController_.parent_form, frm).Top
 
+    '            Dim height As Integer = DirectCast(DirectCast(oForm.ParentForm, MDIMainContainer).oCFormController_.parent_form, FParts).Height
 
+    '            oForm.Location = New Point(left, top + height)
 
+    '            'If Not CommandQuery() Then
 
-                'If Not CommandQuery() Then
+    '            '    Me.oFormController.child_form = Nothing
+    '            '    Me.Dispose()
+    '            '    DirectCast(Me.oFormController.parent_form, FProductos).Focus()
+    '            '    Exit Sub
 
-                '    Me.oFormController.child_form = Nothing
-                '    Me.Dispose()
-                '    DirectCast(Me.oFormController.parent_form, FProductos).Focus()
-                '    Exit Sub
+    '            'End If
 
-                'End If
+    '            'Me.oFormController.child_form = Me
 
-                'Me.oFormController.child_form = Me
+    '    End Select
 
-        End Select
-
-    End Sub
+    'End Sub
     Protected Friend Overridable Function PrepareSPCommand(ByRef oSqlCommandDummy As SqlCommand, spCommandValue As Integer) As Boolean Implements IFormCommandRules.PrepareSPCommand
         Throw New NotImplementedException()
     End Function
