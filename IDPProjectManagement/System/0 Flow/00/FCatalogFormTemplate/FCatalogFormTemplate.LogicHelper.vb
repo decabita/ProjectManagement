@@ -134,7 +134,7 @@ Partial Public Class FCatalogFormTemplate
             ' This should be called first, somehow the grid doesnt binds when set maximaxed
             SetFormDisplayFormat(oForm)
 
-            SetControlsBinding(oForm, oForm.oBindingSource)
+            SetControlsBinding(oForm, oForm.Name, oForm.oBindingSource)
 
             ' Establece formato de los controles.
             SetGridPropertiesFormat(oForm)
@@ -221,12 +221,12 @@ Partial Public Class FCatalogFormTemplate
                                 Case 0
 
                                     .RowStyles.Item(i).SizeType = SizeType.Percent
-                                    .RowStyles.Item(i).Height = 30
+                                    .RowStyles.Item(i).Height = 40
 
                                 Case 1
 
                                     .RowStyles.Item(i).SizeType = SizeType.Percent
-                                    .RowStyles.Item(i).Height = 60
+                                    .RowStyles.Item(i).Height = 50
 
                                 Case 2
                                     .RowStyles.Item(i).SizeType = SizeType.Percent
@@ -240,14 +240,13 @@ Partial Public Class FCatalogFormTemplate
                 End If
 
                 With oForm
-                    .ControlBox = False
+                    .ControlBox = True
                     .MaximizeBox = False
                     .MinimizeBox = False
                     .ShowIcon = False
-                    '.Dock = DockStyle.Fill
-                    .FormBorderStyle = FormBorderStyle.None
-                    '.WindowState = FormWindowState.Maximized
-                    .Size = New Size(1300, 400)
+                    .FormBorderStyle = FormBorderStyle.FixedDialog
+                    '.FormBorderStyle = FormBorderStyle.None
+                    .Size = New Size(1400, 350)
 
                 End With
 
@@ -269,12 +268,12 @@ Partial Public Class FCatalogFormTemplate
                                 Case 0
 
                                     .RowStyles.Item(i).SizeType = SizeType.Percent
-                                    .RowStyles.Item(i).Height = 30
+                                    .RowStyles.Item(i).Height = 40
 
                                 Case 1
 
                                     .RowStyles.Item(i).SizeType = SizeType.Percent
-                                    .RowStyles.Item(i).Height = 60
+                                    .RowStyles.Item(i).Height = 50
 
                                 Case 2
                                     .RowStyles.Item(i).SizeType = SizeType.Percent
@@ -288,14 +287,14 @@ Partial Public Class FCatalogFormTemplate
                 End If
 
                 With oForm
-                    .ControlBox = False
+                    .ControlBox = True
                     .MaximizeBox = False
                     .MinimizeBox = False
                     .ShowIcon = False
                     '.Dock = DockStyle.Fill
-                    .FormBorderStyle = FormBorderStyle.None
+                    .FormBorderStyle = FormBorderStyle.FixedDialog
                     '.WindowState = FormWindowState.Maximized
-                    .Size = New Size(1300, 400)
+                    .Size = New Size(1400, 350)
 
                 End With
 
@@ -307,58 +306,56 @@ Partial Public Class FCatalogFormTemplate
                 ' Sets Form Location.
                 ' -----------------------------------------------------------------
 
-                Dim oType As Type = Assembly.GetExecutingAssembly().GetType(My.Application.Info.AssemblyName & "." & oForm.Name)
+                'Dim oType As Type = Assembly.GetExecutingAssembly().GetType(My.Application.Info.AssemblyName & "." & oForm.Name)
 
-                Dim oFormToShow As Form = Nothing
-                oFormToShow = Activator.CreateInstance(oType)
+                'Dim oFormToShow As Form = Nothing
+                'oFormToShow = Activator.CreateInstance(oType)
 
-                Dim oFormToShowS As Form = DirectCast(oForm, Form).Controls(oForm.Name)
+                Dim frm = Application.OpenForms.Item(oForm.Name)
 
-                Dim frm = Application.OpenForms.Item(3)
+                oForm.Location = New Point(frm.Left, frm.Top + frm.Height)
 
-                Dim left As Integer = frm.Left
+                'If Not oForm.CommandQueryAsChild() Then
 
-
-                'left = DirectCast(DirectCast(oForm.ParentForm, MDIMainContainer).oCFormController_.parent_form, oType).Left
-
-                'Dim top As Integer = DirectCast(DirectCast(oForm.ParentForm, MDIMainContainer).oCFormController_.parent_form, frm).Top
-
-                Dim height As Integer = DirectCast(DirectCast(oForm.ParentForm, MDIMainContainer).oCFormController_.parent_form, FParts).Height
-
-                'oForm.Location = New Point(left, top + height)
-
-                'If Not CommandQuery() Then
-
-                '    Me.oFormController.child_form = Nothing
-                '    Me.Dispose()
-                '    DirectCast(Me.oFormController.parent_form, FProductos).Focus()
+                '    'oFormController.child_form = Nothing
+                '    DirectCast(frm.ParentForm, MDIMainContainer).oCFormController_.child_form = Nothing
+                '    frm.Dispose()
+                '    frm.focus()
+                '    DirectCast(frm.ParentForm, MDIMainContainer).oCFormController_.parent_form.Focus()
+                '    'DirectCast(frm.oFormController.parent_form, FProductos).Focus()
                 '    Exit Sub
 
                 'End If
 
-                'Me.oFormController.child_form = Me
+                DirectCast(frm.ParentForm, MDIMainContainer).oCFormController_.child_form = frm
 
         End Select
 
     End Sub
 
-    Public Shared Sub SetGridPropertiesFormat(ByVal oForm As FParts)
+    Public Shared Sub SetGridPropertiesFormat(ByVal oForm As Object)
+
+
+        Dim oDataGridView As Object = oForm.Controls.Find("DataGridView", True)
 
         Try
-            With oForm.DataGridView
+            With oDataGridView(0)
 
                 .MultiSelect = False
 
                 .AlternatingRowsDefaultCellStyle.BackColor = Color.LightCyan
 
-                .AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells
+                .AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.DisplayedCells
 
                 .ColumnHeadersDefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter
 
-                .ColumnHeadersDefaultCellStyle.Font = New Font(.Font.FontFamily, 11.0F,
+                .ColumnHeadersDefaultCellStyle.Font = New Font(CType(.Font.FontFamily, FontFamily), 9.0F,
                 .Font.Style Or FontStyle.Bold, GraphicsUnit.Point)
 
-                .DefaultCellStyle.Font = New Font(.Font.FontFamily, 10.0F, FontStyle.Regular)
+                .ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.EnableResizing
+                .ColumnHeadersHeight = 20
+
+                .DefaultCellStyle.Font = New Font(CType(.Font.FontFamily, FontFamily), 9.0F, FontStyle.Regular)
 
                 .AutoGenerateColumns = False
 
@@ -368,84 +365,16 @@ Partial Public Class FCatalogFormTemplate
                 '
                 ' Change column properties and format in accordance with data. 
                 '--------------------------------------------------------------------
-                Dim index As Integer = 0
 
-                .Columns("centro_id").Visible = False
-                .Columns("id").Visible = False
+                Dim lGridColumnsClass = ModFormClassDefinition.FormsControlsHelperClass.GetGridColumnDetails(oForm.Name)
 
-                .Columns("guid").HeaderText = "Guid"
-                .Columns("guid").Visible = True
-                .Columns("guid").DisplayIndex = index
+                For Each column In lGridColumnsClass
 
-                index += 1
-                .Columns("nombre_corto").HeaderText = "Clave"
-                .Columns("nombre_corto").Visible = True
-                .Columns("nombre_corto").DisplayIndex = index
+                    .Columns(column.ColumnName).Visible = column.Visible
+                    .Columns(column.ColumnName).HeaderText = column.HeaderText
+                    .Columns(column.ColumnName).DisplayIndex = column.DisplayIndex
 
-                index += 1
-                .Columns("nombre").HeaderText = "Nombre"
-                .Columns("nombre").Visible = True
-                .Columns("nombre").DisplayIndex = index
-
-                index += 1
-                .Columns("descripcion").HeaderText = "Descripción"
-                .Columns("descripcion").Visible = True
-                .Columns("descripcion").DisplayIndex = index
-
-                index += 1
-                .Columns("tipo_id").HeaderText = "Tipo"
-                .Columns("tipo_id").Visible = True
-                .Columns("tipo_id").DisplayIndex = index
-
-                index += 1
-                .Columns("unidad_id").HeaderText = "UM"
-                .Columns("unidad_id").Visible = True
-                .Columns("unidad_id").DisplayIndex = index
-
-                index += 1
-                .Columns("presentacion_id").HeaderText = "Presentacion"
-                .Columns("presentacion_id").Visible = True
-                .Columns("presentacion_id").DisplayIndex = index
-
-                index += 1
-                .Columns("precio_compra").HeaderText = "Precio Compra"
-                .Columns("precio_compra").Visible = True
-                .Columns("precio_compra").DisplayIndex = index
-
-                'index += 1
-                '.Columns("porcentaje_utilidad").HeaderText = "PU"
-                .Columns("porcentaje_utilidad").Visible = False
-                '.Columns("porcentaje_utilidad").DisplayIndex = index
-
-                'index += 1
-                '.Columns("precio_venta").HeaderText = "Precio Venta"
-                .Columns("precio_venta").Visible = False
-                '.Columns("precio_venta").DisplayIndex = index
-
-                index += 1
-                .Columns("iva").HeaderText = "I.V.A"
-                .Columns("iva").Visible = True
-                .Columns("iva").DisplayIndex = index
-
-                index += 1
-                .Columns("inventario_minimo").HeaderText = "Inventario Mínimo"
-                .Columns("inventario_minimo").Visible = True
-                .Columns("inventario_minimo").DisplayIndex = index
-
-                index += 1
-                .Columns("inventario_maximo").HeaderText = "Inventario Máximo"
-                .Columns("inventario_maximo").Visible = True
-                .Columns("inventario_maximo").DisplayIndex = index
-
-                index += 1
-                .Columns("punto_reorden").HeaderText = "Punto Reorden"
-                .Columns("punto_reorden").Visible = True
-                .Columns("punto_reorden").DisplayIndex = index
-
-                index += 1
-                .Columns("is_active").HeaderText = "Activo"
-                .Columns("is_active").Visible = True
-                .Columns("is_active").DisplayIndex = index
+                Next
 
             End With
 
@@ -501,21 +430,11 @@ Partial Public Class FCatalogFormTemplate
     End Sub
 
 
-    Public Shared Function SetControlsBinding(ByVal oForm As Object, ByVal oBindingSource As Object)
+    Public Shared Function SetControlsBinding(ByVal oForm As Object, ByVal sourceName As String, ByVal oBindingSource As Object)
 
-
-        'Dim localFormCopy As Object = oFormCopy
-
-
-        Dim binds As String() = {"guid", "nombre_corto", "descripcion"}
         Dim dictionary As New Dictionary(Of String, String)
 
-        dictionary.Add("tGuid", "guid")
-        dictionary.Add("tClaveId", "nombre_corto")
-        dictionary.Add("tNombre", "nombre")
-        dictionary.Add("tDescripcion", "descripcion")
-        dictionary.Add("ckActivo", "is_active")
-
+        dictionary = ModFormClassDefinition.FormsControlsHelperClass.GetControlsBindingList(sourceName)
 
         Try
             For Each oCtrl As Control In oForm.Controls
@@ -565,6 +484,7 @@ Partial Public Class FCatalogFormTemplate
 
                 ElseIf TypeOf oCtrl Is DataGridView Then
 
+
                     CType(oCtrl, DataGridView).DataSource = oBindingSource
 
 
@@ -602,7 +522,7 @@ Partial Public Class FCatalogFormTemplate
                     ' Clear nested controls
                     If oCtrl.Controls.Count > 0 Then
 
-                        SetControlsBinding(oCtrl, oBindingSource)
+                        SetControlsBinding(oCtrl, sourceName, oBindingSource)
 
                     End If
 
@@ -783,6 +703,66 @@ Partial Public Class FCatalogFormTemplate
 
     End Function
 
+    Public Shared Function SetControlsBindingOnNew(ByVal oForm As FParts) As Boolean
+
+        Try
+
+            With oForm
+
+                ' ----------------------
+                ' TEXTBOX BINDING.
+                ' ----------------------
+
+                ' ----------------------
+                ' CHECK BOX BINDING. 
+                ' ----------------------
+
+                ' -------------------------------------------------------------
+                ' PICTURE BOX BINDING. 
+                ' -------------------------------------------------------------
+
+                ' -------------------------------------------------------------
+                ' COMBO BINDING.
+                ' -------------------------------------------------------------
+                ' -------------------------------------------------------------
+                ' Get combo data for each Combobox in Form.
+                ' -------------------------------------------------------------
+
+                ' 1. Fill Combo Binding Source and Add Combo Binding Source to Collection.
+
+                ' 2. Add combo to Form in Simple View.
+
+                ' 3. Add combo to Grid in Multi View.
+
+                ' -------------------------
+                ' DATAGRIDVIEW BINDING.
+                ' -------------------------
+
+                ' -------------------------
+                ' NAVIGATOR BINDING.
+                ' -------------------------
+
+                ' -------------------------
+                ' Reset Binding.
+                ' -------------------------
+
+            End With
+
+            SetControlsBindingOnNew = True
+
+        Catch ex As CustomException
+
+            MessageBox.Show(ex.Message, "Atención", MessageBoxButtons.OK, MessageBoxIcon.Error)
+
+        Catch ex As Exception
+
+            MessageBox.Show(ex.Message, "Atención", MessageBoxButtons.OK, MessageBoxIcon.Error)
+
+        End Try
+
+        Return SetControlsBindingOnNew
+
+    End Function
 
     Public Shared Function SetControlsBindingO(ByVal oForm As Object) As Boolean
 

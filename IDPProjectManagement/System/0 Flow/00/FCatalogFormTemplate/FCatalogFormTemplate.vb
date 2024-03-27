@@ -35,16 +35,17 @@ Public Class FCatalogFormTemplate
 
         'Call CApplication.SetFormFormat(Me)
 
-        Me.oCFormController = New CFormController_
-        Me.oCFormController.parent_form = Me
+        'Me.oCFormController = New CFormController_
+        'Me.oCFormController.parent_form = Me
+        'Me.oDataSet = New DataSet
+
         Me.view_mode = CApplication.ViewMode.SingleView
         Me.form_state = CApplication.ControlState.InitState
-
-        Me.oDataSet = New DataSet
 
         AddHandler Me.KeyPress, AddressOf Me.CommandClose
 
     End Sub
+
 
     Public Delegate Function DoWorkDelegate(ByVal strSomeString As String) As Boolean
 
@@ -826,61 +827,6 @@ Public Class FCatalogFormTemplate
 
     End Sub
 
-    Protected Friend Overridable Sub ShowMeInMainContainer(FormName As String, Optional ByVal FormProcessType As Integer = CApplication.FormProcessType.Catalog)
-
-        Dim oFormToShow As Object = Nothing
-        Dim oMDIMainContainer As New MDIMainContainer()
-
-        ' Gets the type of the form selected in the menu button.
-        Dim oType As Type = Assembly.GetExecutingAssembly().GetType(My.Application.Info.AssemblyName & "." & FormName)
-
-        Try
-
-            ' Create form instance from application from type.
-            If oType IsNot Nothing Then
-
-                '  If Not CApplicationController.oCUsers.oCollectionProfiles.Contains(oType.Name) Then Throw New CustomException("El usuario no tiene permisos suficientes. Consulte a Soporte Técnico.")
-
-                ' Create a form instance from the menu button clicked. FormProcessType indicates if the form is a catalog or a parent form.
-                oFormToShow = Activator.CreateInstance(oType)
-                oFormToShow.DisplayMode = FormProcessType
-
-                'Pass the created from to MDIMainContainer to be processed and displayed.
-                '''Dim oMDIMainContainer As New MDIMainContainer(oFormToShow)
-
-
-                ' MDIContainer Display.
-                With oMDIMainContainer
-
-                    ' Assigns parent to form instance.
-                    oFormToShow.MdiParent = oMDIMainContainer
-
-                    ' Assigns the form to be displayed by the MDI form.
-                    .oCFormController_.parent_form = oFormToShow
-
-                    ' Shows the Main Form Container 
-                    .Show()
-
-                End With
-
-
-            Else
-
-                Throw New CustomException("No se encuentra definido el formulario. Consulte a Soporte Técnico.")
-
-            End If
-
-        Catch ex As CustomException
-
-            MessageBox.Show(ex.Message, "Atención", MessageBoxButtons.OK, MessageBoxIcon.Error)
-
-        Catch ex As Exception
-
-            MessageBox.Show(ex.Message, "Atención", MessageBoxButtons.OK, MessageBoxIcon.Error)
-
-        End Try
-
-    End Sub
     'Public Shared Sub SetFormDisplayFormat(ByVal oForm As Object)
 
 
@@ -1072,9 +1018,13 @@ Public Class FCatalogFormTemplate
     '    End Select
 
     'End Sub
-    Protected Friend Overridable Function PrepareSPCommand(ByRef oSqlCommandDummy As SqlCommand, spCommandValue As Integer) As Boolean Implements IFormCommandRules.PrepareSPCommand
+    Protected Friend Overridable Function PrepareSPCommand(ByVal oSqlCommandDummy As SqlCommand, spCommandValue As Integer, ByVal oForm As Form) As Boolean Implements IFormCommandRules.PrepareSPCommand
         Throw New NotImplementedException()
     End Function
+
+    'Protected Friend Overridable Function PrepareSPCommand(ByRef oSqlCommandDummy As SqlCommand, spCommandValue As Integer) As Boolean Implements IFormCommandRules.PrepareSPCommand
+    '    Throw New NotImplementedException()
+    'End Function
 
     Public Function SetBindingSource(ByRef oBindingSourceDummy As BindingSource) As Boolean Implements IFormCommandRules.SetBindingSource
         Throw New NotImplementedException()

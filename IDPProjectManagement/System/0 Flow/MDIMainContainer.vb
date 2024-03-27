@@ -123,6 +123,13 @@ Public Class MDIMainContainer
 
     Private Sub TSBExit_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles TSBExit.Click
 
+        For x As Integer = 0 To Me.MdiChildren.Length - 1
+            Dim tempChild As Form = CType(Me.MdiChildren(x), Form)
+
+            tempChild.Dispose()
+
+        Next
+
         Me.Dispose()
 
     End Sub

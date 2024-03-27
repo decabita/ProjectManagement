@@ -140,57 +140,60 @@ Public Class FLoginForm
 
     Private Function AuthenticateUser() As Boolean
 
-        oSqlParameter = New SqlParameter
+        Dim oSqlParameter As SqlParameter = New SqlParameter
 
         Try
 
             Using oConnection As SqlConnection = CApplicationController.oCDataBase.GetSQLConnection()
 
-                If Not PrepareCommand(SPCommand.Authenticate) Then Throw New CustomException
+                Using oSqlCommand As New SqlCommand("dbo.SP_USERS")
 
-                Using oSqlDataAdapter As New SqlDataAdapter(oSqlCommand)
+                    If Not PrepareCommand(SPCommand.Authenticate, oSqlCommand) Then Throw New CustomException
 
-                    Using oDataSet As New DataSet
+                    Using oSqlDataAdapter As New SqlDataAdapter(oSqlCommand)
 
-                        oSqlParameter = oSqlCommand.Parameters.Add("@response", SqlDbType.Int)
-                        oSqlParameter.Direction = ParameterDirection.Output
-                        oSqlCommand.Connection = oConnection
+                        Using oDataSet As New DataSet
 
-                        oSqlDataAdapter.Fill(oDataSet, "Usuario")
+                            oSqlParameter = oSqlCommand.Parameters.Add("@response", SqlDbType.Int)
+                            oSqlParameter.Direction = ParameterDirection.Output
+                            oSqlCommand.Connection = oConnection
 
-                        ' --------------------------------------------------------------------------
-                        ' Handle SP Response. 
-                        ' --------------------------------------------------------------------------
-                        If CInt(oSqlParameter.Value.Equals(2)) Then Throw New CustomException("Usuario o Contraseña incorrectos.")
+                            oSqlDataAdapter.Fill(oDataSet, "Usuario")
 
-                        If Not CBool(CInt(oDataSet.Tables("Usuario").Rows.Count)) Then Throw New CustomException("Error de Autenticación. Consulte al Administrador del Sistema.")
+                            ' --------------------------------------------------------------------------
+                            ' Handle SP Response. 
+                            ' --------------------------------------------------------------------------
+                            If CInt(oSqlParameter.Value.Equals(2)) Then Throw New CustomException("Usuario o Contraseña incorrectos.")
 
-                        ' ----------------------------------------------------------------------------------
-                        ' Get User Data. 
-                        ' ----------------------------------------------------------------------------------
-                        With CApplicationController.oCUsers
+                            If Not CBool(CInt(oDataSet.Tables("Usuario").Rows.Count)) Then Throw New CustomException("Error de Autenticación. Consulte al Administrador del Sistema.")
 
-                            .id = oDataSet.Tables("Usuario").Rows(0).Item("id")
-                            .centro_id = oDataSet.Tables("Usuario").Rows(0).Item("centro_id")
-                            .usuario_nombre = oDataSet.Tables("Usuario").Rows(0).Item("usuario_nombre").ToString.Trim
-                            .usuario_descripcion = oDataSet.Tables("Usuario").Rows(0).Item("usuario_descripcion").ToString.Trim
+                            ' ----------------------------------------------------------------------------------
+                            ' Get User Data. 
+                            ' ----------------------------------------------------------------------------------
+                            With CApplicationController.oCUsers
 
-                        End With
-                        ' ----------------------------------------------------------------------------------
-                        ' Get User Access Profile.
-                        ' ----------------------------------------------------------------------------------
-                        'If Not CApplicationController.oCUsers.GetUserRelatedProfile(CApplicationController.oCUsers.usuario_id) Then
+                                .id = oDataSet.Tables("Usuario").Rows(0).Item("id")
+                                .centro_id = oDataSet.Tables("Usuario").Rows(0).Item("centro_id")
+                                .usuario_nombre = oDataSet.Tables("Usuario").Rows(0).Item("usuario_nombre").ToString.Trim
+                                .usuario_descripcion = oDataSet.Tables("Usuario").Rows(0).Item("usuario_descripcion").ToString.Trim
 
-                        '    'Throw New CustomException("No hay pérfil de acceso definido para el usuario:  " & CApplicationController.oCUsers.usuario_id, CApplication.MailExceptionTypes.AtlasSystemError)
+                            End With
+                            ' ----------------------------------------------------------------------------------
+                            ' Get User Access Profile.
+                            ' ----------------------------------------------------------------------------------
+                            'If Not CApplicationController.oCUsers.GetUserRelatedProfile(CApplicationController.oCUsers.usuario_id) Then
 
-                        'End If
+                            '    'Throw New CustomException("No hay pérfil de acceso definido para el usuario:  " & CApplicationController.oCUsers.usuario_id, CApplication.MailExceptionTypes.AtlasSystemError)
+
+                            'End If
+
+                        End Using
 
                     End Using
 
                 End Using
 
             End Using
-
 
             AuthenticateUser = True
 
@@ -208,16 +211,15 @@ Public Class FLoginForm
 
     End Function
 
-    Private Function PrepareCommand(ByVal value As Integer) As Boolean
+    Private Function PrepareCommand(ByVal value As Integer, ByRef oSqlcommand As SqlCommand) As Boolean
 
         Try
-            oSqlCommand = New SqlCommand("dbo.SP_USERS")
-            oSqlCommand.CommandType = CommandType.StoredProcedure
+            oSqlcommand.CommandType = CommandType.StoredProcedure
 
-            ' --------------------------------------------------------------------------
+            ' -------------------------------
             ' Parameter Assignation
-            ' --------------------------------------------------------------------------
-            With oSqlCommand.Parameters
+            ' -------------------------------
+            With oSqlcommand.Parameters
 
                 .Add("@centro_id", SqlDbType.Int).Value = CApplicationController.oCWorkCenter_.id
                 .Add("@usuario_nombre", SqlDbType.VarChar).Value = CApplicationController.oCUsers.usuario_nombre
@@ -254,11 +256,15 @@ Public Class FLoginForm
         Try
 
             ' Process Execution.
-            Me.BWorkerAuthenticate.RunWorkerAsync()
+            'Me.BWorkerAuthenticate.RunWorkerAsync()
 
             'Show Progress Window.
-            Me.oFProgress = New FProgress
-            Me.oFProgress.ShowDialog()
+            'Me.oFProgress = New FProgress
+            'Me.oFProgress.ShowDialog()
+
+
+
+            If Me.InitApplicationData() Then CApplicationController.is_access_granted = True
 
             If Not CApplicationController.is_access_granted Then
 
@@ -271,8 +277,14 @@ Public Class FLoginForm
 
         Catch ex As CustomException
 
-        End Try
+            Dim a As String = ex.Message
 
+        Finally
+
+            ''Me.oFProgress.Dispose()
+            BWorkerAuthenticate.Dispose()
+
+        End Try
     End Sub
 
     Private Sub BWorkerAuthenticate_DoWork(ByVal sender As System.Object, ByVal e As System.ComponentModel.DoWorkEventArgs) Handles BWorkerAuthenticate.DoWork
@@ -306,8 +318,8 @@ Public Class FLoginForm
 
         Finally
 
-            Me.oFProgress.Dispose()
-            BWorkerAuthenticate.Dispose()
+            ''Me.oFProgress.Dispose()
+            'BWorkerAuthenticate.Dispose()
 
         End Try
 
@@ -352,20 +364,14 @@ Public Class FLoginForm
         End
 
     End Sub
-    Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
 
-        BackgroundWorkerTemplate.RunWorkerAsync()
-
-        BWorkerAuthenticate.RunWorkerAsync()
-
-    End Sub
 
     'This is where, I create a Delegate with String Parameter
     'Public Delegate Function SomeWorkDelegate(ByVal strSomeString As String) As Boolean
 
     'Dim myWorkDel As SomeWorkDelegate = New SomeWorkDelegate(AddressOf DoSomeWork)
 
-    Dim WorkDelegate As DoWorkDelegate = New DoWorkDelegate(AddressOf DoSomeWork)
+    'Dim WorkDelegate As DoWorkDelegate = New DoWorkDelegate(AddressOf DoSomeWork)
 
     Public Sub New()
 

@@ -18,7 +18,6 @@ Friend Class CApplication
             Application.Run(FAdministrationMenu)
         End If
 
-        FCatalogFormTemplate.Show()
 
     End Sub
 

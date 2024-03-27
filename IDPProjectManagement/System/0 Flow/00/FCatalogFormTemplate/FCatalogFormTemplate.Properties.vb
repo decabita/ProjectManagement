@@ -26,7 +26,7 @@ Partial Public Class FCatalogFormTemplate
         End Set
     End Property
 
-    Private _oCFormController As CFormController_
+    Private _oCFormController As New CFormController_
 
     Public Property oCFormController() As CFormController_ Implements IFormCommandRules.oCFormController
         Get

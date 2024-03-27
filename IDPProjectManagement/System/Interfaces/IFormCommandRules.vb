@@ -54,7 +54,7 @@ Public Interface IFormCommandRules
     Function SetBindingSource(ByRef oForm As Form, ByRef oBindingSourceDummy As BindingSource, ByVal PrepareSPCommand As Action(Of SqlCommand, Int32, Form)) As Boolean
 
     Function SetBindingSourceFilter(ByRef oBindingSourceDummy As BindingSource) As Boolean
-    Function PrepareSPCommand(ByRef oSqlCommandDummy As SqlCommand, ByVal spCommandValue As Integer) As Boolean
+    Function PrepareSPCommand(ByVal oSqlCommandDummy As SqlCommand, ByVal spCommandValue As Integer, ByVal oForm As Form) As Boolean
 
     Sub SetControlPropertiesFormat()
     Sub SetGridPropertiesFormat()

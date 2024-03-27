@@ -150,6 +150,11 @@ Partial Class FAdministrationMenu
         Me.MDIUser = New System.Windows.Forms.ToolStripStatusLabel()
         Me.MDIFornState = New System.Windows.Forms.ToolStripStatusLabel()
         Me.MDIEnvironment = New System.Windows.Forms.ToolStripStatusLabel()
+        Me.ToolStripSeparator34 = New System.Windows.Forms.ToolStripSeparator()
+        Me.ToolStripSeparator35 = New System.Windows.Forms.ToolStripSeparator()
+        Me.ToolStripMenuItem1 = New System.Windows.Forms.ToolStripMenuItem()
+        Me.ToolStripSeparator36 = New System.Windows.Forms.ToolStripSeparator()
+        Me.FProjects = New System.Windows.Forms.ToolStripMenuItem()
         Me.ToolStripAdmin.SuspendLayout()
         Me.Panel1.SuspendLayout()
         Me.MDIStatusStrip.SuspendLayout()
@@ -187,7 +192,7 @@ Partial Class FAdministrationMenu
         Me.TSMMenuUsuarios.Image = Global.IDPProjectManagement.My.Resources.Resources.ButtonMenu
         Me.TSMMenuUsuarios.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None
         Me.TSMMenuUsuarios.Name = "TSMMenuUsuarios"
-        Me.TSMMenuUsuarios.Size = New System.Drawing.Size(198, 38)
+        Me.TSMMenuUsuarios.Size = New System.Drawing.Size(236, 38)
         Me.TSMMenuUsuarios.Text = "Usuarios"
         '
         'TSMUsuarios
@@ -216,7 +221,7 @@ Partial Class FAdministrationMenu
         'ToolStripSeparator14
         '
         Me.ToolStripSeparator14.Name = "ToolStripSeparator14"
-        Me.ToolStripSeparator14.Size = New System.Drawing.Size(195, 6)
+        Me.ToolStripSeparator14.Size = New System.Drawing.Size(233, 6)
         '
         'TSMMenuPersonal
         '
@@ -225,7 +230,7 @@ Partial Class FAdministrationMenu
         Me.TSMMenuPersonal.Image = Global.IDPProjectManagement.My.Resources.Resources.ButtonMenu
         Me.TSMMenuPersonal.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None
         Me.TSMMenuPersonal.Name = "TSMMenuPersonal"
-        Me.TSMMenuPersonal.Size = New System.Drawing.Size(198, 38)
+        Me.TSMMenuPersonal.Size = New System.Drawing.Size(236, 38)
         Me.TSMMenuPersonal.Text = "Personal"
         '
         'TSMPuestosPersonal
@@ -254,7 +259,7 @@ Partial Class FAdministrationMenu
         'ToolStripSeparator13
         '
         Me.ToolStripSeparator13.Name = "ToolStripSeparator13"
-        Me.ToolStripSeparator13.Size = New System.Drawing.Size(195, 6)
+        Me.ToolStripSeparator13.Size = New System.Drawing.Size(233, 6)
         '
         'TSMConfiguracion
         '
@@ -263,7 +268,7 @@ Partial Class FAdministrationMenu
         Me.TSMConfiguracion.Image = Global.IDPProjectManagement.My.Resources.Resources.ButtonMenu
         Me.TSMConfiguracion.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None
         Me.TSMConfiguracion.Name = "TSMConfiguracion"
-        Me.TSMConfiguracion.Size = New System.Drawing.Size(198, 38)
+        Me.TSMConfiguracion.Size = New System.Drawing.Size(236, 38)
         Me.TSMConfiguracion.Text = "Configuración"
         '
         'TSMTiposAcceso
@@ -294,7 +299,7 @@ Partial Class FAdministrationMenu
         '
         'TSMPlanta
         '
-        Me.TSMPlanta.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ReporteDeProducciónToolStripMenuItem, Me.OrdenesDeProducciónToolStripMenuItem1, Me.FWorkCenters, Me.ToolStripSeparator30, Me.FMachinery})
+        Me.TSMPlanta.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ToolStripMenuItem1, Me.ToolStripSeparator36, Me.ReporteDeProducciónToolStripMenuItem, Me.ToolStripSeparator35, Me.OrdenesDeProducciónToolStripMenuItem1, Me.ToolStripSeparator34, Me.FWorkCenters, Me.ToolStripSeparator30, Me.FMachinery})
         Me.TSMPlanta.Font = New System.Drawing.Font("Tahoma", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.TSMPlanta.Image = Global.IDPProjectManagement.My.Resources.Resources.ProductionMenu
         Me.TSMPlanta.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None
@@ -308,7 +313,7 @@ Partial Class FAdministrationMenu
         '
         Me.ReporteDeProducciónToolStripMenuItem.Image = Global.IDPProjectManagement.My.Resources.Resources.ButtonForm
         Me.ReporteDeProducciónToolStripMenuItem.Name = "ReporteDeProducciónToolStripMenuItem"
-        Me.ReporteDeProducciónToolStripMenuItem.Size = New System.Drawing.Size(250, 26)
+        Me.ReporteDeProducciónToolStripMenuItem.Size = New System.Drawing.Size(262, 38)
         Me.ReporteDeProducciónToolStripMenuItem.Text = "Reporte de Producción"
         Me.ReporteDeProducciónToolStripMenuItem.Visible = False
         '
@@ -316,7 +321,7 @@ Partial Class FAdministrationMenu
         '
         Me.OrdenesDeProducciónToolStripMenuItem1.Image = Global.IDPProjectManagement.My.Resources.Resources.ButtonForm
         Me.OrdenesDeProducciónToolStripMenuItem1.Name = "OrdenesDeProducciónToolStripMenuItem1"
-        Me.OrdenesDeProducciónToolStripMenuItem1.Size = New System.Drawing.Size(250, 26)
+        Me.OrdenesDeProducciónToolStripMenuItem1.Size = New System.Drawing.Size(262, 38)
         Me.OrdenesDeProducciónToolStripMenuItem1.Text = "Ordenes de Producción"
         Me.OrdenesDeProducciónToolStripMenuItem1.Visible = False
         '
@@ -325,20 +330,20 @@ Partial Class FAdministrationMenu
         Me.FWorkCenters.ForeColor = System.Drawing.SystemColors.ControlText
         Me.FWorkCenters.Image = Global.IDPProjectManagement.My.Resources.Resources.ButtonForm
         Me.FWorkCenters.Name = "FWorkCenters"
-        Me.FWorkCenters.Size = New System.Drawing.Size(250, 26)
+        Me.FWorkCenters.Size = New System.Drawing.Size(262, 38)
         Me.FWorkCenters.Text = "Centros de Trabajo"
         Me.FWorkCenters.Visible = False
         '
         'ToolStripSeparator30
         '
         Me.ToolStripSeparator30.Name = "ToolStripSeparator30"
-        Me.ToolStripSeparator30.Size = New System.Drawing.Size(247, 6)
+        Me.ToolStripSeparator30.Size = New System.Drawing.Size(259, 6)
         '
         'FMachinery
         '
         Me.FMachinery.Image = Global.IDPProjectManagement.My.Resources.Resources.ButtonForm
         Me.FMachinery.Name = "FMachinery"
-        Me.FMachinery.Size = New System.Drawing.Size(250, 26)
+        Me.FMachinery.Size = New System.Drawing.Size(262, 38)
         Me.FMachinery.Text = "Maquinaria y Equipo"
         '
         'ToolStripSeparator12
@@ -590,7 +595,7 @@ Partial Class FAdministrationMenu
         '
         Me.FParts.Image = Global.IDPProjectManagement.My.Resources.Resources.ButtonForm
         Me.FParts.Name = "FParts"
-        Me.FParts.Size = New System.Drawing.Size(260, 38)
+        Me.FParts.Size = New System.Drawing.Size(248, 26)
         Me.FParts.Text = "Cátalogo de Productos"
         '
         'ToolStripSeparator26
@@ -1119,6 +1124,36 @@ Partial Class FAdministrationMenu
         Me.MDIEnvironment.Size = New System.Drawing.Size(100, 26)
         Me.MDIEnvironment.Text = "Environment"
         '
+        'ToolStripSeparator34
+        '
+        Me.ToolStripSeparator34.Name = "ToolStripSeparator34"
+        Me.ToolStripSeparator34.Size = New System.Drawing.Size(259, 6)
+        '
+        'ToolStripSeparator35
+        '
+        Me.ToolStripSeparator35.Name = "ToolStripSeparator35"
+        Me.ToolStripSeparator35.Size = New System.Drawing.Size(259, 6)
+        '
+        'ToolStripMenuItem1
+        '
+        Me.ToolStripMenuItem1.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.FProjects})
+        Me.ToolStripMenuItem1.Image = Global.IDPProjectManagement.My.Resources.Resources.ButtonMenu
+        Me.ToolStripMenuItem1.Name = "ToolStripMenuItem1"
+        Me.ToolStripMenuItem1.Size = New System.Drawing.Size(262, 38)
+        Me.ToolStripMenuItem1.Text = "Proyectos"
+        '
+        'ToolStripSeparator36
+        '
+        Me.ToolStripSeparator36.Name = "ToolStripSeparator36"
+        Me.ToolStripSeparator36.Size = New System.Drawing.Size(259, 6)
+        '
+        'FProjects
+        '
+        Me.FProjects.Image = Global.IDPProjectManagement.My.Resources.Resources.ButtonForm
+        Me.FProjects.Name = "FProjects"
+        Me.FProjects.Size = New System.Drawing.Size(236, 38)
+        Me.FProjects.Text = "Alta de Proyectos"
+        '
         'FAdministrationMenu
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
@@ -1274,4 +1309,9 @@ Partial Class FAdministrationMenu
     Friend WithEvents ToolStripSeparator33 As ToolStripSeparator
     Friend WithEvents FActivities As ToolStripMenuItem
     Friend WithEvents FBrands As ToolStripMenuItem
+    Friend WithEvents ToolStripMenuItem1 As ToolStripMenuItem
+    Friend WithEvents FProjects As ToolStripMenuItem
+    Friend WithEvents ToolStripSeparator36 As ToolStripSeparator
+    Friend WithEvents ToolStripSeparator35 As ToolStripSeparator
+    Friend WithEvents ToolStripSeparator34 As ToolStripSeparator
 End Class

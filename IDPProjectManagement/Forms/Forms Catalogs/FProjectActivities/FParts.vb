@@ -2,25 +2,25 @@
 Imports System.Reflection
 Imports System.ComponentModel
 
-Public Class FProjects
+Public Class FParts
 
-    'Private _oCProject As New Object
+    'Private _oCPart As New Object
     'Public Property FormRelatedClass() As Object
     '    Get
-    '        Return _oCProject
+    '        Return _oCPart
     '    End Get
     '    Set(ByVal value As Object)
-    '        _oCProject = value
+    '        _oCPart = value
     '    End Set
     'End Property
 
-    Private _oCProject As New CProject
-    Public Property FormRelatedClass() As CProject
+    Private _oCPart As New CPart
+    Public Property FormRelatedClass() As CPart
         Get
-            Return _oCProject
+            Return _oCPart
         End Get
-        Set(ByVal value As CProject)
-            _oCProject = value
+        Set(ByVal value As CPart)
+            _oCPart = value
         End Set
     End Property
 
@@ -28,7 +28,7 @@ Public Class FProjects
         MyBase.Finalize()
     End Sub
 
-    Private oCProject As CProject = New CProject()
+    Private oCPart As CPart = New CPart()
 
     Dim PrepareSPAction As Action(Of SqlCommand, Integer, Form) = AddressOf PrepareSPCommand
 
@@ -47,16 +47,16 @@ Public Class FProjects
 
     End Sub
 
-    Private Sub FProjects_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
+    Private Sub FParts_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
 
         'Properties in Form Templete
-        stored_procedure_name = "dbo.SP_PROJECTS"
+        stored_procedure_name = "dbo.SP_PARTS"
 
         localDatagridView = Me.DataGridView
         localBindingNavigator = Me.BindingNavigator
         localTSDownDirectAccess = Me.TSDownDirectAcces
 
-        Me.FormRelatedClass = New CProject
+        Me.FormRelatedClass = New CPart
 
         FormRelated = Me
 
@@ -268,7 +268,7 @@ Public Class FProjects
 
                 If (CApplication.CheckRequiredFields(.tNombre)) Then Me.FormRelatedClass.nombre = .tNombre.Text.Trim Else Throw New CustomException
 
-                Me.FormRelatedClass = New CProject With {
+                Me.FormRelatedClass = New CPart With {
                     .centro_id = CApplicationController.oCWorkCenter_.id,
                     .guid = Me.tGuid.Text,
                     .nombre_corto = Me.tClaveId.Text,
@@ -280,7 +280,7 @@ Public Class FProjects
 
                     Me.FormRelatedClass.is_active = 1
 
-                    If Not CProject.SaveRecord(Me) Then
+                    If Not CPart.SaveRecord(Me) Then
 
                         Me.CommandCancel() : Throw New CustomException
 
@@ -299,7 +299,7 @@ Public Class FProjects
 
                     Me.FormRelatedClass.is_active = .ckActivo.Checked
 
-                    If Not CProject.UpdateRecord(Me) Then
+                    If Not CPart.UpdateRecord(Me) Then
 
                         Me.CommandCancel() : Throw New CustomException
 
@@ -338,7 +338,7 @@ Public Class FProjects
 
     End Function
 
-    Dim SetControlsBindingOnNewAction As Action(Of Form) = AddressOf CProject.SetControlsBindingOnNew
+    Dim SetControlsBindingOnNewAction As Action(Of Form) = AddressOf CPart.SetControlsBindingOnNew
     Protected Friend Overrides Function CommandAddNew() As Boolean
 
         CommandNew(SetControlsBindingOnNewAction)
@@ -360,13 +360,13 @@ Public Class FProjects
                 '-------------------------------------------------
                 ' Field Assignation-Validation.
                 '-------------------------------------------------
-                Me.FormRelatedClass = New CProject With {
+                Me.FormRelatedClass = New CPart With {
                     .centro_id = CApplicationController.oCWorkCenter_.id,
                     .nombre_corto = Me.tClaveId.Text,
                     .guid = Me.tGuid.Text
                 }
 
-                If Not CProject.DeleteRecord(Me) Then Me.form_state = CApplication.ControlState.InitState : Throw New CustomException("Error al eliminar.")
+                If Not CPart.DeleteRecord(Me) Then Me.form_state = CApplication.ControlState.InitState : Throw New CustomException("Error al eliminar.")
 
                 If Not Me.CommandQuery() Then Me.form_state = CApplication.ControlState.InitState : Throw New CustomException
 
@@ -401,9 +401,9 @@ Public Class FProjects
             '' ----------------------------------------------------------
             '' Create Child Form
             '' ----------------------------------------------------------
-            'Dim oFormChild As FProjects = New FProjects
+            'Dim oFormChild As FParts = New FParts
 
-            FAdministrationMenu.ShowMeInMainContainerAsChild(Me, "FProjects", CApplication.FormProcessType.Child)
+            FAdministrationMenu.ShowMeInMainContainerAsChild(Me, "FParts", CApplication.FormProcessType.Child)
 
             'With oFBomChild
 
@@ -442,7 +442,7 @@ Public Class FProjects
         If DataGridView.Rows(e.RowIndex) IsNot Nothing Then Me.current_row = e.RowIndex
 
     End Sub
-    Private Sub FProjects_Activated(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Activated
+    Private Sub FParts_Activated(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Activated
 
         Me.oCFormController.active_form = Me
 
@@ -470,12 +470,12 @@ Public Class FProjects
         Call SetToolBarConfiguration(Me.form_state)
 
     End Sub
-    Private Sub FProjects_Deactivate(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Deactivate
+    Private Sub FParts_Deactivate(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Deactivate
 
         If Not Me.form_state = CApplication.ControlState.InitState Then Call CommandCancel()
 
     End Sub
-    Private Sub FProjects_FormClosed(ByVal sender As Object, ByVal e As System.Windows.Forms.FormClosedEventArgs) Handles Me.FormClosed
+    Private Sub FParts_FormClosed(ByVal sender As Object, ByVal e As System.Windows.Forms.FormClosedEventArgs) Handles Me.FormClosed
 
 
         If Me.DisplayMode = CApplication.FormProcessType.Catalog Or Me.DisplayMode = CApplication.FormProcessType.Parent Then
@@ -513,28 +513,28 @@ Public Class FProjects
 
                     Case SPCommand.Save
 
-                        .Add("@centro_id", SqlDbType.VarChar).Value = DirectCast(oForm, FProjects).FormRelatedClass.centro_id
-                        .Add("@nombre_corto", SqlDbType.VarChar).Value = DirectCast(oForm, FProjects).FormRelatedClass.nombre_corto
-                        .Add("@nombre", SqlDbType.VarChar).Value = DirectCast(oForm, FProjects).FormRelatedClass.nombre
-                        .Add("@descripcion", SqlDbType.VarChar).Value = DirectCast(oForm, FProjects).FormRelatedClass.descripcion
-                        .Add("@is_active", SqlDbType.Bit).Value = DirectCast(oForm, FProjects).FormRelatedClass.is_active
+                        .Add("@centro_id", SqlDbType.VarChar).Value = DirectCast(oForm, FParts).FormRelatedClass.centro_id
+                        .Add("@nombre_corto", SqlDbType.VarChar).Value = DirectCast(oForm, FParts).FormRelatedClass.nombre_corto
+                        .Add("@nombre", SqlDbType.VarChar).Value = DirectCast(oForm, FParts).FormRelatedClass.nombre
+                        .Add("@descripcion", SqlDbType.VarChar).Value = DirectCast(oForm, FParts).FormRelatedClass.descripcion
+                        .Add("@is_active", SqlDbType.Bit).Value = DirectCast(oForm, FParts).FormRelatedClass.is_active
                         .Add("@command", SqlDbType.Int).Value = SPCommand.Save
                         .Add("@response", SqlDbType.Int).Direction = ParameterDirection.Output
 
                     Case SPCommand.Delete
 
                         .Add("@centro_id", SqlDbType.VarChar).Value = CApplicationController.oCWorkCenter_.id
-                        .Add("@guid", SqlDbType.VarChar).Value = DirectCast(oForm, FProjects).FormRelatedClass.guid
+                        .Add("@guid", SqlDbType.VarChar).Value = DirectCast(oForm, FParts).FormRelatedClass.guid
                         .Add("@command", SqlDbType.Int).Value = SPCommand.Delete
                         .Add("@response", SqlDbType.Int).Direction = ParameterDirection.Output
 
                     Case SPCommand.Update
 
                         .Add("@centro_id", SqlDbType.VarChar).Value = CApplicationController.oCWorkCenter_.id
-                        .Add("@guid", SqlDbType.VarChar).Value = DirectCast(oForm, FProjects).FormRelatedClass.guid
-                        .Add("@nombre_corto", SqlDbType.VarChar).Value = DirectCast(oForm, FProjects).FormRelatedClass.nombre_corto
-                        .Add("@nombre", SqlDbType.VarChar).Value = DirectCast(oForm, FProjects).FormRelatedClass.nombre
-                        .Add("@descripcion", SqlDbType.VarChar).Value = DirectCast(oForm, FProjects).FormRelatedClass.descripcion
+                        .Add("@guid", SqlDbType.VarChar).Value = DirectCast(oForm, FParts).FormRelatedClass.guid
+                        .Add("@nombre_corto", SqlDbType.VarChar).Value = DirectCast(oForm, FParts).FormRelatedClass.nombre_corto
+                        .Add("@nombre", SqlDbType.VarChar).Value = DirectCast(oForm, FParts).FormRelatedClass.nombre
+                        .Add("@descripcion", SqlDbType.VarChar).Value = DirectCast(oForm, FParts).FormRelatedClass.descripcion
                         .Add("@command", SqlDbType.Int).Value = SPCommand.Update
                         .Add("@response", SqlDbType.Int).Direction = ParameterDirection.Output
 
@@ -554,7 +554,7 @@ Public Class FProjects
 
     End Function
 
-    'Public Shared Function SaveRecord(ByVal oForm As FProjects) As Boolean
+    'Public Shared Function SaveRecord(ByVal oForm As FParts) As Boolean
 
     '    Try
 
@@ -594,7 +594,7 @@ Public Class FProjects
     'End Function
 
 
-    'Public Shared Function UpdateRecord(ByVal oForm As FProjects) As Boolean
+    'Public Shared Function UpdateRecord(ByVal oForm As FParts) As Boolean
 
     '    Try
 
@@ -602,7 +602,7 @@ Public Class FProjects
 
     '            Using oSqlCommand As New SqlCommand(oForm.stored_procedure_name, oConnection) With {.CommandType = CommandType.StoredProcedure}
 
-    '                'If Not CProject.PrepareSPCommand(oSqlCommand, SPCommand.Update, oForm) Then Throw New CustomException
+    '                'If Not CPart.PrepareSPCommand(oSqlCommand, SPCommand.Update, oForm) Then Throw New CustomException
 
     '                PrepareSPCommand(oSqlCommand, SPCommand.Update, oForm)
 
@@ -634,7 +634,7 @@ Public Class FProjects
 
     'End Function
 
-    'Public Shared Function DeleteRecord(ByVal oForm As FProjects) As Boolean
+    'Public Shared Function DeleteRecord(ByVal oForm As FParts) As Boolean
 
     '    Try
 
@@ -645,7 +645,7 @@ Public Class FProjects
     '                ' ---------------------------------
     '                ' Set Command Ready and Execute
     '                ' ---------------------------------
-    '                'If Not CProject.PrepareSPCommand(oSqlCommand, SPCommand.Delete, oForm) Then Throw New CustomException
+    '                'If Not CPart.PrepareSPCommand(oSqlCommand, SPCommand.Delete, oForm) Then Throw New CustomException
 
     '                PrepareSPCommand(oSqlCommand, SPCommand.Delete, oForm)
 

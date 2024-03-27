@@ -151,6 +151,7 @@
     <Compile Include="Classes\FormClasses\CPart.vb" />
     <Compile Include="Classes\FormClasses\CPerson.vb" />
     <Compile Include="Classes\FormClasses\CPositions.vb" />
+    <Compile Include="Classes\FormClasses\CProject.vb" />
     <Compile Include="Classes\FormClasses\CProspect.vb" />
     <Compile Include="Classes\FormClasses\CServiceProvided.vb" />
     <Compile Include="Classes\FormClasses\CVendor.vb" />
@@ -246,6 +247,13 @@
     <Compile Include="Forms\Forms Catalogs\FWorkCenters\FWorkCenters.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Forms\FProjects\FProjects.Designer.vb">
+      <DependentUpon>FProjects.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\FProjects\FProjects.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Modules\ModFormClassDefinition.vb" />
     <Compile Include="System\0 Flow\00\FCatalogFormTemplate\FCatalogFormTemplate.Designer.vb">
       <DependentUpon>FCatalogFormTemplate.vb</DependentUpon>
     </Compile>
@@ -256,12 +264,6 @@
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="System\0 Flow\00\FCatalogFormTemplate\FCatalogFormTemplate.vb">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Forms\FProjects\FProjects.Designer.vb">
-      <DependentUpon>FProjects.vb</DependentUpon>
-    </Compile>
-    <Compile Include="Forms\FProjects\FProjects.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="System\0 Flow\FLoginForm.Designer.vb">
@@ -415,11 +417,11 @@
     <EmbeddedResource Include="Forms\Forms Catalogs\FWorkCenters\FWorkCenters.resx">
       <DependentUpon>FWorkCenters.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\FProjects\FProjects.resx">
-      <DependentUpon>FProjects.vb</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Forms\Forms Catalogs\FVendors\FVendors.resx">
       <DependentUpon>FVendors.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\FProjects\FProjects.resx">
+      <DependentUpon>FProjects.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="System\0 Flow\FLoginForm.resx">
       <DependentUpon>FLoginForm.vb</DependentUpon>
@@ -473,6 +475,7 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Forms\FProductoTerminado\" />
     <Folder Include="System\Forms\MainMenu\ButtonsCatalog\" />
     <Folder Include="System\Forms\MainMenu\Forms\FLevelMenuChild\" />
     <Folder Include="System\Forms\MainMenu\Forms\FMenuButtonChild\" />
